@@ -1,0 +1,81 @@
+From a2d2635f1e88
+From: Alexis Bienvenüe <paamc@passoire.fr>
+Subject: Bugfix: ticked* functions should not return -1 (but 0) when there are no data capture. Closes #412.
+Moreover, all lines in database should be removed when there is no data capture for one page (after calling remove_manual when there is no auto data capture).
+
+diff -r 23cc81f7ce8a -r a2d2635f1e88 AMC-perl/AMC/DataModule/capture.pm
+--- a/AMC-perl/AMC/DataModule/capture.pm	Wed Mar 16 09:53:08 2016 +0100
++++ b/AMC-perl/AMC/DataModule/capture.pm	Mon Mar 21 09:52:38 2016 +0100
+@@ -499,6 +499,10 @@
+      'zoomsCleanup'=>{'sql'=>"UPDATE $t_zone SET imagedata=NULL WHERE type=?"},
+      'pageZonesAll'=>{'sql'=>"SELECT * FROM $t_zone"
+ 		      ." WHERE type=?"},
++     'pageZonesAutoCount'=>
++     {'sql'=>"SELECT COUNT(*) FROM $t_zone"
++      ." WHERE student=? AND page=? AND copy=? AND type=?"
++      ." AND total>0"},
+      'pageZonesD'=>{'sql'=>"SELECT zoneid,id_a,id_b,total,black,manual"
+ 		    ." FROM $t_zone"
+ 		    ." WHERE student=? AND page=? AND copy=? AND type=?"
+@@ -525,7 +529,7 @@
+ 			    ." WHERE student=? AND page=? AND copy=?"},
+      'ticked'=>{'sql'=>"SELECT CASE"
+ 		." WHEN manual >= 0 THEN manual"
+-		." WHEN total<=0 THEN -1"
++		." WHEN total<=0 THEN 0"
+ 		." WHEN black >= ? * total AND black <= ? * total THEN 1"
+ 		." ELSE 0"
+ 		." END FROM $t_zone"
+@@ -535,7 +539,7 @@
+ 		    ." WHEN why=\"V\" THEN 0"
+ 		    ." WHEN why=\"E\" THEN 0"
+ 		    ." WHEN zone.manual >= 0 THEN zone.manual"
+-		    ." WHEN zone.total<=0 THEN -1"
++		    ." WHEN zone.total<=0 THEN 0"
+ 		    ." WHEN zone.black >= ? * zone.total AND zone.black <= ? * zone.total THEN 1"
+ 		    ." ELSE 0"
+ 		    ." END) AS nb"
+@@ -559,7 +563,7 @@
+ 		   },
+      'tickedList'=>{'sql'=>"SELECT CASE"
+ 		    ." WHEN manual >= 0 THEN manual"
+-		    ." WHEN total<=0 THEN -1"
++		    ." WHEN total<=0 THEN 0"
+ 		    ." WHEN black >= ? * total AND black <= ? * total THEN 1"
+ 		    ." ELSE 0"
+ 		    ." END FROM $t_zone"
+@@ -567,7 +571,7 @@
+ 		    ." ORDER BY id_b"},
+      'tickedPage'=>{'sql'=>"SELECT CASE"
+ 		    ." WHEN manual >= 0 THEN manual"
+-		    ." WHEN total<=0 THEN -1"
++		    ." WHEN total<=0 THEN 0"
+ 		    ." WHEN black >= ? * total AND black <= ? * total THEN 1"
+ 		    ." ELSE 0"
+ 		    ." END,id_a,id_b FROM $t_zone"
+@@ -1261,6 +1265,9 @@
+   my ($self,$student,$page,$copy)=@_;
+   $self->statement('setManualPage')->execute(-1,$student,$page,$copy);
+   $self->statement('setManualPageZones')->execute(-1,$student,$page,$copy);
++  if($self->page_zones_auto_count($student,$page,$copy)==0) {
++    $self->delete_page_data($student,$page,$copy);
++  }
+ }
+ 
+ # counts returns a hash %r giving the %r{'complete'} number of
+@@ -1326,6 +1333,15 @@
+   $self->statement('deletePage')->execute($student,$page,$copy);
+ }
+ 
++# page_zones_auto_count($student,$page,$copy) returns the number of
++# zones in page with automatic data capture.
++
++sub page_zones_auto_count {
++  my ($self,$student,$page,$copy)=@_;
++  return($self->sql_single($self->statement('pageZonesAutoCount'),
++                           $student,$page,$copy,ZONE_BOX));
++}
++
+ # get_student_pages($student,$copy) returns an arrayref giving some
+ # information for all pages from sheet ($student,$copy). For example:
+ #

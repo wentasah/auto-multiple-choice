@@ -1,0 +1,7 @@
+#! /bin/sh
+
+(Xvfb :5 >/dev/null 2>&1 &)
+export DISPLAY=:5
+
+echo "Test: gui" > $ADT_ARTIFACTS/gui.log
+auto-multiple-choice gui --do-nothing --debug-file $ADT_ARTIFACTS/gui.log

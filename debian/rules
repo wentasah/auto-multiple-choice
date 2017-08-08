@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+%:
+	AMCCONF=deb dh $@ --with tex
+
+override_dh_installtex:
+	AMCCONF=deb dh_installtex -pauto-multiple-choice-common
+
+override_dh_compress:
+	AMCCONF=deb dh_compress -X.pdf

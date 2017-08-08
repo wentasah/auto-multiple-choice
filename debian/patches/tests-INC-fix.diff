@@ -1,0 +1,425 @@
+From 22d9db6c1ca1
+From: Alexis Bienvenüe <paamc@passoire.fr>
+Subject: Make tests load AMC::Test from current directory, even when @INC does not contain '.'
+Fix tests when using recent perl with '.' not in @INC.
+
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/0assoc/test.pl
+--- a/tests/t/0assoc/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/0assoc/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,
+ 	       'tex_engine'=>'pdflatex',
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/allowempty/test.pl
+--- a/tests/t/allowempty/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/allowempty/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'filter'=>'plain','tex_engine'=>'xelatex',
+ 	       'src'=>'sujet.txt',
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/association/test.pl
+--- a/tests/t/association/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/association/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ use AMC::Basic;
+ 
+ use_gettext;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/ballot/test.pl
+--- a/tests/t/ballot/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/ballot/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 	       'seuil'=>0.5,perfect_copy=>'',
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/csv-ab-completemulti/test.pl
+--- a/tests/t/csv-ab-completemulti/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/csv-ab-completemulti/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,
+ 	       list=>'names.csv',n_copies=>1,
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/dontscan/test.pl
+--- a/tests/t/dontscan/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/dontscan/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 	       notemax=>0,check_marks=>{4=>2},perfect_copy=>'')
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/ensemble-outside/test.pl
+--- a/tests/t/ensemble-outside/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/ensemble-outside/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex')
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/ensemble/test.pl
+--- a/tests/t/ensemble/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/ensemble/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex')
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/formS+open/test.pl
+--- a/tests/t/formS+open/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/formS+open/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 	       notemax=>0,check_marks=>{3=>13})
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/formS+rotate/test.pl
+--- a/tests/t/formS+rotate/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/formS+rotate/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 	       'grain'=>0.1,
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/formes/test.pl
+--- a/tests/t/formes/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/formes/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 	       'perfect_copy'=>'','seuil'=>0.2,'debug_pixels'=>1,
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/fp/test.pl
+--- a/tests/t/fp/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/fp/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex')
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/grgr/test.pl
+--- a/tests/t/grgr/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/grgr/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex')
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/idaccents_latex/test.pl
+--- a/tests/t/idaccents_latex/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/idaccents_latex/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex')
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/idaccents_txt/test.pl
+--- a/tests/t/idaccents_txt/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/idaccents_txt/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'filter'=>'plain','tex_engine'=>'xelatex',
+ 	      )->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/images/test.pl
+--- a/tests/t/images/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/images/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'latex+dvipdf',
+ 	       'rounding'=>'n',
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/khmer/test.pl
+--- a/tests/t/khmer/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/khmer/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'xelatex')
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/lastchoices/test.pl
+--- a/tests/t/lastchoices/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/lastchoices/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__)
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/melange/test.pl
+--- a/tests/t/melange/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/melange/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex')
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/multiple/test.pl
+--- a/tests/t/multiple/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/multiple/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 	       'multiple'=>1,'perfect_copy'=>[2],
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/mz+numeric/test.pl
+--- a/tests/t/mz+numeric/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/mz+numeric/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,
+                export_full_csv=>[{-copy=>3,-question=>'add',-score=>2}])
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/numeric/test.pl
+--- a/tests/t/numeric/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/numeric/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 	       'bw_threshold'=>0.4,
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/ordered/test.pl
+--- a/tests/t/ordered/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/ordered/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 	       'multiple'=>1,'pre_allocate'=>5,
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/plain-simple/test.pl
+--- a/tests/t/plain-simple/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/plain-simple/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'filter'=>'plain','tex_engine'=>'xelatex',
+ 	       'export_full_csv'=>[
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/postcorrect/test.pl
+--- a/tests/t/postcorrect/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/postcorrect/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,
+ 	       'tex_engine'=>'pdflatex',
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/preassociation/test.pl
+--- a/tests/t/preassociation/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/preassociation/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,
+ 	       list=>'students.csv',n_copies=>1,
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/rotate/test.pl
+--- a/tests/t/rotate/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/rotate/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 	       'seuil'=>0.15,'grain'=>0.1,'rounding'=>'n',
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/scoring/test.pl
+--- a/tests/t/scoring/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/scoring/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ use AMC::Basic;
+ 
+ use Data::Dumper;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/scoringenv/test.pl
+--- a/tests/t/scoringenv/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/scoringenv/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ use AMC::Basic;
+ use AMC::ScoringEnv;
+ 
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/simple_ar/test.pl
+--- a/tests/t/simple_ar/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/simple_ar/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'xelatex')
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/stats/test.pl
+--- a/tests/t/stats/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/stats/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+                'perfect_copy'=>[1],
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/storebox/test.pl
+--- a/tests/t/storebox/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/storebox/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex')
+   ->default_process;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/tex_arithm/test.pl
+--- a/tests/t/tex_arithm/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/tex_arithm/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ use AMC::Basic;
+ 
+ use_gettext;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/tex_fromindex/test.pl
+--- a/tests/t/tex_fromindex/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/tex_fromindex/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ use AMC::Basic;
+ 
+ use_gettext;
+diff -r addd6957d6d0 -r 22d9db6c1ca1 tests/t/upgrade/test.pl
+--- a/tests/t/upgrade/test.pl	Wed Oct 19 09:28:52 2016 +0200
++++ b/tests/t/upgrade/test.pl	Wed Oct 19 10:48:21 2016 +0200
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use AMC::Test;
++require "./AMC/Test.pm";
+ 
+ my $t=AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+ 		     notemax=>0,seuil=>0.15,grain=>0.5,rounding=>'n',

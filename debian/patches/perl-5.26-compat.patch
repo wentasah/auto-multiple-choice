@@ -1,0 +1,58 @@
+Description: fix compatibility with perl 5.26
+ 'use encoding "utf8"' is obsolete in perl 5.26, returning an error:
+ Error:  The encoding pragma is no longer supported at [...]
+ replace with 'use utf8'.
+Author: Steve Langasek <steve.langasek@ubuntu.com>
+
+Index: auto-multiple-choice-1.3.0/AMC-prepare.pl
+===================================================================
+--- auto-multiple-choice-1.3.0.orig/AMC-prepare.pl
++++ auto-multiple-choice-1.3.0/AMC-prepare.pl
+@@ -18,7 +18,7 @@
+ # along with Auto-Multiple-Choice.  If not, see
+ # <http://www.gnu.org/licenses/>.
+ 
+-use encoding "utf-8";
++use utf8;
+ 
+ use File::Copy;
+ use File::Spec::Functions qw/splitpath catpath splitdir catdir catfile rel2abs tmpdir/;
+Index: auto-multiple-choice-1.3.0/AMC-note.pl
+===================================================================
+--- auto-multiple-choice-1.3.0.orig/AMC-note.pl
++++ auto-multiple-choice-1.3.0/AMC-note.pl
+@@ -25,7 +25,7 @@
+ use AMC::Scoring;
+ use AMC::Data;
+ 
+-use encoding 'utf8';
++use utf8;
+ 
+ my $darkness_threshold=0.1;
+ my $darkness_threshold_up=1.0;
+Index: auto-multiple-choice-1.3.0/AMC-annote.pl
+===================================================================
+--- auto-multiple-choice-1.3.0.orig/AMC-annote.pl
++++ auto-multiple-choice-1.3.0/AMC-annote.pl
+@@ -35,7 +35,7 @@
+ use AMC::DataModule::layout qw/:flags/;
+ use AMC::Substitute;
+ 
+-use encoding 'utf8';
++use utf8;
+ 
+ my $cr_dir="";
+ my $rep_projet='';
+Index: auto-multiple-choice-1.3.0/AMC-perl/AMC/Annotate.pm
+===================================================================
+--- auto-multiple-choice-1.3.0.orig/AMC-perl/AMC/Annotate.pm
++++ auto-multiple-choice-1.3.0/AMC-perl/AMC/Annotate.pm
+@@ -36,7 +36,7 @@
+ use AMC::DataModule::layout qw/:flags/;
+ use AMC::Gui::Avancement;
+ 
+-use encoding 'utf8';
++use utf8;
+ 
+ sub new {
+     my (%o)=(@_);

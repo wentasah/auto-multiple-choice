@@ -1,0 +1,4 @@
+#! /bin/sh
+
+cd tests
+./t/csv-ab-completemulti/test.pl --to-stdout --debug --log-to $ADT_ARTIFACTS/simple.log

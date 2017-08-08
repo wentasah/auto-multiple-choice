@@ -1,0 +1,535 @@
+auto-multiple-choice (1.3.0-4) unstable; urgency=medium
+
+  * Corrects obsolete perl syntax for use with perl 5.26,
+    thanks to Steve Langasek; Closes: #870129
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 08 Aug 2017 21:20:06 +0200
+
+auto-multiple-choice (1.3.0-3) unstable; urgency=medium
+
+  * Updates dependency on dropped packages latex-xcolor and pgf;
+    Closes: #865233
+  * Updates download URL.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 20 Jun 2017 23:18:05 +0200
+
+auto-multiple-choice (1.3.0-2) unstable; urgency=medium
+
+  * Updates watch file to version 4, with signature check.
+  * Adds patches from development version:
+    - bugfix-412: Fix for bug #412
+    - tests-INC-fix: Fix for tests with recent perl
+  * Adds fix-build-with-opencv-3.1 to fix FTBS with OpenCV 3.1,
+    thanks to Nobuhiro Iwamatsu; Closes: #841244
+  * Reproducible file ordering in models tar archives.
+  * Bumps Standards-Version to 3.9.8.0.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 20 Oct 2016 08:47:56 +0200
+
+auto-multiple-choice (1.3.0-1) unstable; urgency=medium
+
+  * New upstream release. Closes: #784088
+  * Drops patches clang-ftbfs and reproducible, which has been merged upstream.
+  * Updates dependencies.
+  * Removes menu file, as there is a desktop file (see CTTE #741573).
+  * Bumped Standards-Version to 3.9.7.0.
+  * Adds installation test with Autopkgtest.
+  * New mercurial upstream repository.
+  * Moves desktop file to auto-multiple-choice package, which is the main
+    one to be installed to get the "application".
+    
+ -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 16 Mar 2016 10:12:03 +0100
+
+auto-multiple-choice (1.2.1-4) unstable; urgency=medium
+
+  * applied the recipe found at
+    https://wiki.debian.org/ReproducibleBuilds/UsersAndGroupsInTarballs
+    which should allow a reproducible build.
+
+ -- Georges Khaznadar <georgesk@debian.org>  Wed, 02 Mar 2016 17:32:15 +0100
+
+auto-multiple-choice (1.2.1-3) unstable; urgency=medium
+
+  * Use right directory for LaTeX doc; Closes: #766286
+  * Bumped Standards-Version to 3.9.6.0.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 23 Oct 2014 16:02:55 +0200
+
+auto-multiple-choice (1.2.1-2) unstable; urgency=low
+
+  * [Arthur Marble] Fix FTBFS with clang; Closes: #746196
+    - Fixed the Function definition is not allowed here error in
+      AMC-traitement-image.c: refactored code so functions can be
+      properly defined
+  
+  * [Alexis Bienvenüe] Bumped Standards-Version to 3.9.5.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 01 May 2014 21:26:06 +0200
+
+auto-multiple-choice (1.2.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 01 Aug 2013 10:05:42 +0200
+
+auto-multiple-choice (1.2.0-2) unstable; urgency=low
+
+  * added a build-dependency on texlive-lang-french; Closes: #712350
+
+ -- Georges Khaznadar <georgesk@debian.org>  Mon, 17 Jun 2013 07:05:34 +0200
+
+auto-multiple-choice (1.2.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Bumped Standards-Version to 3.9.4.
+  * Added libgtk2-notify-perl dependency (Recommends)
+  * [Georges Khaznadar] changed my DEBEMAIL, repackaged and signed
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 07 May 2013 20:55:22 +0200
+
+auto-multiple-choice (1.1.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Typo corrected in the description.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 08 Jan 2013 15:10:13 +0100
+
+auto-multiple-choice (1.1.1-2) unstable; urgency=low
+
+  * Calls dh_installtex only for package auto-multiple-choice-common.
+  * Added misc:Depends dependency for all packages.
+  * changed debhelper build-depends version to >=9 to reflect compat
+    value.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 19 Jun 2012 15:52:47 +0200
+
+auto-multiple-choice (1.1.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Upgrades compat to 9 so that the build flags are passed to make even
+    without configure step.
+  * Uses --with tex to handle tex files installation properly.
+    Closes: #677485
+  * Added a sharedmimeinfo file
+  * Removed postinst and postrm now created by dh_* scripts.
+  * Added texstudio alternative to suggested packages.
+  * Added GtkSourceView lang file (was missing in packages).
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Sun, 17 Jun 2012 21:28:37 +0200
+
+auto-multiple-choice (1.1.0-2) unstable; urgency=low
+
+  * Added Breaks: and Replaces: for split package. Closes: #673799
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Mon, 21 May 2012 19:17:16 +0200
+
+auto-multiple-choice (1.1.0-1) unstable; urgency=low
+
+  [ Alexis Bienvenüe ]
+  * upgraded to new upstream version.
+  * cleaned rules.
+  * removed obsolete patches.
+  * updated dependencies - libpoppler-dev is not used anymore. Closes: #660094
+  * split the package to isolate architecture-independent files
+    and documentation.
+  * documentation registered with doc-base.
+  * bumped Standards-Version to 3.9.3.
+  * section changed to education.
+  * updated copyright to follow new copyright format version.
+
+  [ Georges Khaznadar ]
+  * changed my status to Uploders' member, Alexis is now Maintainer
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Fri, 11 May 2012 09:38:50 +0000
+
+auto-multiple-choice (1.0.3-2) unstable; urgency=low
+
+  * changed the invokation of rsvg (=> rsvg-convert). Closes: #659849
+  * added a "real" dependency on libio-compress-perl
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Wed, 15 Feb 2012 06:17:58 +0000
+
+auto-multiple-choice (1.0.3-1) unstable; urgency=low
+
+  * upgraded to the newer upstream version.
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Thu, 22 Dec 2011 18:39:26 +0100
+
+auto-multiple-choice (1.0.2-3) unstable; urgency=low
+
+  * recompiled the package with pbuider since the binary package for amd64
+    was linked to libraries existing only in experimental (my fault)
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Wed, 16 Nov 2011 17:29:00 +0100
+
+auto-multiple-choice (1.0.2-2) unstable; urgency=low
+
+  * added a dependency on librsvg2-common. LP:#882828
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Fri, 11 Nov 2011 10:51:36 +0100
+
+auto-multiple-choice (1.0.2-1) unstable; urgency=low
+
+  * upgraded to the new upstream source
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Wed, 12 Oct 2011 10:32:34 +0200
+
+auto-multiple-choice (1.0-1) unstable; urgency=low
+
+  * upgraded to the new upstream source
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Thu, 22 Sep 2011 09:35:38 +0200
+
+auto-multiple-choice (0.550-3) unstable; urgency=low
+
+  * modified postrm, with Alexis Bienvenüe's help. Closes: #640611
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Tue, 06 Sep 2011 18:51:13 +0200
+
+auto-multiple-choice (0.550-2) unstable; urgency=low
+
+  * downgraded the dependency on libopencv, since a version 2.1 
+    can be accepted too
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Sat, 23 Jul 2011 23:23:26 +0200
+
+auto-multiple-choice (0.550-1) unstable; urgency=low
+
+  * upgraded to the newest upstream version. This ensures that the
+    compilation will be done correctly either with version 2.1 or 2.3
+    of openCV, which makes this release usable for Sid and testing.
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Sat, 23 Jul 2011 13:02:13 +0200
+
+auto-multiple-choice (0.468-3) experimental; urgency=low
+
+  * modified the build-dependency on libcv-dev: now it requires a version
+    >=2.3.0 to ensure the proper libraries to be loaded. Closes: #634795
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Wed, 20 Jul 2011 18:37:19 +0200
+
+auto-multiple-choice (0.468-2) experimental; urgency=low
+
+  * included Nobuhiro Iwamatsu's patch: Fix FTBFS with opencv 2.3
+    Closes: #634795
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Wed, 20 Jul 2011 10:42:09 +0200
+
+auto-multiple-choice (0.468-1) unstable; urgency=low
+
+  * upgraded to the newest upstream version
+  * added missing (c) statements in debian/copyright
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Sun, 19 Jun 2011 15:44:58 +0200
+
+auto-multiple-choice (0.458-1) unstable; urgency=low
+
+  * upgraded to the new upstream version
+  * changed the build-dependency inkscape -> rsvg
+  * added a build-dependency on latex-xcolor
+  * modified AMC-detect.cc files to comply with gcc4.6
+  * bumped Standards-Version to 3.9.2
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Mon, 02 May 2011 02:29:15 +0200
+
+auto-multiple-choice (0.426-3) unstable; urgency=low
+
+  * applied Alexis Bienvenüe's patches. Closes: #618066
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Wed, 16 Mar 2011 11:42:40 +0100
+
+auto-multiple-choice (0.426-2) unstable; urgency=low
+
+  * removed the explicit target override_dh_auto_clean which was no more
+    needed
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Wed, 16 Mar 2011 11:39:25 +0100
+
+auto-multiple-choice (0.426-1) unstable; urgency=low
+
+  * upgraded to the newest version.
+  * removes the stuff about versions.pl, as requested by the upstream author
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Mon, 14 Feb 2011 18:24:35 +0100
+
+auto-multiple-choice (0.376-1) unstable; urgency=low
+
+  * upgraded to the newest version. Its license has been set to GPL2+,
+    which Closes: #609604
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Wed, 12 Jan 2011 14:52:34 +0100
+
+auto-multiple-choice (0.375-1) unstable; urgency=low
+
+  * upgraded to a newer upstream version, as propmted by Alexis Bienvenüe.
+  * added a file debian/watch
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Sat, 08 Jan 2011 19:50:14 +0100
+
+auto-multiple-choice (0.355-1) unstable; urgency=low
+
+  * added a management for the file Makefile.versions
+  * upgraded to the newest SVN release
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Sun, 28 Nov 2010 14:47:03 +0100
+
+auto-multiple-choice (0.297+svnRelease345-1) unstable; urgency=low
+
+  * upgraded to the newer SNV release
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Thu, 28 Oct 2010 21:18:54 +0200
+
+auto-multiple-choice (0.297+svnRelease342-1) unstable; urgency=low
+
+  * upgraded to the newer SNV release
+  * translated the help file to English, updated the file doc/Makefile
+    accordingly
+  * modified debian/rules to manage the manpages correctly
+  * converted the format to 3.0 (quilt)
+  * made a file en.po and "translated" a few words (mainly removed some
+    hints for translators)
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Sat, 23 Oct 2010 21:34:18 +0200
+
+auto-multiple-choice (0.297+svnRelease328-1) unstable; urgency=low
+
+  * upgraded to the upstream revision #328. Fixes a bug with variable scan 
+    definition: 300 ppm did work, lower resolutions did not.
+  * updated the dependency on debhelper (>= 7.0.50~)
+  * modified doc/Makefile to erase PNG files.
+  * added a rule override dh_install_docs to whipe out .svn directories
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Tue, 24 Aug 2010 16:33:36 +0200
+
+auto-multiple-choice (0.297-1) unstable; urgency=low
+
+  * modified the geometry settings to ensure that the binary pattern will
+    fit more surely the top margin of some printers.
+  * modified the Maintainer field in debian/control
+  * modified the reference to the maintainer in debian/copyright
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Sun, 15 Aug 2010 15:25:23 +0200
+
+auto-multiple-choice (0.297-0.nmu1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * updated the standards level to 3.9.1
+  * added a dependency on ${misc:Depends}
+  * changed the format to a non-native package
+  * publication. Closes: #592231
+
+ -- Georges Khaznadar <georgesk@ofset.org>  Sat, 07 Aug 2010 20:46:46 +0200
+
+auto-multiple-choice (0.297) unstable; urgency=low
+  
+  * Changes within depedencies
+  
+  * minor improvements
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Sun, 28 Mar 2010 23:24:08 +0200
+
+auto-multiple-choice (0.283) unstable; urgency=low
+
+  * Models are now TGZ archives
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 16 Mar 2010 15:21:03 +0100
+
+auto-multiple-choice (0.276) unstable; urgency=low
+
+  * Partial internationalization
+  
+  * Bug fixes
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Fri, 12 Mar 2010 16:33:24 +0100
+
+auto-multiple-choice (0.268) unstable; urgency=low
+
+  * GUI improvements
+  
+  * new boxes design in LaTeX style
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Fri, 05 Mar 2010 00:34:00 +0100
+
+auto-multiple-choice (0.250) unstable; urgency=low
+
+  * option for faster layout detection, in test
+  
+  * possible printing to PDF files
+  
+  * configurable papers annotation
+  
+  * Bug fixes
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 16 Feb 2010 19:21:33 +0100
+
+auto-multiple-choice (0.237) unstable; urgency=low
+
+  * Better support for option 'ensemble'
+  
+  * Bug fixes
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Mon, 08 Feb 2010 16:15:23 +0100
+
+auto-multiple-choice (0.228) unstable; urgency=low
+
+  * possible project creation from zip file.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 04 Feb 2010 18:25:37 +0100
+
+auto-multiple-choice (0.222) unstable; urgency=low
+
+  * minor changes and bugfixes
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 03 Feb 2010 11:33:37 +0100
+
+auto-multiple-choice (0.211) unstable; urgency=low
+  
+  * possible compilation with latex
+
+  * some new configuration options
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 27 Jan 2010 21:05:52 +0100
+
+auto-multiple-choice (0.204) unstable; urgency=low
+  
+  * bug fixes
+
+  * xelatex compatibility
+  
+  * new LaTeX commands AMClabel and AMCref
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Sun, 17 Jan 2010 23:50:59 +0100
+
+auto-multiple-choice (0.193) unstable; urgency=low
+
+  * using relative file names
+  
+ -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 16 Dec 2009 10:13:11 +0100
+
+auto-multiple-choice (0.178) unstable; urgency=low
+  
+  * variables within marking scale specification
+
+  * important bug corrections
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 05 Nov 2009 14:03:16 +0100
+
+auto-multiple-choice (0.169) unstable; urgency=low
+
+  * LaTeX option for pre-svn:156 printed exams
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Mon, 26 Oct 2009 17:34:35 +0100
+
+auto-multiple-choice (0.168) unstable; urgency=low
+
+  * small bug fixes
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Fri, 23 Oct 2009 16:34:24 +0200
+
+auto-multiple-choice (0.163) unstable; urgency=low
+
+  * debugging easier
+  
+  * changed number of binary boxes for greater number of copies
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 21 Oct 2009 14:44:13 +0200
+
+auto-multiple-choice (0.152) unstable; urgency=low
+
+  * Codes via AMCcode + automatic association
+
+  * OpenOffice ODS Export
+  
+ -- Alexis Bienvenüe <pado@passoire.fr>  Sun, 04 Oct 2009 20:40:54 +0200
+
+auto-multiple-choice (0.107) unstable; urgency=low
+
+  * LaTeX : custumisable styles, AMCcode
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Fri, 10 Jul 2009 22:33:58 +0200
+
+auto-multiple-choice (0.94) unstable; urgency=low
+
+  * Bugs and cosmetics
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 23 Jun 2009 14:38:04 +0200
+
+auto-multiple-choice (0.87) unstable; urgency=low
+
+  * LaTeX package 'ensemble' option for one-page answers layout
+  
+  * Better page viewer for manual input
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Mon, 15 Jun 2009 23:48:21 +0200
+
+auto-multiple-choice (0.75) unstable; urgency=low
+  
+  * Better charmaps support
+
+  * Printing with CUPS
+  
+  * Parallelisation
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 21 May 2009 15:19:45 +0200
+
+auto-multiple-choice (0.61) unstable; urgency=low
+
+  * New interface for LaTeX source file
+  
+  * jpg size parameters for answers
+  
+  * Storable for MEPList et ANList
+  
+ -- Alexis Bienvenüe <pado@passoire.fr>  Mon, 06 Apr 2009 16:26:07 +0200
+
+auto-multiple-choice (0.56) unstable; urgency=low
+
+  * Bugs with AMC-note
+
+  * Watermarks when compiled out of AMC
+  
+  * LaTeX/QCM errors reported
+  
+  * Select pages to print
+  
+  * Choose existing command when not-defined in preferences file
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 17 Dec 2008 21:51:26 +0100
+
+auto-multiple-choice (0.44) unstable; urgency=low
+
+  * Bugs with MEPList MAJ
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 10 Dec 2008 16:35:48 +0100
+
+auto-multiple-choice (0.39) unstable; urgency=low
+
+  * Bugs with marking
+
+  * MEPList and ANList saved by gui
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Sat, 06 Dec 2008 00:27:01 +0100
+
+auto-multiple-choice (0.36) unstable; urgency=low
+
+  * Possible different answers for different copies.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 04 Dec 2008 23:49:13 +0100
+
+auto-multiple-choice (0.17) unstable; urgency=low
+
+  * Added several checks that popup windows to inform or request
+    additional information.
+
+  * Better external commands calls.
+
+  * Handle properly filenames with spaces.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 06 Nov 2008 13:21:44 +0100
+
+auto-multiple-choice (0.9) unstable; urgency=low
+
+  * Initial release.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 29 Oct 2008 14:23:38 +0100
+

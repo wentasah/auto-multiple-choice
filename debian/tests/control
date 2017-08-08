@@ -1,0 +1,5 @@
+Tests: simple
+Depends: @, libipc-run-perl
+
+Tests: gui
+Depends: @, xvfb
