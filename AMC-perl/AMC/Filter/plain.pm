@@ -63,6 +63,7 @@ sub new {
           TitleWidth
           Pages
           RandomSeed
+          ShowGroupText
           PreAssociation PreAssociationKey PreAssociationName
           /
     ];
@@ -75,6 +76,7 @@ sub new {
           CompleteMulti SeparateAnswerSheet AutoMarks
           Arabic
           ManualDuplex SingleSided
+          ShowGroupText
           /
     ];
 
@@ -119,6 +121,7 @@ sub new {
         namefieldlinespace    => '.5em',
         titlewidth            => ".47\\linewidth",
         randomseed            => "1527384",
+        showgrouptext         => 1,
         lang                  => '',
         code                  => 0,
         'latex-preambule'     => '',
@@ -487,7 +490,7 @@ sub read_file {
         if (/^\s*\*([\(\)])(?:\[([^]]*)\])?\s*(.*)/) {
             my $action  = $1;
             my $options = $2;
-            my $text    = $3;
+            my $text=$self->{'options'}->{'showgrouptext'} ? $3 : "";
             debug "Group A=" . printable($action) . " O=" . printable($options);
             my %oo = $self->read_options($options);
             if ( $action eq '(' ) {
