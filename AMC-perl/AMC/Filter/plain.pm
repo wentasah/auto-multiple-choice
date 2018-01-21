@@ -57,6 +57,7 @@ sub new {
 				 TitleWidth
                                  Pages
                                  RandomSeed
+			         ShowGroupText
 				/];
 
     # from these options, which ones are boolean valued?
@@ -66,6 +67,7 @@ sub new {
 				   CompleteMulti SeparateAnswerSheet AutoMarks
 				   Arabic
 				   ManualDuplex SingleSided
+				   ShowGroupText
 				  /];
 
     # current groups list
@@ -99,6 +101,7 @@ sub new {
        'namefieldlinespace'=>'.5em',
        'titlewidth'=>".47\\linewidth",
        'randomseed'=>"1527384",
+       'showgrouptext'=>1,
       };
 
     # List of modules to be used when parsing (see parse_*
@@ -390,7 +393,7 @@ sub read_file {
     if(/^\s*\*([\(\)])(?:\[([^]]*)\])?\s*(.*)/) {
       my $action=$1;
       my $options=$2;
-      my $text=$3;
+      my $text=$self->{'options'}->{'showgrouptext'} ? $3 : "";
       debug "Group A=$action O=$options";
       my %oo=$self->read_options($options);
       if($action eq '(') {
