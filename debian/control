@@ -12,8 +12,8 @@ Build-Depends: debhelper (>= 9), gettext, libnetpbm10-dev,
  texlive-lang-french, texlive-lang-japanese
 Standards-Version: 3.9.8.0
 Homepage: http://www.auto-multiple-choice.net/
-Vcs-Browser: git@salsa.debian.org:georgesk/auto-multiple-choice
-Vcs-Git: git@salsa.debian.org:georgesk/auto-multiple-choice.git
+Vcs-Browser: https://salsa.debian.org/georgesk/auto-multiple-choice
+Vcs-Git: https://salsa.debian.org/georgesk/auto-multiple-choice.git
 Testsuite: autopkgtest
 
 Package: auto-multiple-choice
