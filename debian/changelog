@@ -5,6 +5,8 @@ auto-multiple-choice (1.3.0-5) unstable; urgency=medium
     Closes: #896948
     
   [ Georges Khaznadar ]
+  * moved all patches under debian/patches, refreshed the patch
+    latex-docstrip-raw-encoding.diff
   * modified Vcs stuff in debian/controll, to point to salsa.debian.org
 
  -- Georges Khaznadar <georgesk@debian.org>  Sun, 29 Apr 2018 12:55:44 +0200
