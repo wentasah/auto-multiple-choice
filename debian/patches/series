@@ -3,3 +3,4 @@ tests-INC-fix.diff
 fix-build-with-opencv-3.1.diff
 bugfix-412.diff
 perl-5.26-compat.patch
+latex-docstrip-raw-encoding.diff
