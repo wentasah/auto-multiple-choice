@@ -1,0 +1,85 @@
+%
+% Copyright (C) 2012,2014 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass[a4paper]{article}
+
+\usepackage[utf8x]{inputenc}    
+\usepackage[T1]{fontenc}
+
+\usepackage[francais,bloc,completemulti]{automultiplechoice}    
+\geometry{hmargin=5cm,top=6.5cm,bottom=8.5cm}
+\begin{document}
+
+\AMCrandomseed{1237893}
+
+\element{general}{
+  \begin{question}{mtblanc}
+    Quelle est l'altitude du Mont Blanc ?
+    \begin{reponses}
+      \bonne{4810m}
+      \mauvaise{1436m}
+      \mauvaise{8848m}
+    \end{reponses}
+  \end{question}
+}
+
+\element{general}{
+  \begin{question}{arms}
+    En quelle ann\'ee est n\'e Louis Armstrong ?
+    \begin{reponses}
+      \bonne{1901}
+      \mauvaise{1910}
+      \mauvaise{1918}
+    \end{reponses}
+  \end{question}
+}
+
+\element{general}{
+  \begin{questionmult}{gre}
+    Quelles grenouilles avons-nous \'etudi\'e cette ann\'ee ? 
+    \begin{reponses}
+      \bonne{Les grenouilles-taureau}
+      \bonne{Les grenouilles-criquet}
+      \mauvaise{Les grenouilles-concombre}
+      \mauvaise{Les grenouilles-enclume}
+    \end{reponses}
+  \end{questionmult}
+}
+
+\exemplaire{5}{    
+
+\noindent{\bf QCM  \hfill TEST}
+\vspace{5mm}
+
+\champnom{\fbox{    
+    \begin{minipage}{.5\linewidth}
+      Nom et prénom :
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}
+\vspace{5mm}
+
+\melangegroupe{general}
+\restituegroupe{general}
+
+}  
+
+\end{document}

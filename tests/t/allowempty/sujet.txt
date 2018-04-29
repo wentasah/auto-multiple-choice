@@ -1,0 +1,43 @@
+Title: Test allow-empty
+Columns: 2
+Code: 8
+PaperSize: A4
+Lang: FR
+ShuffleQuestions: 1
+LaTeX-BeginDocument: \scoring{allowempty=2}
+DefaultScoringM:
+Presentation: Test pour le barème allowempty
+
+Vous pouvez laisser jusqu'à 2 questions sans réponse...
+
+* Voulez-vous 7 points ?
++{7} oui
+- non
+
+* Voulez-vous 6 points ?
++{6} oui
+- non
+
+* Voulez-vous 5 points ?
++{5} oui
+- non
+
+* Voulez-vous 4 points ?
++{4} oui
+- non
+
+* Voulez-vous 3 points ?
++{3} oui
+- non
+
+* Voulez-vous 2 points ?
++{2} oui
+- non
+
+** Ajoutez vos points :
++{b=2} 2
++ 1
+-{b=0,m=-1} -1
+-{b=0,m=-2} -2
+
+

@@ -1,0 +1,3722 @@
+# translation of fr.po to Français
+# Auto Multiple Choice
+# Copyright 2008-2015 Alexis Bienvenüe
+# This file is distributed under the same license as the AMC software
+# Alexis Bienvenüe <paamc@passoire.fr>, 2010, 2011, 2012, 2013, 2014, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.250 (svn: 250)\n"
+"Report-Msgid-Bugs-To: paamc@passoire.fr\n"
+"POT-Creation-Date: 2016-02-29 21:31 +0100\n"
+"PO-Revision-Date: 2016-02-29 22:07+0100\n"
+"Last-Translator: Alexis Bienvenüe <paamc@passoire.fr>\n"
+"Language-Team: AB <paamc@passoire.fr>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.8.7\n"
+
+#. TRANSLATORS: directory name for projects. This directory will be created (if needed) in the home directory of the user. Please use only alphanumeric characters, and - or _. No accentuated characters.
+#: ../AMC-annotate.pl:158 ../AMC-gui.pl:233 ../AMC-gui.pl:234
+msgid "MC-Projects"
+msgstr "Projets-QCM"
+
+#: ../AMC-getimages.pl:209
+msgid "Splitting multi-page PDF files..."
+msgstr "Extraction des pages du document PDF..."
+
+#. TRANSLATORS: Here, %s will be replaced with the path of a file that will be converted.
+#: ../AMC-getimages.pl:347
+#, perl-format
+msgid "Converting %s to bitmap..."
+msgstr "Conversion de %s en image \"bitmap\"..."
+
+#. TRANSLATORS: Here, %s will be replaced with the path of a file that will be splitted to several images (one per page).
+#: ../AMC-getimages.pl:350
+#, perl-format
+msgid "Splitting multi-page image %s..."
+msgstr "Extraction des pages de l'image %s..."
+
+#. TRANSLATORS: Here, %s will be replaced with the path of a file that will be splitted to several images (one per page).
+#: ../AMC-getimages.pl:353
+#, perl-format
+msgid "Processing image %s..."
+msgstr "Traitement de l'image %s..."
+
+#: ../AMC-getimages.pl:426
+msgid "Copying scans to project directory..."
+msgstr "Copie des scans dans le répertoire projet"
+
+#. TRANSLATORS: This is the default text to be written on the top of the first page of each paper when annotating. From this string, %s will be replaced with the student final mark, %m with the maximum mark he can obtain, %S with the student total score, and %M with the maximum score the student can obtain.
+#: ../AMC-gui.pl:296
+msgid "Mark: %s/%m (total score: %S/%M)"
+msgstr "Note: %s/%m (score total : %S/%M)"
+
+#. TRANSLATORS: Subject of the emails which can be sent to the students to give them their annotated completed answer sheet.
+#: ../AMC-gui.pl:318
+msgid "Exam result"
+msgstr "Résultat de l'examen"
+
+#. TRANSLATORS: Body text of the emails which can be sent to the students to give them their annotated completed answer sheet.
+#: ../AMC-gui.pl:320
+msgid ""
+"Please find enclosed your annotated completed answer sheet.\n"
+"Regards."
+msgstr ""
+"Veuillez trouver ci-jointe votre copie corrigée.\n"
+"Cordialement."
+
+#: ../AMC-gui.pl:493
+msgid "None of the perl modules <b>Graphics::Magick</b> and <b>Image::Magick</b> are installed: AMC won't work properly!"
+msgstr "Aucun des deux modules perl <b>Graphics::Magick</b> et <b>Image::Magick</b> n'est installé : AMC ne fonctionnera pas correctement !"
+
+#. TRANSLATORS: Message (first part) when some of the commands that are given in the preferences cannot be found.
+#: ../AMC-gui.pl:522
+msgid "Some commands allowing to open documents can't be found:"
+msgstr "Certaines commandes prévues pour l'ouverture de documents ne sont pas accessibles :"
+
+#. TRANSLATORS: Message (second part) when some of the commands that are given in the preferences cannot be found.
+#: ../AMC-gui.pl:525
+msgid "Please check its correct spelling and install missing software."
+msgstr "Vérifiez que les commandes sont les bonnes et que les programmes correspondants sont bien installés."
+
+#. TRANSLATORS: Message (third part) when some of the commands that are given in the preferences cannot be found. The %s will be replaced with the name of the menu entry "Preferences" and the name of the menu "Edit".
+#: ../AMC-gui.pl:527
+#, perl-format
+msgid "You can change used commands following <i>%s</i> from menu <i>%s</i>."
+msgstr "Vous pouvez aussi modifier les commandes à utiliser en sélectionnant <i>%s</i> dans le menu <i>%s</i>."
+
+#. TRANSLATORS: "Preferences" menu
+#: ../AMC-gui.pl:529
+msgid "Preferences"
+msgstr "Préférences"
+
+#. TRANSLATORS: "Edit" menu
+#: ../AMC-gui.pl:531
+msgid "Edit"
+msgstr "Édition"
+
+#: ../AMC-gui.pl:561
+msgid ""
+"The package <i>auto-multiple-choice-common</i> is installed, but not <i>auto-multiple-choice</i>.\n"
+"<b>AMC won't work properly until you install auto-multiple-choice package!</b>"
+msgstr ""
+"Le paquet <i>auto-multiple-choice-common</i> est installé, mais pas <i>auto-multiple-choice</i>.\n"
+"<b>AMC ne fonctionnera pas convenablement tant que vous n'installerez pas le paquet auto-multiple-choice package !</b>"
+
+#. TRANSLATORS: Error writing one of the configuration files (global or project). The first %s will be replaced with the path of that file, and the second with the error text.
+#: ../AMC-gui.pl:654
+#, perl-format
+msgid "Error writing state file %s: %s"
+msgstr "Erreur à l'écriture du fichier d'état %s : %s"
+
+#: ../AMC-gui.pl:673
+msgid "Several dialogs try to help you be at ease handling AMC."
+msgstr "Plusieurs dialogues essayent de vous guider pour une meilleure prise en main d'AMC."
+
+#: ../AMC-gui.pl:675
+#, perl-format
+msgid "Unless you tick the \"%s\" box, they are shown only once."
+msgstr "À moins que vous ne cochiez la case « %s », ils n'apparaissent qu'une fois."
+
+#: ../AMC-gui.pl:677 ../AMC-gui.pl:1087
+msgid "Show this message again next time"
+msgstr "Conserver ce message la prochaine fois"
+
+#: ../AMC-gui.pl:679
+msgid "Do you want to forgot which dialogs you have already seen and ask to show all of them next time they should appear ?"
+msgstr "Souhaitez vous oublier quels sont ceux qui ont déjà été montrés, de telle sorte qu'ils réapparaissent tous ?"
+
+#. TRANSLATORS: Messahe when switching to debugging mode.
+#: ../AMC-gui.pl:1010
+msgid "Debugging mode."
+msgstr "Passage en mode débogage."
+
+#. TRANSLATORS: Messahe when switching to debugging mode. %s will be replaced with the path of the log file.
+#: ../AMC-gui.pl:1012
+#, perl-format
+msgid "Debugging informations will be written in file %s."
+msgstr "Les informations de débogage de cette session seront disponibles dans le fichier %s."
+
+#. TRANSLATORS: One of the documentation languages.
+#: ../AMC-gui.pl:1035
+msgid "French"
+msgstr "Français"
+
+#. TRANSLATORS: One of the documentation languages.
+#: ../AMC-gui.pl:1037
+msgid "English"
+msgstr "Anglais"
+
+#. TRANSLATORS: One of the documentation languages.
+#: ../AMC-gui.pl:1039
+msgid "Japanese"
+msgstr "Japonais"
+
+#. TRANSLATORS: This is the title of the column containing student/copy identifier in the table showing the results of data captures.
+#: ../AMC-gui.pl:1182
+msgid "identifier"
+msgstr "identifiant"
+
+#. TRANSLATORS: This is the title of the column containing data capture date/time in the table showing the results of data captures.
+#: ../AMC-gui.pl:1191
+msgid "updated"
+msgstr "mise à jour"
+
+#. TRANSLATORS: This is the title of the column containing Mean Square Error Distance (some kind of mean distance between the location of the four corner marks on the scan and the location where they should be if the scan was not distorted at all) in the table showing the results of data captures.
+#: ../AMC-gui.pl:1198 ../AMC-gui.pl:5072 ../AMC-perl/AMC/Gui/Manuel.pm:170
+msgid "MSE"
+msgstr "EQM"
+
+#. TRANSLATORS: This is the title of the column containing so-called "sensitivity" (an indicator telling the user if the darkness ratio of some boxes on the page are very near the threshold. A great value tells that some darkness ratios are very near the threshold, so that the capture is very sensitive to the threshold. A small value is a good thing) in the table showing the results of data captures.
+#: ../AMC-gui.pl:1207 ../AMC-gui.pl:5074 ../AMC-perl/AMC/Gui/Manuel.pm:178
+msgid "sensitivity"
+msgstr "sensibilité"
+
+#. TRANSLATORS: for encodings
+#: ../AMC-gui.pl:1218 ../AMC-gui.pl:1236
+msgid "Western Europe"
+msgstr "Europe occidentale"
+
+#. TRANSLATORS: for encodings
+#: ../AMC-gui.pl:1220 ../AMC-gui.pl:1238
+msgid "Central Europe"
+msgstr "Europe centrale"
+
+#. TRANSLATORS: for encodings
+#: ../AMC-gui.pl:1222
+msgid "Southern Europe"
+msgstr "Europe du sud"
+
+#. TRANSLATORS: for encodings
+#: ../AMC-gui.pl:1224
+msgid "Northern Europe"
+msgstr "Europe du Nord"
+
+#. TRANSLATORS: for encodings
+#: ../AMC-gui.pl:1226
+msgid "Cyrillic"
+msgstr "Cyrillique"
+
+#. TRANSLATORS: for encodings
+#: ../AMC-gui.pl:1228
+msgid "Turkish"
+msgstr "Turc"
+
+#. TRANSLATORS: for encodings
+#: ../AMC-gui.pl:1230
+msgid "Northern"
+msgstr "Nordique"
+
+#. TRANSLATORS: for encodings
+#: ../AMC-gui.pl:1232
+msgid "Unicode"
+msgstr "Unicode"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-gui.pl:1256 ../AMC-gui.pl:3530
+msgid "(none) [No primary key found in association list]"
+msgstr "(aucune) [Aucun identifiant trouvé dans la liste d'étudiants]"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-gui.pl:1258 ../AMC-gui.pl:4146
+msgid "(none) [No code found in LaTeX file]"
+msgstr "(aucun) [Aucun code trouvé dans le fichier LaTex]"
+
+#. TRANSLATORS: One of the printing methods: use a command (This is not the command name itself). This is a menu entry.
+#: ../AMC-gui.pl:1289
+msgid "command"
+msgstr "par une commande"
+
+#. TRANSLATORS: One of the printing methods: print to files. This is a menu entry.
+#: ../AMC-gui.pl:1291
+msgid "to files"
+msgstr "dans des fichiers"
+
+#. TRANSLATORS: One option for decimal point: use a comma. This is a menu entry
+#: ../AMC-gui.pl:1296
+msgid ", (comma)"
+msgstr ", (virgule)"
+
+#. TRANSLATORS: One option for decimal point: use a point. This is a menu entry.
+#: ../AMC-gui.pl:1298
+msgid ". (dot)"
+msgstr ". (point)"
+
+#. TRANSLATORS: One of the rounding method for marks. This is a menu entry.
+#: ../AMC-gui.pl:1300
+msgid "floor"
+msgstr "inférieur"
+
+#. TRANSLATORS: One of the rounding method for marks. This is a menu entry.
+#: ../AMC-gui.pl:1302
+msgid "rounding"
+msgstr "normal"
+
+#. TRANSLATORS: One of the rounding method for marks. This is a menu entry.
+#: ../AMC-gui.pl:1304
+msgid "ceiling"
+msgstr "supérieur"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-gui.pl:1307
+msgid "one sided [No two-sided printing]"
+msgstr "recto seulement [Pas d'impression recto-verso]"
+
+#. TRANSLATORS: One of the two-side printing types. This is a menu entry.
+#: ../AMC-gui.pl:1309
+msgid "long edge"
+msgstr "Grand côté"
+
+#. TRANSLATORS: One of the two-side printing types. This is a menu entry.
+#: ../AMC-gui.pl:1311
+msgid "short edge"
+msgstr "Petit côté"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-gui.pl:1315
+msgid "(none) [No transitional image type (direct processing)]"
+msgstr "(aucun)"
+
+#. TRANSLATORS: One of the actions that can be done after exporting the marks. Here, do nothing more. This is a menu entry.
+#: ../AMC-gui.pl:1323
+msgid "that's all"
+msgstr "c'est tout"
+
+#. TRANSLATORS: One of the actions that can be done after exporting the marks. Here, open the exported file. This is a menu entry.
+#: ../AMC-gui.pl:1325
+msgid "open the file"
+msgstr "ouvrir le fichier"
+
+#. TRANSLATORS: One of the actions that can be done after exporting the marks. Here, open the directory where the file is. This is a menu entry.
+#: ../AMC-gui.pl:1327
+msgid "open the directory"
+msgstr "ouvrir le répertoire"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-gui.pl:1330
+msgid "(none) [No annotation position (do not write anything)]"
+msgstr "(aucune)"
+
+#. TRANSLATORS: One of the possible location for questions scores on annotated completed answer sheet: in one margin. This is a menu entry.
+#: ../AMC-gui.pl:1332
+msgid "in one margin"
+msgstr "Dans la marge"
+
+#. TRANSLATORS: One of the possible location for questions scores on annotated completed answer sheet: in one of the two margins. This is a menu entry.
+#: ../AMC-gui.pl:1334
+msgid "in the margins"
+msgstr "Dans les deux marges"
+
+#. TRANSLATORS: One of the possible location for questions scores on annotated completed answer sheet: near the boxes. This is a menu entry.
+#: ../AMC-gui.pl:1336
+msgid "near boxes"
+msgstr "A côté des cases"
+
+#. TRANSLATORS: One of the possible location for questions scores on annotated completed answer sheet: in the zones defined in the source file
+#: ../AMC-gui.pl:1338
+msgid "where defined in the source"
+msgstr "indiqué dans le fichier source"
+
+#. TRANSLATORS: One of the possible sorting criteria for students in the exported spreadsheet with scores: the student name. This is a menu entry.
+#. TRANSLATORS: This is the title of a column containing students names in a table showing all annotated answer sheets, when sending them to the students by email.
+#: ../AMC-gui.pl:1341 ../AMC-gui.pl:6465
+msgid "name"
+msgstr "nom"
+
+#. TRANSLATORS: One of the possible sorting criteria for students in the exported spreadsheet with scores: the student sheet number. This is a menu entry.
+#: ../AMC-gui.pl:1343
+msgid "exam copy number"
+msgstr "numéro de copie"
+
+#. TRANSLATORS: One of the possible sorting criteria for students in the exported spreadsheet with scores: the line where one can find this student in the students list file. This is a menu entry.
+#: ../AMC-gui.pl:1345
+msgid "line in students list"
+msgstr "ligne dans la liste des étudiants"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#. One of the possible sorting criteria for students in the exported spreadsheet with scores: the student mark. This is a menu entry.
+#: ../AMC-gui.pl:1348
+msgid "mark [student mark, for sorting]"
+msgstr "note"
+
+#. TRANSLATORS: One of the possible way to group annotated answer sheets together to PDF files: make one PDF file per student, with all his pages. This is a menu entry.
+#: ../AMC-gui.pl:1353
+msgid "One file per student"
+msgstr "Un fichier par étudiant"
+
+#. TRANSLATORS: One of the possible way to group annotated answer sheets together to PDF files: make only one PDF with all students sheets. This is a menu entry.
+#: ../AMC-gui.pl:1355
+msgid "One file for all students"
+msgstr "Un seul fichier pour tous les étudiants"
+
+#. TRANSLATORS: One of the possible way to annotate answer sheets: here we only select pages where the student has written something (in separate answer sheet mode, these are the pages from the answer sheet and not the pages from the subject).
+#: ../AMC-gui.pl:1358
+msgid "Only pages with answers"
+msgstr "Seulement la feuille de réponses"
+
+#. TRANSLATORS: One of the possible way to annotate answer sheets: here we take the pages were the students has nothing to write (often question pages from a subject with separate answer sheet option) from the subject.
+#: ../AMC-gui.pl:1360
+msgid "Question pages from subject"
+msgstr "Avec sujet"
+
+#. TRANSLATORS: One of the possible way to annotate answer sheets: here we take the pages were the students has nothing to write (often question pages from a subject with separate answer sheet option) from the correction.
+#: ../AMC-gui.pl:1362
+msgid "Question pages from correction"
+msgstr "Avec sujet corrigé"
+
+#: ../AMC-gui.pl:1365
+msgid "All students"
+msgstr "Tous les étudiants"
+
+#: ../AMC-gui.pl:1367
+msgid "Selected students"
+msgstr "Étudiants sélectionnés"
+
+#: ../AMC-gui.pl:1369
+msgid "Please select..."
+msgstr "Choisir..."
+
+#. TRANSLATORS: One of the ways exam was made: each student has a different answer sheet with a different copy number - no photocopy was made. This is a menu entry.
+#. TRANSLATORS: This is a title for the AMC mode where the distributed exam papers are all different (different paper numbers at the top) -- photocopy is not used.
+#: ../AMC-gui.pl:1371 ../AMC-gui.pl:3252
+msgid "Different answer sheets"
+msgstr "Copies toutes différentes"
+
+#. TRANSLATORS: One of the ways exam was made: some students have the same exam subject, as some photocopies were made before distributing the subjects. This is a menu entry.
+#. TRANSLATORS: This is a title for the AMC mode where some answer sheets have been photocopied before being distributed to the students.
+#: ../AMC-gui.pl:1373 ../AMC-gui.pl:3257
+msgid "Some answer sheets were photocopied"
+msgstr "Certaines copies ont été photocopiées"
+
+#. TRANSLATORS: One of the ways to send mail: use sendmail command. This is a menu entry.
+#: ../AMC-gui.pl:1375
+msgid "sendmail"
+msgstr "sendmail"
+
+#. TRANSLATORS: One of the ways to send mail: use a SMTP server. This is a menu entry.
+#: ../AMC-gui.pl:1377
+msgid "SMTP"
+msgstr "SMTP"
+
+# TRANLATORS: One of the way to handle separate answer sheet when printing: standard (same as in the question pdf document). This is a menu entry.
+#: ../AMC-gui.pl:1382
+msgid "Standard"
+msgstr "Feuille réponses à la fin"
+
+# TRANLATORS: One of the way to handle separate answer sheet when printing: print separately answer sheet and question. This is a menu entry.
+#: ../AMC-gui.pl:1384
+msgid "Separate answer sheet"
+msgstr "Feuille réponses séparée"
+
+# TRANLATORS: One of the way to handle separate answer sheet when printing: print the answr sheet first. This is a menu entry.
+#: ../AMC-gui.pl:1386 ../AMC-gui.pl:2973 ../AMC-gui.pl:2986
+msgid "Answer sheet first"
+msgstr "Feuille réponses au début"
+
+#. TRANSLATORS: One of the signs that can be drawn on annotated answer sheets to tell if boxes are to be ticked or not, and if they were detected as ticked or not.
+#: ../AMC-gui.pl:1390
+msgid "nothing"
+msgstr "rien"
+
+#. TRANSLATORS: One of the signs that can be drawn on annotated answer sheets to tell if boxes are to be ticked or not, and if they were detected as ticked or not.
+#: ../AMC-gui.pl:1392
+msgid "circle"
+msgstr "cercle"
+
+#. TRANSLATORS: One of the signs that can be drawn on annotated answer sheets to tell if boxes are to be ticked or not, and if they were detected as ticked or not. Here, a cross.
+#: ../AMC-gui.pl:1394
+msgid "mark"
+msgstr "croix"
+
+#. TRANSLATORS: One of the signs that can be drawn on annotated answer sheets to tell if boxes are to be ticked or not, and if they were detected as ticked or not. Here, the box outline.
+#: ../AMC-gui.pl:1396
+msgid "box"
+msgstr "carré"
+
+#: ../AMC-gui.pl:1488
+#, perl-format
+msgid "Exporting to '%s' needs some perl modules that are not installed: %s. Please install these modules or switch to another export format."
+msgstr "L'export au format '%s' nécessite la présence de certains modules perl qui ne sont pas installés sur votre système : %s. Veuillez les installer ou choisir un autre format d'export."
+
+#: ../AMC-gui.pl:1513
+msgid "Exporting marks..."
+msgstr "Export des notes..."
+
+#: ../AMC-gui.pl:1545
+#, perl-format
+msgid "Export to %s did not work: file not created..."
+msgstr "L'export des notes dans le fichier %s n'a sans doute pas fonctionné, car ce dernier fichier est inexistant..."
+
+#. TRANSLATORS: One of the popup menu that appears when right-clicking on a page in the data capture diagnosis table. Choosing this entry, an image will be opened to see where the corner marks were detected.
+#: ../AMC-gui.pl:1556 ../AMC-gui.pl:5076
+msgid "page adjustment"
+msgstr "calage de la page"
+
+#. TRANSLATORS: One of the popup menu that appears when right-clicking on a page in the data capture diagnosis table. Choosing this entry, a window will be opened were the user can see all boxes on the scans and how they were filled by the students, and correct detection of ticked-or-not if needed.
+#: ../AMC-gui.pl:1558 ../AMC-gui.pl:5076
+msgid "boxes zooms"
+msgstr "zooms sur les cases"
+
+#: ../AMC-gui.pl:1626
+#, perl-format
+msgid "You requested to delete all data capture results for %d page(s)"
+msgstr "Vous avez demandé d'effacer les saisies concernant %d page(s)"
+
+#: ../AMC-gui.pl:1627
+msgid "All data and image files related to these pages will be deleted."
+msgstr "Toutes les données et images liées à ces pages vont être effacées."
+
+#: ../AMC-gui.pl:1628
+msgid "Do you really want to continue?"
+msgstr "Souhaitez-vous vraiment continuer ?"
+
+#: ../AMC-gui.pl:1805
+#, perl-format
+msgid "Following command could not be run: <b>%s</b>, perhaps due to a poor configuration?"
+msgstr "La commande suivante n'a pas pu être exécutée : <b>%s</b>. Peut-être est-ce dû à une mauvaise configuration ?"
+
+#: ../AMC-gui.pl:1848
+#, perl-format
+msgid "Current directory: %s"
+msgstr "Répertoire courant : %s"
+
+#: ../AMC-gui.pl:1902
+msgid "Existing projects:"
+msgstr "Projets déjà existants :"
+
+#. TRANSLATORS: Window title when creating a new project.
+#: ../AMC-gui.pl:1908
+msgid "New AMC project"
+msgstr "Nouveau projet QCM"
+
+#: ../AMC-gui.pl:1913
+msgid "Projects management:"
+msgstr "Gestion des projets :"
+
+#: ../AMC-gui.pl:1914
+msgid "Change project name:"
+msgstr "Changement du nom d'un projet :"
+
+#: ../AMC-gui.pl:1919
+msgid "Back"
+msgstr "Retour"
+
+#. TRANSLATORS: Window title when managing projects.
+#: ../AMC-gui.pl:1922
+msgid "AMC projects management"
+msgstr "Gestion des projets AMC"
+
+#: ../AMC-gui.pl:1946
+#, perl-format
+msgid "You don't have any MC project in directory %s!"
+msgstr "Vous n'avez aucun projet de QCM dans le répertoire %s !"
+
+#: ../AMC-gui.pl:1955 ../AMC-gui-choix_projet.glade:250
+msgid "Choose directory"
+msgstr "Choisir le répertoire"
+
+#: ../AMC-gui.pl:1999
+#, perl-format
+msgid "You can't change project %s since it's open."
+msgstr "Vous ne pouvez pas modifier le projet %s car il est ouvert."
+
+#: ../AMC-gui.pl:2020
+#, perl-format
+msgid "This will clone project <b>%s</b> to a new project <i>%s</i>."
+msgstr "Ceci créera une copie du projet <b>%s</b> vers un nouveau projet <i>%s</i>."
+
+#. TRANSLATORS: Message when you want to create an AMC project with name xxx, but there already exists a directory in the projects directory with this name!
+#: ../AMC-gui.pl:2085
+#, perl-format
+msgid "Directory <i>%s</i> already exists, so you can't choose this name."
+msgstr "Un répertoire <i>%s</i> existe déjà. Vous ne pouvez donc pas renommer ce projet ainsi."
+
+#: ../AMC-gui.pl:2123
+msgid "Destination project directory already exists"
+msgstr "Le répertoire destination existe déjà"
+
+#: ../AMC-gui.pl:2135
+msgid "Copying project..."
+msgstr "Copie du projet..."
+
+#: ../AMC-gui.pl:2160
+msgid "Your project has been copied"
+msgstr "Votre projet a été copié"
+
+#: ../AMC-gui.pl:2161
+#, perl-format
+msgid "(%d files out of %d)"
+msgstr "(%d fichiers parmi %d)"
+
+#: ../AMC-gui.pl:2168
+msgid "Source project directory not found"
+msgstr "Le répertoire du projet source n'a pas été trouvé"
+
+#: ../AMC-gui.pl:2176
+#, perl-format
+msgid "An error occuried during project copy: %s."
+msgstr "Une erreur s'est produite durant la copie du projet : %s."
+
+#: ../AMC-gui.pl:2196
+#, perl-format
+msgid "You asked to remove project <b>%s</b>."
+msgstr "Vous avez demandé la suppression du projet <b>%s</b>."
+
+#: ../AMC-gui.pl:2197
+msgid "This will permanently erase all the files of this project, including the source file as well as all the files you put in the directory of this project, as the scans for example."
+msgstr "Ceci va effacer définitivement tous les fichiers de ce projet, y compris le sujet ainsi que tous les fichiers que vous avez pu mettre dans le répertoire de ce projet, comme les scans par exemple."
+
+#: ../AMC-gui.pl:2198
+msgid "Is this really what you want?"
+msgstr "Est-ce bien ce que vous désirez ?"
+
+#: ../AMC-gui.pl:2246
+#, perl-format
+msgid "You selected directory <b>%s</b> as a project to open."
+msgstr "Vous avez choisi d'ouvrir le projet <b>%s</b>."
+
+#: ../AMC-gui.pl:2247
+msgid "However, this directory does not seem to contain a project. Do you still want to try?"
+msgstr "Cependant, ce répertoire ne semble pas contenir de projet AMC. Voulez-vous essayer tout de même ?"
+
+#: ../AMC-gui.pl:2263
+#, perl-format
+msgid "You selected project <b>%s</b> from directory <i>%s</i>."
+msgstr "Vous avez choisi d'ouvrir le projet <b>%s</b> dans le répertoire <i>%s</i>."
+
+#: ../AMC-gui.pl:2264
+msgid "Do you want to copy this project to your projects directory before opening it?"
+msgstr "Voulez-vous copier ce projet dans votre répertoire de projets personnel avant de l'ouvrir ?"
+
+#: ../AMC-gui.pl:2323
+#, perl-format
+msgid "The name <b>%s</b> is already used in the projects directory."
+msgstr "Le nom <b>%s</b> est déjà utilisé dans le répertoire des projets."
+
+#: ../AMC-gui.pl:2324
+msgid "You must choose another name to create a project."
+msgstr "Pour créer un nouveau projet, il faut choisir un autre nom."
+
+#: ../AMC-gui.pl:2358 ../AMC-gui.pl:4709
+#, perl-format
+msgid "Error writing to options file %s: %s"
+msgstr "Erreur à l'écriture du fichier d'options %s : %s"
+
+#: ../AMC-gui.pl:2384
+msgid "LaTeX packages:"
+msgstr "Paquets LaTeX :"
+
+#: ../AMC-gui.pl:2385
+msgid "Commands:"
+msgstr "Commandes :"
+
+#: ../AMC-gui.pl:2386
+msgid "Fonts:"
+msgstr "Polices :"
+
+#: ../AMC-gui.pl:2404
+msgid "Papers analysis was already made on the basis of the current working documents."
+msgstr "L'analyse de certaines copies a déjà été effectuée sur la base des documents de travail actuels."
+
+#: ../AMC-gui.pl:2405
+msgid "You already made the examination on the basis of these documents."
+msgstr "Vous avez donc vraisemblablement déjà effectué l'examen sur la base de ces documents."
+
+#: ../AMC-gui.pl:2406
+msgid "If you modify working documents, you will not be capable any more of analyzing the papers you have already distributed!"
+msgstr "Si vous modifiez les documents de travail, vous ne serez plus en mesure d'analyser les copies que vous avez déjà distribuées !"
+
+#: ../AMC-gui.pl:2407 ../AMC-gui.pl:2432 ../AMC-gui.pl:3736 ../AMC-gui.pl:3741
+msgid "Do you wish to continue?"
+msgstr "Souhaitez-vous tout de même continuer ?"
+
+#: ../AMC-gui.pl:2408 ../AMC-gui.pl:2433
+msgid "Click on OK to erase the former layouts and update working documents, or on Cancel to cancel this operation."
+msgstr "Cliquez sur Valider pour effacer les anciennes mises en page et mettre à jour les documents de travail, ou sur Annuler pour annuler cette opération."
+
+#: ../AMC-gui.pl:2409 ../AMC-gui.pl:2434 ../AMC-gui.pl:3738
+msgid "To allow the use of an already printed question, cancel!"
+msgstr "Pour permettre l'utilisation d'un sujet déjà imprimé, annulez !"
+
+#: ../AMC-gui.pl:2430
+msgid "Layouts are already calculated for the current documents."
+msgstr "Certaines mises en page on déjà été calculées pour les documents actuels."
+
+#: ../AMC-gui.pl:2431
+msgid "Updating working documents, the layouts will become obsolete and will thus be erased."
+msgstr "En refabriquant les documents de travail, les mises en page deviendront obsolètes et seront donc effacées."
+
+#: ../AMC-gui.pl:2461
+#, perl-format
+msgid "To handle properly <i>%s</i> files, AMC needs the following components, that are currently missing:"
+msgstr "Pour gérer le format de fichier <i>%s</i>, AMC a besoin des composants suivants, qui ne sont actuellement pas installés :"
+
+#: ../AMC-gui.pl:2473
+msgid "Install these components on your system and try again."
+msgstr "Installez ces composants sur votre système et essayez de nouveau."
+
+#: ../AMC-gui.pl:2522
+msgid "Documents update..."
+msgstr "Mise à jour des documents..."
+
+#: ../AMC-gui.pl:2532
+msgid "Problems while preparing documents"
+msgstr "Erreur lors de la préparation des documents"
+
+#: ../AMC-gui.pl:2534
+msgid "Problems while processing the source file."
+msgstr "La compilation de votre fichier source a occasionné des erreurs."
+
+#: ../AMC-gui.pl:2536
+msgid "You have to correct the source file and re-run documents update."
+msgstr "Vous devez corriger votre fichier source pour obtenir une mise à jour des documents."
+
+#: ../AMC-gui.pl:2539
+msgid "<b>Errors</b>"
+msgstr "<b>Erreurs</b>"
+
+#: ../AMC-gui.pl:2540
+msgid "Only first ten errors written"
+msgstr "Seules les dix premières erreurs ont été retranscrites"
+
+#: ../AMC-gui.pl:2544
+msgid "<b>Warnings</b>"
+msgstr "<b>Avertissements</b>"
+
+#: ../AMC-gui.pl:2545
+msgid "Only first ten warnings written"
+msgstr "Seules les dix premièrs avertissements ont été retranscrits"
+
+#. TRANSLATORS: Here, %s will be replaced with the translation of "Command output details", and refers to the small expandable part at the bottom of AMC main window, where one can see the output of the commands lauched by AMC.
+#: ../AMC-gui.pl:2551
+#, perl-format
+msgid "See also the processing log in '%s' below."
+msgstr "Regardez la sortie dans '%s' ci-dessous."
+
+#. TRANSLATORS: Title of the small expandable part at the bottom of AMC main window, where one can see the output of the commands lauched by AMC.
+#: ../AMC-gui.pl:2553 ../AMC-gui-main_window.glade:2601
+msgid "Command output details"
+msgstr "Détail de la sortie des commandes"
+
+#: ../AMC-gui.pl:2554
+msgid "Use LaTeX editor or latex command for a precise diagnosis."
+msgstr "Utilisez votre éditeur LaTeX ou la commande latex pour un diagnostic précis des erreurs."
+
+#: ../AMC-gui.pl:2565
+msgid "Documents have been prepared"
+msgstr "Les documents ont été préparés"
+
+#: ../AMC-gui.pl:2587
+msgid "Working documents successfully generated."
+msgstr "Les documents de travail ont bien été générés."
+
+#. TRANSLATORS: Here, "them" refers to the working documents.
+#: ../AMC-gui.pl:2589
+msgid "You can take a look at them double-clicking on the list."
+msgstr "Vous pouvez y jeter un œil grâce à un double-clic sur les lignes de la liste correspondante."
+
+#. TRANSLATORS: Here, "they" refers to the working documents.
+#: ../AMC-gui.pl:2591
+msgid "If they are correct, proceed to layouts detection..."
+msgstr "Si tout vous parraît correct, l'étape suivante est la détection des mises en page..."
+
+#: ../AMC-gui.pl:2616
+msgid "Your question has a separate answers sheet."
+msgstr "Votre sujet propose une feuille de réponses séparée."
+
+#: ../AMC-gui.pl:2617
+msgid "In this case, letters are shown inside boxes."
+msgstr "Dans ce cas, des lettres sont inscrites dans les cases à cocher."
+
+#: ../AMC-gui.pl:2618
+msgid "Your question is set to present labels inside the boxes to be ticked."
+msgstr "Votre sujet présente des symboles à l'intérieur des cases à cocher."
+
+#. TRANSLATORS: Here, %s will be replaced with the translation of "darkness threshold".
+#: ../AMC-gui.pl:2621
+#, perl-format
+msgid "For better ticking detection, ask students to fill out completely boxes, and choose parameter \"%s\" around 0.5 for this project."
+msgstr "Pour une bonne détection des cases à cocher, il faut donc demander aux étudiants de remplir totalement les cases voulues, et aussi fixer le paramètre \"%s\" du projet à une valeur de l'ordre de 0.5."
+
+#: ../AMC-gui.pl:2622
+#, perl-format
+msgid "At the moment, this parameter is set to %.02f."
+msgstr "Pour l'instant, la valeur de ce paramètre est %.02f."
+
+#: ../AMC-gui.pl:2623
+msgid "Would you like to set it to 0.5?"
+msgstr "Voulez-vous changer cette valeur en 0.5 ?"
+
+#. TRANSLATORS: This parameter is the ratio of dark pixels number over total pixels number inside box above which a box is considered to be ticked.
+#: ../AMC-gui.pl:2625
+msgid "darkness threshold"
+msgstr "seuil de noirceur"
+
+#. TRANSLATORS: Message when the user required printing the question paper, but it is not present (probably the working documents have not been properly generated).
+#: ../AMC-gui.pl:2704
+msgid "You don't have any question to print: please check your source file and update working documents first."
+msgstr "Vous n'avez pas de sujet à imprimer : veuillez vérifier votre fichier source et mettre à jour les documents de travail."
+
+#. TRANSLATORS: Message when AMC does not know about the subject pages that has been generated. Usualy this means that the layout computation step has not been made.
+#: ../AMC-gui.pl:2720
+msgid "Question's pages are not detected."
+msgstr "Aucune copie n'a été détectée sur le document de calage."
+
+#: ../AMC-gui.pl:2721
+msgid "Perhaps you forgot to compute layouts?"
+msgstr "Peut-être avez-vous oublié de calculer les mises en page ?"
+
+#: ../AMC-gui.pl:2743
+#, perl-format
+msgid "You chose the printing method '%s' but it is not available (%s). Please install the missing dependencies or switch to another printing method."
+msgstr "Vous avez choisi la méthode d'impression '%s' mais celle-ci n'est pas disponible (%s). Veuillez installer les dépendances manquantes ou choisir une autre méthode d'impression."
+
+#: ../AMC-gui.pl:2764
+msgid "You chose a printing method using CUPS but there are no configured printer in CUPS. Please configure some printer or switch to another printing method."
+msgstr "Vous avez choisi la méthode d'impression '%s' mais aucune imprimante n'est configurée dans CUPS. Veuillez en configurer ou choisir une autre méthode d'impression."
+
+#. TRANSLATORS: This is the title of the column containing the paper's numbers (1,2,3,...) in the table showing all available papers, from which the user will choose those he wants to print.
+#: ../AMC-gui.pl:2828
+msgid "papers"
+msgstr "copies"
+
+#: ../AMC-gui.pl:2913
+msgid "You did not select any exam to print..."
+msgstr "Vous n'avez sélectionné aucune copie à imprimer."
+
+#: ../AMC-gui.pl:2932 ../AMC-gui.pl:2947
+msgid "You selected only a few sheets to print."
+msgstr "Vous n'avez sélectionné que quelques copies à imprimer."
+
+#: ../AMC-gui.pl:2933
+msgid "As students are requested to write on more than one page, you must create as many exam sheets as necessary for all your students, with different sheets numbers, and print them all."
+msgstr "Comme les étudiants doivent remplir plusieurs pages, vous devez créer assez de copies pour tous les étudiants, avec des numéros de copie différents, et les imprimer toutes."
+
+#: ../AMC-gui.pl:2934
+msgid "If you print one or several sheets and photocopy them to have enough for all the students, <b>you won't be able to continue with AMC!</b>"
+msgstr "Si vous imprimez une ou quelques copies et les photocopiez pour en avoir assez pour tous vos étudiants, <b>vous ne pourrez pas continuer avec AMC !</b>"
+
+#: ../AMC-gui.pl:2935
+msgid "Do you want to print the selected sheets anyway?"
+msgstr "Voulez-vous imprimer les copies sélectionnées tout de même ?"
+
+#: ../AMC-gui.pl:2948
+msgid "Are you going to photocopy some printed subjects before giving them to the students?"
+msgstr "Allez-vous photocopier certains sujets imprimés avant de les distribuer aux étudiants ?"
+
+#: ../AMC-gui.pl:2949
+msgid "If so, the corresponding option will be set for this project."
+msgstr "Dans l'affirmative, le paramètre correspondant sera changé pour ce projet."
+
+#: ../AMC-gui.pl:2950
+msgid "However, you will be able to change this when giving your first scans to AMC."
+msgstr "Vous pourrez toujours le modifier lors de la première saisie."
+
+#. TRANSLATORS: the two %s will be replaced by the translations of "Answer sheet first" and "Extracting method".
+#: ../AMC-gui.pl:2972
+#, perl-format
+msgid "You selected the '%s' option, that uses 'pdftk', so the %s has been set to 'pdftk' for you."
+msgstr "Vous avez sélectioné l'option '%s' qui utilise 'pdftk donc %s a utilisé 'pdftk'"
+
+#: ../AMC-gui.pl:2973 ../AMC-gui-edit_preferences.glade:951
+msgid "Extracting method"
+msgstr "Méthode d'extraction"
+
+#: ../AMC-gui.pl:2985
+#, perl-format
+msgid "You selected the '%s' option, but this option needs 'pdftk' to be installed on your system. Please install it and try again."
+msgstr "Vous avez sélectionné l'option '%s' mais cela nécessite que 'pdftk' soit installé sur votre systeme. Installez-le puis réessayez."
+
+#: ../AMC-gui.pl:3024
+msgid "Print papers one by one..."
+msgstr "Impression copie par copie..."
+
+#: ../AMC-gui.pl:3070
+msgid "Working documents are in an old format, which is not supported anymore."
+msgstr "Les documents de travail sont dans un vieux format qui n'est plus supporté."
+
+#: ../AMC-gui.pl:3071
+msgid "Please generate again the working documents!"
+msgstr "Veuillez remettre à jour les documents de travail !"
+
+#: ../AMC-gui.pl:3085
+msgid "Detecting layouts..."
+msgstr "Calcul des mises en page..."
+
+#: ../AMC-gui.pl:3101
+msgid "No layout detected."
+msgstr "Aucune mise en page n'a été fabriquée."
+
+#: ../AMC-gui.pl:3102
+msgid "<b>Don't go through the examination</b> before fixing this problem, otherwise you won't be able to use AMC for correction."
+msgstr "<b>Ne faites pas passer l'examen</b> avant d'avoir réglé le problème, sinon vous ne pourrez pas utiliser AMC pour la correction."
+
+#: ../AMC-gui.pl:3108
+msgid "Layouts are detected."
+msgstr "Les mises en page sont maintenant détectées."
+
+#: ../AMC-gui.pl:3109
+#, perl-format
+msgid "You can check all is correct clicking on button <i>%s</i> and looking at question pages to see if red boxes are well positioned."
+msgstr "Vous pouvez vérifier que tout est correct en cliquant sur le bouton <i>%s</i> et en navigant dans les pages du sujet pour vérifier que les cases à cocher sont bien marquées en rouge à la bonne position."
+
+#: ../AMC-gui.pl:3109 ../AMC-gui-main_window.glade:807
+msgid "Check layouts"
+msgstr "Vérifier les mises en page"
+
+#: ../AMC-gui.pl:3110
+msgid "Then you can proceed to printing and to examination."
+msgstr "Vous pouvez ensuite passer à l'impression des copies et faire passer l'examen."
+
+#: ../AMC-gui.pl:3181
+msgid "No layout for this project."
+msgstr "Aucune mise en page n'est disponible pour ce projet."
+
+#. TRANSLATORS: Here, the first %s will be replaced with "Layout detection" (a button title), and the second %s with "Preparation" (the tab title where one can find this button).
+#: ../AMC-gui.pl:3183
+#, perl-format
+msgid "Please use button <i>%s</i> in <i>%s</i> before manual data capture."
+msgstr "Veuillez utiliser le bouton <i>%s</i> de l'onglet <i>%s</i> avant la saisie manuelle."
+
+#: ../AMC-gui.pl:3184 ../AMC-gui-main_window.glade:762
+msgid "Layout detection"
+msgstr "Calculer les mises en page"
+
+#: ../AMC-gui.pl:3185 ../AMC-gui-main_window.glade:906
+msgid "Preparation"
+msgstr "Préparation"
+
+#: ../AMC-gui.pl:3222
+#, perl-format
+msgid "Pre-allocate sheet ids from the page numbers, starting at %d"
+msgstr "Pré-allocation des identifiants de copies, en commençant à %d"
+
+#: ../AMC-gui.pl:3249
+msgid "Automatic data capture can be done in two different modes:"
+msgstr "La saisie automatique de vos scans peut être faite dans deux différents modes :"
+
+#: ../AMC-gui.pl:3254
+msgid "In the most robust one, you give a different exam (with a different exam number) to every student. You must not photocopy subjects before distributing them."
+msgstr "Dans le plus robuste, vous distribuez une copie différente (avec un numéro de copie différent) à chaque étudiant. Vous ne devez pas photocopier ces copies avant de les distribuer."
+
+#: ../AMC-gui.pl:3259
+msgid "In the second one (which can be used only if answer sheets to be scanned have one page per candidate) you can photocopy answer sheets and give the same subject to different students."
+msgstr "Dans le deuxième (qui ne peut être utilisé que si les étudiants ont à remplir une unique page), vous pouvez photocopier les sujets et donner la même copie photocopiée à plusieurs étudiants."
+
+#: ../AMC-gui.pl:3260
+msgid "After the first automatic capture, you can't switch to the other mode."
+msgstr "Après la première saisie, vous ne pourrez pas changer de mode."
+
+#: ../AMC-gui.pl:3372
+msgid "Automatic data capture..."
+msgstr "Saisie automatique..."
+
+#: ../AMC-gui.pl:3382
+msgid "Automatic data capture has been completed"
+msgstr "La saisie automatique est terminée"
+
+#. TRANSLATORS: Names list file : (none)
+#: ../AMC-gui.pl:3467
+msgid "(none)"
+msgstr "(aucune)"
+
+#: ../AMC-gui.pl:3486
+#, perl-format
+msgid "Unsuitable names file: %d errors, first on line %d."
+msgstr "Le fichier choisi ne convient pas : %d erreurs détectées, la première en ligne %d."
+
+#. TRANSLATORS: Here, do not translate 'name' and 'surname' (except in french), as the column names in the students list file has to be named in english in order to be properly detected.
+#: ../AMC-gui.pl:3502
+#, perl-format
+msgid "Found %d empty names in names file <i>%s</i>. Check that <b>name</b> or <b>surname</b> column is present, and always filled."
+msgstr "%d noms vides ont été trouvés dans le fichier de noms <i>%s</i>. Vérifiez qu'une colonne <b>nom</b> ou <b>prenom</b> est bien présente et toujours renseignée."
+
+#: ../AMC-gui.pl:3503 ../AMC-gui.pl:3518
+msgid "Edit the names file to correct it, and re-read."
+msgstr "Éditez le fichier de noms d'étudiants pour le corriger, et appuyez sur \"Re-lire\"."
+
+#: ../AMC-gui.pl:3518
+#, perl-format
+msgid "Found duplicate names: <i>%s</i>. Check that all names are different."
+msgstr "Des noms ont été trouvé en double : <i>%s</i>. Vérifiez que tous les noms d'étudiants sont différents."
+
+#. TRANSLATORS: Here, %s will be replaced with the name of the tab "Data capture".
+#: ../AMC-gui.pl:3548
+#, perl-format
+msgid "Before associating names to papers, you must choose a students list file in tab \"%s\"."
+msgstr "Avant d'associer les noms aux copies, il faut indiquer un fichier de liste des étudiants dans l'onglet « %s »."
+
+#. One of the "notify the user at the end of the following actions" checkbox: for automatic data capture.
+#: ../AMC-gui.pl:3549 ../AMC-gui-edit_preferences.glade:1598
+#: ../AMC-gui-main_window.glade:1296
+msgid "Data capture"
+msgstr "Saisie"
+
+#: ../AMC-gui.pl:3557
+msgid "Please choose a key from primary keys in students list before association."
+msgstr "Aucun identifiant n'a été choisi parmi les titres de colonnes du fichier contenant la liste des étudiants."
+
+#: ../AMC-gui.pl:3565
+msgid "Please choose a code (made with LaTeX command \\AMCcode) before automatic association."
+msgstr "Aucun code n'a été choisi parmi les codes (éventuellement fabriqués avec la commande LaTeX \\AMCcode) disponibles."
+
+#. TRANSLATORS: Here, %s will be replaced with "Students identification", which refers to a paragraph in the tab "Marking" from AMC main window.
+#: ../AMC-gui.pl:3610
+#, perl-format
+msgid "Before associating names to papers, you must choose a students list file in paragraph \"%s\"."
+msgstr "Avant d'associer les noms aux copies, il faut indiquer un fichier de liste des étudiants au paragraphe « %s »."
+
+#: ../AMC-gui.pl:3611
+msgid "Students identification"
+msgstr "Identification des étudiants"
+
+#: ../AMC-gui.pl:3634
+msgid "Automatic association..."
+msgstr "Association automatique..."
+
+#: ../AMC-gui.pl:3655
+#, perl-format
+msgid "Automatic association completed: %d students recognized."
+msgstr "L'association automatique a détecté %d copies d'étudiants."
+
+#. TRANSLATORS: Here %s and %s will be replaced with two parameters names: "Primary key from this list" and "Code name for automatic association".
+#: ../AMC-gui.pl:3657
+#, perl-format
+msgid "Please check \"%s\" and \"%s\" values and try again."
+msgstr "Vérifiez la valeur des champs \"%s\" et \"%s\" et essayez encore."
+
+#: ../AMC-gui.pl:3658
+msgid "Primary key from this list"
+msgstr "Identifiant unique dans cette liste"
+
+#: ../AMC-gui.pl:3659
+msgid "Code name for automatic association"
+msgstr "Titre du code pour association automatique"
+
+#: ../AMC-gui.pl:3665
+msgid "Automatic association is now finished. You can ask for manual association to check that all is fine and, if necessary, read manually students names which have not been automatically identified."
+msgstr "L'association automatique est maintenant terminée. Vous pouvez demander une association manuelle pour voir si tout s'est bien passé et lire manuellement les noms des étudiants pour lesquels l'association automatique n'a pas fonctionné."
+
+#: ../AMC-gui.pl:3735
+msgid "The working documents are already prepared with the current file format. If you change the file format, working documents and all other data for this project will be ereased."
+msgstr "Les documents de travail sont déjà préparés en utilisant le format de fichier source actuel. Si vous modifiez ce format, les documents de travail et toutes les données de ce projet vont être effacés."
+
+#: ../AMC-gui.pl:3737 ../AMC-gui.pl:3742
+msgid "Click on Ok to erease old working documents and change file format, and on Cancel to get back to the same file format."
+msgstr "Cliquez sur Ok pour effacer les anciens documents de travail et modifier le format de fichier source, ou sur Annuler pour garder le format de fichier actuel."
+
+#: ../AMC-gui.pl:3740
+msgid "The working documents are already prepared with the current file format. If you change the file format, working documents will be ereased."
+msgstr "Les documents de travail sont déjà préparés en utilisant le format de fichier source actuel. Si vous modifiez ce format, les documents de travail vont être effacés et devront être générés de nouveau."
+
+#: ../AMC-gui.pl:3790
+#, perl-format
+msgid "You can't choose column '%s' as a key in the students list, as it contains duplicates (value '%s')"
+msgstr "Vous ne pouvez pas choisir la colonne \"%s\" comme identifiant dans la liste des étudiants, car elle contient des doublons (la valeur \"%s\" par exemple)"
+
+#: ../AMC-gui.pl:3826 ../AMC-gui.pl:3850
+#, perl-format
+msgid "The primary key from the students list has been set to \"%s\", which is not the value from the association data."
+msgstr "L'identifiant unique de la liste des étudiants a été fixé à \"%s\", valeur différente de celle utilisée pour l'association actuelle."
+
+#: ../AMC-gui.pl:3827
+#, perl-format
+msgid "Some manual association data has be found, which will be lost if the primary key is changed. Do you want to switch back to the primary key \"%s\" and keep association data?"
+msgstr "Une association manuelle e déjà été effectuée, et sera perdue si l'identifiant unique est modifié. Voulez-vous revenir à l'identifiant unique \"%s\" et conserver l'association actuelle ?"
+
+#: ../AMC-gui.pl:3851
+msgid "Automatic papers/students association will be re-run to update the association data."
+msgstr "L'association automatique va être refaite."
+
+#: ../AMC-gui.pl:3876
+#, perl-format
+msgid "Papers are not yet corrected: use button \"%s\"."
+msgstr "Les copies ne sont pas encore corrigées : veuillez d'abord utiliser le bouton « %s »."
+
+#. TRANSLATORS: This is a button: "Mark" is here an action to be called by the user. When clicking this button, the user requests scores to be computed for all students.
+#: ../AMC-gui.pl:3878 ../AMC-gui-main_window.glade:1391
+msgid "Mark"
+msgstr "Corriger"
+
+#: ../AMC-gui.pl:3908
+msgid "Extracting marking scale..."
+msgstr "Analyse du bareme..."
+
+#: ../AMC-gui.pl:4113
+msgid "Computing marks..."
+msgstr "Calcul des notes..."
+
+#: ../AMC-gui.pl:4118
+msgid "Grading has been completed"
+msgstr "La notation est terminée"
+
+#. TRANSLATORS: This is the marks mean for all students.
+#: ../AMC-gui.pl:4132
+#, perl-format
+msgid "Mean: %.2f"
+msgstr "Moyenne : %.2f"
+
+#: ../AMC-gui.pl:4135
+msgid "No marks computed"
+msgstr "Aucun calcul de notes"
+
+#: ../AMC-gui.pl:4153
+msgid "Pre-association"
+msgstr "Pré-association"
+
+#: ../AMC-gui.pl:4166
+msgid "No students list file"
+msgstr "Aucune liste d'étudiants"
+
+#: ../AMC-gui.pl:4168
+msgid "No primary key from students list file"
+msgstr "Pas d'identifiant unique défini dans la liste des étudiants"
+
+#: ../AMC-gui.pl:4174
+#, perl-format
+msgid "Missing identification for %d answer sheets"
+msgstr "Il manque l'identification de %d copies"
+
+#: ../AMC-gui.pl:4176
+msgid "All completed answer sheets are associated with a student name"
+msgstr "Toutes les copies sont associées à un étudiant"
+
+#: ../AMC-gui.pl:4239
+msgid "exam ID"
+msgstr "copie"
+
+#: ../AMC-gui.pl:4254
+msgid "student"
+msgstr "étudiant"
+
+#. TRANSLATORS: File name for single annotated answer sheets with only some selected students. Please use simple characters.
+#: ../AMC-gui.pl:4385
+msgid "Selected_students"
+msgstr "Etudiants_selectionnes"
+
+#. TRANSLATORS: File name for single annotated answer sheets with all students. Please use simple characters.
+#: ../AMC-gui.pl:4387
+msgid "All_students"
+msgstr "Tous_etudiants"
+
+#: ../AMC-gui.pl:4433
+msgid "Annotating papers..."
+msgstr "Annotation des copies..."
+
+#: ../AMC-gui.pl:4437
+msgid "Annotations have been completed"
+msgstr "Les annotations sont terminées"
+
+#: ../AMC-gui.pl:4546
+#, perl-format
+msgid "Project \"%s\" preferences"
+msgstr "Préférences du projet « <b>%s</b> »"
+
+#: ../AMC-gui.pl:4549
+msgid "Project preferences"
+msgstr "Préférences du projet"
+
+#: ../AMC-gui.pl:4656
+#, perl-format
+msgid "You modified \"<b>%s</b>\" value, which is the default value used when creating new projects. Do you want to change also \"<b>%s</b>\" for the opened <i>%s</i> project?"
+msgstr "Vous avez modifié la valeur de \"<b>%s</b>\", qui est une valeur par défaut et ne sera utilisée que pour les nouveaux projets. Souhaitez-vous modifier aussi la valeur de \"<b>%s</b>\" pour le projet en cours <i>%s</i> de la même manière ?"
+
+#: ../AMC-gui.pl:4763
+msgid "Working documents are not readable"
+msgstr "Les documents de travail ne sont pas lisibles"
+
+#: ../AMC-gui.pl:4766
+msgid "No working documents"
+msgstr "Pas de documents de travail"
+
+#: ../AMC-gui.pl:4769
+msgid "Working documents last update:"
+msgstr "Dernière mise à jour des documents de travail :"
+
+#: ../AMC-gui.pl:4813
+msgid "No layout"
+msgstr "Pas de mise en page"
+
+#: ../AMC-gui.pl:4816
+#, perl-format
+msgid "Processed %d pages"
+msgstr "%d pages traitées"
+
+#: ../AMC-gui.pl:4819
+msgid "but some defects were detected."
+msgstr "mais des défauts ont été détectés."
+
+#: ../AMC-gui.pl:4831
+msgid "The \\namefield command is not used. Writing subjects without name field is not recommended"
+msgstr "La commande \\champnom n'est pas utilisée. Cette pratique est fortement déconseillée"
+
+#: ../AMC-gui.pl:4832
+msgid "The \\namefield command is used several times for the same subject. This should not be the case, as each student should write his name only once"
+msgstr "La commande \\champnom est utilisée plusieurs fois pour un même sujet. Ceci ne devrait pas être le cas, car chaque étudiant ne devrait avoir à écrire son nom qu'une fois"
+
+#: ../AMC-gui.pl:4833
+msgid "No box to be ticked"
+msgstr "Aucune case à cocher"
+
+#: ../AMC-gui.pl:4834
+msgid "The corner marks and binary boxes are not at the same location on all pages"
+msgstr "Les marques de coin ne sont pas au même endroit sur toutes les pages"
+
+#: ../AMC-gui.pl:4841
+msgid "Some potential defects were detected for this subject. Correct them in the source and update the working documents."
+msgstr "Des défauts ont été détectés dans ce sujet. Corrigez-les dans le fichier source et mettez à jour les documents de travail."
+
+#: ../AMC-gui.pl:4847
+#, perl-format
+msgid "(See for example pages %s and %s)"
+msgstr "(Voir par exemple les pages %s et %s)"
+
+#: ../AMC-gui.pl:4854
+#, perl-format
+msgid "(Concerns %1$d exams, see for example sheet %2$d)"
+msgstr "(Cela concerne %1$d sujets, voir par exemple le numéro %2$d)"
+
+#: ../AMC-gui.pl:4969
+#, perl-format
+msgid "Data capture from %d complete papers and %d incomplete papers"
+msgstr "Saisie de %d copie(s) complète(s) et %d copie(s) incomplète(s)"
+
+#: ../AMC-gui.pl:4973
+#, perl-format
+msgid "Data capture from %d complete papers"
+msgstr "Saisie de %d copie(s) complète(s)"
+
+#. TRANSLATORS: this text points out that no data capture has been made yet.
+#: ../AMC-gui.pl:4978
+msgid "No data"
+msgstr "Aucune saisie"
+
+#: ../AMC-gui.pl:4986
+msgid "All scans were properly recognized."
+msgstr "Tous les scans ont été correctement reconnus."
+
+#: ../AMC-gui.pl:4994
+#, perl-format
+msgid "%d scans were not recognized."
+msgstr "%d scans n'ont pas été reconnus."
+
+#: ../AMC-gui.pl:5028
+msgid "Looking for analysis..."
+msgstr "Recherche des analyses effectuées..."
+
+#: ../AMC-gui.pl:5068
+msgid "Automatic data capture now completed."
+msgstr "La saisie automatique de vos scans est maintenant terminée."
+
+#: ../AMC-gui.pl:5069
+#, perl-format
+msgid "It is not complete (missing pages from %d papers)."
+msgstr "Elle n'est pas complète (il manque certaines pages pour %d copie(s))."
+
+#: ../AMC-gui.pl:5070
+msgid "You can analyse data capture quality with some indicators values in analysis list:"
+msgstr "Vous pouvez analyser la qualité de la détection grâce à la valeur des indicateurs donnée dans la liste des analyses :"
+
+#: ../AMC-gui.pl:5072
+#, perl-format
+msgid "- <b>%s</b> represents positioning gap for the four corner marks. Great value means abnormal page distortion."
+msgstr "- <b>%s</b> représente l'écart de positionnement des quatre marques de coin. Une grande valeur signale une déformation anormale de la page."
+
+#: ../AMC-gui.pl:5074
+#, perl-format
+msgid "- great values of <b>%s</b> are seen when darkness ratio is very close to the threshold for some boxes."
+msgstr "- une grande valeur de <b>%s</b> correspond à une situation dans laquelle le taux de remplissage de certaines cases est très proche du seuil défini."
+
+#: ../AMC-gui.pl:5076
+#, perl-format
+msgid "You can also look at the scan adjustment (<i>%s</i>) and ticked and unticked boxes (<i>%s</i>) using right-click on lines from table <i>%s</i>."
+msgstr "Vous pouvez aussi observer le calage du scan (<i>%s</i>) ainsi que les cases cochées ou non (<i>%s</i>) en utilisant le menu déployé par un clic-droit sur chaque ligne du tableau <i>%s</i>."
+
+#: ../AMC-gui.pl:5076
+msgid "Diagnosis"
+msgstr "Diagnostic"
+
+#: ../AMC-gui.pl:5103
+msgid "Pages that miss data capture to complete students sheets:"
+msgstr "Pages pour lesquels il manque une saisie :"
+
+#: ../AMC-gui.pl:5212
+#, perl-format
+msgid "Error loading scan %s"
+msgstr "Erreur lors du chargement du scan %s"
+
+#: ../AMC-gui.pl:5218
+msgid "No scan selected"
+msgstr "Aucun scan sélectionné"
+
+#: ../AMC-gui.pl:5282
+msgid "Making diagnostic image..."
+msgstr "Fabrication de l'image de diagnostic..."
+
+#: ../AMC-gui.pl:5305
+#, perl-format
+msgid ""
+"Names list file for this project is:\n"
+"%s"
+msgstr ""
+"Le fichier contenant la liste des étudiants de ce projet est situé à l'emplacement suivant :\n"
+"%s"
+
+#: ../AMC-gui.pl:5306
+msgid "(no file)"
+msgstr "(aucun fichier)"
+
+#: ../AMC-gui.pl:5366
+msgid "(no description)"
+msgstr "(aucune description)"
+
+#. TRANSLATORS: This is a column title for the list of files to be included in a template being created.
+#. TRANSLATORS: This is the title of a column containing attachments file paths in a table showing all attachments, when sending them to the students by email.
+#: ../AMC-gui.pl:5449 ../AMC-gui.pl:6444
+#: ../AMC-gui-source_latex_dialog.glade:76
+msgid "file"
+msgstr "fichier"
+
+#: ../AMC-gui.pl:5529
+msgid "Add files to template"
+msgstr "Ajout de fichiers au modèle"
+
+#: ../AMC-gui.pl:5549
+msgid "When making a template, you can only add files that are within the project directory."
+msgstr "Pour la fabrication d'un modèle, vous pouvez uniquement inclure des fichiers appartenant au répertoire projet."
+
+#. TRANSLATORS: This is a column name for the list of available templates, when creating a new project based on a template.
+#: ../AMC-gui.pl:5669 ../AMC-gui-source_latex_dialog.glade:93
+msgid "template"
+msgstr "modèle"
+
+#: ../AMC-gui.pl:5716
+msgid "All source files"
+msgstr "Tous fichiers source"
+
+#: ../AMC-gui.pl:5734
+#, perl-format
+msgid "%s files"
+msgstr "%s fichiers"
+
+#: ../AMC-gui.pl:5768
+msgid "Archive (zip, tgz)"
+msgstr "Fichier archive (zip, tgz)"
+
+#: ../AMC-gui.pl:5796
+#, perl-format
+msgid "Nothing extracted from archive %s. Check it."
+msgstr "Rien n'a pu être extrait du fichier %s. Vérifiez qu'il est correct."
+
+#: ../AMC-gui.pl:5923
+#, perl-format
+msgid "File %s already exists in project directory: do you wnant to replace it?"
+msgstr "Le fichier %s existe déjà dans le répertoire projet : voulez-vous écraser son ancien contenu ?"
+
+#: ../AMC-gui.pl:5924
+msgid "Click yes to replace it and loose pre-existing contents, or No to cancel source file import."
+msgstr "Cliquez sur oui pour remplacer le fichier pré-existant par celui que vous venez de sélectionner, ou sur non pour annuler l'import du fichier source."
+
+#: ../AMC-gui.pl:5940
+msgid "The source file has been copied to project directory."
+msgstr "Le fichier source a été copié dans le répertoire projet."
+
+#: ../AMC-gui.pl:5940
+#, perl-format
+msgid "You can now edit it with button \"%s\" or with any editor."
+msgstr "Vous pouvez maintenant l'éditer soit en utilisant le bouton \"%s\", soit directement grâce au logiciel de votre choix."
+
+#: ../AMC-gui.pl:5940 ../AMC-gui-main_window.glade:482
+msgid "Edit source file"
+msgstr "Éditer le fichier source"
+
+#: ../AMC-gui.pl:5948
+#, perl-format
+msgid "Error copying source file: %s"
+msgstr "Erreur durant la copie du fichier source : %s"
+
+#: ../AMC-gui.pl:6146
+#, perl-format
+msgid "You did not save project <i>%s</i> options, which have been modified: do you want to save them before leaving?"
+msgstr "Vous n'avez pas sauvegardé les options du projet <i>%s</i>, qui ont pourtant été modifiées : voulez-vous le faire avant de le quitter ?"
+
+#: ../AMC-gui.pl:6193
+msgid "You did not save main options, which have been modified: do you want to save them before leaving?"
+msgstr "Vous n'avez pas sauvegardé les options générales, qui ont pourtant été modifiées : voulez-vous le faire avant de le quitter ?"
+
+#: ../AMC-gui.pl:6218
+msgid "In order to send a useful bug report, please attach the following documents:"
+msgstr "Pour envoyer un rapport de bogue utilisable, veuillez joindre les documents suivants :"
+
+#: ../AMC-gui.pl:6219
+msgid "an archive (in some compressed format, like ZIP, 7Z, TGZ...) containing the <b>project directory</b>, <b>scan files</b> and <b>configuration directory</b> (.AMC.d in home directory), so as to reproduce and analyse this problem."
+msgstr "une archive (dans format comprimé tel que ZIP, 7Z , TGZ, etc.) contenant le <b>dossier du projet</b>, les <b>fichiers de scan</b> ainsi que le <b>répertoire de configuration</b> (.AMC.d dans le répertoire personnel), afin de reproduire et d'analyser le problème."
+
+#: ../AMC-gui.pl:6220
+msgid "the <b>log file</b> produced when the debugging mode (in Help menu) is checked. Please try to reproduce the bug with this mode activated."
+msgstr "le <b>fichier de log</b> produit quand le mode de débogage (dans le menu Aide) est coché. Merci d'essayer de reproduire la bogue pendant que ce mode est activé."
+
+#: ../AMC-gui.pl:6221
+#, perl-format
+msgid "Bug reports can be filled at %s or sent to the address below."
+msgstr "Les rapports de bogue peuvent être transmis sur %s ou être envoyés à l'adresse ci-dessous."
+
+#: ../AMC-gui.pl:6222 ../AMC-gui.pl:6226
+msgid "AMC community site"
+msgstr "le site de la communauté AMC"
+
+#: ../AMC-gui.pl:6280
+msgid "Attach file"
+msgstr "Joindre un fichier"
+
+#: ../AMC-gui.pl:6313
+msgid "There are no annotated corrected answer sheets to send."
+msgstr "Il n'y a aucune copie annotée à envoyer."
+
+#: ../AMC-gui.pl:6316
+msgid "Please group the annotated sheets to PDF files to be able to send them."
+msgstr "Veuillez regrouper les pages corrigées en un fichier PDF par étudiant pour les envoyer ensuite."
+
+#: ../AMC-gui.pl:6317
+msgid "Please annotate answer sheets and group them to PDF files to be able to send them."
+msgstr "Veuillez annoter les scans et les regrouper en fichiers PDF avant de pouvoir les envoyer."
+
+#: ../AMC-gui.pl:6347
+#, perl-format
+msgid "Sending emails requires some perl modules that are not installed: %s. Please install these modules and try again."
+msgstr "L'envoi de courriels nécessite la présence de certains modules perl qui ne sont pas installés sur votre système : %s. Veuillez les installer avant de recommencer."
+
+#: ../AMC-gui.pl:6365
+#, perl-format
+msgid "The email address you entered (%s) is not correct."
+msgstr "L'adresse courriel que vous avez entrée (%s) n'est pas correcte."
+
+#: ../AMC-gui.pl:6367
+msgid "Please edit your preferences to correct your email address."
+msgstr "Éditez les préférences pour corriger votre adresse de courriel."
+
+#: ../AMC-gui.pl:6369
+msgid "You did not enter your email address."
+msgstr "Vous n'avez pas entré votre adresse de courriel."
+
+#: ../AMC-gui.pl:6370
+msgid "Please edit the preferences to set your email address."
+msgstr "Veuillez éditer les préférences pour préciser votre adresse de courriel."
+
+#. TRANSLATORS: Do not translate the 'sendmail' word.
+#: ../AMC-gui.pl:6391
+#, perl-format
+msgid "The <i>sendmail</i> program cannot be found at the location you specified in the preferences (%s). Please update your configuration."
+msgstr "Le programme <i>sendmail</i> n'a pas pu être trouvé à l'endroit spécifié dans les préférences (%s). Veuillez corriger votre configuration."
+
+#: ../AMC-gui.pl:6411
+msgid "No email addresses has been found in the students list file. You need to write the students addresses in a column of this file."
+msgstr "Aucune adresse courriel n'a été trouvée dans la liste des étudiants. Vous devez entrer les adresses courriels des étudiants dans une colonne de cette liste."
+
+#. TRANSLATORS: This is the title of a column containing copy numbers in a table showing all annotated answer sheets, when sending them to the students by email.
+#: ../AMC-gui.pl:6459
+msgid "copy"
+msgstr "copie"
+
+#. TRANSLATORS: This is the title of a column containing students email addresses in a table showing all annotated answer sheets, when sending them to the students by email.
+#: ../AMC-gui.pl:6471
+msgid "email"
+msgstr "courriel"
+
+#. TRANSLATORS: This is the title of a column containing mailing status (not sent, already sent, failed) in a table showing all annotated answer sheets, when sending them to the students by email.
+#: ../AMC-gui.pl:6477
+msgid "status"
+msgstr "état"
+
+#: ../AMC-gui.pl:6496
+msgid "failed"
+msgstr "échec"
+
+#: ../AMC-gui.pl:6552
+msgid "Some files you asked to be attached to the emails are missing:"
+msgstr "Des fichiers que vous voulez joindre au courriel n'ont pas été trouvés :"
+
+#: ../AMC-gui.pl:6553
+msgid "Please create them or remove them from the list of attached files."
+msgstr "Veuillez les créer ou les enlever de la liste des fichiers à joindre."
+
+#: ../AMC-gui.pl:6600
+msgid "Sending emails..."
+msgstr "Envoi des courriels..."
+
+#: ../AMC-gui.pl:6609
+msgid "Cancelled."
+msgstr "Annulé."
+
+#: ../AMC-gui.pl:6611
+#, perl-format
+msgid "%d message(s) has been sent."
+msgstr "%d messages ont été envoyés."
+
+#: ../AMC-gui.pl:6650
+msgid "Set exam name"
+msgstr "Changement du nom de l'examen"
+
+#: ../AMC-gui.pl:6657 ../AMC-gui-edit_preferences.glade:4059
+msgid "Examination name"
+msgstr "Nom de l'examen"
+
+#: ../AMC-gui.pl:6662 ../AMC-gui-edit_preferences.glade:4048
+msgid "Code (short name) for examination"
+msgstr "Code (ou nom court) de l'examen"
+
+#. TRANSLATORS: This is the title of a column containing all columns names from the students list file, when choosing which columns has to be exported to the spreadsheets.
+#: ../AMC-gui.pl:6720
+msgid "column"
+msgstr "colonne"
+
+#: ../AMC-gui.pl:6728
+msgid "<full name>"
+msgstr "<nom complet>"
+
+#: ../AMC-gui.pl:6729
+msgid "<student identifier>"
+msgstr "<identifiant>"
+
+#: ../AMC-gui.pl:6730
+msgid "<student copy>"
+msgstr "<numéro de copie>"
+
+#: ../AMC-gui.pl:6764
+msgid "Install an AMC plugin"
+msgstr "Installer un plugin AMC"
+
+#: ../AMC-gui.pl:6769
+msgid "Plugins (zip, tgz)"
+msgstr "Plugins (zip, tgz)"
+
+#: ../AMC-gui.pl:6789
+#, perl-format
+msgid "An error occured while trying to extract files from the plugin archive: %s."
+msgstr "Une erreur est survenue lors de la décompression du plugin : %s."
+
+#: ../AMC-gui.pl:6803
+msgid "Nothing extracted from the plugin archive. Check it."
+msgstr "Rien n'a pu être extrait du fichier plugin %s. Vérifiez qu'il est correct."
+
+#: ../AMC-gui.pl:6813
+msgid "This is not a valid plugin, as it contains more than one directory at the first level."
+msgstr "Ce n'est pas un plugin valide, car il contient plus qu'un répertoire au premier niveau."
+
+#: ../AMC-gui.pl:6824
+msgid "This is not a valid plugin, as it does not contain a perl/AMC subdirectory."
+msgstr "Ce n'est pas un plugin valide, car il ne contient pas de sous-répertoire perl/AMC."
+
+#: ../AMC-gui.pl:6840
+#, perl-format
+msgid "A plugin is already installed with the same name (%s). Do you want to delete the old one and overwrite?"
+msgstr "Un plugin est déjà installé sous ce nom (%s). Voulez-vous le supprimer et installer le nouveau ?"
+
+#: ../AMC-gui.pl:6858
+#, perl-format
+msgid "Error while moving the plugin to the user plugin directory: %s"
+msgstr "Erreur lors du déplacement du plugin vers le répertoire des plugins de l'utilisateur : %s."
+
+#: ../AMC-gui.pl:6868
+msgid "Please restart AMC before using the new plugin..."
+msgstr "Veuillez redémarrer AMC avant d'utiliser ce nouveau plugin..."
+
+#: ../AMC-gui.pl:6920
+msgid "zooms"
+msgstr "zooms"
+
+#: ../AMC-gui.pl:6921
+msgid "boxes images are extracted from the scans while processing automatic data capture. They can be removed if you don't plan to use the zooms dialog to check and correct boxes categorization. They can be recovered processing again automatic data capture from the same scans."
+msgstr "les images des cases à cocher sont extraites des scans lors de la saisie automatique. Elles peuvent être effacées si vous ne prévoyez pas d'utiliser la fenêtre des zooms pour vérifier et corriger la catégorisation des cases. Ces images peuvent être refabriquées en effectuant de nouveau l'association automatique."
+
+#: ../AMC-gui.pl:6933
+msgid "layout reports"
+msgstr "rapports de positionnement"
+
+#: ../AMC-gui.pl:6934
+msgid "these images are intended to show how the corner marks have been recognized and positioned on the scans. They can be safely removed once the scans are known to be well-recognized. They can be recovered processing again automatic data capture from the same scans."
+msgstr "ces images servent à visualiser la précision du calage du modèle de page avec le scan. Elles peuvent être effacées sans problème une fois que toutes les pages ont été correctement reconnues. Elles pourront être refabriquées en relançant une saisie automatique à partir des même scans."
+
+#: ../AMC-gui.pl:6949
+msgid "annotated pages"
+msgstr "pages annotées"
+
+#: ../AMC-gui.pl:6950
+msgid "jpeg annotated pages are made before beeing assembled to PDF annotated files. They can safely be removed, and will be recovered automatically the next time annotation will be requested."
+msgstr "les pages annotées au format jpeg sont fabriquées par AMC avant d'être regroupées en copies annotées. Elles peuvent être effacées sans problème, et seront générées de nouveau la prochaine fois que vous demanderez la fabrication des copies annotées."
+
+#: ../AMC-gui.pl:6980
+msgid "Total size of concerned files:"
+msgstr "Taille totale des fichiers concernés :"
+
+#: ../AMC-gui.pl:7028
+#, perl-format
+msgid "%s files were removed."
+msgstr "%s fichiers ont été effacés."
+
+#: ../AMC-gui.pl:7051
+#, perl-format
+msgid "I don't find the command %s."
+msgstr "Je ne trouve pas la commande %s."
+
+#: ../AMC-gui.pl:7052
+msgid "Perhaps LaTeX is not installed?"
+msgstr "Peut-être LaTeX n'est-il pas installé ?"
+
+#. TRANSLATORS: Do not translate 'auto-multiple-choice latex-link', which is a command to be typed on MacOsX
+#: ../AMC-gui.pl:7056
+msgid "The style file automultiplechoice.sty seems to be unreachable. Try to use command 'auto-multiple-choice latex-link' as root to fix this."
+msgstr "Le fichier style automultiplechoice.sty ne semble pas être accessible par LaTeX. Essayez la commande 'auto-multiple-choice latex-link' en tant que super-utilisateur (root) pour corriger ce problème."
+
+#: ../AMC-prepare.pl:246
+#, perl-format
+msgid "%d/%d good answers not coherent for a simple question"
+msgstr "%d/%d bonnes réponses dans une question simple"
+
+#: ../AMC-prepare.pl:304
+#, perl-format
+msgid "question ID used several times for the same paper: \"%s\""
+msgstr "identifiant d'exercice utilisé plusieurs fois : « %s »"
+
+#: ../AMC-prepare.pl:374
+#, perl-format
+msgid "An answer appears to be given outside a question environment, after question \"%s\""
+msgstr "Une réponse a été mentionnée en-dehors d'un environnement question, après la question \"%s\""
+
+#: ../AMC-prepare.pl:383
+#, perl-format
+msgid "Answer number ID used several times for the same question: %s"
+msgstr "numéro de réponse utilisé plusieurs fois : %s"
+
+#: ../AMC-prepare.pl:624
+#, perl-format
+msgid "%d errors during LaTeX compiling"
+msgstr "%d erreurs lors de la compilation LaTeX"
+
+#: ../AMC-prepare.pl:671
+#, perl-format
+msgid "LaTeX command configured is not present (%s). Install it or change configuration, and then rerun."
+msgstr "Le moteur LaTeX configuré n'est pas installé (%s). Installez-le, ou modifiez la configuration, puis relancez."
+
+#: ../AMC-prepare.pl:721
+msgid "question sheet"
+msgstr "sujet"
+
+#: ../AMC-prepare.pl:746
+#, perl-format
+msgid "please remove accentuated or non-standard characters from the following question ID: \"%s\""
+msgstr "effacez les caractères accentués ou non standards des identifiants des questions suivantes : \"%s\""
+
+#: ../AMC-prepare.pl:748
+msgid "some question IDs seems to have accentuated or non-standard characters. This may break future processings."
+msgstr "certains identifiants de questions ont des caractères accentués ou non standards. Cela peut gêner la compilation."
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-perl/AMC/Basic.pm:562
+msgid "Name [name column title in exported spreadsheet]"
+msgstr "Nom"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-perl/AMC/Basic.pm:564
+msgid "Mark [mark column title in exported spreadsheet]"
+msgstr "Note"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-perl/AMC/Basic.pm:566
+msgid "Exam [exam number column title in exported spreadsheet]"
+msgstr "Copie"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-perl/AMC/Basic.pm:568
+msgid "Score [total score column title in exported spreadsheet]"
+msgstr "Total"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-perl/AMC/Basic.pm:570
+msgid "Max [maximum score column title in exported spreadsheet]"
+msgstr "Max"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-perl/AMC/Basic.pm:574
+msgid "max [maximum score row name in exported spreadsheet]"
+msgstr "max"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain context
+#: ../AMC-perl/AMC/Basic.pm:576
+msgid "mean [means of scores row name in exported spreadsheet]"
+msgstr "moyenne"
+
+#: ../AMC-perl/AMC/DataModule/association.pm:102
+msgid "Fetching association results from old format XML files..."
+msgstr "Récupération des résultats d'association depuis les anciens fichiers XML..."
+
+#: ../AMC-perl/AMC/DataModule/capture.pm:206
+msgid "Including zooms in the database..."
+msgstr "Inclusion des zooms dans la base de données..."
+
+#: ../AMC-perl/AMC/DataModule/capture.pm:225
+#: ../AMC-perl/AMC/DataModule/capture.pm:233
+msgid "Building capture database indexes..."
+msgstr "Construction d'un index dans la base de saisie..."
+
+#: ../AMC-perl/AMC/DataModule/capture.pm:271
+msgid "Fetching data capture results from old format XML files..."
+msgstr "Récupération des saisies depuis les anciens fichiers XML..."
+
+#: ../AMC-perl/AMC/DataModule/layout.pm:211
+msgid "Building layout database indexes..."
+msgstr "Construction d'un index dans la base de mise en page..."
+
+#: ../AMC-perl/AMC/DataModule/layout.pm:264
+msgid "Fetching layout data from old format XML files..."
+msgstr "Récupération des mises en page depuis les anciens fichiers XML..."
+
+#: ../AMC-perl/AMC/DataModule/scoring.pm:256
+msgid "Fetching scoring data from old format XML files..."
+msgstr "Récupération de la notation depuis les anciens fichiers XML..."
+
+#. TRANSLATORS: this is a row label in the table with questions basic statistics in the ODS exported spreadsheet. The corresponding row contains the total number of sheets. Please let this label short.
+#: ../AMC-perl/AMC/Export/ods.pm:230
+msgid "ALL"
+msgstr "TOTAL"
+
+#. TRANSLATORS: this is a row label in the table with questions basic statistics in the ODS exported spreadsheet. The corresponding row contains the number of sheets for which the question did not get an answer. Please let this label short.
+#: ../AMC-perl/AMC/Export/ods.pm:232
+msgid "NA"
+msgstr "NONREP"
+
+#. TRANSLATORS: this is a row label in the table with questions basic statistics in the ODS exported spreadsheet. The corresponding row contains the number of sheets for which the question got an invalid answer. Please let this label short.
+#: ../AMC-perl/AMC/Export/ods.pm:234
+msgid "INVALID"
+msgstr "INVALIDE"
+
+#. TRANSLATORS: this is a head name in the table with questions basic statistics in the ODS exported spreadsheet. The corresponding column contains the reference of the boxes. Please let this name short.
+#: ../AMC-perl/AMC/Export/ods.pm:260
+msgid "Box"
+msgstr "Case"
+
+#. TRANSLATORS: this is a head name in the table with questions basic statistics in the ODS exported spreadsheet. The corresponding column contains the number of items (ticked boxes, or invalid or empty questions). Please let this name short.
+#: ../AMC-perl/AMC/Export/ods.pm:263
+msgid "Nb"
+msgstr "Nb"
+
+#. TRANSLATORS: this is a head name in the table with questions basic statistics in the ODS exported spreadsheet. The corresponding column contains percentage of questions for which the corresponding box is ticked over all questions. Please let this name short.
+#: ../AMC-perl/AMC/Export/ods.pm:266
+msgid "/all"
+msgstr "/tous"
+
+#. TRANSLATORS: this is a head name in the table with questions basic statistics in the ODS exported spreadsheet. The corresponding column contains percentage of questions for which the corresponding box is ticked over the expressed questions (counting only questions that did not get empty or invalid answers). Please let this name short.
+#: ../AMC-perl/AMC/Export/ods.pm:269
+msgid "/expr"
+msgstr "/expr"
+
+#. TRANSLATORS: this is a row label in the table with questions basic statistics in the ODS exported spreadsheet. The corresponding row contains the number of sheets for which the question got the "none of the above are correct" answer. Please let this label short.
+#: ../AMC-perl/AMC/Export/ods.pm:295
+msgid "NONE"
+msgstr "AUCUNE"
+
+#. TRANSLATORS: table name in the exported ODS spreadsheet for the table that contains the marks.
+#: ../AMC-perl/AMC/Export/ods.pm:838 ../AMC-perl/AMC/Gui/Notes.glade:7
+msgid "Marks"
+msgstr "Notes"
+
+#. TRANSLATORS: Label of the table with questions basic statistics in the exported ODS spreadsheet.
+#: ../AMC-perl/AMC/Export/ods.pm:1199
+msgid "Questions statistics"
+msgstr "Statistiques des questions"
+
+#. TRANSLATORS: Label of the table with indicative questions basic statistics in the exported ODS spreadsheet.
+#: ../AMC-perl/AMC/Export/ods.pm:1206
+msgid "Indicative questions statistics"
+msgstr "statistiques des questions indicatives"
+
+#. TRANSLATORS: Label of the table with a legend (explaination of the colors used) in the exported ODS spreadsheet.
+#: ../AMC-perl/AMC/Export/ods.pm:1216 ../AMC-perl/AMC/Export/ods.pm:1220
+msgid "Legend"
+msgstr "Légende"
+
+#. TRANSLATORS: From the legend in the exported ODS spreadsheet. This refers to the questions that have not been asked to some students.
+#: ../AMC-perl/AMC/Export/ods.pm:1226
+msgid "Non applicable"
+msgstr "Non applicable"
+
+#. TRANSLATORS: From the legend in the exported ODS spreadsheet. This refers to the questions that have not been answered.
+#: ../AMC-perl/AMC/Export/ods.pm:1230
+msgid "No answer"
+msgstr "Sans réponse"
+
+#. TRANSLATORS: From the legend in the exported ODS spreadsheet. This refers to the questions that have not been answered, but are cancelled by the use of allowempty scoring strategy.
+#: ../AMC-perl/AMC/Export/ods.pm:1234
+msgid "Cancelled"
+msgstr "Annulées"
+
+#. TRANSLATORS: From the legend in the exported ODS spreadsheet. This refers to the questions that got an invalid answer.
+#: ../AMC-perl/AMC/Export/ods.pm:1238
+msgid "Invalid answer"
+msgstr "Réponse invalide"
+
+#. TRANSLATORS: From the legend in the exported ODS spreadsheet. This refers to the questions that got an invalid answer.
+#: ../AMC-perl/AMC/Export/ods.pm:1243
+msgid "Correct answer"
+msgstr "Bonne réponse"
+
+#. TRANSLATORS: From the legend in the exported ODS spreadsheet. This refers to the questions that got an invalid answer.
+#: ../AMC-perl/AMC/Export/ods.pm:1247
+msgid "Wrong answer"
+msgstr "Mauvaise réponse"
+
+#. TRANSLATORS: From the legend in the exported ODS spreadsheet. This refers to the indicative questions.
+#: ../AMC-perl/AMC/Export/ods.pm:1252
+msgid "Indicative"
+msgstr "Indicative"
+
+#: ../AMC-perl/AMC/Export/ods.pm:1280
+msgid "An old state of the exported file seems to be already opened. Use File/Reload from OpenOffice/LibreOffice to refresh."
+msgstr "Une ancienne version du fichier exporté semble être ouverte actuellement. Utilisez l'action Fichier/Recharger pour voir la nouvelle version."
+
+#: ../AMC-perl/AMC/Filter/plain.pm:86
+msgid "Please code your student number opposite, and write your name in the box below."
+msgstr "Veuillez coder votre numéro d'étudiant ci-contre et écrire votre nom dans la case ci-dessous."
+
+#: ../AMC-perl/AMC/Filter/plain.pm:199
+#, perl-format
+msgid "Line %d"
+msgstr "Ligne %d"
+
+#. TRANSLATORS: Error text for AMC-TXT parsing, when opening a new question whereas the previous question has less than two choices
+#: ../AMC-perl/AMC/Filter/plain.pm:210
+msgid "Previous question has less than two choices"
+msgstr "La question précédente a moins de deux réponses"
+
+#. TRANSLATORS: Error text for AMC-TXT parsing
+#: ../AMC-perl/AMC/Filter/plain.pm:219
+#, perl-format
+msgid "Previous question is a simple question but has %d correct choice(s)"
+msgstr "La question précédente est une question simple mais a %d réponses correctes"
+
+#: ../AMC-perl/AMC/Filter/plain.pm:303
+msgid "Invalid encoding: you must use UTF-8, but your source file was saved using another encoding"
+msgstr "Encodage invalide : vous devez utiliser UTF-8 mais votre fichier source a été enregistré avec un autre encodage"
+
+#: ../AMC-perl/AMC/Filter/plain.pm:329
+#, perl-format
+msgid "File not found: %s"
+msgstr "Fichier inexistant : %s"
+
+#. TRANSLATORS: Error text for AMC-TXT parsing, when an unknown option is given a value
+#: ../AMC-perl/AMC/Filter/plain.pm:347
+#, perl-format
+msgid "Unknown option: %s"
+msgstr "Option inconnue : %s"
+
+#. TRANSLATORS: Error text for AMC-TXT parsing when a choice is given but no question were opened
+#: ../AMC-perl/AMC/Filter/plain.pm:416
+msgid "Choice outside question"
+msgstr "Une réponse est donnée en-dehors d'une question"
+
+#: ../AMC-perl/AMC/Filter/plain.pm:1117
+#, perl-format
+msgid "The following fonts does not seem to be installed on the system: <b>%s</b>."
+msgstr "Les polices de caractères suivantes ne semblent pas installées sur votre système : <b>%s</b>."
+
+#: ../AMC-perl/AMC/Filter/register.pm:78
+msgid "No description available."
+msgstr "Aucune description disponible."
+
+#: ../AMC-perl/AMC/Gui/Association.pm:134
+msgid "Names images not found... Maybe you forgot using \\namefield command in LaTeX source?"
+msgstr "Je ne trouve pas d'images de noms... Peut-être avez-vous oublié d'utiliser la commande \\champnom dans le source LaTeX ?"
+
+#: ../AMC-perl/AMC/Gui/Association.pm:704
+msgid "Sheet"
+msgstr "Page"
+
+#: ../AMC-perl/AMC/Gui/Manuel.pm:115
+msgid "Page layout"
+msgstr "Mise en page"
+
+#: ../AMC-perl/AMC/Gui/Manuel.pm:123
+msgid "Original"
+msgstr "Original"
+
+#: ../AMC-perl/AMC/Gui/Manuel.pm:124 ../AMC-gui-edit_preferences.glade:2146
+msgid "Scan"
+msgstr "Scan"
+
+#. TRANSLATORS: This is one of the choices for pages navigation in manual data capture window. Here, navigation goes through all pages. Please keep this text very short (say less than 5 letters) so that the window is not too large
+#: ../AMC-perl/AMC/Gui/Manuel.pm:128
+msgid "all"
+msgstr "toutes"
+
+#. TRANSLATORS: This is one of the choices for pages navigation in manual data capture window. Here, navigation goes through pages with some invalid answers. Please keep this text very short (say less than 5 letters) so that the window is not too large
+#: ../AMC-perl/AMC/Gui/Manuel.pm:130
+msgid "inv"
+msgstr "inv"
+
+#. TRANSLATORS: This is one of the choices for pages navigation in manual data capture window. Here, navigation goes through pages with empty or invalid answers. Please keep this text very short (say less than 5 letters) so that the window is not too large
+#: ../AMC-perl/AMC/Gui/Manuel.pm:132
+msgid "i&e"
+msgstr "càd"
+
+#: ../AMC-perl/AMC/Gui/Manuel.pm:162
+msgid "page"
+msgstr "page"
+
+#: ../AMC-perl/AMC/Gui/Manuel.pm:515
+#, perl-format
+msgid "This is a template exam that you cannot edit. To create a new exam from this one to be edited, use the '%s' button."
+msgstr "Ceci est un modèle de page que vous ne pouvez pas éditer. Pour en créer une copie éditable, utilisez le bouton \"%s\". "
+
+#: ../AMC-perl/AMC/Gui/Manuel.pm:515 ../AMC-perl/AMC/Gui/Manuel.glade:356
+msgid "Add photocopy"
+msgstr "Ajouter une photocopie"
+
+#. TRANSLATORS: One of the ways to change a box's ticked state in the zooms window
+#: ../AMC-perl/AMC/Gui/Zooms.pm:76
+msgid "drag and drop"
+msgstr "cliquer-glisser"
+
+#. TRANSLATORS: One of the ways to change a box's ticked state in the zooms window
+#: ../AMC-perl/AMC/Gui/Zooms.pm:78
+msgid "click"
+msgstr "clic"
+
+#: ../AMC-perl/AMC/Gui/Zooms.pm:125 ../AMC-perl/AMC/Gui/Zooms.pm:422
+#, perl-format
+msgid "Boxes zooms for page %s"
+msgstr "Cases de la page %s"
+
+#: ../AMC-perl/AMC/Gui/Zooms.pm:411 ../AMC-perl/AMC/Gui/Zooms.pm:640
+msgid "You moved some boxes to correct automatic data query, but this work is not saved yet."
+msgstr "Vous avez déplacé des cases pour corriger la saisie automatique, mais ces modifications n'ont pas encore été sauvées."
+
+#: ../AMC-perl/AMC/Gui/Zooms.pm:411
+msgid "Do you want to save these modifications before looking at another page?"
+msgstr "Voulez-vous sauvegarder ces modifications avant de passer à une autre page ?"
+
+#: ../AMC-perl/AMC/Gui/Zooms.pm:640
+msgid "Dou you really want to close and ignore these modifications?"
+msgstr "Voulez-vous vraiment fermer et ignorer ces modifications ?"
+
+#: ../AMC-perl/AMC/Print/cups.pm:71
+#, perl-format
+msgid "Perl module(s) missing: %s"
+msgstr "Modules Perl manquants : %s"
+
+#: ../AMC-perl/AMC/Print/cupslp.pm:47
+#, perl-format
+msgid "The following commands are missing: %s."
+msgstr "Les commandes suivantes sont manquantes : %s."
+
+#: ../AMC-perl/AMC/Export/register/CSV.pm:73
+msgid "Separator"
+msgstr "Séparateur"
+
+#: ../AMC-perl/AMC/Export/register/CSV.pm:86
+msgid "Ticked boxes"
+msgstr "Cases cochées"
+
+#. TRANSLATORS: Option for ODS export: group questions by scope? This is the menu entry for 'No, don't group questions by scope in the exported ODS file'
+#: ../AMC-perl/AMC/Export/register/CSV.pm:91
+#: ../AMC-perl/AMC/Export/register/ods.pm:114
+msgid "No"
+msgstr "Non"
+
+#: ../AMC-perl/AMC/Export/register/CSV.pm:92
+#: ../AMC-perl/AMC/Export/register/CSV.pm:93
+msgid "Yes:"
+msgstr "Oui :"
+
+#: ../AMC-perl/AMC/Export/register/CSV.pm:99
+#: ../AMC-perl/AMC/Export/register/ods.pm:125
+msgid "Choose columns"
+msgstr "Choix des colonnes"
+
+#. TRANSLATORS: List of students with their scores: one of the export formats.
+#: ../AMC-perl/AMC/Export/register/List.pm:37
+msgid "PDF list"
+msgstr "Liste PDF"
+
+#: ../AMC-perl/AMC/Export/register/List.pm:64
+msgid "Number of columns"
+msgstr "Nombre de colonnes"
+
+#: ../AMC-perl/AMC/Export/register/List.pm:67
+msgid "Long list is divided into this number of columns on each page."
+msgstr "Les listes longues seront réparties sur ce nombre de colonnes sur chaque page."
+
+#: ../AMC-perl/AMC/Export/register/List.pm:71
+msgid "Paper size"
+msgstr "Taille du papier"
+
+#. TRANSLATORS: Check button label in the exports tab. If checked, a table with questions basic statistics will be added to the ODS exported spreadsheet.
+#: ../AMC-perl/AMC/Export/register/ods.pm:75
+msgid "Stats table"
+msgstr "Table de statistiques"
+
+#. TRANSLATORS: Menu to export statistics table in the exports tab. The first menu entry means 'do not build a stats table' in the exported ODS file. You can omit the [...] part, that is here only to state the context.
+#: ../AMC-perl/AMC/Export/register/ods.pm:82
+msgid "None [no stats table to export]"
+msgstr "Aucune table de statistiques à exporter"
+
+#. TRANSLATORS: Menu to export statistics table in the exports tab. The second menu entry means 'build a stats table, with a horizontal flow' in the exported ODS file.
+#: ../AMC-perl/AMC/Export/register/ods.pm:84
+#: ../AMC-perl/AMC/Export/register/ods.pm:99
+msgid "Horizontal flow"
+msgstr "Alignement horizontal"
+
+#. TRANSLATORS: Menu to export statistics table in the exports tab. The second menu entry means 'build a stats table, with a vertical flow' in the exported ODS file.
+#: ../AMC-perl/AMC/Export/register/ods.pm:86
+#: ../AMC-perl/AMC/Export/register/ods.pm:100
+msgid "Vertical flow"
+msgstr "Alignement vertical"
+
+#. TRANSLATORS: Check button label in the exports tab. If checked, a table with indicative questions basic statistics will be added to the ODS exported spreadsheet.
+#: ../AMC-perl/AMC/Export/register/ods.pm:92
+msgid "Indicative stats table"
+msgstr "Stats des questions indicatives"
+
+#: ../AMC-perl/AMC/Export/register/ods.pm:98
+msgid "None"
+msgstr "Aucun"
+
+#: ../AMC-perl/AMC/Export/register/ods.pm:103
+msgid "Create a table with basic statistics about answers for each indicative question?"
+msgstr "Créer une table de statistiques simples sur chaque question indicative ?"
+
+#. TRANSLATORS: Check button label in the exports tab. If checked, sums of the scores for groups of questions will be added to the exported table.
+#: ../AMC-perl/AMC/Export/register/ods.pm:107
+msgid "Score groups"
+msgstr "Totaux des groupes"
+
+#. TRANSLATORS: Option for ODS export: group questions by scope? This is the menu entry for 'Yes, group questions by scope in the exported ODS file, and you can detect the scope from a question ID using the text before the separator :'
+#: ../AMC-perl/AMC/Export/register/ods.pm:116
+msgid "Yes, with scope separator ':'"
+msgstr "Oui, avec le séparateur de champs ':'"
+
+#. TRANSLATORS: Option for ODS export: group questions by scope? This is the menu entry for 'Yes, group questions by scope in the exported ODS file, and you can detect the scope from a question ID using the text before the separator .'
+#: ../AMC-perl/AMC/Export/register/ods.pm:118
+msgid "Yes, with scope separator '.'"
+msgstr "Oui, avec le séparateur de champs '.'"
+
+#: ../AMC-perl/AMC/Export/register/ods.pm:121
+msgid "Add sums of the scores for each question group? To define groups, use question ids in the form \"group:question\" or \"group.question\", depending on the scope separator."
+msgstr "Ajouter une colonne de total pour chaque groupe de questions ? Pour définir les groupes, utilisez des identifiants de questions sous la forme \"groupe:question\" ou \"groupe.question\", suivant votre choix de séparateur de domaine."
+
+#: ../AMC-perl/AMC/Filter/register/latex.pm:54
+msgid ""
+"This is the native format for AMC. LaTeX is not so easy to use for unexperienced users, but the LaTeX power allows the user to build any multiple choice subject. As an example, the following is possible with LaTeX but not with other formats:\n"
+"* any kind of layout,\n"
+"* questions with random numerical values,\n"
+"* use of figures, mathematical formulas\n"
+"* and much more!"
+msgstr ""
+"C'est le format natif pour AMC. La langage LaTeX n'est pas toujours facile à manipuler pour les novices, mais sa puissance permet d'obtenir tout ce que l'on veut pour son sujet. Quelques exemples de ce qui est possible avec LaTeX mais pas avec les autres formats :\n"
+"* toute mise en page peut être obtenue avec LaTeX,\n"
+"* des questions avec données numériques aléatoires,\n"
+"* l'insertion d'images, de figures, de formules mathématiques,\n"
+"* et bien d'autres choses encore !"
+
+#: ../AMC-perl/AMC/Filter/register/plain.pm:51
+msgid ""
+"This is a plain text format for easy question writting. See the following minimal example:\n"
+"\n"
+"Title: Paper title\n"
+"\n"
+"* Which is the capital city of Cameroon?\n"
+"+ Yaounde\n"
+"- Douala\n"
+"- Kribi"
+msgstr ""
+"C'est un format en texte pur pour une écriture aisée de questionnaires simples. Un petit exemple minimal permet de se faire une idée :\n"
+"\n"
+"Title: Titre de l'examen\n"
+"\n"
+"* Quelle est la capitale du Cameroun ?\n"
+"+ Yaoundé\n"
+"- Douala\n"
+"- Kribi"
+
+#: ../AMC-gui-apropos.glade:8
+msgid "AMC A propos"
+msgstr "À propos de AMC"
+
+#: ../AMC-gui-apropos.glade:18
+msgid "Automatic multiple choice questionnaires management"
+msgstr "Traitement automatisé de formulaires QCM"
+
+#: ../AMC-gui-choix_pages_impression.glade:10
+msgid "Papers printing"
+msgstr "Impression de copies"
+
+#: ../AMC-gui-choix_pages_impression.glade:28
+msgid "Please select papers you wish to print:"
+msgstr "Sélectionnez les copies que vous souhaitez imprimer :"
+
+#: ../AMC-gui-choix_pages_impression.glade:46
+msgid "Select papers you wish to print (ctrl-a for all), then confirm..."
+msgstr "Sélectionnez la ou les copies que vous voulez imprimer (ctrl-a permet de les choisir toutes), puis validez..."
+
+#: ../AMC-gui-choix_pages_impression.glade:71
+msgid "Answer sheet printing"
+msgstr "Impression feuille réponses"
+
+#: ../AMC-gui-choix_pages_impression.glade:116
+msgid "Printer:"
+msgstr "Imprimante :"
+
+#: ../AMC-gui-choix_pages_impression.glade:185
+msgid "two-side printing"
+msgstr "recto/verso"
+
+#: ../AMC-gui-choix_pages_impression.glade:222
+msgid "printing options"
+msgstr "options d'impression"
+
+#: ../AMC-gui-choix_pages_impression.glade:291
+msgid "Destination directory"
+msgstr "Répertoire destination :"
+
+#: ../AMC-gui-choix_pages_impression.glade:304
+msgid "Select destination directory for printable files"
+msgstr "Sélectionner un répertoire destination pour les fichiers PDF à imprimer"
+
+#: ../AMC-gui-choix_postcorrect.glade:21
+msgid "Post-correction"
+msgstr "Post-correction"
+
+#: ../AMC-gui-choix_postcorrect.glade:95
+msgid "Please enter the teacher score sheet number and copy number to get the correct answers from:"
+msgstr "Indiquez la copie de l'enseignant, afin de connaître quelles sont les bonnes réponses :"
+
+#: ../AMC-gui-choix_postcorrect.glade:194
+msgid "Guess simple/multiple status"
+msgstr "Estimer statut simple/multiple des questions"
+
+#: ../AMC-gui-choix_postcorrect.glade:198
+msgid "Sets type of all questions for which 2 or more answers are ticked on the teacher answer sheet to multiple"
+msgstr "Identifie sur la feuille du professeur les questions multiples pour lesquelles 2 ou plusieurs réponses sont cochées"
+
+#: ../AMC-gui-choix_projet.glade:9
+msgid "Open a MC project"
+msgstr "Ouverture d'un projet de QCM"
+
+#: ../AMC-gui-choix_projet.glade:52 ../AMC-gui-liste_dialog.glade:92
+msgid "Cancel"
+msgstr "Annuler"
+
+#: ../AMC-gui-choix_projet.glade:95
+msgid "New project"
+msgstr "Créer un projet"
+
+#: ../AMC-gui-choix_projet.glade:154
+msgid "Rename"
+msgstr "Renommer"
+
+#: ../AMC-gui-choix_projet.glade:173
+msgid "Clone"
+msgstr "Cloner"
+
+#: ../AMC-gui-choix_projet.glade:268
+msgid "Open an existing MC project:"
+msgstr "Ouverture d'un projet existant :"
+
+#: ../AMC-gui-choix_projet.glade:336
+msgid "<b>Create an new project:</b>"
+msgstr "<b>Création d'un nouveau projet :</b>"
+
+#: ../AMC-gui-choix_projet.glade:355
+msgid "Project name:"
+msgstr "Nom du projet :"
+
+#: ../AMC-gui-choix_projet.glade:391
+msgid "<b>Note :</b> a project name can only contain alphanumeric characters, plus some simple characters (-_+.:)."
+msgstr "<b>Note :</b> Un nom de projet ne peut contenir que des caractères alphanumériques et quelques autres caractères simples (-_+.:)."
+
+#: ../AMC-gui-choose-mode.glade:10
+msgid "Before starting data capture, please choose the mode corresponding to what you did with the printed questions."
+msgstr "Avant de commencer la saisie, veuillez choisir le mode qui correspond à votre situation."
+
+#: ../AMC-gui-choose_columns.glade:7
+msgid "Choose columns to export"
+msgstr "Choix des colonnes à exporter"
+
+#: ../AMC-gui-choose_columns.glade:121
+msgid "Order and select the columns to include in the exported file:"
+msgstr "Ordonnez et sélectionnez les colonnes que vous désirez inclure dans le fichier exporté."
+
+#: ../AMC-gui-choose_students.glade:12
+msgid "Choose students"
+msgstr "Choix des étudiants"
+
+#: ../AMC-gui-choose_students.glade:116
+msgid "Search:"
+msgstr "Recherche :"
+
+#: ../AMC-gui-choose_students.glade:177
+msgid "Select the students for which you want to annotate the score sheet:"
+msgstr "Sélectionnez les étudiants dont vous voulez annoter la copie :"
+
+#: ../AMC-gui-cleanup.glade:8
+msgid "Cleanup"
+msgstr "Nettoyage"
+
+#: ../AMC-gui-cleanup.glade:34
+msgid "Remove selected files"
+msgstr "Efface les fichiers sélectionnés"
+
+#: ../AMC-gui-cleanup.glade:64
+msgid "To save disk space, you can remove some intermediate files from your project directory."
+msgstr "Pour économiser de l'espace sur votre disque dur, vous pouvez effacer certains fichiers intermédiaires de votre répertoire projet."
+
+#: ../AMC-gui-edit_preferences.glade:152
+msgid "AMC Preferences"
+msgstr "Préférences AMC"
+
+#: ../AMC-gui-edit_preferences.glade:199 ../AMC-gui-edit_preferences.glade:214
+msgid "LaTeX models directory"
+msgstr "Répertoire contenant les modèles de fichiers LaTeX."
+
+#: ../AMC-gui-edit_preferences.glade:201
+msgid "Please select a directory containing LaTeX models for AMC, with their descriptions"
+msgstr "Sélectionner le répertoire qui contient les modèles de fichiers LaTeX de QCM"
+
+#: ../AMC-gui-edit_preferences.glade:226
+msgid "Projects directory. May be modified only if there are no opened projects."
+msgstr "Répertoire contenant tous les projets. Il ne peut être modifié que si aucun projet n'est ouvert."
+
+#: ../AMC-gui-edit_preferences.glade:228
+msgid "Please select the projects directory"
+msgstr "Sélectionner le dossier qui contient les projets"
+
+#: ../AMC-gui-edit_preferences.glade:239
+msgid "Projects directory"
+msgstr "Répertoire des projets"
+
+#: ../AMC-gui-edit_preferences.glade:250
+msgid "<b>Directories</b>"
+msgstr "<b>Répertoires</b>"
+
+#: ../AMC-gui-edit_preferences.glade:282
+msgid "PDF files"
+msgstr "Fichiers PDF"
+
+#: ../AMC-gui-edit_preferences.glade:289
+msgid "Images"
+msgstr "Images"
+
+#: ../AMC-gui-edit_preferences.glade:300
+msgid "CSV data files"
+msgstr "Fichiers de données CSV"
+
+#: ../AMC-gui-edit_preferences.glade:311
+msgid "XML files"
+msgstr "Fichiers XML"
+
+#: ../AMC-gui-edit_preferences.glade:388
+msgid "Command to edit LaTeX files"
+msgstr "Programme d'édition des fichiers LaTeX"
+
+#: ../AMC-gui-edit_preferences.glade:389
+msgid "LaTeX editor"
+msgstr "Editeur LaTeX"
+
+#: ../AMC-gui-edit_preferences.glade:416
+msgid "Command for directory browsing (string %d will be replaced by the directory path before execution)"
+msgstr "Commande pour explorer un répertoire (la séquence %d sera remplacée par le répertoire avant exécution)"
+
+#: ../AMC-gui-edit_preferences.glade:417
+msgid "File browser"
+msgstr "Navigateur de fichiers"
+
+#: ../AMC-gui-edit_preferences.glade:444
+msgid "Web browser"
+msgstr "Navigateur web"
+
+#: ../AMC-gui-edit_preferences.glade:471
+msgid "OpenOffice files"
+msgstr "Fichiers OpenOffice"
+
+#: ../AMC-gui-edit_preferences.glade:499
+msgid "Plain text editor"
+msgstr "Editeur de texte"
+
+#: ../AMC-gui-edit_preferences.glade:531
+msgid "<b>Visualisation commands</b>"
+msgstr "<b>Programmes de visualisation</b>"
+
+#: ../AMC-gui-edit_preferences.glade:569
+msgid "Default LaTeX engine"
+msgstr "Moteur LaTeX par défaut"
+
+#: ../AMC-gui-edit_preferences.glade:579
+msgid "Default command to compile LaTeX file and make PDF, PS or DVI output (may be changed for each project)."
+msgstr "Commande utilisée pour transformer le fichier source LaTeX en PDF, par défaut (individualisable pour chaque projet)."
+
+#: ../AMC-gui-edit_preferences.glade:598
+msgid "<b>External programs</b>"
+msgstr "<b>Programmes utilisés</b>"
+
+#: ../AMC-gui-edit_preferences.glade:630
+msgid "CSV charset"
+msgstr "Encodage des fichiers CSV"
+
+#: ../AMC-gui-edit_preferences.glade:642
+msgid "Decimal delimiter"
+msgstr "Délimiteur décimal"
+
+#: ../AMC-gui-edit_preferences.glade:654 ../AMC-gui-edit_preferences.glade:4102
+msgid "Students list charset"
+msgstr "Encodage de la liste d'étudiants"
+
+#: ../AMC-gui-edit_preferences.glade:684
+msgid "LaTeX files charset"
+msgstr "Encodage des fichiers LaTeX"
+
+#: ../AMC-gui-edit_preferences.glade:696
+msgid "Charset used when producing LaTeX files from models."
+msgstr "Encodage utilisé pour mettre à votre disposition les modèles de fichiers LaTeX."
+
+#: ../AMC-gui-edit_preferences.glade:716
+msgid "Default encoding for the students list file."
+msgstr "Encodage par défaut du fichier contenant la liste des étudiants."
+
+#: ../AMC-gui-edit_preferences.glade:731
+msgid "Default charset for AMC CSV output."
+msgstr "Encodage par défaut du fichier CSV (éventuellement) produit par AMC."
+
+#: ../AMC-gui-edit_preferences.glade:748
+msgid "ASCII filenames"
+msgstr "Noms de fichiers ASCII"
+
+#: ../AMC-gui-edit_preferences.glade:761
+msgid "Force all annotated completed student sheets to have only ASCII characters in their file names. When set, all non-ASCII characters will be replaced by underscores."
+msgstr "Force les noms de fichiers des copies annotées à ne contenir que des caractères ASCII (sans accents). Les autres caractères seront remplacés par des _."
+
+#: ../AMC-gui-edit_preferences.glade:777
+msgctxt "option name. Refers to a list of headers that may contain surnames in the CSV names list"
+msgid "CSV surname headers"
+msgstr "En-têtes CSV pour les noms"
+
+#: ../AMC-gui-edit_preferences.glade:789
+msgctxt "option name. Refers to a list of headers that may contain names in the CSV names list."
+msgid "CSV name headers"
+msgstr "En-têtes CSV pour les prénoms"
+
+#: ../AMC-gui-edit_preferences.glade:800
+msgid "Comma separated list of CSV headers of columns that may contain the surnames of the students in the names list file."
+msgstr "Liste des en-têtes CSV des colonnes pouvant contenir les noms des étudiants dans le fichier liste des étudiants, séparés par des virgules."
+
+#: ../AMC-gui-edit_preferences.glade:819
+msgid "Comma separated list of CSV headers of columns that may contain the names of the students in the names list file."
+msgstr "Liste des en-têtes CSV des colonnes pouvant contenir les prénoms des étudiants dans le fichier liste des étudiants, séparés par des virgules."
+
+#: ../AMC-gui-edit_preferences.glade:842
+msgid "<b>Internationalization</b>"
+msgstr "<b>Internationalisation</b>"
+
+#: ../AMC-gui-edit_preferences.glade:892
+msgid "Printing method"
+msgstr "Méthode d'impression"
+
+#: ../AMC-gui-edit_preferences.glade:902
+msgid "Printing command"
+msgstr "Méthode d'impression"
+
+#: ../AMC-gui-edit_preferences.glade:914
+msgid "Command to print one paper (with stapling). String %f will be replaced by the PDF file to be printed."
+msgstr "Commande pour imprimer une copie (avec agrafage). La séquence %f sera remplacée par le nom d'un fichier PDF à imprimer."
+
+#: ../AMC-gui-edit_preferences.glade:963
+msgid "Useful printing options"
+msgstr "Options d'impression utiles"
+
+#: ../AMC-gui-edit_preferences.glade:995
+msgid "<b>Printing</b>"
+msgstr "<b>Impression</b>"
+
+#: ../AMC-gui-edit_preferences.glade:1026
+msgid "Number of processes"
+msgstr "Processus en parallèle"
+
+#: ../AMC-gui-edit_preferences.glade:1036
+msgid "Number of processes to be run in parallel. Default value is 0, which allows to start as many processes as processors."
+msgstr "Nombre de processus à exécuter en parallèle. La valeur par défaut est 0, et est remplacée par le nombre de processeurs."
+
+#: ../AMC-gui-edit_preferences.glade:1056
+msgid "<b>System</b>"
+msgstr "<b>Système</b>"
+
+#: ../AMC-gui-edit_preferences.glade:1077
+msgid "Main"
+msgstr "Général"
+
+#: ../AMC-gui-edit_preferences.glade:1104 ../AMC-gui-main_window.glade:667
+msgid "Solution"
+msgstr "Corrigé"
+
+#: ../AMC-gui-edit_preferences.glade:1118 ../AMC-gui-main_window.glade:683
+msgid "Individual solution"
+msgstr "Correction individuelle"
+
+#: ../AMC-gui-edit_preferences.glade:1132 ../AMC-gui-main_window.glade:651
+msgid "Catalog"
+msgstr "Catalogue"
+
+#: ../AMC-gui-edit_preferences.glade:1155
+msgid "<b>Optional working documents to build</b>"
+msgstr "<b>Documents optionnels à fabriquer</b>"
+
+#: ../AMC-gui-edit_preferences.glade:1178
+msgid "Documents"
+msgstr "Documents"
+
+#: ../AMC-gui-edit_preferences.glade:1247
+msgid "Limit sensitivity"
+msgstr "Sensibilité limite"
+
+#: ../AMC-gui-edit_preferences.glade:1258
+msgid "Limit MSE"
+msgstr "EQM limite"
+
+#: ../AMC-gui-edit_preferences.glade:1271
+msgid "<b>Colouring thresholds</b>"
+msgstr "<b>Seuils de coloration</b>"
+
+#: ../AMC-gui-edit_preferences.glade:1303
+msgid "No answers color"
+msgstr "Couleur pour sans réponse"
+
+#: ../AMC-gui-edit_preferences.glade:1311
+msgid "Color used to highlight questions with no ticked answers in the manual data capture window"
+msgstr "Couleur utilisée pour faire ressortir les questions pour lesquelles aucune réponse n'a été cochée dans la fenêtre de saisie manuelle"
+
+#: ../AMC-gui-edit_preferences.glade:1324
+msgid "Color used to highlight questions with invalid answers in the manual data capture window"
+msgstr "Couleur utilisée pour faire ressortir les questions pour lesquelles les réponses sont incohérentes dans la fenêtre de saisie manuelle"
+
+#: ../AMC-gui-edit_preferences.glade:1338
+msgid "Invalid answers color"
+msgstr "Couleur pour réponse invalide"
+
+#: ../AMC-gui-edit_preferences.glade:1353
+msgid "<b>Scan view</b>"
+msgstr "<b>Scan</b>"
+
+#: ../AMC-gui-edit_preferences.glade:1391
+msgid "Starting number of columns for names in the manual association window."
+msgstr "Nombre de colonnes de noms à l'ouverture de la fenêtre d'association manuelle."
+
+#. Label in the preferences window, corresponding to "Starting number of columns for names in the manual association window".
+#: ../AMC-gui-edit_preferences.glade:1412
+msgid "Number of columns for names"
+msgstr "Nombre de colonnes de noms"
+
+#: ../AMC-gui-edit_preferences.glade:1423
+msgid "Temporary file type used for manual data capture. Fastest choice is (none), but this seems to be problematic in some environments."
+msgstr "Type de fichier image temporaire utilisé pendant la saisie manuelle. Le choix le plus rapide est (aucun), mais il ne fonctionne pas dans certains environnements."
+
+#: ../AMC-gui-edit_preferences.glade:1442
+msgid "Image type"
+msgstr "Type image"
+
+#: ../AMC-gui-edit_preferences.glade:1454
+msgid "Do you want to keep the same window size each time you start AMC?"
+msgstr "Voulez-vous garder la même taille de fenêtre à chaque démarrage d'AMC ?"
+
+#: ../AMC-gui-edit_preferences.glade:1468
+msgid "Remember window size"
+msgstr "Taille fenêtre conservée"
+
+#: ../AMC-gui-edit_preferences.glade:1479
+msgid "Maximum density for manual data capture question paper rendering (DPI)"
+msgstr "Échelle maximale pour le rendu en saisie manuelle (dpi)"
+
+#: ../AMC-gui-edit_preferences.glade:1480
+msgid "Manual capture density (DPI)"
+msgstr "Échelle saisie manuelle (dpi)"
+
+#. Label in the preferences window, corresponding to the "Number of columns for zoomed boxes in the zooms window (opened from the Diagnosis list in the Data capture tab)".
+#: ../AMC-gui-edit_preferences.glade:1502
+msgid "Number of columns for zoomes boxes"
+msgstr "Nombre de colonnes de zooms sur les cases"
+
+#: ../AMC-gui-edit_preferences.glade:1513
+msgid "Number of columns for zoomed boxes in the zooms window (opened from the Diagnosis list in the Data capture tab)."
+msgstr "Nombre de colonnes pour les zooms sur les cases dans la fenêtre des zooms (ouverte à partir de la liste Diagnostic dans l'onglet Saisie)."
+
+#: ../AMC-gui-edit_preferences.glade:1538
+msgid "<b>Miscellaneous</b>"
+msgstr "<b>Divers</b>"
+
+#: ../AMC-gui-edit_preferences.glade:1569
+msgid "Notify the user at the end of the following actions:"
+msgstr "Notifier l'utilisateur à la fin des actions suivantes :"
+
+#. One of the "notify the user at the end of the following actions" checkbox: for documents update.
+#: ../AMC-gui-edit_preferences.glade:1584
+msgid "Documents update"
+msgstr "Mise à jour des documents"
+
+#. One of the "notify the user at the end of the following actions" checkbox: for computing marks.
+#: ../AMC-gui-edit_preferences.glade:1612
+msgid "Grading"
+msgstr "Notation"
+
+#. One of the "notify the user at the end of the following actions" checkbox: for completed answer sheets annotation.
+#: ../AMC-gui-edit_preferences.glade:1626
+#: ../AMC-gui-edit_preferences.glade:3088
+msgid "Annotation"
+msgstr "Annotation"
+
+#: ../AMC-gui-edit_preferences.glade:1650
+msgid "Notify using:"
+msgstr "Notifier en utilisant :"
+
+#: ../AMC-gui-edit_preferences.glade:1665
+msgid "Desktop notifications"
+msgstr "Notifications"
+
+#: ../AMC-gui-edit_preferences.glade:1699
+msgid "Command:"
+msgstr "Commande :"
+
+#: ../AMC-gui-edit_preferences.glade:1711
+msgid "Command that will be called as a user notification. %m will be replaced by AMC's message, and %a by AMC completed action."
+msgstr "Commande à exécuter pour la notification. %m sera remplacé par le message d'AMC, et %a par l'action que AMC vient de terminer."
+
+#: ../AMC-gui-edit_preferences.glade:1742
+msgid "<b>Notifications</b>"
+msgstr "<b>Notifications</b>"
+
+#: ../AMC-gui-edit_preferences.glade:1762
+msgid "Display"
+msgstr "Affichage"
+
+#: ../AMC-gui-edit_preferences.glade:1794
+msgid "Vector formats density (DPI)"
+msgstr "Densité des scans vectoriels (DPI)"
+
+#: ../AMC-gui-edit_preferences.glade:1801
+msgid "Density used when converting vector format scans (PDF, EPS) into bitmap."
+msgstr "Densité utilisée pour convertir les fichiers scans vectoriels (PDF, EPS)."
+
+#: ../AMC-gui-edit_preferences.glade:1818
+msgid "Black&white conversion threshold"
+msgstr "Seuil de conversion N&B"
+
+#: ../AMC-gui-edit_preferences.glade:1829
+msgid "Threshold used when converting scans to black and white. Value 0.0 means all white, value 1.0 means all black."
+msgstr "Seuil utilisé lors de la conversion des scans en noir et blanc. Une valeur de 0.0 donnera un résultat blanc, et une valeur de 1.0 un résultat tout noir."
+
+#: ../AMC-gui-edit_preferences.glade:1849
+msgid "Erease red from scans"
+msgstr "Effacer le rouge des scans"
+
+#: ../AMC-gui-edit_preferences.glade:1861
+msgid "When set, AMC will erease red color from the color scans before automatic data capture. This can be useful if the boxes are drawn in red."
+msgstr "Si vous sélectionnez cette option, AMC effacera le rouge des scans couleur avant la saisie automatique. Cela peut être utile dans le cas où les cases à cochées ont été dessinées en rouge."
+
+#: ../AMC-gui-edit_preferences.glade:1876
+msgid "Force conversion"
+msgstr "Forcer la conversion"
+
+#: ../AMC-gui-edit_preferences.glade:1888
+msgid "With this option, all scan files will be converted with ImageMagick. This can slow down scans processing, but may allow some unusual file formats to be processed successfully."
+msgstr "Avec cette option, tous les fichiers scan seront convertis avec ImageMagick. Ceci peut ralentir le traitement des scans, mais peut permettre de traiter avec succès certains fichiers au format inhabituel."
+
+#: ../AMC-gui-edit_preferences.glade:1907
+msgid "<b>Scans conversion</b>"
+msgstr "<b>Conversion des scans</b>"
+
+#: ../AMC-gui-edit_preferences.glade:1939
+msgid "Marks size max increase"
+msgstr "Majoration de la taille des marques"
+
+#: ../AMC-gui-edit_preferences.glade:1946
+msgid "Marks size max decrease"
+msgstr "Minoration de la taille des marques"
+
+#: ../AMC-gui-edit_preferences.glade:1957
+msgid "Maximum increase (proportion: 0.1 means 10%) allowed for corner marks after printing/scanning process."
+msgstr "Augmentation (en proportion) permise de la taille d'une marque après le processus impression/scan."
+
+#: ../AMC-gui-edit_preferences.glade:1976
+msgid "Maximum decrease (proportion: 0.1 means 10%) allowed for corner marks after printing/scanning process."
+msgstr "Diminution (en proportion) permise de la taille d'une marque après le processus impression/scan."
+
+#: ../AMC-gui-edit_preferences.glade:1997
+#: ../AMC-gui-edit_preferences.glade:2307
+msgid "Can be customized on a per-project basis in the Project tab."
+msgstr "Peut être personnalisé pour chaque projet dans l'onglet Projet."
+
+#: ../AMC-gui-edit_preferences.glade:1998
+msgid "Default darkness threshold"
+msgstr "Seuil de noirceur par défaut"
+
+#: ../AMC-gui-edit_preferences.glade:2009
+msgid "If black proportion is greater than this value, the box will be considered as beeing ticked. This is a default value, it can be changed in each project."
+msgstr "Proportion de noir dans la case à partir de laquelle la case est considérée comme étant cochée, par défaut. Cette valeur est individualisable pour chaque projet."
+
+#: ../AMC-gui-edit_preferences.glade:2030
+msgid "Proportion of the box (on the scan) that is measured to compute its blackness."
+msgstr "Proportion des cases (sur le scan) utilisée pour calculer leur noirceur."
+
+#: ../AMC-gui-edit_preferences.glade:2031
+msgid "Measured box proportion"
+msgstr "Proportion des cases à mesurer"
+
+#: ../AMC-gui-edit_preferences.glade:2062
+msgid "Do you want to process scans with 3 corner circles only?"
+msgstr "Souhaitez-vous vérifier les scans avec seulement 3 angles marqués ?"
+
+#: ../AMC-gui-edit_preferences.glade:2076
+msgid "Process scans with 3 corner marks"
+msgstr "Contôle des scans avec 3 angles marqués"
+
+#: ../AMC-gui-edit_preferences.glade:2087
+msgid "Default upper darkness threshold"
+msgstr "seuil de noirceur maximal"
+
+#: ../AMC-gui-edit_preferences.glade:2122
+msgid "<b>Detection parameters</b>"
+msgstr "<b>Paramètres de détection</b>"
+
+#: ../AMC-gui-edit_preferences.glade:2188
+msgid "Max size"
+msgstr "Taille maximale"
+
+#: ../AMC-gui-edit_preferences.glade:2195
+msgid "Image format"
+msgstr "Format d'image"
+
+#: ../AMC-gui-edit_preferences.glade:2206
+msgid "JPEG quality"
+msgstr "Qualité jpeg"
+
+#: ../AMC-gui-edit_preferences.glade:2275
+msgid "<b>Scans</b>"
+msgstr "<b>Scans</b>"
+
+#: ../AMC-gui-edit_preferences.glade:2309
+msgid "Default header text"
+msgstr "En-tête par défaut"
+
+#: ../AMC-gui-edit_preferences.glade:2324
+#: ../AMC-gui-edit_preferences.glade:3875
+msgid "Text to be written on annotated sheets header. Use %S for score, %M for max score, %s for grade, %m for max grade, and %(col) for content of the column col in the students list file."
+msgstr "Texte à écrire en entête sur les copies annotées. Utiliser %S pour le total des points, %M pour le maximum de points, %s pour la note obtenue, %m pour la note maximale, et %(col) pour le contenu de la colonne col dans le fichier liste des étudiants"
+
+#: ../AMC-gui-edit_preferences.glade:2338
+msgid "Default writing direction"
+msgstr "Direction d'écriture par défaut"
+
+#: ../AMC-gui-edit_preferences.glade:2347
+#: ../AMC-gui-edit_preferences.glade:3898
+msgid "right to left"
+msgstr "droite à gauche"
+
+#: ../AMC-gui-edit_preferences.glade:2364
+msgid "Default questions annotation"
+msgstr "Annotation des questions par défaut"
+
+#: ../AMC-gui-edit_preferences.glade:2392
+msgid "Default cancelled questions annotation"
+msgstr "Annotation des questions annulées par défaut"
+
+#: ../AMC-gui-edit_preferences.glade:2425
+msgid "<b>Header</b>"
+msgstr "<b>En-tête</b>"
+
+#: ../AMC-gui-edit_preferences.glade:2456
+msgid "Significant digits"
+msgstr "Chiffres significatifs"
+
+#: ../AMC-gui-edit_preferences.glade:2463
+msgid "Number of significant digits to display for marks when annotating papers."
+msgstr "Nombre de chiffres significatifs à écrire pour les notes sur les copies annotées."
+
+#: ../AMC-gui-edit_preferences.glade:2486
+msgid "<b>Marks</b>"
+msgstr "<b>Notes</b>"
+
+#: ../AMC-gui-edit_preferences.glade:2525
+msgid "Line width"
+msgstr "Épaisseur du trait"
+
+#: ../AMC-gui-edit_preferences.glade:2551
+msgid "Marks shift"
+msgstr "Décalage des notes"
+
+#: ../AMC-gui-edit_preferences.glade:2562
+msgid "Font"
+msgstr "Police"
+
+#: ../AMC-gui-edit_preferences.glade:2588
+msgid "When marks are written on annotated papers left to the boxes, shifts to the left marks by this value. You can use mm or in as a unit."
+msgstr "Décalage vers la gauche des notes de chaque question, en précisant mm ou in, quand les notes des questions sont indiquées à gauche des cases."
+
+#: ../AMC-gui-edit_preferences.glade:2637
+msgid "<b>To be ticked</b>"
+msgstr "<b>À cocher</b>"
+
+#: ../AMC-gui-edit_preferences.glade:2651
+msgid "<b>Ticked</b>"
+msgstr "<b>Cochée</b>"
+
+#: ../AMC-gui-edit_preferences.glade:2665
+msgid "<b>type</b>"
+msgstr "<b>type</b>"
+
+#: ../AMC-gui-edit_preferences.glade:2679
+msgid "<b>colour</b>"
+msgstr "<b>couleur</b>"
+
+#: ../AMC-gui-edit_preferences.glade:2693
+#: ../AMC-gui-edit_preferences.glade:2706
+#: ../AMC-gui-edit_preferences.glade:2719
+#: ../AMC-gui-edit_preferences.glade:2758
+msgid "no"
+msgstr "non"
+
+#: ../AMC-gui-edit_preferences.glade:2732
+#: ../AMC-gui-edit_preferences.glade:2745
+#: ../AMC-gui-edit_preferences.glade:2771
+#: ../AMC-gui-edit_preferences.glade:2784
+msgid "yes"
+msgstr "oui"
+
+#: ../AMC-gui-edit_preferences.glade:3041
+msgid "Also annotate informative questions"
+msgstr "Annoter aussi les réponses des questions indicatives"
+
+#: ../AMC-gui-edit_preferences.glade:3061
+msgid "<b>Symbols</b>"
+msgstr "<b>Symboles utilisés</b>"
+
+#: ../AMC-gui-edit_preferences.glade:3134
+msgid "Sender email"
+msgstr "Courriel de l'expéditeur"
+
+#: ../AMC-gui-edit_preferences.glade:3155
+msgid "Carbon copy address"
+msgstr "Adresse de copie"
+
+#: ../AMC-gui-edit_preferences.glade:3166
+msgid "Blind Carbon copy address"
+msgstr "Adresse de copie cachée"
+
+#: ../AMC-gui-edit_preferences.glade:3225
+msgid "Mail delivery method:"
+msgstr "Méthode d'envoi :"
+
+#: ../AMC-gui-edit_preferences.glade:3274
+msgid "sendmail path"
+msgstr "chemin où trouver sendmail"
+
+#: ../AMC-gui-edit_preferences.glade:3314
+msgid "SMTP host"
+msgstr "hôte SMTP"
+
+#: ../AMC-gui-edit_preferences.glade:3335
+msgid "SMTP port"
+msgstr "port SMTP"
+
+#: ../AMC-gui-edit_preferences.glade:3377
+msgid "<b>Sending emails</b>"
+msgstr "<b>Envoi de courriels</b>"
+
+#: ../AMC-gui-edit_preferences.glade:3416
+msgid "<b>Default subject</b>"
+msgstr "<b>Sujet par défaut</b>"
+
+#: ../AMC-gui-edit_preferences.glade:3451
+msgid "<b>Default content</b>"
+msgstr "<b>Message par défaut</b>"
+
+#: ../AMC-gui-edit_preferences.glade:3475
+msgid "Email"
+msgstr "Courriel"
+
+#: ../AMC-gui-edit_preferences.glade:3500
+msgid "<i>Project preferences</i>"
+msgstr "<i>Préférences du projet</i>"
+
+#: ../AMC-gui-edit_preferences.glade:3532
+msgid "Darkness threshold"
+msgstr "Seuil de noirceur"
+
+#: ../AMC-gui-edit_preferences.glade:3539
+msgid "If black proportion is greater than this value, the box will be considered as beeing ticked. If students have been told to darken the boxes entirely, one can choose value 0.5. If students have been told to tick the boxes, values around 0.15 seems appropriate."
+msgstr "Seuil de proportion de pixels noirs à partir duquel une case sera considérée comme étant cochée. Si la consigne est de noircir totalement la case, on peut utiliser 0,5. Si la consigne permet de cocher par des croix, une valeur de l'ordre de 0,15 semble appropriée."
+
+#: ../AMC-gui-edit_preferences.glade:3557
+msgid "Upper darkness threshold"
+msgstr "Seuil de noirceur supérieur"
+
+#: ../AMC-gui-edit_preferences.glade:3568
+msgid "If black proportion is greater than this value, the box is considered as not ticked. Setting this threshold to a value less than one allows the students to cancel ticked boxes by filling them completely."
+msgstr "Si la proportion de noir dans la case est supérieure à cette valeur, la case sera considérée comme non-cochée. En indiquant une valeur inférieure à 1, les étudiants pourront annuler une case cochée en la remplissant complètement."
+
+#: ../AMC-gui-edit_preferences.glade:3593
+msgid "<b>Automatic data capture</b>"
+msgstr "<b>Saisie automatique</b>"
+
+#: ../AMC-gui-edit_preferences.glade:3673
+msgid "Mark to be given to a perfect sheet with all good answers (scaling the marks). Value 0 meens that you don't want to scale the marks."
+msgstr "Note à donner à une copie parfaite (avec toutes les bonnes réponses), grâce à une règle de trois effectuée sur toutes les notes. Indiquez ici la valeur 0 pour ne pas effectuer de règle de trois."
+
+#: ../AMC-gui-edit_preferences.glade:3691
+msgid "Rounding type"
+msgstr "Type d'arrondi"
+
+#: ../AMC-gui-edit_preferences.glade:3703
+msgid "Grain"
+msgstr "Granularité"
+
+#: ../AMC-gui-edit_preferences.glade:3715
+msgid "Maximal mark"
+msgstr "Note maximale"
+
+#: ../AMC-gui-edit_preferences.glade:3727
+msgid "Floor mark"
+msgstr "Note plancher"
+
+#: ../AMC-gui-edit_preferences.glade:3738
+msgid "Floor mark: any exam with a global mark less than this value will be given this mark. Let empty for no floor mark."
+msgstr "Note plancher. Toute note en-dessous de celle-ci sera modifiée pour prendre cette valeur. Laisser vide pour n'appliquer aucun plancher."
+
+#: ../AMC-gui-edit_preferences.glade:3755
+msgid "ceil"
+msgstr "plafonné"
+
+#: ../AMC-gui-edit_preferences.glade:3759
+msgid "When using SUF option in general grading scale, should marks be ceiled not to be larger than the maximum mark ?"
+msgstr "Lors de l'utilisation de l'option SUF dans le barème général, la note calculée doit-elle être plafonnée à la valeur maximale ?"
+
+#: ../AMC-gui-edit_preferences.glade:3776
+msgid "Minimal mark"
+msgstr "Note minimale"
+
+#: ../AMC-gui-edit_preferences.glade:3783
+msgid "Mark associated with null score"
+msgstr "Note associée à un score nul"
+
+#: ../AMC-gui-edit_preferences.glade:3803
+msgid "<b>Global mark rules</b>"
+msgstr "<b>Calcul de la note finale</b>"
+
+#: ../AMC-gui-edit_preferences.glade:3835
+msgid "Questions marks position"
+msgstr "Position de la note des questions"
+
+#: ../AMC-gui-edit_preferences.glade:3864
+msgid "Header text"
+msgstr "Texte d'en-tête"
+
+#: ../AMC-gui-edit_preferences.glade:3889
+msgid "Writing direction"
+msgstr "Direction d'écriture"
+
+#: ../AMC-gui-edit_preferences.glade:3915
+msgid "Questions annotation text"
+msgstr "Annotation des questions"
+
+#: ../AMC-gui-edit_preferences.glade:3926
+msgid "Text to be written for each question. This will be evaluated by perl, so quote it to make a single string. Use %S for score, %M for max score, and %s and %m for these values truncated to the requested number of significant digits."
+msgstr "Texte a écrire en face de chaque question. Il sera évalué par perl : entourez-le de guillemets si vous écrivez une chaîne simple. Les séquences %S seront remplacées par la score, %M par le score maximal, et %s et %m les mêmes valeurs arrondies avec le nombre de chiffres significatifs voulu."
+
+#: ../AMC-gui-edit_preferences.glade:3944
+msgid "Cancelled questions annotation text"
+msgstr "Texte d'annotation des questions annulées"
+
+#: ../AMC-gui-edit_preferences.glade:3956
+msgid "Same as above, but for cancelled questions (when using allowempty)."
+msgstr "Comme au-dessus mais pour des questions annulées (quand l'option allowempty est utilisée)."
+
+#: ../AMC-gui-edit_preferences.glade:3978
+msgid "<b>Papers annotation</b>"
+msgstr "<b>Annotation des copies</b>"
+
+#: ../AMC-gui-edit_preferences.glade:4070
+msgid "<b>Examination description</b>"
+msgstr "<b>Description de l'examen</b>"
+
+#: ../AMC-gui-edit_preferences.glade:4109
+msgid "CSV files charset"
+msgstr "Encodage des fichiers CSV"
+
+#: ../AMC-gui-edit_preferences.glade:4120
+msgid "Charset used for the students list file"
+msgstr "Encodage du fichier contenant la liste des étudiants."
+
+#: ../AMC-gui-edit_preferences.glade:4134
+msgid "Charset for the CSV marks file produced by AMC."
+msgstr "Encodage du fichier CSV (éventuellement) produit par AMC."
+
+#: ../AMC-gui-edit_preferences.glade:4154
+msgid "<b>Internationnalization</b>"
+msgstr "<b>Internationnalisation</b>"
+
+#: ../AMC-gui-edit_preferences.glade:4185
+msgid "LaTeX engine"
+msgstr "Moteur LaTeX"
+
+#: ../AMC-gui-edit_preferences.glade:4192
+msgid "Command to compile LaTeX file and make PDF, PS or DVI output."
+msgstr "Commande utilisée pour transformer le source LaTeX en PDF."
+
+#: ../AMC-gui-edit_preferences.glade:4210
+msgid "<b>External commands</b>"
+msgstr "<b>Commandes utilisées</b>"
+
+#: ../AMC-gui-edit_preferences.glade:4235
+msgid "Project"
+msgstr "Projet"
+
+#: ../AMC-gui-filter_details.glade:7
+msgid "Formats details"
+msgstr "Détails sur les formats"
+
+#: ../AMC-gui-filter_details.glade:65
+msgid "AMC supports different formats for the source file. Here are some details about each of them."
+msgstr "AMC connaît différents formats de fichier source. Voici une description de ceux-ci."
+
+#: ../AMC-gui-filter_details.glade:114
+msgid "<b>Description:</b>"
+msgstr "<b>Description :</b>"
+
+#: ../AMC-gui-liste_dialog.glade:48
+msgid "No names list"
+msgstr "Pas de liste des étudiants"
+
+#: ../AMC-gui-liste_dialog.glade:136
+msgid "Apply"
+msgstr "Appliquer"
+
+#: ../AMC-gui-liste_dialog.glade:165
+msgid "Choose your students names list file"
+msgstr "Choisissez le fichier contenant la liste des étudiants"
+
+#: ../AMC-gui-mailing.glade:13
+msgid "Mailing"
+msgstr "Mailing"
+
+#: ../AMC-gui-mailing.glade:38
+msgid "Send"
+msgstr "Envoyer"
+
+#: ../AMC-gui-mailing.glade:71
+msgid "Current project name %n:"
+msgstr "Nom de l'examen %n :"
+
+#: ../AMC-gui-mailing.glade:145
+msgid "Emails column:"
+msgstr "Colonne des courriels :"
+
+#: ../AMC-gui-mailing.glade:180
+msgid "Select failed"
+msgstr "Sélectionner les anciens échecs"
+
+#: ../AMC-gui-mailing.glade:184
+msgid "Select all students whose report sending has failed last time."
+msgstr "Sélectionne les étudiants pour lesquels l'envoi précédent a échoué."
+
+#: ../AMC-gui-mailing.glade:231
+msgid "<b>Addressees</b>"
+msgstr "<b>Destinataires</b>"
+
+#: ../AMC-gui-mailing.glade:271
+msgid "<b>Subject</b>"
+msgstr "<b>Sujet</b>"
+
+#: ../AMC-gui-mailing.glade:299
+msgid "Enable HTML Tags"
+msgstr "Autoriser le codage HTML"
+
+#: ../AMC-gui-mailing.glade:303
+msgid "Use HTML tags in the body of your message such as <b>, <i>, <u>, <p> etc."
+msgstr "Utilisez les codes HTML dans le message comme <b>, <i>, <u>, <p> etc."
+
+#: ../AMC-gui-mailing.glade:341
+msgid "<b>Body</b>"
+msgstr "<b>Message</b>"
+
+#: ../AMC-gui-mailing.glade:426
+msgid "<b>Attachments</b>"
+msgstr "<b>Pièces jointes</b>"
+
+#: ../AMC-gui-main_window.glade:146
+msgid "_Project"
+msgstr "_Projet"
+
+#: ../AMC-gui-main_window.glade:197
+msgid "Export as template"
+msgstr "Exporter comme modèle"
+
+#: ../AMC-gui-main_window.glade:209
+msgid "User templates"
+msgstr "Modèles personnels"
+
+#: ../AMC-gui-main_window.glade:212
+msgid "Open personal templates directory"
+msgstr "Ouvrir le répertoire des modèles personnels"
+
+#: ../AMC-gui-main_window.glade:227
+msgid "Manage"
+msgstr "Gérer"
+
+#: ../AMC-gui-main_window.glade:257
+msgid "_Edit"
+msgstr "_Édition"
+
+#: ../AMC-gui-main_window.glade:284
+msgid "_Tools"
+msgstr "_Outils"
+
+#: ../AMC-gui-main_window.glade:292
+msgid "Cleanup..."
+msgstr "Nettoyage..."
+
+#: ../AMC-gui-main_window.glade:307
+msgid "Plugins"
+msgstr "Plugins"
+
+#. Menu item from the Plugins menu. When selected, open the installed plugins directory.
+#: ../AMC-gui-main_window.glade:315
+msgid "Installed plugins"
+msgstr "Plugins installés"
+
+#. Tooltip for the Plugins->Browse menu item.
+#: ../AMC-gui-main_window.glade:318
+msgid "Open the installed plugins directory."
+msgstr "Ouvrir le répertoire des plugins"
+
+#. Tooltip for the Plugin->Add (install) menuitem.
+#: ../AMC-gui-main_window.glade:330
+msgid "Install a plugin."
+msgstr "Installer un plugin"
+
+#: ../AMC-gui-main_window.glade:350
+msgid "_Help"
+msgstr "_Aide"
+
+#. One menu entry in menu "Help" from main window.
+#: ../AMC-gui-main_window.glade:370
+msgid "Documentation"
+msgstr "Documentation"
+
+#: ../AMC-gui-main_window.glade:382
+msgid "Get debugging information in a file"
+msgstr "Obtenir des informations de debogage dans un fichier"
+
+#: ../AMC-gui-main_window.glade:384
+msgid "Debugging"
+msgstr "Débogage"
+
+#: ../AMC-gui-main_window.glade:391
+msgid "Bug report"
+msgstr "Rapport de bogue"
+
+#: ../AMC-gui-main_window.glade:402
+msgid "Cancel learning..."
+msgstr "Reprendre l'apprentissage..."
+
+#: ../AMC-gui-main_window.glade:554
+msgid "Number of papers:"
+msgstr "Nombre de copies :"
+
+#: ../AMC-gui-main_window.glade:568
+msgid "Number of papers to produce. Zero means taking into account the number written in the LaTeX source file."
+msgstr "Nombre de copies à produire. La valeur zéro demande de prendre en compte le nombre de copies défini dans le fichier LaTeX."
+
+#: ../AMC-gui-main_window.glade:604
+msgid "Update documents"
+msgstr "Mettre à jour les documents"
+
+#: ../AMC-gui-main_window.glade:620
+msgid "Question"
+msgstr "Sujet"
+
+#: ../AMC-gui-main_window.glade:791
+msgid "Warnings"
+msgstr "Avertissements"
+
+#: ../AMC-gui-main_window.glade:876
+msgid "Print papers"
+msgstr "Imprimer des copies"
+
+#: ../AMC-gui-main_window.glade:939
+msgid "From papers' scans"
+msgstr "À partir des scans des copies, automatiquement"
+
+#: ../AMC-gui-main_window.glade:962 ../AMC-gui-main_window.glade:1845
+msgid "Automatic"
+msgstr "Automatique"
+
+#: ../AMC-gui-main_window.glade:984
+msgid "On screen with mouse"
+msgstr "À l'écran, manuellement"
+
+#: ../AMC-gui-main_window.glade:1007 ../AMC-gui-main_window.glade:1889
+msgid "Manual"
+msgstr "Manuelle"
+
+#: ../AMC-gui-main_window.glade:1032
+msgid "<b>Data capture after examination</b>"
+msgstr "<b>Saisie des copies après examen</b>"
+
+#: ../AMC-gui-main_window.glade:1065
+msgid "Pages:"
+msgstr "Pages traitées :"
+
+#. Label on the button used to open a window with the images of the boxes taken from the scan. This window can be used th check boxes categorization.
+#: ../AMC-gui-main_window.glade:1109 ../AMC-perl/AMC/Gui/Zooms.glade:13
+msgid "Zooms"
+msgstr "Zooms"
+
+#: ../AMC-gui-main_window.glade:1113
+msgid "Show images of the boxes from the scan, and check their categorization."
+msgstr "Montre les images des cases extraites du scan, et vérifie leur catégorisation."
+
+#. Label of the button used to open a window showing a scan with the place where corner marks have been detected, and the position where the boxes are supposed to be.
+#: ../AMC-gui-main_window.glade:1128
+msgid "Layout"
+msgstr "Calage"
+
+#: ../AMC-gui-main_window.glade:1132
+msgid "Show where corner marks have been detected on the scan, and where boxes are supposed to be."
+msgstr "Montre l'endroit où les marques de coin ont été détectées sur le scan, et les positions prévues pour les cases."
+
+#. Label of the button used to delete data capture for selected pages.
+#: ../AMC-gui-main_window.glade:1147
+msgid "Remove"
+msgstr "Effacer"
+
+#: ../AMC-gui-main_window.glade:1151
+msgid "Remove data capture for selected pages."
+msgstr "Efface la saisie pour les pages sélectionnées."
+
+#: ../AMC-gui-main_window.glade:1201
+msgid "Missing pages"
+msgstr "Pages manquantes"
+
+#: ../AMC-gui-main_window.glade:1248
+msgid "Look at scans"
+msgstr "Voir les scans"
+
+#: ../AMC-gui-main_window.glade:1276
+msgid "<b>Diagnosis</b>"
+msgstr "<b>Diagnostic</b>"
+
+#: ../AMC-gui-main_window.glade:1332
+msgid "Update marking scale"
+msgstr "Mettre a jour le barème"
+
+#: ../AMC-gui-main_window.glade:1336
+msgid "Also update marking scale extraction from LaTeX source file"
+msgstr "Faut-il aussi extraire le barème du fichier LaTeX ?"
+
+#: ../AMC-gui-main_window.glade:1368
+msgid "Mark papers"
+msgstr "Correction des copies"
+
+#: ../AMC-gui-main_window.glade:1435
+msgid "Look at marks"
+msgstr "Voir les notes"
+
+#: ../AMC-gui-main_window.glade:1486
+msgid "<b>Marking</b>"
+msgstr "<b>Correction</b>"
+
+#: ../AMC-gui-main_window.glade:1521
+msgid "Students list:"
+msgstr "Liste des étudiants :"
+
+#: ../AMC-gui-main_window.glade:1570
+msgid "Set file"
+msgstr "Choisir"
+
+#: ../AMC-gui-main_window.glade:1616
+msgid "Path"
+msgstr "Emplacement"
+
+#: ../AMC-gui-main_window.glade:1662
+msgid "Edit list"
+msgstr "Éditer la liste"
+
+#: ../AMC-gui-main_window.glade:1705
+msgid "Re-read"
+msgstr "Re-lire"
+
+#: ../AMC-gui-main_window.glade:1776
+msgid "Code name for automatic association:"
+msgstr "Titre du code pour association automatique :"
+
+#: ../AMC-gui-main_window.glade:1787
+msgid "Primary key from this list:"
+msgstr "Identifiant unique dans cette liste :"
+
+#: ../AMC-gui-main_window.glade:1806
+msgid "Papers/students association:"
+msgstr "Association entre copies et étudiants :"
+
+#: ../AMC-gui-main_window.glade:1947
+msgid "<b>Students identification</b>"
+msgstr "<b>Identification des étudiants</b>"
+
+#: ../AMC-gui-main_window.glade:1973
+msgid "Marking"
+msgstr "Notation"
+
+#: ../AMC-gui-main_window.glade:2049
+msgid "Export"
+msgstr "Exporter"
+
+#: ../AMC-gui-main_window.glade:2070
+msgid "and"
+msgstr "et"
+
+#: ../AMC-gui-main_window.glade:2125
+msgid "Sorting:"
+msgstr "Tri :"
+
+#: ../AMC-gui-main_window.glade:2147
+msgid "include absentees"
+msgstr "inclure les absents"
+
+#: ../AMC-gui-main_window.glade:2153
+msgid "Should exported data include absentees?"
+msgstr "Le tableau de notes exporté doit-il inclure une ligne pour chaque étudiant absent ?"
+
+#: ../AMC-gui-main_window.glade:2235
+msgid "Exports dir"
+msgstr "Fichiers de notes"
+
+#: ../AMC-gui-main_window.glade:2267
+msgid "<b>Marks export</b>"
+msgstr "<b>Export des notes</b>"
+
+#: ../AMC-gui-main_window.glade:2349
+msgid "File name model:"
+msgstr "Modèle de nom de fichier :"
+
+#: ../AMC-gui-main_window.glade:2363
+msgid "File name model used to make file names for PDF annotated papers, one by student. Keep empty in order to use student name."
+msgstr "Modèle utilisé pour former les noms des fichiers qui contiendront les copies corrigées en PDF rassemblées par étudiant. On peut laisser vide pour obtenir le numéro de copie."
+
+#: ../AMC-gui-main_window.glade:2412
+msgid "Annotate papers' scans with marking details."
+msgstr "Annoter les scans des copies en signalant les erreurs et en écrivant le détail de la note."
+
+#: ../AMC-gui-main_window.glade:2435
+msgid "Annotate papers"
+msgstr "Annoter les copies"
+
+#: ../AMC-gui-main_window.glade:2459
+msgid "Look at grouped files"
+msgstr "Voir les fichiers fabriqués"
+
+#: ../AMC-gui-main_window.glade:2483
+msgid "Look"
+msgstr "Voir"
+
+#: ../AMC-gui-main_window.glade:2514
+msgid "Send..."
+msgstr "Envoyer..."
+
+#: ../AMC-gui-main_window.glade:2543
+msgid "<b>Annotated papers</b>"
+msgstr "<b>Copies corrigées</b>"
+
+#: ../AMC-gui-main_window.glade:2566
+msgid "Reports"
+msgstr "Rapports"
+
+#: ../AMC-gui-make_template.glade:7
+msgid "Save as a template"
+msgstr "Enregistrer comme modèle"
+
+#: ../AMC-gui-make_template.glade:63
+msgid "To make a new template from your project, describe it below:"
+msgstr "Fabriquez un nouveau modèle en le décrivant ci-dessous :"
+
+#: ../AMC-gui-make_template.glade:84
+msgid "File name:"
+msgstr "Nom de fichier :"
+
+#: ../AMC-gui-make_template.glade:115
+msgid "<b>Note:</b> please use only alphanumeric characters and characters from \"-_+\" for the template file name."
+msgstr "<b>Note :</b> n'utilisez que des caractères alphanumériques et quelques autres caractères simples (-_+)."
+
+#: ../AMC-gui-make_template.glade:141
+msgid "Short name:"
+msgstr "Nom court :"
+
+#: ../AMC-gui-make_template.glade:200
+msgid "Description:"
+msgstr "Description :"
+
+#: ../AMC-gui-make_template.glade:301
+msgid "Included files:"
+msgstr "Fichiers à inclure :"
+
+#: ../AMC-gui-saisie_auto.glade:7
+msgid "Please select all papers' scans"
+msgstr "Sélectionnez tous les scans des copies des étudiants"
+
+#: ../AMC-gui-saisie_auto.glade:9
+msgid "Automatic data capture"
+msgstr "Saisie automatique"
+
+#: ../AMC-gui-saisie_auto.glade:26
+msgid "Proceed to data capture from scans with button OK"
+msgstr "Lancez l'analyse des scans avec le bouton Valider"
+
+#: ../AMC-gui-saisie_auto.glade:82
+msgid "Copy to project directory (recommended)"
+msgstr "Copier les scans dans le répertoire projet (recommandé)"
+
+#: ../AMC-gui-saisie_auto.glade:88 ../AMC-gui-saisie_auto.glade:89
+msgid "Copy all scans to scans sub-directory in project directory"
+msgstr "Pour copier tous les fichiers sélectionnés dans un sous-répertoire du projet"
+
+#: ../AMC-gui-saisie_auto.glade:158
+msgid "Use this setting to be sure that the exam copy IDs allocated to the pages of the scans you selected will be consecutive numbers, <b>in the same order</b> as the pages."
+msgstr "Utilisez cette option pour être certains que les identifiants de copies affectés aux pages des scans sélectionnés seront des nombres consécutifs, <b>dans le même ordre</b> que les pages."
+
+#: ../AMC-gui-saisie_auto.glade:175
+msgid "<b>Options</b>"
+msgstr "<b>Options</b>"
+
+#: ../AMC-gui-source_latex_choix.glade:8
+msgid "Choose LaTeX source file"
+msgstr "Choix du fichier source LaTeX"
+
+#: ../AMC-gui-source_latex_choix_zip.glade:8
+msgid "ZIP file choice"
+msgstr "Choix du fichier ZIP"
+
+#: ../AMC-gui-source_latex_dialog.glade:8
+msgid "Choose LaTeX source"
+msgstr "Choix du source LaTeX"
+
+#: ../AMC-gui-source_latex_dialog.glade:25
+msgid ""
+"A Multiple Choice project is mainly made of a source file, which describes the questionnaire.\n"
+"<b>Please choose your situation:</b>"
+msgstr ""
+"Un projet de QCM est avant tout constitué d'un fichier source qui contient la définition du questionnaire lui-même.\n"
+"<b>Choisissez votre situation :</b>"
+
+#: ../AMC-gui-source_latex_dialog.glade:58
+msgid "empty"
+msgstr "vide"
+
+#: ../AMC-gui-source_latex_dialog.glade:108
+msgid "archive"
+msgstr "archive"
+
+#: ../AMC-gui-source_latex_dialog.glade:128
+msgid "You did not write any description of the questionnaire, and want to start from a template."
+msgstr "Vous n'avez pas encore écrit cette description ; vous voulez partir d'un modèle de source LaTeX que vous modifierez."
+
+#: ../AMC-gui-source_latex_dialog.glade:142
+msgid "You already wrote a questionnaire description, and want to use it for this project."
+msgstr "Vous avez déjà écrit une description de votre questionnaire et vous voulez l'utiliser pour ce projet."
+
+#: ../AMC-gui-source_latex_dialog.glade:157
+msgid "You want to write the description from zero."
+msgstr "Vous voulez écrire votre description de zéro en partant d'un fichier vide."
+
+#: ../AMC-gui-source_latex_dialog.glade:172
+msgid "You have a tgz or zip file containing the questionnaire and other related stuff, comming from a third party software or a backup."
+msgstr "Vous disposez d'un fichier tgz ou zip contenant le sujet et des fichiers annexes. Il peut venir d'une sauvegarde ou d'un export AMC à partir d'une autre application."
+
+#: ../AMC-gui-source_latex_modele.glade:9
+msgid "Template selection"
+msgstr "Choix du modèle"
+
+#: ../AMC-gui-unrecognized.glade:7
+msgid "Unrecognized scans"
+msgstr "Scans non reconnus :"
+
+#: ../AMC-gui-unrecognized.glade:46
+msgid "Scans list"
+msgstr "Liste des scans"
+
+#: ../AMC-gui-unrecognized.glade:80
+msgid "Preprocess"
+msgstr "Pré-traitement"
+
+#: ../AMC-gui-unrecognized.glade:190
+msgid "<b>Original scan</b>"
+msgstr "<b>Scan original</b>"
+
+#: ../AMC-gui-unrecognized.glade:236
+msgid "<b>Preprocessed</b>"
+msgstr "<b>Pré-traité</b>"
+
+#: ../AMC-perl/AMC/Gui/Association.glade:14
+msgid "Manual association"
+msgstr "Association manuelle"
+
+#. This is the label of the check button that controls wheter the auto-completion for students names will be made looking at the beginnig of the names or at the whole names.
+#: ../AMC-perl/AMC/Gui/Association.glade:84
+msgid "beginning"
+msgstr "au début"
+
+#: ../AMC-perl/AMC/Gui/Association.glade:88
+msgid "Is auto-completion looking at the beginning of the names only?"
+msgstr "La complétion automatique regarde-t-elle au début des noms uniquement ?"
+
+#: ../AMC-perl/AMC/Gui/Association.glade:156
+msgid "Show all"
+msgstr "Tous les noms"
+
+#: ../AMC-perl/AMC/Gui/Association.glade:359
+msgid "associated"
+msgstr "associés"
+
+#: ../AMC-perl/AMC/Gui/Association.glade:363
+msgid "If this is not ticked, the next copy is taken from the copies which are not yet associated (already associated copies are skipped), and when it is ticked, the next copy is taken from all the copies (you pass all associated and non-associated copies in turn)."
+msgstr "Si cette option n'est pas activée, la copie suivante sera prise parmi les copies qui n'ont pas encore été associées (les copies déjà associées sont omises), et quand elle est activée, la copie suivante est prise parmi toutes les copies (toutes les copies, associées ou non, sont étudiées)."
+
+#: ../AMC-perl/AMC/Gui/Association.glade:407
+msgid "Remove manual association for this paper"
+msgstr "Effacer l'association manuelle pour cette copie"
+
+#: ../AMC-perl/AMC/Gui/Association.glade:423
+msgid "Tell the system that this papers does not correspond to any of the students from the list."
+msgstr "Indiquer que cette copie ne correspond à aucun étudiant de la liste"
+
+#: ../AMC-perl/AMC/Gui/Association.glade:446
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: ../AMC-perl/AMC/Gui/Association.glade:502
+msgid "Save associations."
+msgstr "Sauvegarder les associations effectuées"
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:13
+msgid "Paper data capture"
+msgstr "Saisie des copies de QCM"
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:32 ../AMC-perl/AMC/Gui/Manuel.glade:225
+msgid "Go to:"
+msgstr "Aller à :"
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:44 ../AMC-perl/AMC/Gui/Manuel.glade:237
+msgid "Enter paper number, or page number like 102/4 (page 4 from paper 102), then press enter."
+msgstr "Entrer un numéro d'étudiant, ou un numéro de page sous la forme 102/4 (ici pour la page 4 de l'étudiant 102), puis appuyez sur la touche entrée."
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:76
+msgid "Go to the previous page."
+msgstr "Aller à la page précédente."
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:93
+msgid "Quit"
+msgstr "Quitter"
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:110
+msgid "Go to next page."
+msgstr "Aller à la page suivante."
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:272
+msgid "Save this page modifications, then go to the previous page."
+msgstr "Sauvegarder les modifications de cette page puis passer à la page précédente."
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:286
+msgid "Choose if you want to navigate through all pages, through pages with invalid answers, or through pages with invalid or empty answers."
+msgstr "Choisissez si vous voulez étudier toutes les pages, les pages avec réponses incohérentes seulement, ou les pages avec réponses incohérentes ou vides seulement."
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:309
+msgid "Save this page modifications, then go to next page."
+msgstr "Sauvegarder les modifications de cette page puis passer à la page suivante."
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:377
+msgid "Remove manual modifications for this page. Automatic data capture for this page, if any, won't be changed."
+msgstr "Effacer la saisie manuelle pour cette page. Les résultats éventuels de la saisie automatique ne seront pas modifiés."
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:405
+msgid "Cancel modifications for this page"
+msgstr "Annuler les modifications faites à cette page"
+
+#: ../AMC-perl/AMC/Gui/Manuel.glade:422
+msgid "Save and quit"
+msgstr "Sauvegarder et quitter"
+
+#: ../AMC-perl/AMC/Gui/Zooms.glade:132
+msgid "Unchecked boxes"
+msgstr "Cases non cochées"
+
+#: ../AMC-perl/AMC/Gui/Zooms.glade:203
+msgid "Checked boxes"
+msgstr "Cases cochées"
+
+#: ../AMC-perl/AMC/Gui/Zooms.glade:285
+msgid "Toggle mode. With 'click', left-click to toggle and right-click to toggle a group."
+msgstr "Clic gauche ou droit pour déplacer vers un groupe."
+
+#~ msgid "(not supported)"
+#~ msgstr "(impossible)"
+
+#~ msgid "Printing with method '%s' needs some perl modules that are not installed: %s. Please install these modules or switch to another printing method."
+#~ msgstr "La méthode d'impression '%s' nécessite la présence de certains modules perl qui ne sont pas installés sur votre système : %s. Veuillez les installer ou choisir une autre méthode d'impression."
+
+#~ msgid "CUPS"
+#~ msgstr "CUPS"
+
+#~ msgid "Yes"
+#~ msgstr "Oui"
+
+#~ msgid "Print separate answer sheet separately"
+#~ msgstr "Imprimer la page de réponses séparément"
+
+#~ msgid "Stapling"
+#~ msgstr "agrafage"
+
+#~ msgid "Grouping students annotated pages together..."
+#~ msgstr "Regroupement des pages corrigées par étudiant..."
+
+#~ msgid "Renaming annotated files with new model..."
+#~ msgstr "Renommage des copies annotées..."
+
+#~ msgid "Please install <b>Gtk2::Notify</b> perl package to make desktop notifications available."
+#~ msgstr "Veuillez installer le paquet perl <b>Gtk2::Notify</b> pour pouvoir bénéficier des notifications de bureau."
+
+#~ msgid "Name and surname"
+#~ msgstr "Nom et prénom"
+
+#~ msgid "Previous group was empty"
+#~ msgstr "Le groupe précédent est vide"
+
+#~ msgid "Create a table with basic statistics about answers for each question?"
+#~ msgstr "Créer une table de statistiques simples sur chaque question ?"
+
+#~ msgid "PDF"
+#~ msgstr "PDF"
+
+#~ msgid "Size, in the form \"width\"x\"height\", for exemple 1000x1500"
+#~ msgstr "Format \"largeur\"x\"hauteur\", par exemple 1000x1500"
+
+#~ msgid "Maximum size in pixels"
+#~ msgstr "Taille maximale en pixels"
+
+#~ msgid "<b>JPEG quality for annotated papers</b>"
+#~ msgstr "<b>Qualité de l'image jpeg produite</b>"
+
+#~ msgid "Value 60, for exemple, means that text size is chosen so that page height is 60 lines of text."
+#~ msgstr "Utiliser la valeur 60 signifie que la taille du texte sera choisie de telle sorte que la hauteur de la page correspond à 60 lignes de texte."
+
+#~ msgid "compose"
+#~ msgstr "composer"
+
+#~ msgid "Find pages in solution if scan is not present? Useful with question with separated answers page."
+#~ msgstr "Doit-on aller chercher dans la correction les pages qui n'ont pas été annotées à partir de scans ? Cette option est utile en particulier pour les sujets à page de réponses séparées."
+
+#~ msgid "Unticking this box, you see only non-associated papers. Tick it to be able to check already associated papers."
+#~ msgstr "Si cette case n'est pas cochée, vous pourrez naviguer uniquement parmi les copies non-associées."
+
+#~ msgid "solution"
+#~ msgstr "corrigé"
+
+#~ msgid "Do you want notifications to be shown at the end of automatic data capture and annotation processes?"
+#~ msgstr "Voulez-vous afficher une notification à la fin des saisies automatiques et de la fabrication des copies annotées ?"
+
+#~ msgid "Add a column"
+#~ msgstr "Ajouter une colonne"
+
+#~ msgid "Remove a column"
+#~ msgstr "Enlever une colonne"
+
+#~ msgid "Annotate papers&apos; scans with marking details."
+#~ msgstr "Annoter les scans des copies en signalant les erreurs et en écrivant le détail de la note."
+
+#~ msgid "Remove manual modifications for this page. Automatic data capture for this page, if any, won&apos;t be changed."
+#~ msgstr "Effacer la saisie manuelle pour cette page. Les résultats éventuels de la saisie automatique ne seront pas modifiés."
+
+#~ msgid "Confirm changes"
+#~ msgstr "Valider les modifications"
+
+#~ msgid "Process"
+#~ msgstr "Commencer"
+
+#~ msgid "project %s"
+#~ msgstr "projet %s"
+
+#~ msgid "Automatic Multiple Choice"
+#~ msgstr "QCM Automatique"
+
+#~ msgid "Proceed"
+#~ msgstr "Utiliser"
+
+#~ msgid "Edit LaTeX file"
+#~ msgstr "Éditer le fichier LaTeX"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Updated"
+#~ msgstr "MAJ"
+
+#~ msgid "LaTeX file (*.tex)"
+#~ msgstr "Fichier LaTeX (*.tex)"
+
+#~ msgid "Group annotated pages to one PDF file by student"
+#~ msgstr "Regrouper les pages corrigées en un fichier par étudiant"
+
+#~ msgid "Group"
+#~ msgstr "Regrouper"
+
+#~ msgid "Choose which columns from the students list to include in the exported file."
+#~ msgstr "Choisir quelles colonnes de la liste des étudiants seront exportées."
+
+#~ msgid "Compute layouts"
+#~ msgstr "calculer les mises en page"
+
+#~ msgid "Transport:"
+#~ msgstr "Transport :"
+
+#~ msgid "Unreadable marks"
+#~ msgstr "Notes illisibles"
+
+#~ msgid "No automatic data capture: no zoom to build..."
+#~ msgstr "Aucune saisie automatique n'a été effectuée : il n'y a donc pas de zooms à reconstruire..."
+
+#~ msgid "Re-extracting zooms..."
+#~ msgstr "Re-extraction des zooms..."
+
+#~ msgid "You changed parameter \"%s\"."
+#~ msgstr "Vous avez modifié le paramètre « %s »."
+
+#~ msgid "If you already captured data from scans, boxes zooms are no longer correctly grouped."
+#~ msgstr "Si vous avez déjà effectué une saisie automatique, les zooms des cases fabriqués pour chaque copie ne sont plus correctement organisés."
+
+#~ msgid "Do you want to re-build them?"
+#~ msgstr "Voulez-vous les refabriquer ?"
+
+#~ msgid "It will take some time."
+#~ msgstr "Cela prend un peu de temps."
+
+#~ msgid "You will be able to build them later with <i>%s</i> in menu <i>%s</i>."
+#~ msgstr "Vous pouvez aussi les refabriquer plus tard grâce à l'action <i>%s</i> du menu <i>%s</i>."
+
+#~ msgid "Re-extract zooms"
+#~ msgstr "re-extraire les zooms"
+
+#~ msgid "Tools"
+#~ msgstr "Outils"
+
+#~ msgid "unticked boxes"
+#~ msgstr "non cochées"
+
+#~ msgid "ticked boxes"
+#~ msgstr "cases cochées"
+
+#~ msgid "For both two latest cases, you can use graphical interface for manual data caption."
+#~ msgstr "Dans les deux derniers cas, vous pouvez associer les copies aux étudiants en utilisant l'interface de saisie manuelle."
+
+#~ msgid "Error saving to <i>%s</i>: <b>%s</b>"
+#~ msgstr "Erreur lors de la sauvegarde de <i>%s</i> : <b>%s</b>"
+
+#~ msgid "Shall AMC include in the marks file details about which boxes are ticked on the completed answer sheets?"
+#~ msgstr "AMC doit-il inclure dans le fichier de notes le détail des cases cochées ou non ?"
+
+#~ msgid "Cancel all associations made this time."
+#~ msgstr "Annuler toutes les associations faites cette fois-ci."
+
+#~ msgid "Working documents are not present"
+#~ msgstr "Les documents de travail ne sont pas présents"
+
+#~ msgid ""
+#~ "LaTeX source file for this project is:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Le fichier LaTeX qui décrit le QCM de ce projet est situé à l'emplacement suivant :\n"
+#~ "%s"
+
+#~ msgid "Path:"
+#~ msgstr "Emplacement :"
+
+#~ msgid "Click here to know where project LaTeX source file is"
+#~ msgstr "Cliquez ici pour connaître l'emplacement exact du fichier LaTeX utilisé pour ce projet"
+
+#~ msgid "adjustment"
+#~ msgstr "calage"
+
+#~ msgid "unreadable"
+#~ msgstr "illisible"
+
+#~ msgid "Looking for detected layouts..."
+#~ msgstr "Recherche des mises en page détectées..."
+
+#~ msgid "Detect layouts from adjustment document."
+#~ msgstr "Analyser la mise en page de chaque page à partir du document de calage."
+
+#~ msgid "Print papers, one by one"
+#~ msgstr "Lance l'impression, copie par copie"
+
+#~ msgid "Enter the student name written on this page."
+#~ msgstr "Entrez ici le nom que l'étudiant a inscrit sur cette page."
+
+#~ msgid "File <i>source.tex</i> already exists in project directory %s. It has not been removed, and will be used as the project source file."
+#~ msgstr "Un fichier <i>source.tex</i> existe déjà dans le répertoire du projet %s. Je ne l'ai pas effacé et il servira de fichier source."
+
+#~ msgid "Templates directory"
+#~ msgstr "Modèles personnels"
+
+#~ msgid "model"
+#~ msgstr "modèle"
+
+#~ msgid "Questionnaire model choice"
+#~ msgstr "Choix d'un modèle de questionnaire"
+
+#~ msgid "automatic decoupled"
+#~ msgstr "découplé automatique"
+
+#~ msgid "direct"
+#~ msgstr "direct"
+
+#~ msgid "It is faster than the one that you used so far."
+#~ msgstr "Elle est bien plus rapide que celle que vous avez utilisé jusqu'à maintenant."
+
+#~ msgid "Do you want to use it from now on?"
+#~ msgstr "Voulez-vous l'utiliser dorénavant ?"
+
+#~ msgid "If you experience any problem with this new implementation, you can change back to the old one setting \"%s\" to \"%s\" in %s (tab \"%s\")."
+#~ msgstr "Si vous rencontrez des problèmes avec cette nouvelle implémentation, vous pouvez revenir à l'ancienne méthode en donnant à « %s » la valeur « %s » dans %s (onglet « %s »)."
+
+#~ msgid "Detection"
+#~ msgstr "Détection"
+
+#~ msgid "adjustment document"
+#~ msgstr "document de calage"
+
+#~ msgid "Can be customized in a per-project basis in the Project tab."
+#~ msgstr "Peut être personnalisé pour chaque projet dans l'onglet Projet."
+
+#~ msgid "Models"
+#~ msgstr "Modeles"
+
+#~ msgid "zip"
+#~ msgstr "zip"
+
+#~ msgctxt "No code found in LaTeX file"
+#~ msgid "(none)"
+#~ msgstr "(aucun)"
+
+#~ msgctxt "No two-sided printing"
+#~ msgid "one sided"
+#~ msgstr "Non"
+
+#~ msgctxt "No transitional image type (direct processing)"
+#~ msgid "(none)"
+#~ msgstr "(aucun)"
+
+#~ msgctxt "No annotation position (do not write anything)"
+#~ msgid "(none)"
+#~ msgstr "(aucune)"

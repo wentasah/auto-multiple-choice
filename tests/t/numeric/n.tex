@@ -1,0 +1,137 @@
+\documentclass[a4paper]{article}
+\usepackage{fp}
+\usepackage{multicol}
+\usepackage[separateanswersheet,calibration]{automultiplechoice}
+\begin{document}
+
+\def\AMCotextReserved{\emph{Reserved}}
+\def\AMCntextGoto{\par{\bf\emph{Please code the result on the separate answer sheet.}}}
+\def\AMCotextGoto{\par{\bf\emph{Please write the answer on the separate answer sheet.}}}
+
+\def\quatrequards{\bareme{b=.5}
+      \correctchoice[~]{}\correctchoice[~]{}\correctchoice[~]{}\correctchoice[~]{}
+}
+\def\jfm{\wrongchoice[F]{}\scoring{0}%
+\wrongchoice[P]{}\scoring{1}%
+\correctchoice[C]{}\scoring{2}}
+
+\element{grq}{
+  \begin{question}{capital}
+    What is the capital city of Ethiopia?
+    \AMCOpen{dots=false}{\jfm}
+  \end{question}
+}
+
+\element{grq}{
+  \begin{questionmult}{cities}
+    What are the two main cities of Cameroon?
+    \AMCOpen{foregroundcol=red,backgroundcol=white,lines=2,scan=false}{\quatrequards}
+  \end{questionmult}
+}
+
+\element{grq}{
+\begin{question}{inf-expo-indep}
+\FPeval\VQa{trunc(2 + random * 4,0)}
+\FPeval\VQb{trunc(6 + random * 5,0)}
+\FPeval\VQr{VQa/(VQa+VQb)}
+Let $X$ and $Y$ be two independent random variables, following
+exponential laws with respective parameters \VQa{} and \VQb{}.
+In which interval lies the probability $\textrm{P}[X<Y]$?
+\begin{multicols}{5}
+\begin{reponses}[o]
+\AMCIntervals{\VQr}{0}{1}{0.1}
+\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+\element{grq}{
+\begin{question}{Egypt}
+What is the capital of Egypt?
+\begin{choices}
+\correctchoice{Cairo}
+\wrongchoice{Caracas}
+\wrongchoice{Cayenne}
+\wrongchoice{Chisinau}
+\wrongchoice{Conakry}
+\end{choices}
+\end{question}
+}
+
+\element{grq}{
+\begin{questionmult}{1971}
+Which of the following events are taking place during the year
+1971?
+\begin{choices}
+\correctchoice{Apollo 14 lands on the Moon}
+\correctchoice{The Soviet Union launches Salyut 1}
+\correctchoice{Death of Louis Armstrong}
+\wrongchoice{The first commercial Concorde flight takes off}
+\end{choices}
+\end{questionmult}
+}
+
+\element{grq}{
+  \begin{questionmultx}{sum}
+\FPeval\VQa{trunc(1+random*8,0)}
+\FPeval\VQb{trunc(4+random*5,0)}
+\FPeval\VQsomme{clip(VQa+VQb)}
+
+    How much are \VQa{} plus \VQb{}?
+
+    \AMCnumericChoices{\VQsomme}{digits=2,strict=true}
+
+  \end{questionmultx}
+}
+\element{grq}{
+  \begin{questionmultx}{product}
+\FPeval\VQa{trunc(5+random*15,0)}
+\FPeval\VQb{trunc(-5+random*10,0)}
+\FPeval\VQprod{clip(VQa*VQb)}
+
+    How much are \VQb{} times \VQa{} ?
+
+    \AMCnumericChoices{\VQprod}{digits=4,approx=1,Tsign={sign}}
+
+  \end{questionmultx}
+}
+\element{grq}{
+  \begin{questionmultx}{sqrt}
+\FPeval\VQa{trunc(5+random*15,0)}
+\FPeval\VQs{VQa^0.5}
+
+    Compute $\sqrt{\VQa}$.
+
+    \AMCnumericChoices{\VQs}{digits=3,decimals=2,sign=false,
+	borderwidth=0pt,backgroundcol=lightgray,approx=5}
+
+  \end{questionmultx}
+}
+
+\onecopy{5}{
+
+  \begin{center}
+    \bf\Large Questions
+  \end{center}
+
+\shufflegroup{grq}
+\insertgroup{grq}
+
+\clearpage \AMCformBegin
+
+\begin{center}
+  \bf\Large Answers...
+\end{center}
+
+\hspace*{\fill}\namefield{\fbox{
+\begin{minipage}{15em}
+Name and surname:\vspace*{3ex}\par
+\noindent\dotfill\vspace{2mm}
+\end{minipage}
+}}
+
+\AMCform
+
+}
+
+\end{document}

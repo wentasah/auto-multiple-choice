@@ -1,0 +1,65 @@
+
+a { 
+    color: #000;
+    text-decoration: none;
+    border-bottom: 1px dotted #000; 
+}
+
+a:hover {
+    background-color: #024782;
+    color: #fff; 
+}
+
+.screen {
+        font-family: monospace;
+        font-size: medium;
+        display: block;
+        padding: 10px;
+        border: 1px solid #bbb;
+        background-color: #eee;
+        color: #000;   
+        overflow: auto;
+        border-radius: 2.5px;
+        -moz-border-radius: 2.5px;
+        margin: 0.5em 2em;
+ 
+}
+
+.programlisting {
+        font-family: monospace;
+        font-size: medium;
+        display: block;
+        padding: 10px;
+        border: 1px solid #bbb;
+        background-color: #ddd;
+        color: #000;   
+        overflow: auto;
+        border-radius: 2.5px;
+        -moz-border-radius: 2.5px;
+        margin: 0.5em 2em;
+}
+
+.note, .caution, .warning, .important {
+        border: 1px solid #024782;
+	border-radius: .5em;
+	-moz-border-radius: .5em;
+	margin: 10px;
+	padding: 3px;
+	
+}
+
+.title {
+	color: #024782;
+}
+
+.guimenu, .guimenuitem, .guisubmenu, .guilabel {
+	color: #9B0000;
+}
+
+
+.guibutton {
+	background-color: #FFCFCF;
+	border: 1px solid #9B0000;
+	border-radius: .3em;
+	-moz-border-radius: .3em;
+}

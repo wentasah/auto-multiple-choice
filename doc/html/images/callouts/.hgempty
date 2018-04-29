@@ -1,0 +1,1 @@
+Mercurial keeps track of files and not directories. The presence of this file will ensure that its parent directory remains non-empty and thus is part of version control. The directory is required to prevent errors while building. Ideally the creation of this directory should be part of build process and not version control and hence it should be removed in future.

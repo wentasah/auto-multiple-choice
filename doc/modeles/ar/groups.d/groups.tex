@@ -1,0 +1,115 @@
+\documentclass[a4paper]{article}
+
+\usepackage[box,completemulti]{automultiplechoice}
+
+%% XeLaTeX with arabic texts, using Rasheeq font from arabeyes:
+\usepackage{arabxetex}
+\newfontfamily{\arabicfont}[Script=Arabic,Scale=1]{Rasheeq}
+%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% some commands to turn texts into arabic :
+
+\Arabic
+
+\def\AMCchoiceLabel#1{\textLR{\Alph{#1}}}
+\def\AMCbeginQuestion#1#2{\par\noindent{‫السؤال #1 #2 :}}
+\def\AMCformQuestion#1{\vspace{\AMCformVSpace}\par{\large ‫السؤال #1 :}}
+
+\AMCtext{none}{لا شيء من الإجابات أعلاه صحيحة}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% preparation of the groups
+
+\element{geographie}{
+  \begin{question}{Paris}
+    في أي قارة توجد باريس؟
+    \begin{choices}
+      \correctchoice{اوروبا}
+      \wrongchoice{افريقيا}
+      \wrongchoice{اسيا}
+      \wrongchoice{كوكب المشتري}
+    \end{choices}
+  \end{question}
+}
+
+\element{geographie}{
+  \begin{question}{Riyad}
+    ما هي عاصمة السعودية؟
+    \begin{choices}
+      \correctchoice{الرياض}
+      \wrongchoice{كولالمبور}
+      \wrongchoice{أبوظبي}
+    \end{choices}
+  \end{question}
+}
+
+\element{histoire}{
+  \begin{question}{ww1}
+    في أي عام انتهت الحرب العالمية الاولى؟
+    \begin{choiceshoriz}
+      \correctchoice{1918}
+      \wrongchoice{1919}
+      \wrongchoice{1519}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{histoire}{
+  \begin{questionmult}{ONU}
+    يمكن القول عن  \emph{هيئة الامم المتحدة}؟
+    \begin{choices}
+      \correctchoice{انها تأسست عام 1946}
+      \correctchoice{انها توجد في نيويورك}
+      \wrongchoice{انها نادي استعماري للدول الكبرى}
+    \end{choices}
+  \end{questionmult}
+}
+
+%%% copies
+
+\onecopy{10}{
+
+%%% beginning of the test sheet header:
+
+\noindent{\textLR{\bf AutoMultipleChoice}  \hfill \textLR{TEST}}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+  \centering\large التاريخ والجغرافيا\\ اختبار الفصل الاول يناير 2011
+\end{minipage}
+\namefield{\fbox{\begin{minipage}{.5\linewidth}
+الاسم الكامل:
+
+\vspace*{.5cm}\dotfill
+\vspace*{1mm}
+\end{minipage}}}
+
+%%% end of the header
+
+\begin{center}
+  \hrule\vspace{2mm}
+  \Large الجغرافيا
+  \vspace{1mm}\hrule
+\end{center}
+
+\shufflegroup{geographie}
+\insertgroup{geographie}
+
+\begin{center}
+  \hrule\vspace{2mm}
+  \Large التاريخ
+  \vspace{2mm}\hrule
+\end{center}
+
+\shufflegroup{histoire}
+\insertgroup{histoire}
+
+\clearpage
+
+}
+
+\end{document}

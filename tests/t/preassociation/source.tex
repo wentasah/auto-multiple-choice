@@ -1,0 +1,62 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{automultiplechoice}
+\usepackage{csvsimple}
+\begin{document}
+
+\element{general}{
+  \begin{question}{s}
+    Get points:
+    \begin{choices}
+      \wrongchoice{0}\scoring{0}
+      \wrongchoice{1}\scoring{1}
+      \correctchoice{2}\scoring{2}
+    \end{choices}
+  \end{question}
+}
+
+\element{general}{
+  \begin{questionmult}{m}
+    Which are positive numbers?
+    \begin{choices}
+      \wrongchoice{$-1$}
+      \wrongchoice{0}
+      \correctchoice{2}
+      \correctchoice{$\pi$}
+    \end{choices}
+  \end{questionmult}
+}
+
+\newcommand{\subject}{
+  \onecopy{1}{
+
+    \noindent{\bf AutoMultipleChoice \hfill TEST}
+
+    \vspace*{.5cm}
+
+    \begin{center}\em
+      Pre-filled test.
+    \end{center}
+
+    \hfill \namefield{\fbox{
+        \begin{minipage}{.5\linewidth}
+          Name:
+
+          \Large\bf \name{} \surname{}
+
+          \vspace*{1mm}
+        \end{minipage}
+      }}
+
+    \noindent\hrulefill
+
+    \vspace{1ex}
+
+    \shufflegroup{general}
+    \insertgroup{general}
+
+    \AMCassociation{\id}
+  }
+}
+\csvreader[head to column names]{students.csv}{}{\subject}
+\end{document}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<association liste_key="id" notes_id="student" version="1">
+  <copie id="1" auto="121" />
+  <copie id="2" manuel="330" />
+  <copie id="3" auto="421" />
+  <copie id="4" auto="432" />
+</association>

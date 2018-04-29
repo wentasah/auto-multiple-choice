@@ -1,0 +1,34 @@
+\documentclass[a4paper]{article}
+\usepackage{automultiplechoice}
+\begin{document}
+
+\onecopy{5}{
+
+  \begin{question}{color}
+    Which color?
+    \begin{choiceshoriz}
+      \wrongchoice{red}
+      \wrongchoice{blue}
+      \wrongchoice{yellow}
+      \lastchoices
+      \correctchoice{transparent}
+      \wrongchoice{can't say}
+    \end{choiceshoriz}
+  \end{question}
+
+  \begin{questionmult}{number}
+    How many?
+    \begin{choiceshoriz}
+      \wrongchoice{none}
+      \correctchoice{one}
+      \wrongchoice{two}
+      \wrongchoice{three}
+      \lastchoices
+      \correctchoice{not so much}
+      \wrongchoice{a lot}
+    \end{choiceshoriz}
+  \end{questionmult}
+
+}
+
+\end{document}

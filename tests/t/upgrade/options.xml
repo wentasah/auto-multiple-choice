@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<projetAMC>
+  <_modifie>1</_modifie>
+  <_modifie_ok>0</_modifie_ok>
+  <after_export>file</after_export>
+  <annote_position>marge</annote_position>
+  <annote_rtl></annote_rtl>
+  <assoc_code>student</assoc_code>
+  <association>association.xml</association>
+  <code_examen></code_examen>
+  <cr>cr</cr>
+  <docs>DOC-sujet.pdf</docs>
+  <docs>DOC-corrige.pdf</docs>
+  <docs>DOC-calage.xy</docs>
+  <encodage_csv>UTF-8</encodage_csv>
+  <encodage_liste>UTF-8</encodage_liste>
+  <export_csv_cochees></export_csv_cochees>
+  <export_csv_separateur>,</export_csv_separateur>
+  <export_include_abs></export_include_abs>
+  <export_ncols>2</export_ncols>
+  <export_pagesize>a4</export_pagesize>
+  <export_sort>n</export_sort>
+  <fichbareme>bareme.xml</fichbareme>
+  <format_export>ods</format_export>
+  <liste_key>id</liste_key>
+  <listeetudiants>%PROJET/students.txt</listeetudiants>
+  <maj_bareme>1</maj_bareme>
+  <mep>mep</mep>
+  <modele_regroupement></modele_regroupement>
+  <moteur_latex_b>pdflatex</moteur_latex_b>
+  <nom_examen></nom_examen>
+  <nombre_copies>0</nombre_copies>
+  <note_arrondi>inf</note_arrondi>
+  <note_grain>0.5</note_grain>
+  <note_max></note_max>
+  <note_max_plafond>1</note_max_plafond>
+  <note_min></note_min>
+  <notes>notes.xml</notes>
+  <postcorrect_id>0</postcorrect_id>
+  <regroupement_compose></regroupement_compose>
+  <regroupement_type>STUDENTS</regroupement_type>
+  <seuil>0.15</seuil>
+  <texsrc>%PROJET/source.tex</texsrc>
+  <verdict>%(ID)
+Note: %s/%m (score total : %S/%M)</verdict>
+  <verdict_q>&quot;%s/%m&quot;</verdict_q>
+</projetAMC>

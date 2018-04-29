@@ -1,0 +1,111 @@
+%
+% Copyright (C) 2012 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass[a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[postcorrect,bloc]{automultiplechoice}
+\begin{document}
+
+\element{grq}{
+  \begin{question}{code-secret}
+    Quel est le code de James Bond ?
+    \begin{reponses}
+      \mauvaise{123}
+      \mauvaise{492}
+      \mauvaise{561}
+      \mauvaise{007}
+    \end{reponses}
+  \end{question}
+}
+
+\element{grq}{
+  \begin{question}{lettre}
+    Quelle est la première lettre de l'alphabet ?
+    \begin{reponseshoriz}
+      \mauvaise{A}
+      \mauvaise{B}
+      \mauvaise{C}
+      \mauvaise{D}
+      \mauvaise{Z}
+    \end{reponseshoriz}
+  \end{question}
+}
+
+\element{grq}{
+  \begin{questionmult}{pos}
+    Cochez les numbres positifs :
+    \begin{reponses}
+      \mauvaise{1}
+      \mauvaise{2}
+      \mauvaise{-1}
+      \mauvaise{-2}
+      \mauvaise{4}
+      \mauvaise{$\pi$}
+    \end{reponses}
+  \end{questionmult}
+}
+
+\exemplaire{5}{
+\noindent{\bf TEST \hfill PostCorrect}
+
+\begin{center}\em
+Durée : 3 minutes.
+
+  Saurez-vous répondre à ces questions difficiles ?
+\end{center}
+\vspace{1ex}
+
+
+{\setlength{\parindent}{0pt}\hspace*{\fill}\AMCcode{student}{8}\hspace*{\fill}
+\begin{minipage}[b]{6.5cm}
+$\longleftarrow{}$\hspace{0pt plus 1cm} codez votre numéro d'étu\-diant ci-contre, et écrivez votre nom et prénom ci-dessous.
+
+\vspace{3ex}
+
+\hfill\champnom{\fbox{    
+    \begin{minipage}{.9\linewidth}
+      Nom et prénom :
+      
+      \vspace*{.5cm}\dotfill
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}\hfill\vspace{5ex}\end{minipage}\hspace*{\fill}
+
+}
+
+\vspace{1ex}
+
+\noindent\hrulefill
+
+\vspace{2ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\melangegroupe{grq}
+
+\restituegroupe{grq}
+
+
+}
+
+\end{document}

@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{automultiplechoice}
+\usepackage{fp}
+\begin{document}
+
+\scoringDefaultM{mz=2}
+
+\begin{examcopy}
+  \begin{questionmult}{positive}
+    Which numbers are positive?
+    \begin{choices}
+      \wrongchoice{-1}
+      \wrongchoice{0}
+      \correctchoice{1}
+      \correctchoice{$\pi$}
+    \end{choices}
+  \end{questionmult}
+
+  \begin{questionmultx}{add}
+    How much are 2 plus 2?
+    \AMCnumericChoices{4}{scoreexact=2,scoreapprox=1,digits=2,decimals=0,significant=true,sign=true}
+  \end{questionmultx}
+\end{examcopy}
+
+\end{document}

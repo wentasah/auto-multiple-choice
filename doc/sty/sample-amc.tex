@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{automultiplechoice}
+\usepackage{multicol}
+\begin{document}
+
+\input{questions.tex}
+
+\onecopy{30}{
+
+\noindent{\bf AMC  \hfill SAMPLE TEST}
+
+\vspace{3ex}
+
+For this test, package {\sf automultiplechoice} is used without any
+option. Page markers are printed in view of an automated marking from
+papers scans. DRAFT indications can be cancelled using {\tt nowatermark} option.
+
+Commands from {\sf automultiplechoice} are used to print, for each
+student, two geography questions and two history questions, at
+random. Questions and answers are shuffled.
+
+\vspace{3ex}
+
+\cleargroup{all}
+
+\shufflegroup{geography}
+\copygroup[2]{geography}{all}
+\shufflegroup{history}
+\copygroup[2]{history}{all}
+\shufflegroup{all}
+\insertgroup{all}
+
+}
+\end{document}

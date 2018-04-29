@@ -1,0 +1,102 @@
+%
+% Copyright (C) 2013 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass[a4paper]{article}
+
+\usepackage[bloc,completemulti]{automultiplechoice}    
+\begin{document}
+
+\AMCrandomseed{1237893}
+
+\element{qs}{
+  \begin{question}{100}
+    Choose points
+    \begin{choiceshoriz}
+      \correctchoice{400}\scoring{400}
+      \wrongchoice{300}\scoring{300}
+      \wrongchoice{200}\scoring{200}
+      \wrongchoice{100}\scoring{100}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{qs}{
+  \begin{questionmult}{10}
+    Choose points
+    \begin{choices}
+      \correctchoice{$+20$}\scoring{b=20}
+      \wrongchoice{$-20$}\scoring{m=-20,b=0}
+      \wrongchoice{$-10$}\scoring{m=-10,b=0}
+      \correctchoice{$+10$}\scoring{b=10}
+    \end{choices}
+  \end{questionmult}
+}
+
+\element{qs}{
+  \begin{questionmult}{1}
+    Choose points
+    \begin{choices}
+      \correctchoice{$+1$}\scoring{b=1}
+      \correctchoice{$+1$}\scoring{b=1}
+      \wrongchoice{$-1$}\scoring{m=-1,b=0}
+      \wrongchoice{$-2$}\scoring{m=-2,b=0}
+    \end{choices}
+  \end{questionmult}
+}
+
+\onecopy{5}{
+
+\noindent{\bf TEST \hfill Simple}
+
+
+\vspace{1ex}
+
+
+{\setlength{\parindent}{0pt}
+Please code your student number and write your name below.
+
+\vspace{3ex}
+
+\hspace*{\fill}
+\hbox{\vbox{\AMCcodeH{student}{3}}}
+\hspace*{\fill}
+\namefield{\fbox{    
+    \begin{minipage}[b]{.35\linewidth}
+      Name:
+      
+      \vspace*{.5cm}\dotfill
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}\hspace*{\fill}
+}
+
+\vspace{5ex}
+
+\noindent\hrulefill
+
+\vspace{2ex}
+
+\shufflegroup{qs}
+\insertgroup{qs}
+
+}
+
+\end{document}

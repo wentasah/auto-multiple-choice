@@ -1,0 +1,222 @@
+%
+% Copyright (C) 2012 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass[a4paper]{article}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{multicol}
+
+\usepackage[frenchb]{babel}
+
+\usepackage[bloc,completemulti,calibration,correcindiv]{automultiplechoice}
+
+\begin{document}
+
+\AMCinterIrep=.75ex
+\AMCrandomseed{1237893}
+
+\setlength{\multicolsep}{.7ex}
+
+\element{gro}{
+  \begin{question}{gro-1}
+    General/1
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{gro}{
+  \begin{question}{gro-2}
+    General/2
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+      \wrongchoice{NOD}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{gro}{
+  \begin{question}{gro-3}
+    General/3
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+      \wrongchoice{NOD}
+      \wrongchoice{NOE}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+
+\element{gra}{
+  \begin{question}{gra-1}\scoring{b=2}
+    [A1]
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+    \end{choiceshoriz}
+  \end{question}
+}
+\element{gra}{
+  \begin{question}{gra-2}\scoring{b=3}
+    [A2]
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+      \wrongchoice{NOD}
+    \end{choiceshoriz}
+  \end{question}
+}
+\element{gra}{
+  \begin{question}{gra-3}\scoring{b=4}
+    [A3]
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+      \wrongchoice{NOD}
+      \wrongchoice{NOE}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{grb}{
+  \begin{question}{grb-1}\scoring{b=2}
+    [B1]
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+    \end{choiceshoriz}
+  \end{question}
+}
+\element{grb}{
+  \begin{question}{grb-2}\scoring{b=3}
+    [B2]
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+      \wrongchoice{NOD}
+    \end{choiceshoriz}
+  \end{question}
+}
+\element{grb}{
+  \begin{question}{grb-3}\scoring{b=4}
+    [B3]
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+      \wrongchoice{NOD}
+      \wrongchoice{NOE}
+    \end{choiceshoriz}
+  \end{question}
+}
+\element{grb}{
+  \begin{question}{grb-4}\scoring{b=5}
+    [B4]
+    \begin{choiceshoriz}
+      \correctchoice{OK}
+      \wrongchoice{NOA}
+      \wrongchoice{NOB}
+      \wrongchoice{NOC}
+      \wrongchoice{NOD}
+      \wrongchoice{NOE}
+      \wrongchoice{NOF}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\exemplaire{5}{
+\noindent{\bf AMC  \hfill Mélanges}
+
+\begin{center}\em
+  Exemple pour illustrer les possibilités de gestion des groupes de questions.
+\end{center}
+\vspace{1ex}
+
+
+{\setlength{\parindent}{0pt}\hspace*{\fill}\AMCcode{etu}{8}\hspace*{\fill}
+\begin{minipage}{5.5cm}
+$\longleftarrow{}$\hspace{0pt plus 1cm} codez votre numéro d'étu\-diant ci-contre, et écrivez votre nom et prénom ci-dessous.
+
+\vspace{3ex}
+
+\champnom{\fbox{    
+    \begin{minipage}{.86\linewidth}
+      Nom et prénom :
+      
+      \vspace*{.5cm}\dotfill
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}\end{minipage}\hspace*{\fill}
+}
+
+\vspace{1ex}
+
+\noindent\hrulefill
+
+\vspace{2ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleargroup{all}
+
+\shufflegroup{gra}
+\copygroup[2]{gra}{all}
+
+\shufflegroup{grb}
+\copygroup[2]{grb}{all}
+
+\copygroup{gro}{all}
+
+\shufflegroup{all}
+\insertgroup{all}
+
+
+\AMCcleardoublepage %
+}
+
+\end{document}

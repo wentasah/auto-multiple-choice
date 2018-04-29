@@ -1,0 +1,55 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais,bloc,completemulti,ensemble]{automultiplechoice}
+
+\def\AMCotextReserved{\emph{($\leftarrow$ cases réservées aux correcteurs)}}
+\def\AMCotextGoto{\par{\emph{(Répondez à cette question directement sur votre feuille de réponse)}}}
+
+\begin{document}
+\AMCtext{draft}{}
+
+\begin{center}
+{\Large Examen A001} \\  \textbf{\Large Examen} \\ mars 2014
+\end{center}
+
+\begin{question}{Closed}
+Qui est vrai ?
+\begin{reponses}[o]
+\mauvaise{Pas vrai}
+\bonne{Celui-ci}
+\mauvaise{Non !}
+\end{reponses}
+\end{question}
+
+\begin{question}{Open}
+Commenter...
+\AMCOpen{lines=13,lineheight=0.4cm,annotate=true}{
+\mauvaise[N]{n}\bareme{1}
+\mauvaise[M]{m}\bareme{3}
+\mauvaise[P]{p}\bareme{6}
+\mauvaise[B]{b}\bareme{9}
+\bonne[TB]{tb}\bareme{12}
+}
+\end{question}
+
+\cleardoublepage
+
+%%% FABRICATION DES COPIES
+
+\exemplaire{10}{    
+
+\AMCdebutFormulaire    
+
+\begin{center}
+\textbf{\Large Feuille de réponses :} \\ \today
+\end{center}
+
+\vspace*{0.5cm}
+
+\AMCformS
+
+}  
+
+\end{document}

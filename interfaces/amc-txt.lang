@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Copyright (C) 2011-2014 Alexis Bienvenue <paamc@passoire.fr>
+
+ This file is part of Auto-Multiple-Choice
+
+ Auto-Multiple-Choice is free software: you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation, either version 2 of
+ the License, or (at your option) any later version.
+
+ Auto-Multiple-Choice is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with Auto-Multiple-Choice.  If not, see
+ <http://www.gnu.org/licenses/>.
+
+-->
+<language id="amc-txt" _name="AMC-TXT" version="2.0" _section="Sources">
+  <metadata>
+    <property name="mimetypes">text/x-amc-txt</property>
+  </metadata>
+  <styles>
+    <style id="comment" _name="Comment" map-to="def:comment"/>
+    <style id="keyword" _name="Keyword" map-to="def:keyword"/>
+    <style id="opener" _name="Open symbol" map-to="def:bold"/>
+    <style id="gopener" _name="Open group symbols" map-to="def:shebang"/>
+    <style id="letter" _name="Letter" map-to="def:string"/>
+    <style id="grouptext" _name="Group" map-to="def:underlined"/>
+    <style id="questiontext" _name="Question" map-to="diff:location"/>
+    <style id="correct" _name="Correct choice" map-to="diff:added-line"/>
+    <style id="wrong" _name="Wrong choice" map-to="diff:removed-line"/>
+    <style id="ooptions" _name="Open question options" map-to="def:string"/>
+    <style id="qoptions" _name="Question options" map-to="def:string"/>
+    <style id="goptions" _name="Group options" map-to="def:string"/>
+    <style id="scoring" _name="Scoring" map-to="def:preprocessor"/>
+  </styles>
+  <definitions>
+    <context id="amc-txt">
+      <include>
+      <define-regex id="endgroup">(?=^\s*([a-zA-Z]+:|\+|-|\*|#))</define-regex>
+
+        <context id="comment" style-ref="comment">
+          <start>#</start>
+          <end>$</end>
+	  <include>
+	    <context id="filterid" first-line-only="true" style-ref="keyword">
+	      <keyword>AMC-TXT</keyword>
+	    </context>
+	  </include>
+        </context>
+
+	<context id="options" end-parent="true" style-ref="keyword">
+	  <prefix>^</prefix>
+	  <suffix>:</suffix>
+	  <keyword>PaperSize</keyword>
+	  <keyword>BoxColor</keyword>
+	  <keyword>Title</keyword>
+	  <keyword>Presentation</keyword>
+	  <keyword>Group</keyword>
+	  <keyword>Code</keyword>
+	  <keyword>CodeDigitsDirection</keyword>
+	  <keyword>Lang</keyword>
+	  <keyword>Font</keyword>
+	  <keyword>AnswerSheetTitle</keyword>
+	  <keyword>AnswerSheetPresentation</keyword>
+	  <keyword>AnswerSheetColumns</keyword>
+	  <keyword>SeparateAnswerSheet</keyword>
+	  <keyword>CompleteMulti</keyword>
+	  <keyword>DefaultScoringM</keyword>
+	  <keyword>DefaultScoringS</keyword>
+	  <keyword>L-Question</keyword>
+	  <keyword>L-None</keyword>
+	  <keyword>L-Name</keyword>
+	  <keyword>L-OpenReserved</keyword>
+	  <keyword>L-OpenText</keyword>
+	  <keyword>L-Student</keyword>
+	  <keyword>LaTeX</keyword>
+	  <keyword>LaTeX-Preambule</keyword>
+	  <keyword>LaTeX-BeginDocument</keyword>
+	  <keyword>ShuffleQuestions</keyword>
+	  <keyword>Columns</keyword>
+	  <keyword>QuestionBlocks</keyword>
+	  <keyword>Arabic</keyword>
+	  <keyword>ArabicFont</keyword>
+	  <keyword>Disable</keyword>
+	  <keyword>SingleSided</keyword>
+	  <keyword>ManualDuplex</keyword>
+	  <keyword>AutoMarks</keyword>
+	  <keyword>IncludeFile</keyword>
+	  <keyword>PackageOptions</keyword>
+	  <keyword>NameFieldWidth</keyword>
+	  <keyword>NameFieldLinespace</keyword>
+	  <keyword>NameFieldLines</keyword>
+	  <keyword>TitleWidth</keyword>
+	</context>
+
+	<context id="groups" end-parent="true" style-ref="grouptext">
+	  <start>^(\*[\(\)])(?:\[([^\]]+)\])?</start>
+	  <end>\%{endgroup}</end>
+	  <include>
+	    <context style-ref="gopener" where="start" sub-pattern="1"/>
+	    <context style-ref="goptions" where="start" sub-pattern="2"/>
+	  </include>
+	</context>
+
+	<context id="questions" end-parent="true" style-ref="questiontext">
+	  <start>^(\*{1,2})(?:&lt;([^>]+)>)?(?:\[([^\]]+)\])?(?:\{([^\}]+)\})?</start>
+	  <end>\%{endgroup}</end>
+	  <include>
+	    <context style-ref="opener" where="start" sub-pattern="1"/>
+	    <context style-ref="ooptions" where="start" sub-pattern="2"/>
+	    <context style-ref="qoptions" where="start" sub-pattern="3"/>
+	    <context style-ref="scoring" where="start" sub-pattern="4"/>
+	  </include>
+	</context>
+
+	<context id="correctanswer" end-parent="true" style-ref="correct">
+	  <start>^(\+)(?:\[([^\]]+)\])?(?:\{([^\}]+)\})?</start>
+	  <end>\%{endgroup}</end>
+	  <include>
+	    <context style-ref="opener" where="start" sub-pattern="1"/>
+	    <context style-ref="letter" where="start" sub-pattern="2"/>
+	    <context style-ref="scoring" where="start" sub-pattern="3"/>
+	  </include>
+	</context>
+
+	<context id="wronganswer" end-parent="true" style-ref="wrong">
+	  <start>^(-)(?:\[([^\]]+)\])?(?:\{([^\}]+)\})?</start>
+	  <end>\%{endgroup}</end>
+	  <include>
+	    <context style-ref="opener" where="start" sub-pattern="1"/>
+	    <context style-ref="letter" where="start" sub-pattern="2"/>
+	    <context style-ref="scoring" where="start" sub-pattern="3"/>
+	  </include>
+	</context>
+
+      </include>
+    </context>
+  </definitions>
+</language>
+

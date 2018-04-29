@@ -1,0 +1,272 @@
+%
+% Copyright (C) 2012 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass[a4paper]{article}
+\usepackage{pst-plot}
+\usepackage[separateanswersheet,box,completemulti]{automultiplechoice}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{multicol}
+\begin{document}
+
+\AMCrandomseed{1237893}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% code to place all figures after questions...
+
+\def\OneFigure#1#2{
+  \hspace*{\fill}
+  \begin{minipage}{.2\linewidth}
+    \centering
+    \includegraphics[height=.8\linewidth,width=.8\linewidth,keepaspectratio=true]{images.d/#1}
+    \captionof{figure}{#2}
+    \AMClabel{f:#1}
+  \end{minipage}
+  \hspace*{\fill}
+}
+
+\newwrite\AMCfigs
+\immediate\openout\AMCfigs=\jobname.af
+
+\def\addpicture#1{\immediate\write\AMCfigs{\string\OneFigure{#1}{}}}
+
+\def\flushfigs{
+\immediate\closeout\AMCfigs
+\input{\jobname.af}
+\immediate\openout\AMCfigs=\jobname.af
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\scoringDefaultS{b=2}
+
+\element{qs}{
+  
+  \addpicture{redcar}
+  \begin{question}{redcar}
+    What can you see on Figure~\AMCref{f:redcar}?
+    \begin{multicols}{2}
+      \begin{choices}
+        \correctchoice{A car}
+        \wrongchoice{A boat}
+        \wrongchoice{A plane}
+        \wrongchoice{A bicycle}
+        \wrongchoice{A hat}
+        \wrongchoice{A train}
+      \end{choices}
+    \end{multicols}
+  \end{question}
+
+}
+
+\element{qs}{
+  
+  \addpicture{flower}
+  \begin{question}{flower}
+    What can you see on Figure~\AMCref{f:flower}?
+    \begin{multicols}{2}
+      \begin{choices}
+        \correctchoice{A flower}
+        \wrongchoice{A tree}
+        \wrongchoice{An orange}
+        \wrongchoice{A cloud}
+        \wrongchoice{A hat}
+        \wrongchoice{A frog}
+      \end{choices}
+    \end{multicols}
+  \end{question}
+
+}
+
+\element{qs}{
+  
+  \addpicture{scissors}
+  \begin{question}{scissors}
+    What can you see on Figure~\AMCref{f:scissors}?
+    \begin{multicols}{2}
+      \begin{choices}
+        \correctchoice{Scissors}
+        \wrongchoice{Boots}
+        \wrongchoice{A pencil}
+        \wrongchoice{The sun}
+        \wrongchoice{A hat}
+        \wrongchoice{A glass}
+      \end{choices}
+    \end{multicols}
+  \end{question}
+
+}
+
+\element{qs}{
+  
+  \addpicture{pencil}
+  \begin{question}{pencil}
+    What can you see on Figure~\AMCref{f:pencil}?
+    \begin{multicols}{2}
+      \begin{choices}
+        \correctchoice{A pencil}
+        \wrongchoice{An eraser}
+        \wrongchoice{A compass}
+        \wrongchoice{A ruler}
+        \wrongchoice{A hat}
+        \wrongchoice{A book}
+      \end{choices}
+    \end{multicols}
+  \end{question}
+
+}
+
+\element{qs}{
+
+  \begin{questionmult}{africa}\scoring{haut=4}
+    Among the following countries, which are part of Africa?
+    \begin{multicols}{2}
+      \begin{choices}
+        \correctchoice{Burundi}
+        \correctchoice{Cameroon}
+        \correctchoice{Sudan}
+        \correctchoice{Namibia}
+        \wrongchoice{Bolivia}
+        \wrongchoice{Kyrgyzstan}
+        \wrongchoice{Norway}
+      \end{choices}
+    \end{multicols}
+  \end{questionmult}
+
+}
+
+\element{qs}{
+
+  \begin{questionmult}{number37}\scoring{haut=3}
+    Check the correct sentences.
+    \begin{choices}
+      \correctchoice{37 is a prime number}
+      \correctchoice{37 appears in the Padovan sequence}
+      \wrongchoice{37 is an even number}
+      \wrongchoice{37 is the atomic number of strontium}
+    \end{choices}
+  \end{questionmult}
+
+}
+
+\element{qs}{
+
+  \begin{question}{integral}
+    What is the value of $\int_0^2 2x\,dx$?
+    \begin{choiceshoriz}[o]
+      \wrongchoice{2}
+      \wrongchoice{3}
+      \correctchoice{4}
+      \wrongchoice{6}
+      \wrongchoice{8}
+      \wrongchoice{12}
+      \wrongchoice{16}
+    \end{choiceshoriz}
+    
+  \end{question}
+
+}
+
+\element{qs}{
+
+  \begin{question}{pstricks}
+    The follwing image is made with:
+    \begin{pspicture}(4,2)
+      \pspolygon[unit=0.3cm,
+      fillstyle=eofill,
+      fillcolor=yellow!60](7,3)(0,0)(1,3)
+      (5,5)(10,3)(2,2)(7,5)(7,3)
+    \end{pspicture}
+    \begin{choiceshoriz}
+      \correctchoice{pstricks}
+      \wrongchoice{inkscape}
+      \wrongchoice{R}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\onecopy{10}{    
+
+\noindent{\bf AMC  \hfill Images/PStricks test exam}
+
+\vspace{2ex}
+
+Questions with a \multiSymbole{} sign can have zero, one or several correct answers. Other ones have exactly one correct answer.
+
+
+\noindent\hrulefill
+
+\vspace{2ex}
+
+\setcounter{figure}{0}
+
+\shufflegroup{qs}
+
+
+\begin{multicols}{2}
+\insertgroup{qs}
+\end{multicols}
+
+\vspace*{2ex}
+
+\noindent\hrulefill
+
+\vspace*{2ex}
+
+\flushfigs
+
+\AMCcleardoublepage
+
+\AMCformBegin
+
+\begin{center}
+\setlength{\parindent}{0pt}\AMCcode{etu}{8}
+\hspace{3ex}
+\begin{minipage}[b]{.37\linewidth}
+$\longleftarrow{}$ code your student number opposite, and write your name below.
+
+\vspace{3ex}
+
+\namefield{\fbox{    
+    \begin{minipage}{.87\linewidth}
+      Name and surname:
+      
+      \vspace*{.5cm}\dotfill
+
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}
+
+\vspace{1ex}
+\end{minipage}
+\end{center}
+
+\vspace{1ex}
+
+Fill the correct boxes completely. Only answers on this sheet will be considered.
+
+\vspace{1ex}
+
+\AMCform
+
+}   
+
+
+\end{document}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<projetAMC>
+  <annote_rtl>1</annote_rtl>
+  <code_examen>separate</code_examen>
+  <moteur_latex_b>xelatex</moteur_latex_b>
+  <texsrc>%PROJET/separate.tex</texsrc>
+</projetAMC>

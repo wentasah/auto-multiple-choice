@@ -1,0 +1,152 @@
+#! /usr/bin/perl
+#
+# Copyright (C) 2011 Alexis Bienvenue <paamc@passoire.fr>
+#
+# This file is part of Auto-Multiple-Choice
+#
+# Auto-Multiple-Choice is free software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 2 of
+# the License, or (at your option) any later version.
+#
+# Auto-Multiple-Choice is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Auto-Multiple-Choice.  If not, see
+# <http://www.gnu.org/licenses/>.
+
+######################################################################
+#
+# auto-multiple-choice latex-link :
+#
+# Tests if the style file automultiplechoice.sty is accessible for
+# LaTeX. If not, tries to make a link from a location inside texmf
+# directories to the installed style file, and calls mktexlsr
+#
+# auto-multiple-choice latex-link remove :
+#
+# remove the link.
+#
+######################################################################
+
+use AMC::Basic;
+
+for my $c (qw/kpsewhich texconfig-sys/) {
+    if(!commande_accessible($c)) {
+	print STDERR "ERROR: I don't find the command $c. Perhaps LaTeX is not installed?\n";
+	exit(1);
+    }
+}
+
+if($> != 0) {
+    print "WARNING: This command should be called by root!\n";
+}
+
+sub get_tex_var {
+    my ($k)=@_;
+    my $v='';
+    open(SYS,"-|","texconfig-sys","conf")
+	or die "Can't exec texconfig-sys: $!";
+    for(<SYS>) {
+	chomp;
+	$v=$1 if(/^$k=(.*)/);
+    }
+    close(SYS);
+    return($v);
+}
+
+
+my $conf_dir="/etc/AMC";
+my $link_file=$conf_dir."/latex-link";
+my $link='';
+
+if(-f $link_file) {
+    open(LK,$link_file);
+    while(<LK>) {
+	chomp;
+	$link=$_;
+    }
+    close(LK);
+}
+
+my @styles=get_sty();
+
+sub rehash {
+    print "Calling mktexlsr to refresh LaTeX files list...\n";
+    open(LSR,"-|","mktexlsr");
+    while(<LSR>) {
+	print $_;
+    }
+    close(LSR);
+    @styles=get_sty();
+}
+
+if($ARGV[0] =~ /^(remove|rm)$/i) {
+    if(-l $link) {
+	print "Removing link $link...\n";
+	unlink($link);
+	if(-e $link) {
+	    print "ERROR: Unsuccessful.\n";
+	    exit(2);
+	} else {
+	    print("Done.\n");
+	}
+    } else {
+	print "No link to remove.\n";
+    }
+    exit(0);
+}
+
+if(!@styles) {
+    rehash();
+}
+
+if(@styles) {
+    print "The style file is already accessible:\n";
+    for(@styles) {
+	print "$_\n";
+    }
+    if(-l $link) {
+	print "Use 'auto-multiple-choice latex-link remove' to remove the link\n";
+    }
+} else {
+    my $loc=get_tex_var('TEXMFLOCAL');
+    if(! -d $loc) {
+	print STDERR "ERROR: I don't find TEXMFLOCAL ($loc)\n";
+	exit(2);
+    }
+    my $installed='@/TEXDIR/@/automultiplechoice.sty';
+    if(! -f $installed) {
+	print STDERR "ERROR: I don't find the installed style file $installed\n";
+	exit(2);
+    }
+    for my $dir (qw:tex tex/latex:) {
+	if(! -d "$loc/$dir") {
+	    print "Creating directory $loc/$dir...\n";
+	    mkdir("$loc/$dir");
+	}
+    }
+    $link="$loc/tex/latex/automultiplechoice.sty";
+    print "Creating link to AMC style file...\n";
+    symlink($installed,$link);
+
+    rehash();
+
+    if(@styles) {
+	if(! -d $conf_dir) {
+	    mkdir($conf_dir);
+	}
+	print "Saving to configuration...\n";
+	open(LF,">$link_file")
+	    or die "Unable to write to $link_file: $!";
+	print LF "$link\n";
+	close(LF);
+
+	print "Done.\n";
+    } else {
+	print "ERROR: Unsuccessful.\n";
+    } 
+}

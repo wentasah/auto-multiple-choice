@@ -1,0 +1,123 @@
+\documentclass[a4paper]{article}
+
+\usepackage[box,completemulti,separateanswersheet]{automultiplechoice}    
+
+%% XeLaTeX with arabic texts, using Rasheeq font from arabeyes:
+\usepackage{arabxetex}
+\newfontfamily{\arabicfont}[Script=Arabic,Scale=1]{Rasheeq}
+%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% some commands to turn texts into arabic :
+
+\Arabic
+
+\def\AMCchoiceLabel#1{\textLR{\Alph{#1}}}
+\def\AMCbeginQuestion#1#2{\par\noindent{‫السؤال #1 #2 :}}
+\def\AMCformQuestion#1{\vspace{\AMCformVSpace}\par{\large ‫السؤال #1 :}}
+
+\AMCtext{none}{لا شيء من الإجابات أعلاه صحيحة}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AMCrandomseed{1237893}
+
+\element{general}{
+  \begin{question}{Medina}    
+    توجد المدينة المنورة في أي دولة ؟
+    \begin{choices}
+      \correctchoice{السعودية}
+      \wrongchoice{الجزائر}
+      \wrongchoice{تركيا}
+      \wrongchoice{العراق}
+    \end{choices}
+  \end{question}
+}
+
+\element{general}{
+  \begin{questionmult}{qual}    
+    أي من الصفات التالية جيد ؟
+    \begin{choices}
+      \correctchoice{التسامح}
+      \wrongchoice{الكذب}
+      \correctchoice{الكرم}
+    \end{choices}
+  \end{questionmult}
+}
+
+\element{general}{
+  \begin{question}{colors}
+    كم عدد الوان الطيف الضوئي؟
+    \begin{choiceshoriz}[o]
+      \wrongchoice{4}
+      \wrongchoice{5}
+      \wrongchoice{6}
+      \correctchoice{7}
+      \wrongchoice{8}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\onecopy{5}{    
+
+%%% beginning of the test sheet header:    
+
+\noindent{\bf النهائي  \hfill الاختبار}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+  \centering\large الاختبار\\ اختبار النصف الاول 2011
+\end{minipage}
+
+\begin{center}\em
+المدة : 10 دقائق.
+
+  لا يسمح باستخدام المذكرات والكتب، يسمح باستخدام الحاسبة.
+
+
+
+  السؤال الذي توجد امامه العلامة \multiSymbole{} قد يكون عدد اجاباته الصحيحة صفر أو واحد أو اثنين أو اكثر، اما بقية الاسئلة فلها اجابة صحيحة واحدة.
+
+  يمكن وضع درجة سالبة للاجابات \emph{السيئة جدا} answers.
+
+\end{center}
+\vspace{1ex}
+
+%%% end of the header
+
+\shufflegroup{general}
+\insertgroup{general}
+
+\AMCcleardoublepage    
+
+\AMCformBegin    
+
+%%% beginning of the answer sheet header
+
+{\large ورقة الاجابة}
+\hfill \namefield{\fbox{    
+    \begin{minipage}{.5\linewidth}
+      الاسم الكامل:
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}
+
+\begin{center}
+  \large يجب أن توضع الاجابات في هذه الورقة: 
+  سيتم تجاهل الاجابات في الاوراق الاخرى.
+\end{center}
+
+%%% end of the answer sheet header
+
+
+\AMCform    
+
+\clearpage    
+
+}  
+
+\end{document}

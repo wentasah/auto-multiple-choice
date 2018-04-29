@@ -1,0 +1,488 @@
+%
+% Copyright (C) 2012 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass[a4paper]{article}
+
+%T[PACKAGES]
+%<PACKAGES
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{fp}% http://tug.ctan.org/tex-archive/macros/latex/contrib/fp/README
+\usepackage{multicol}
+\usepackage{amssymb}
+\usepackage[right]{eurosym}
+
+\usepackage[frenchb]{babel}
+%>PACKAGES
+
+\usepackage[bloc,completemulti,calibration,correcindiv]{automultiplechoice}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%T[PREAMBULE]
+%<PREAMBULE
+
+\def\implique{Quelles affirmations peut-on déduire de ces seules hypothèses ?}
+\def\indique#1{}
+
+\def\retaille{\displaystyle\vphantom{\vbox to 6ex{}}}
+
+\FPseed=100
+
+\def\deuxacinq{
+\FPeval\gogol{trunc(2 + random * 4,0)}
+\gogol}
+
+\def\choixProba#1{
+    \begin{multicols}{5}
+      \begin{reponses}[o]
+        \choixIntervalles{#1}{0}{1}{0.05}
+      \end{reponses}
+    \end{multicols}
+}  
+\def\CC{\mathbb{C}}
+\def\complexe{\mathbb{C}}
+\def\RR{\mathbb{R}}
+\def\real{\mathbb{R}}
+\def\integer{\mathbb{N}}
+\def\NN{\mathbb{N}}  
+\def\ZZ{\mathbb{Z}}   
+\def\relative{\mathbb{Z}}   
+\def\QQ{\mathbb{Q}} 
+\def\rationel{\mathbb{Q}}
+\def\II{\mbox{\bf 1}}
+\def\PP{\mathbb{P}}
+\def\QQ{\mathbb{Q}}
+\def\FF{\mathbb{F}}
+
+%%%%% Lettres caligraphiees %%%%%%%%
+\def\Fcal{{\cal{F}}}
+\def\Exp{{\cal{E}}}
+\def\Gcal{{\cal{G}}}
+\def\Geom{{\cal{G}}}
+\def\Cont{{\cal{C}}}
+\def\Cauchy{{\cal{C}}}
+\def\Multin{{\cal{M}}}
+\def\Norm{{\cal{N}}}
+\def\Acal{{\cal{A}}}
+\def\tribu{{\cal{A}}}
+\def\Bcal{{\cal{B}}}
+\def\Binom{{\cal{B}}}
+\def\Borel{{\cal{B}}}
+\def\Ccal{{\cal{C}}}
+\def\Ecal{{\cal{E}}}
+\def\Ocal{{\cal{O}}}
+\def\Mcal{{\cal{M}}}
+\def\Unif{{\cal{U}}}
+\def\Xcal{{\cal{X}}}
+\def\Ycal{{\cal{Y}}}
+\def\Lcal{{\cal{L}}}
+\def\Pcal{{\cal{P}}}
+\def\Scal{{\cal{S}}}
+\def\Tcal{{\cal{T}}}
+
+% opérateurs mathématiques
+\def\Esp{\mathop{\rm E\vphantom{s}}\nolimits}
+\def\Proba{\mathop{\PP{}}\nolimits}
+
+\def\preS{\,}
+\def\postS{}
+\renewcommand{\P}[2][]{\Proba^{#1}\left[ #2 \right]}
+\newcommand{\Ppar}[2][]{\Proba^{#1}\left( #2 \right)}
+\def\Psachant#1#2{\Proba\left[\left. #1\vphantom{#2} \preS\right|\postS #2 \right]}
+\def\PsachantP#1#2{\Proba\left(\left. #1\vphantom{#2} \preS\right|\postS #2 \right)}
+\def\PsachantPS#1#2{\Proba( #1 \preS|\postS #2 )}
+\newcommand{\Esachant}[3][]{\Esp^{#1}\left( #2\vphantom{#3} \preS\right|\postS \left. #3\vphantom{#2} \right)}
+\newcommand{\Varsachant}[2]{\Var\left( #1\vphantom{#2} \preS\right|\postS \left. #2\vphantom{#1} \right)}
+\def\EsachantS#1#2{\Esp( #1 \preS|\postS #2 )}
+\def\EsachantST#1#2{\Esp\left( #1 \preS|\postS #2 \right)}
+\def\sachant{\mid}
+
+\def\indic#1{{\rm\bf 1}_{\left\{#1\right\}}}
+\def\indice#1{{\rm\bf 1}_{#1}}
+\def\indich#1{{\rm\bf 1}\left\{#1\right\}}
+\def\Cov{\mathop{\rm Cov}\nolimits}
+\def\Var{\mathop{\rm Var}\nolimits}
+\def\Card{\mathop{\rm Card}\nolimits}
+\def\Trace{\mathop{\rm Trace}\nolimits}
+\def\logit{\mathop{\rm logit}\nolimits}
+\def\signe{\mathop{\rm signe}\nolimits}
+
+\def\pscal#1#2{\langle #1,#2\rangle}
+\def\norme#1{\left\| #1 \right\|}
+\def\pent#1{\left\lfloor #1\right\rfloor}
+
+\def\trace{\mathop{\rm tr}}
+\def\transp#1{\,\vphantom{#1}^t#1}
+\def\Pt{\,^t\!P}
+\def\At{\,^t\!\!A}  
+
+%>PREAMBULE
+
+\AMCinterIrep=.75ex
+\AMCrandomseed{1237893}
+
+\FPmessagesfalse
+
+\setlength{\multicolsep}{.7ex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Q[Calc-bande-unif]
+\element{grq}{
+\begin{question}{Calc-bande-unif}\bareme{b=3}
+  \FPeval\VQk{trunc(3+4*random,0)}
+  \FPeval\VQr{round(1-(1-1/VQk)^2,10)}
+  Soient $X$ et $Y$ deux variables aléatoires indépendantes toutes
+  deux de loi uniforme sur $[0,1]$.
+  
+  À quel intervalle appartient $\Proba(|X-Y|\le1/\VQk)$ ? \indique{\VQr}
+
+  \choixProba{\VQr}
+\end{question}
+}
+
+%Q[Calc-restric]
+\element{grq}{
+\begin{question}{Calc-restric}\bareme{b=3}
+  \FPeval\VQn{trunc(3+2*random,0)}
+  \FPeval\VQi{trunc(1+2*random,0)}
+  \FPeval\VQj{round(VQi+1,0)}
+  \FPeval\VQr{round( (VQj^4-VQi^4)/(VQn^3)*3/4 ,10)}
+  Soit $X$ une variable aléatoire réelle de densité
+  \[ f(x)=\alpha x^2 \II_{[0,\VQn]}(x)\,,\]
+  où $\alpha$ est une constante.
+
+  À quel intervalle appartient $\Esp(X\II_{[\VQi,\VQj]}(X))$ ? \indique{\VQr}
+  
+  \begin{multicols}{5}
+    \begin{reponses}[o]
+      \choixIntervalles{\VQr}{0}{2}{0.1}
+    \end{reponses}
+  \end{multicols}
+\end{question}
+}
+
+%Q[Calc-frep-d2]
+\element{grq}{
+\begin{question}{Calc-frep-d2}\bareme{b=3}
+  \FPeval\VQa{round(trunc(2+7*random,0)/10,1)}
+  \FPeval\VQb{round(trunc(2+7*random,0)/10,1)}
+  \FPeval\VQr{round( (VQa*VQb-ln(1+VQa*VQb))/VQa/(1-ln(2)) ,10)}
+  On considère un vecteur aléatoire $(X,Y)$ de densité
+  \[ f(x,y)=\alpha\frac{y}{(1+xy)^2}\II_{[0,1]²}(x,y)\,,\]
+  où $\alpha$ est une constante.
+
+  À quel intervalle appartient $\Proba(X<\VQa\mbox{~et~}Y<\VQb)$ ? \indique{\VQr}
+
+  \choixProba{\VQr}
+\end{question}
+}
+
+%Q[Calc-nocalc]
+\element{grq}{
+\begin{question}{Calc-nocalc}\bareme{b=2}
+  \FPeval\VQn{trunc(1+8*random,0)}
+  \FPeval\VQnc{round(VQn+1,0)}
+  \FPeval\VQnn{round(VQn+2,0)}
+  \FPeval\VQh{trunc(1+8*random,0)}
+  \FPeval\VQhh{trunc(VQh+1+4*random,0)}
+  On considère un vecteur aléatoire $(X,Y)$ de densité
+  \[ f(x,y)=\alpha \II_{[\VQn,\VQnn]}(x)\II_{[\VQh,\VQhh]}(y)\frac{x+y}{100-\ln(xy/100)}\,,\]
+  où $\alpha$ est une constante.
+
+  À quel intervalle appartient $\Esp(X)$ ? \indique{\VQnc}
+
+  \begin{multicols}{5}
+    \begin{reponses}[o]
+      \choixIntervalles{\VQnc}{0}{10}{1}
+    \end{reponses}
+  \end{multicols}
+\end{question}
+}
+
+%Q[Calc-cov-xu-x]
+\element{grq}{
+\begin{question}{Calc-cov-xu-x}\bareme{b=3}
+  \FPeval\VQe{trunc(1+8*random,0)}
+  \FPeval\VQv{round(2*trunc(1+4*random,0),0)}
+  \FPeval\VQvxu{round( (VQv+(VQv+VQe^2)/3)/4 ,10)}
+  \FPeval\VQr{round( VQv/2/((VQvxu*VQv)^(1/2)) ,10)}
+  On considère deux variables aléatoires $X$ et $U$ indépendantes. On
+  suppose que $U$ suit la loi uniforme sur $[0,1]$, que $\Esp(X)=\VQe$
+  et que $\Var(X)=\VQv$.
+
+  À quel intervalle appartient le coefficient de corrélation linéaire de $X$ et $XU$ ? \indique{\VQvxu -- \VQr}
+
+  \begin{multicols}{5}
+    \begin{reponses}[o]
+      \choixIntervalles{\VQr}{-1}{1}{0.1}
+    \end{reponses}
+  \end{multicols}
+\end{question}
+}
+
+%Q[Calc-comp-rapport]
+\element{grq}{
+\begin{question}{Calc-comp-rapport}\bareme{b=3}
+  \FPeval\VQa{trunc(2+3*random,0)}
+  \FPeval\VQb{trunc(VQa+1+3*random,0)}
+  \FPeval\VQr{round( (VQa/VQb)^3 ,10)}
+  Soit $(X,Y)$ un vecteur aléatoire de densité
+  \[ f(x,y)=\alpha \left(\frac yx \right)^2 \II_{]0,1]}(x)\II_{[0,\VQb x]}(y)\,,\]
+  où $\alpha$ est une constante.
+
+  À quel intervalle appartient $\Proba(Y<\VQa X)$ ? \indique{\VQr}
+
+  \choixProba{\VQr}
+\end{question}
+}
+
+%Q[Calc-inv-poiss]
+\element{grq}{
+\begin{question}{Calc-inv-poiss}\bareme{b=3}
+  \FPeval\VQl{trunc(2+4*random,0)}
+  \FPeval\VQr{round( (1-exp(-VQl))/VQl ,10)}
+  Soit $X$ une variable aléatoire de loi de Poisson de paramètre \VQl.
+  À quel intervalle appartient $\Esp(1/(1+X))$ ? \indique{\VQr}
+
+  \choixProba{\VQr}
+\end{question}
+}
+
+%Q[Calc-convol]
+\element{grq}{
+\begin{question}{Calc-convol}\bareme{b=3}
+  \FPeval\VQl{trunc(2+2*random,0)}
+  \FPeval\VQz{trunc(1+3*random,0)}
+  \FPeval\VQa{trunc(VQz+1+2*random,0)}
+  \FPeval\VQr{round( (1-exp(-VQz/VQl))/VQa ,10)}
+  Soit $X$ une variable aléatoire de loi exponentielle de paramètre
+  $1/\VQl$ et $U$ une variable aléatoire de loi uniforme sur
+  $[0,\VQa]$. On suppose que $X$ et $U$ sont indépendantes. On note $f$ la densité de la variable $(X+U)$. 
+
+  À quel intervalle appartient $f(\VQz)$ ?  \indique{\VQr}
+
+  \begin{multicols}{5}
+    \begin{reponses}[o]
+      \choixIntervalles{\VQr}{0}{0.5}{0.025}
+    \end{reponses}
+  \end{multicols}
+\end{question}
+}
+
+%Q[Calc-changt-var]
+\element{grq}{
+\begin{question}{Calc-changt-var}\bareme{b=3}
+  \FPeval\VQl{trunc(2+2*random,0)}
+  \FPeval\VQll{trunc(2+2*random,0)}
+  \FPeval\VQu{trunc(1+2*random,0)}
+  \FPeval\VQv{trunc(1+2*random,0)}
+  \FPeval\VQr{round( exp(-(VQu+VQv)/2/VQl-(VQu-VQv)/2/VQll)/VQl/VQll/2 ,10)}
+  Soient $X$ et $Y$ deux variables aléatoires indépendantes de lois
+  exponentielles de paramètres respectifs $\lambda=1/\VQl$ et
+  $\lambda'=1/\VQll$. On note $g$ la densité du vecteur $(X+Y,X-Y)$.
+
+  À quel intervalle appartient $g(\VQu,\VQv)$ ? \indique{\VQr}
+
+  \begin{multicols}{5}
+    \begin{reponses}[o]
+      \choixIntervalles{\VQr}{0}{0.1}{0.005}
+    \end{reponses}
+  \end{multicols}
+\end{question}
+}
+
+
+%Q[Calc-SOA109]
+\element{grq}{
+\begin{question}{Calc-SOA109}\bareme{b=3}
+  \FPeval\VQc{trunc(2+random*4,0)}
+
+  Soient $X$ et $Y$ deux variables aléatoires indépendantes de lois
+  respectives $\Exp(1)$ et $\Exp(1/\VQc)$ (lois exponentielles).  On
+  note $R=X/Y$. Pour $x>0$, quelle est la valeur en $x$ de la
+  densité de $R$ ?
+
+  \begin{multicols}{2}
+    \begin{reponses}
+      \mauvaise{$\displaystyle \frac1{\VQc x+1}$}
+      \bonne{$\displaystyle \frac{\VQc}{(\VQc x+1)^2}$}
+      \mauvaise{$e^{-x}$}
+      \mauvaise{$\VQc e^{-\VQc x}$}
+      \mauvaise{$x e^{-x}$}
+    \end{reponses}
+  \end{multicols}
+\end{question}
+}
+
+%Q[Calc-Qx-expsym]
+\element{grq}{
+\begin{question}{Calc-Qx-expsym}\bareme{b=3}
+  \FPeval\VQl{trunc(2*trunc(1+2*random,0)+1,0)}
+  \FPeval\VQp{trunc((6+4*random)/10,1)}
+  \FPeval\VQr{round(neg(ln(2-2*VQp))/VQl,10)}
+  Soit $X$ une variable aléatoire de densité
+  \[ f(x)= \frac{\VQl}2\exp(-\VQl|x|)\,,\]
+  et de fonction quantile $Q$. À quel intervalle appartient $Q(\VQp)$ ?
+  \begin{multicols}{5}
+    \begin{reponses}[o]
+      \choixIntervalles{\VQr}{-1}{1}{0.1}
+    \end{reponses}
+  \end{multicols}
+\end{question}
+}
+
+%Q[Calc-SOA-frep]
+\element{grq}{
+\begin{question}{Calc-SOA-frep}\bareme{b=3}
+  \FPeval\VQa{trunc(2+2*random,0)}
+  \FPeval\VQb{trunc(2+2*random,0)}
+  \FPeval\VQc{trunc(2+2*random,0)}
+  \FPeval\VQr{round( (((VQa+1)/VQa)^(1-VQb)-1)/(((VQa+VQc)/VQa)^(1-VQb)-1),10)}
+  Soit $X$ une variable aléatoire de densité
+  \[ f(x)=k(\VQa+x)^{-\VQb}\II_{[0,\VQc]}(x)\,,\] où $k$ est une
+  constante réelle. À quel intervalle appartient la probabilité
+  $\P{X<1}$ ?
+  
+  \choixProba{\VQr}
+\end{question}
+}
+
+%Q[Calc-SOA45]
+\element{grq}{
+\begin{question}{Calc-SOA45}\bareme{b=3}
+  \exemplairepair
+  \FPeval\a{trunc(1 + random * 2,0)}
+  \FPeval\b{trunc(3 + random * 2,0)}
+  \else
+  \FPeval\a{trunc(3 + random * 2,0)}
+  \FPeval\b{trunc(1 + random * 2,0)}
+  \fi
+  \FPeval\r{clip( 2*(b*b*b-a*a*a)/(3*(a*a+b*b)) )}
+  Soit $X$ une variable aléatoire de densité
+  \[ f(x)=k\,|x|\,\II_{[-\a,\b]}(x)\,,    \]
+  où $k$ est une constante réelle.
+  À quel intervalle appartient l'espérance de $X$ ? \indique{\r}
+  \begin{multicols}{5}
+    \begin{reponses}[o]
+      \choixIntervalles{\r}{-3}{3}{0.5}
+    \end{reponses}
+  \end{multicols}
+\end{question}
+}
+
+%Q[Calc-SOA77]
+\element{grq}{
+\begin{question}{Calc-SOA77}\bareme{b=3}
+  \FPeval\VQa{trunc(2+3*random,0)}
+  \FPeval\VQd{clip(12*VQa+16)}
+  \FPeval\VQr{clip(round( (18+15*VQa)/(2*VQd) ,10))}
+
+  Soit $(X,Y)$ un vecteur aléatoire continu de densité
+  \[ f(x,y)=\left\{
+    \begin{array}{ll}
+      \displaystyle\frac{3(\VQa x+y^2)}{\VQd}& \mbox{si $0<x<2$ et $0<y<2$} \\
+      0 & \mbox{sinon}
+    \end{array}\right.
+  \]
+  À quel intervalle appartient la probabilité $\P{\min(X,Y)<1}$ ? \indique{\VQr}
+  
+  \choixProba{\VQr}
+\end{question}
+}
+
+%Q[Calc-var-unif-ab]
+\element{grq}{
+\begin{question}{Calc-var-unif-ab}\bareme{b=2}
+  \FPeval\VQa{clip(0-trunc(1+random*3,0))}
+  \FPeval\VQb{trunc(10+random*3,0)}
+  \FPeval\VQr{clip(round( (VQb-VQa)*(VQb-VQa)/12 ,10))}
+
+  À quel intervalle appartient la variance de la loi uniforme sur
+  $[\VQa,\ \VQb]$ ? \indique{\VQr}
+
+  \begin{multicols}{5}
+    \begin{reponses}[o]
+      \choixIntervalles{\VQr}{8}{25}{1}
+    \end{reponses}
+  \end{multicols}
+\end{question}    
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\exemplaire{5}{
+\noindent{\bf ISFA  \hfill Probabilités -- Examen du 06/12/2010 \hfill 1\iere{} année}
+
+\begin{center}\em
+Durée : 1h20.
+
+  Aucun document n'est autorisé.
+  L'usage d'une {\bf calculatrice non programmable} est autorisé.
+
+  Les questions ont toutes une unique bonne réponse.
+\end{center}
+\vspace{1ex}
+
+
+{\setlength{\parindent}{0pt}\hspace*{\fill}\AMCcode{etu}{8}\hspace*{\fill}
+\begin{minipage}{5.5cm}
+$\longleftarrow{}$\hspace{0pt plus 1cm} codez votre numéro d'étu\-diant ci-contre, et écrivez votre nom et prénom ci-dessous.
+
+\vspace{3ex}
+
+\champnom{\fbox{    
+    \begin{minipage}{.86\linewidth}
+      Nom et prénom :
+      
+      \vspace*{.5cm}\dotfill
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}\end{minipage}\hspace*{\fill}
+}
+
+\vspace{1ex}
+
+\noindent\hrulefill
+
+\vspace{2ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\melangegroupe{grq}
+
+\restituegroupe{grq}
+
+
+\cleardoublepage %
+}
+
+\end{document}

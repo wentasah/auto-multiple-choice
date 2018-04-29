@@ -1,0 +1,12 @@
+Title: Question IDs with accents
+Code: 6
+ShuffleQuestions: true
+Presentation: Test !
+
+*[id=Déjà ça !] Ça va ?
++ oui
+- non
+
+*[id=Œufs h@ricots] Toujours ?
++ oui
+- non

@@ -1,0 +1,102 @@
+%  -*- coding:utf-8 -*-
+%
+% Copyright (C) 2012 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass{article}
+
+% See http://svichet.wordpress.com/2008/06/12/khmer_unicode_latex/
+%
+% please install debian/ubuntu package ttf-khmeros or equivalent
+
+\usepackage[box,completemulti]{automultiplechoice}    
+
+\usepackage{fontspec}
+
+\begin{document}
+
+% Underline "Question 1"
+\def\AMCbeginQuestion#1#2{\par\noindent \underline{Question #1} #2\hspace*{.5em plus .5em minus .3em}}
+
+% definition for one-line questions
+\newenvironment{smallchoices}{\def\AMCbeginAnswer{}\def\AMCendAnswer{\par}\def\AMCanswer##1##2{\hspace*{1.5em plus .2em minus .3em}##1 ##2}\begin{choicescustom}}{\end{choicescustom}}
+
+% help xelatex to recognize khmer characters
+\setmainfont[Script=Khmer]{Khmer OS}
+\newfontscript{Khmer}{khmr}
+\newfontlanguage{Khmer}{KHM}
+\XeTeXlinebreaklocale "khm"
+
+\onecopy{10}{    
+
+%%% Sheets heading
+
+\noindent{\bf QCM  \hfill KHMER TEST}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+\centering\large\bf Test\\ 01/01/2011\end{minipage}
+\namefield{\fbox{    
+    \begin{minipage}{.5\linewidth}
+      Name and surname:
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}
+
+\begin{center}\em
+This is only for khmer characters testing: please forgive me if the text does not mean anything.
+\end{center}
+\vspace{1ex}
+
+%%% Sheets content (questions)
+
+\begin{question}{test}    
+ ភាសាខ្មែរ /   បញ្ច​តន្ត្រ​(៣)  /  មួយ​ពាន់​មួយ​យប់​(៨១)
+ \begin{choices}
+    \correctchoice{ជំពូក}
+    \wrongchoice{មាតិកា}
+    \wrongchoice{បង្អែក}
+    \wrongchoice{សង្ខេប}
+  \end{choices}
+\end{question}
+
+\begin{question}{greater}
+ The greater number?
+ \begin{smallchoices}
+   \correctchoice{13.9}
+   \wrongchoice{13.81}
+   \wrongchoice{12.99}
+   \wrongchoice{-14.8}
+   \wrongchoice{13.899}
+ \end{smallchoices}
+\end{question}
+
+\begin{question}{integral}    
+  What is the value of $\int_0^1 x^2\,dx$?
+  \begin{choiceshoriz}
+    \correctchoice{1/3}
+    \wrongchoice{1/2}
+    \wrongchoice{0}
+  \end{choiceshoriz}
+\end{question}
+
+}
+
+\end{document}

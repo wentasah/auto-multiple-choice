@@ -1,0 +1,116 @@
+\documentclass[a4paper]{article}
+\usepackage{automultiplechoice}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Premier morceau pour corriger un bug...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\renewcommand{\insertgroup}[2][0]{%
+  \AMCtok@max=#1\relax%
+  \ifnum\the\AMCtok@max<1%
+    \AMCtok@max=\csname #2@k\endcsname%
+  \fi%
+  \AMCtok@ik=\z@%
+  {\loop%
+    \advance\AMCtok@ik\@ne\relax%
+    {\the\csname #2@\romannumeral\AMCtok@ik\endcsname}%
+  \ifnum\AMCtok@ik<\AMCtok@max\repeat}%
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% graine generateur aleatoire
+
+\AMCrandomseed{1237893}
+
+% les questions du groupe A
+
+\element{gra}{
+  \begin{question}{a1}
+    Texte de la question A1
+    \begin{reponses}
+      \bonne{Bonne}
+      \mauvaise{Mauvaise}
+    \end{reponses}
+  \end{question}
+}
+
+\element{gra}{
+  \begin{question}{a2}
+    Texte de la question A2
+    \begin{reponses}
+      \bonne{Bonne}
+      \mauvaise{Mauvaise}
+    \end{reponses}
+  \end{question}
+}
+
+% les questions du groupe B
+
+\element{grb}{
+  \begin{question}{b1}
+    Texte de la question B1
+    \begin{reponses}
+      \bonne{Bonne}
+      \mauvaise{Mauvaise}
+    \end{reponses}
+  \end{question}
+}
+
+\element{grb}{
+  \begin{question}{b2}
+    Texte de la question B2
+    \begin{reponses}
+      \bonne{Bonne}
+      \mauvaise{Mauvaise}
+    \end{reponses}
+  \end{question}
+}
+
+\element{grb}{
+  \begin{question}{b3}
+    Texte de la question B3
+    \begin{reponses}
+      \bonne{Bonne}
+      \mauvaise{Mauvaise}
+    \end{reponses}
+  \end{question}
+}
+
+% le groupe general qui contient deux elements : ceux-ci presentent et
+% restitutent chacun des deux groupes A et B
+
+\element{grtous}{
+  \begin{center}
+    \bf\large Groupe A
+  \end{center}
+  \restituegroupe{gra}
+}
+
+\element{grtous}{
+  \begin{center}
+    \bf\large Groupe B
+  \end{center}
+  \restituegroupe{grb}
+}
+
+% les copies...
+
+\exemplaire{10}{
+
+  \begin{center}
+    \bf\Large Deux groupes m\'elang\'es.
+  \end{center}
+
+  \melangegroupe{gra}
+  \melangegroupe{grb}
+  \melangegroupe{grtous}
+
+  \restituegroupe{grtous}
+
+}
+
+\end{document}

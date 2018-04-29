@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[nopage,indivanswers]{automultiplechoice}
+\usepackage{multicol}
+\begin{document}
+
+\input{questions.tex}
+
+\onecopy{30}{
+
+\noindent{\bf AMC  \hfill SAMPLE TEST}
+
+\vspace{3ex}
+
+For this test, package {\sf automultiplechoice} is used with the
+following options:
+\begin{itemize}
+\item {\tt nopage}, so that no page markers are printed:
+  nothing is planed for future automated marking from papers scans.
+\item {\tt indivanswers}, so that correct answers are indicated (this
+  is the corrected answer sheet. Without this option, you get the
+  question sheet).
+\end{itemize}
+Commands from {\sf automultiplechoice} are used to print, for each
+student, two geography questions and two history questions, at
+random. Questions and answers are shuffled.
+
+\vspace{3ex}
+
+\cleargroup{all}
+
+\shufflegroup{geography}
+\copygroup[2]{geography}{all}
+\shufflegroup{history}
+\copygroup[2]{history}{all}
+\shufflegroup{all}
+\insertgroup{all}
+
+}
+\end{document}

@@ -1,0 +1,5 @@
+id:name
+132:Głobiś
+007:Jojó
+000:Perfect
+101:Errors correcting test

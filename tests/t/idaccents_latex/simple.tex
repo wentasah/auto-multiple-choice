@@ -1,0 +1,67 @@
+\documentclass{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[francais,bloc,completemulti]{automultiplechoice}
+
+\begin{document}
+
+\def\simpleq{
+  Is it true?
+  \begin{choices}
+    \wrongchoice{no}
+    \correctchoice{yes}
+  \end{choices}
+}
+
+\element{qqs}{
+\begin{question}{déjà ça}
+  \simpleq
+\end{question}
+}
+
+\element{qqs}{
+\begin{questionmult}{où ô ?}
+  \simpleq
+\end{questionmult}
+}
+
+\element{qqs}{
+\begin{question}{hî hô}
+  \AMCdontScan
+  \simpleq
+\end{question}
+}
+
+\scoring{SUF=3} % dontscan cancels 1 point from last question
+\setgroupmode{qqs}{withreplacement}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\exemplaire{20}{
+
+\noindent{\bf QCM  \hfill TEST DE BARÈME}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+\centering\large\bf Test\\ Examen du 01/01/2008\end{minipage}
+\champnom{\fbox{\begin{minipage}{.5\linewidth}
+Nom et prénom :
+
+\vspace*{.5cm}\dotfill
+\vspace*{1mm}
+\end{minipage}}}
+
+\begin{center}\em
+Durée : 10 minutes.
+\end{center}
+\vspace{1ex}
+
+\restituegroupe{qqs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+}
+
+\end{document}

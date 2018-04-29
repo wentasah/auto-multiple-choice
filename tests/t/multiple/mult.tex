@@ -1,0 +1,103 @@
+%
+% Copyright (C) 2012-2015 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass[a4paper]{article}
+
+\usepackage[bloc,completemulti]{automultiplechoice}    
+\begin{document}
+
+\AMCboxStyle{cross=true,crossrule=1.5pt}
+\AMCrandomseed{1237893}
+
+\element{qs}{
+  \begin{question}{letter}\scoring{b=2}
+    What is the first letter?
+    \begin{choiceshoriz}
+      \correctchoice{A}
+      \wrongchoice{B}
+      \wrongchoice{W}
+      \wrongchoice{Z}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{qs}{
+  \begin{questionmult}{positive}\scoring{haut=2}
+    Which number(s) are positive?
+    \begin{choices}
+      \correctchoice{$\pi$}
+      \wrongchoice{$-1$}
+      \wrongchoice{$4-10$}
+      \correctchoice{$2$}
+    \end{choices}
+  \end{questionmult}
+}
+
+\element{qs}{
+  \begin{questionmult}{america}\scoring{haut=2}
+    Which contries are in the Americas?
+    \begin{choices}
+      \correctchoice{Guatemala}
+      \correctchoice{Canada}
+      \wrongchoice{Switzerland}
+      \wrongchoice{Cambodia}
+    \end{choices}
+  \end{questionmult}
+}
+
+\onecopy{5}{
+
+\noindent{\bf TEST \hfill Multiple}
+
+
+\vspace{1ex}
+
+
+{\setlength{\parindent}{0pt}
+Please code your student number and write your name below.
+
+\vspace{3ex}
+
+\hspace*{\fill}
+\hbox{\vbox{\AMCcodeH{student}{3}}}
+\hspace*{\fill}
+\namefield{\fbox{    
+    \begin{minipage}[b]{.35\linewidth}
+      Name:
+      
+      \vspace*{.5cm}\dotfill
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}\hspace*{\fill}
+}
+
+\vspace{5ex}
+
+\noindent\hrulefill
+
+\vspace{2ex}
+
+\shufflegroup{qs}
+\insertgroup{qs}
+
+}
+
+\end{document}

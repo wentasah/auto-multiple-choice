@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bareme postcorrect="" version="2" src="source.tex">
+  <etudiant id="4">
+    <question id="6" titre="10" bareme="" indicative="" multiple="1">
+      <reponse id="3" bonne="0" bareme="m=-10,b=0" />
+      <reponse id="1" bonne="1" bareme="b=20" />
+      <reponse id="4" bonne="1" bareme="b=10" />
+      <reponse id="2" bonne="0" bareme="m=-20,b=0" />
+      <reponse id="0" bonne="0" bareme="" />
+    </question>
+    <question id="4" titre="1" bareme="" indicative="" multiple="1">
+      <reponse id="0" bonne="0" bareme="" />
+      <reponse id="1" bonne="1" bareme="b=1" />
+      <reponse id="2" bonne="1" bareme="b=1" />
+      <reponse id="3" bonne="0" bareme="m=-1,b=0" />
+      <reponse id="4" bonne="0" bareme="m=-2,b=0" />
+    </question>
+    <question id="1" titre="student.3" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+    </question>
+    <question id="3" titre="student.1" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+    </question>
+    <question id="2" titre="student.2" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+    </question>
+    <question id="5" titre="100" bareme="" indicative="" multiple="">
+      <reponse id="2" bonne="0" bareme="300" />
+      <reponse id="4" bonne="0" bareme="100" />
+      <reponse id="1" bonne="1" bareme="400" />
+      <reponse id="3" bonne="0" bareme="200" />
+    </question>
+  </etudiant>
+  <etudiant id="1">
+    <question id="6" titre="10" bareme="" indicative="" multiple="1">
+      <reponse id="3" bonne="0" bareme="m=-10,b=0" />
+      <reponse id="1" bonne="1" bareme="b=20" />
+      <reponse id="4" bonne="1" bareme="b=10" />
+      <reponse id="2" bonne="0" bareme="m=-20,b=0" />
+      <reponse id="0" bonne="0" bareme="" />
+    </question>
+    <question id="4" titre="1" bareme="" indicative="" multiple="1">
+      <reponse id="0" bonne="0" bareme="" />
+      <reponse id="1" bonne="1" bareme="b=1" />
+      <reponse id="2" bonne="1" bareme="b=1" />
+      <reponse id="3" bonne="0" bareme="m=-1,b=0" />
+      <reponse id="4" bonne="0" bareme="m=-2,b=0" />
+    </question>
+    <question id="1" titre="student.3" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+    </question>
+    <question id="3" titre="student.1" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+    </question>
+    <question id="2" titre="student.2" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+    </question>
+    <question id="5" titre="100" bareme="" indicative="" multiple="">
+      <reponse id="2" bonne="0" bareme="300" />
+      <reponse id="4" bonne="0" bareme="100" />
+      <reponse id="1" bonne="1" bareme="400" />
+      <reponse id="3" bonne="0" bareme="200" />
+    </question>
+  </etudiant>
+  <etudiant id="0"></etudiant>
+  <etudiant id="3">
+    <question id="6" titre="10" bareme="" indicative="" multiple="1">
+      <reponse id="3" bonne="0" bareme="m=-10,b=0" />
+      <reponse id="1" bonne="1" bareme="b=20" />
+      <reponse id="4" bonne="1" bareme="b=10" />
+      <reponse id="2" bonne="0" bareme="m=-20,b=0" />
+      <reponse id="0" bonne="0" bareme="" />
+    </question>
+    <question id="4" titre="1" bareme="" indicative="" multiple="1">
+      <reponse id="0" bonne="0" bareme="" />
+      <reponse id="1" bonne="1" bareme="b=1" />
+      <reponse id="2" bonne="1" bareme="b=1" />
+      <reponse id="3" bonne="0" bareme="m=-1,b=0" />
+      <reponse id="4" bonne="0" bareme="m=-2,b=0" />
+    </question>
+    <question id="1" titre="student.3" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+    </question>
+    <question id="3" titre="student.1" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+    </question>
+    <question id="2" titre="student.2" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+    </question>
+    <question id="5" titre="100" bareme="" indicative="" multiple="">
+      <reponse id="2" bonne="0" bareme="300" />
+      <reponse id="4" bonne="0" bareme="100" />
+      <reponse id="1" bonne="1" bareme="400" />
+      <reponse id="3" bonne="0" bareme="200" />
+    </question>
+  </etudiant>
+  <etudiant id="2">
+    <question id="6" titre="10" bareme="" indicative="" multiple="1">
+      <reponse id="3" bonne="0" bareme="m=-10,b=0" />
+      <reponse id="1" bonne="1" bareme="b=20" />
+      <reponse id="4" bonne="1" bareme="b=10" />
+      <reponse id="2" bonne="0" bareme="m=-20,b=0" />
+      <reponse id="0" bonne="0" bareme="" />
+    </question>
+    <question id="4" titre="1" bareme="" indicative="" multiple="1">
+      <reponse id="0" bonne="0" bareme="" />
+      <reponse id="1" bonne="1" bareme="b=1" />
+      <reponse id="2" bonne="1" bareme="b=1" />
+      <reponse id="3" bonne="0" bareme="m=-1,b=0" />
+      <reponse id="4" bonne="0" bareme="m=-2,b=0" />
+    </question>
+    <question id="1" titre="student.3" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+    </question>
+    <question id="3" titre="student.1" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+    </question>
+    <question id="2" titre="student.2" bareme="auto=0" indicative="1" multiple="">
+      <reponse id="3" bonne="0" bareme="" />
+      <reponse id="2" bonne="0" bareme="" />
+      <reponse id="8" bonne="0" bareme="" />
+      <reponse id="9" bonne="0" bareme="" />
+      <reponse id="1" bonne="0" bareme="" />
+      <reponse id="4" bonne="0" bareme="" />
+      <reponse id="6" bonne="0" bareme="" />
+      <reponse id="7" bonne="0" bareme="" />
+      <reponse id="5" bonne="0" bareme="" />
+      <reponse id="10" bonne="0" bareme="" />
+    </question>
+    <question id="5" titre="100" bareme="" indicative="" multiple="">
+      <reponse id="2" bonne="0" bareme="300" />
+      <reponse id="4" bonne="0" bareme="100" />
+      <reponse id="1" bonne="1" bareme="400" />
+      <reponse id="3" bonne="0" bareme="200" />
+    </question>
+  </etudiant>
+</bareme>

@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mep image="latex.xy" id="+5/1/56+" src="/home/alexis/Projets-QCM/simple_complet/DOC-calage.xy" page="5" dpi="300.00" tx="2480.31" ty="3507.87" diametremarque="42.52">
+<coin id="1"><x>316.535376473154</x><y>291.935326895075</y></coin>
+<coin id="2"><x>2163.77958216178</x><y>291.935326895075</y></coin>
+<coin id="3"><x>2163.77958216178</x><y>3309.44884431997</y></coin>
+<coin id="4"><x>316.535376473154</x><y>3309.44884431997</y></coin>
+<nom xmin="1414.75" xmax="2090.74" ymin="588.42" ymax="874.56"/>
+<case question="5" reponse="1" xmin="1027.36" xmax="1072.04" ymin="2011.17" ymax="2055.85"/>
+<case question="5" reponse="2" xmin="1304.50" xmax="1349.18" ymin="2011.17" ymax="2055.85"/>
+<case question="5" reponse="3" xmin="1581.64" xmax="1626.33" ymin="2011.17" ymax="2055.85"/>
+<case question="5" reponse="4" xmin="750.21" xmax="794.89" ymin="2011.17" ymax="2055.85"/>
+<case question="6" reponse="0" xmin="390.60" xmax="435.28" ymin="1379.51" ymax="1424.19"/>
+<case question="6" reponse="1" xmin="390.60" xmax="435.28" ymin="1113.84" ymax="1158.52"/>
+<case question="6" reponse="2" xmin="390.60" xmax="435.28" ymin="1180.26" ymax="1224.94"/>
+<case question="6" reponse="3" xmin="390.60" xmax="435.28" ymin="1246.68" ymax="1291.36"/>
+<case question="6" reponse="4" xmin="390.60" xmax="435.28" ymin="1313.09" ymax="1357.77"/>
+<case question="4" reponse="0" xmin="390.60" xmax="435.28" ymin="1824.02" ymax="1868.71"/>
+<case question="4" reponse="1" xmin="390.60" xmax="435.28" ymin="1624.77" ymax="1669.45"/>
+<case question="4" reponse="2" xmin="390.60" xmax="435.28" ymin="1558.35" ymax="1603.04"/>
+<case question="4" reponse="3" xmin="390.60" xmax="435.28" ymin="1691.19" ymax="1735.87"/>
+<case question="4" reponse="4" xmin="390.60" xmax="435.28" ymin="1757.61" ymax="1802.29"/>
+<case question="3" reponse="1" xmin="391.65" xmax="436.33" ymin="792.94" ymax="837.62"/>
+<case question="3" reponse="10" xmin="1270.13" xmax="1314.81" ymin="792.94" ymax="837.62"/>
+<case question="3" reponse="2" xmin="489.26" xmax="533.94" ymin="792.94" ymax="837.62"/>
+<case question="3" reponse="3" xmin="586.87" xmax="631.55" ymin="792.94" ymax="837.62"/>
+<case question="3" reponse="4" xmin="684.48" xmax="729.16" ymin="792.94" ymax="837.62"/>
+<case question="3" reponse="5" xmin="782.09" xmax="826.77" ymin="792.94" ymax="837.62"/>
+<case question="3" reponse="6" xmin="879.70" xmax="924.38" ymin="792.94" ymax="837.62"/>
+<case question="3" reponse="7" xmin="977.30" xmax="1021.99" ymin="792.94" ymax="837.62"/>
+<case question="3" reponse="8" xmin="1074.91" xmax="1119.59" ymin="792.94" ymax="837.62"/>
+<case question="3" reponse="9" xmin="1172.52" xmax="1217.20" ymin="792.94" ymax="837.62"/>
+<case question="2" reponse="1" xmin="391.65" xmax="436.33" ymin="722.37" ymax="767.05"/>
+<case question="2" reponse="10" xmin="1270.13" xmax="1314.81" ymin="722.37" ymax="767.05"/>
+<case question="2" reponse="2" xmin="489.26" xmax="533.94" ymin="722.37" ymax="767.05"/>
+<case question="2" reponse="3" xmin="586.87" xmax="631.55" ymin="722.37" ymax="767.05"/>
+<case question="2" reponse="4" xmin="684.48" xmax="729.16" ymin="722.37" ymax="767.05"/>
+<case question="2" reponse="5" xmin="782.09" xmax="826.77" ymin="722.37" ymax="767.05"/>
+<case question="2" reponse="6" xmin="879.70" xmax="924.38" ymin="722.37" ymax="767.05"/>
+<case question="2" reponse="7" xmin="977.30" xmax="1021.99" ymin="722.37" ymax="767.05"/>
+<case question="2" reponse="8" xmin="1074.91" xmax="1119.59" ymin="722.37" ymax="767.05"/>
+<case question="2" reponse="9" xmin="1172.52" xmax="1217.20" ymin="722.37" ymax="767.05"/>
+<case question="1" reponse="1" xmin="391.65" xmax="436.33" ymin="651.80" ymax="696.48"/>
+<case question="1" reponse="10" xmin="1270.13" xmax="1314.81" ymin="651.80" ymax="696.48"/>
+<case question="1" reponse="2" xmin="489.26" xmax="533.94" ymin="651.80" ymax="696.48"/>
+<case question="1" reponse="3" xmin="586.87" xmax="631.55" ymin="651.80" ymax="696.48"/>
+<case question="1" reponse="4" xmin="684.48" xmax="729.16" ymin="651.80" ymax="696.48"/>
+<case question="1" reponse="5" xmin="782.09" xmax="826.77" ymin="651.80" ymax="696.48"/>
+<case question="1" reponse="6" xmin="879.70" xmax="924.38" ymin="651.80" ymax="696.48"/>
+<case question="1" reponse="7" xmin="977.30" xmax="1021.99" ymin="651.80" ymax="696.48"/>
+<case question="1" reponse="8" xmin="1074.91" xmax="1119.59" ymin="651.80" ymax="696.48"/>
+<case question="1" reponse="9" xmin="1172.52" xmax="1217.20" ymin="651.80" ymax="696.48"/>
+<chiffre n="1" i="1" xmin="702.57" xmax="740.37" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="10" xmin="1057.68" xmax="1095.48" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="11" xmin="1097.14" xmax="1134.93" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="12" xmin="1136.60" xmax="1174.39" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="2" xmin="742.03" xmax="779.83" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="3" xmin="781.49" xmax="819.28" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="4" xmin="820.94" xmax="858.74" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="5" xmin="860.40" xmax="898.20" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="6" xmin="899.86" xmax="937.65" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="7" xmin="939.31" xmax="977.11" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="8" xmin="978.77" xmax="1016.57" ymin="195.92" ymax="233.71"/>
+<chiffre n="1" i="9" xmin="1018.23" xmax="1056.02" ymin="195.92" ymax="233.71"/>
+<chiffre n="2" i="1" xmin="702.57" xmax="740.37" ymin="245.73" ymax="283.52"/>
+<chiffre n="2" i="2" xmin="742.03" xmax="779.83" ymin="245.73" ymax="283.52"/>
+<chiffre n="2" i="3" xmin="781.49" xmax="819.28" ymin="245.73" ymax="283.52"/>
+<chiffre n="2" i="4" xmin="820.94" xmax="858.74" ymin="245.73" ymax="283.52"/>
+<chiffre n="2" i="5" xmin="860.40" xmax="898.20" ymin="245.73" ymax="283.52"/>
+<chiffre n="2" i="6" xmin="899.86" xmax="937.65" ymin="245.73" ymax="283.52"/>
+<chiffre n="3" i="1" xmin="939.31" xmax="977.11" ymin="245.73" ymax="283.52"/>
+<chiffre n="3" i="2" xmin="978.77" xmax="1016.57" ymin="245.73" ymax="283.52"/>
+<chiffre n="3" i="3" xmin="1018.23" xmax="1056.02" ymin="245.73" ymax="283.52"/>
+<chiffre n="3" i="4" xmin="1057.68" xmax="1095.48" ymin="245.73" ymax="283.52"/>
+<chiffre n="3" i="5" xmin="1097.14" xmax="1134.93" ymin="245.73" ymax="283.52"/>
+<chiffre n="3" i="6" xmin="1136.60" xmax="1174.39" ymin="245.73" ymax="283.52"/>
+</mep>

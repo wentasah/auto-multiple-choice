@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<notes version="2" seuil="0.15" notemin="" notemax="" plafond="1" arrondi="inf" grain="0.5">
+  <copie id="1">
+    <question id="student.3" cochees="0;1;0;0;0;0;0;0;0;0" note="1" raison="" indicative="1" max="1" />
+    <question id="student.2" cochees="0;0;1;0;0;0;0;0;0;0" note="2" raison="" indicative="1" max="1" />
+    <question id="student.1" cochees="0;1;0;0;0;0;0;0;0;0" note="1" raison="" indicative="1" max="1" />
+    <question id="1" cochees="1;1;1;0;0" note="1" raison="" indicative="" max="2" />
+    <question id="100" cochees="0;0;0;1" note="100" raison="" indicative="" max="400" />
+    <question id="10" cochees="1;0;0;0;0" note="20" raison="" indicative="" max="30" />
+    <total total="121" max="432" note="121" />
+    <code id="student">121</code>
+  </copie>
+  <copie id="2">
+    <question id="student.3" cochees="0;0;0;0;0;0;0;0;0;0" note="0" raison="V" indicative="1" max="1" />
+    <question id="student.2" cochees="0;0;0;0;0;0;0;0;0;0" note="0" raison="V" indicative="1" max="1" />
+    <question id="student.1" cochees="0;0;0;0;0;0;0;0;0;0" note="0" raison="V" indicative="1" max="1" />
+    <question id="1" cochees="0;0;0;0;0" note="0" raison="V" indicative="" max="2" />
+    <question id="100" cochees="0;1;0;0" note="300" raison="" indicative="" max="400" />
+    <question id="10" cochees="1;0;0;1;0" note="30" raison="" indicative="" max="30" />
+    <total total="330" max="432" note="330" />
+    <code id="student">000</code>
+  </copie>
+  <copie id="3">
+    <question id="student.3" cochees="0;0;0;0;1;0;0;0;0;0" note="4" raison="" indicative="1" max="1" />
+    <question id="student.2" cochees="0;0;1;0;0;0;0;0;0;0" note="2" raison="" indicative="1" max="1" />
+    <question id="student.1" cochees="0;1;0;0;0;0;0;0;0;0" note="1" raison="" indicative="1" max="1" />
+    <question id="1" cochees="1;0;0;0;0" note="1" raison="" indicative="" max="2" />
+    <question id="100" cochees="1;0;0;0" note="400" raison="" indicative="" max="400" />
+    <question id="10" cochees="1;0;1;1;0" note="20" raison="" indicative="" max="30" />
+    <total total="421" max="432" note="421" />
+    <code id="student">421</code>
+  </copie>
+  <copie id="4">
+    <question id="student.3" cochees="0;0;0;0;1;0;0;0;0;0" note="4" raison="" indicative="1" max="1" />
+    <question id="student.2" cochees="0;0;0;1;0;0;0;0;0;0" note="3" raison="" indicative="1" max="1" />
+    <question id="student.1" cochees="0;0;1;0;0;0;0;0;0;0" note="2" raison="" indicative="1" max="1" />
+    <question id="1" cochees="1;1;0;0;0" note="2" raison="" indicative="" max="2" />
+    <question id="100" cochees="1;0;0;0" note="400" raison="" indicative="" max="400" />
+    <question id="10" cochees="1;0;0;1;0" note="30" raison="" indicative="" max="30" />
+    <total total="432" max="432" note="432" />
+    <code id="student">432</code>
+  </copie>
+  <copie id="max">
+    <question id="1" note="2" indicative="" />
+    <question id="student.2" note="1" indicative="1" />
+    <question id="10" note="30" indicative="" />
+    <question id="student.3" note="1" indicative="1" />
+    <question id="100" note="400" indicative="" />
+    <question id="student.1" note="1" indicative="1" />
+    <total total="435" max="435" note="" />
+  </copie>
+  <copie id="moyenne">
+    <question id="1" n="4" note="1" max="2" />
+    <question id="student.2" n="4" note="1.75" max="1" />
+    <question id="10" n="4" note="25" max="30" />
+    <question id="student.3" n="4" note="2.25" max="1" />
+    <question id="100" n="4" note="300" max="400" />
+    <question id="student.1" n="4" note="1" max="1" />
+    <total total="1304" max="" note="326" />
+  </copie>
+  <code id="student">
+    <valeur nombre="1">421</valeur>
+    <valeur nombre="1">432</valeur>
+    <valeur nombre="1">000</valeur>
+    <valeur nombre="1">121</valeur>
+  </code>
+  <moyenne>326</moyenne>
+</notes>

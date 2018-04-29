@@ -1,0 +1,43 @@
+# -*- Makefile -*-
+
+SHELL=/bin/sh
+
+HVERSION=htdocs/version.shtml
+
+TMPDIR:=$(shell mktemp -d)
+
+STABLEVERSION=1.3.0
+STABLESRC=../download_area/files/auto-multiple-choice_$(STABLEVERSION)_sources.tar.gz
+
+DOCVERSION=1.3.0
+SRC=/tmp/auto-multiple-choice_$(DOCVERSION)_sources.tar.gz
+
+BASEDIR=$(TMPDIR)/auto-multiple-choice-$(DOCVERSION)
+DOCDIR=$(BASEDIR)/doc
+XML=$(DOCDIR)/auto-multiple-choice
+
+SITEDOC=htdocs/auto-multiple-choice
+
+version:
+	../work/local/derniere-version.pl --mode h --fich $(STABLESRC) --ext _sources.tar.gz > $(HVERSION)
+	echo '<!--#set var="DOCVERSION" value="$(DOCVERSION)"-->' >> $(HVERSION)
+
+map: FORCE
+	./sitemap.pl --repertoire htdocs --root http://home.gna.org/auto-qcm --o htdocs/sitemap.xml
+
+xml: FORCE
+	tar xvzf $(SRC) -C $(TMPDIR)
+	$(MAKE) -C $(BASEDIR) MAJ
+
+%.html: xml
+	xsltproc --nonet --stringparam base.dir $(SITEDOC).$*/ $(DOCDIR)/doc-xhtml-site.$*.xsl $(XML).$*.xml
+
+# doc a partir de la derniere version dans testing
+doc: FORCE fr.html en.html ja.html ;
+
+site: version doc map
+	$(MAKE) -C ../download_area signe sync
+
+FORCE: ;
+
+.PHONY: site version map xml FORCE

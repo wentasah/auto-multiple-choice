@@ -1,0 +1,64 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}    
+\usepackage[T1]{fontenc}
+\usepackage[bloc,noshuffle]{automultiplechoice}    
+\usepackage{multicol}
+\usepackage{csvsimple}
+\usepackage{pgfkeys}
+\usepackage{xstring}
+\usepackage{graphicx}
+
+\def\AMCbeginQuestion#1#2{\par\noindent{\bf #1.  }}
+
+\begin{document}
+
+\element{amc}{
+  \begin{questionmult}{bq1}\bareme{haut=3}
+    First question
+    \begin{reponseshoriz}
+      \correctchoice{one}
+      \correctchoice{two}
+      \correctchoice{three}
+    \end{reponseshoriz}
+  \end{questionmult}
+}
+
+\element{amc}{
+  \begin{questionmult}{bq2}\bareme{haut=3}\AMCcompleteMulti
+    Second question
+    \begin{reponseshoriz}
+      \correctchoice{one}
+      \correctchoice{two}
+      \correctchoice{three}
+    \end{reponseshoriz}
+  \end{questionmult}
+}
+
+\newcommand{\subject}{
+  \onecopy{1}{    
+
+    \AMCassociation{\id}
+    \begin{minipage}{1.0\linewidth}
+      \namefield{\fbox{    
+        \begin{minipage}{1.0\linewidth}
+          Name: \Large\bf \name{} ID: \id{}
+        \end{minipage}
+      }
+    }\end{minipage}
+
+    \vspace{2ex}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque semper orci a erat suscipit eu vulputate augue feugiat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.  
+
+    \noindent\hrulefill
+    \vspace{2ex}
+
+    \insertgroup{amc}
+
+    \clearpage    
+  }   
+}
+
+\csvreader[head to column names]{names.csv}{}{\subject}
+
+\end{document}

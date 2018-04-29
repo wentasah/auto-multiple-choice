@@ -1,0 +1,14 @@
+#! /bin/bash
+
+RESULT_FILE=/tmp/amc-test.log
+
+for t in t/*/test.pl
+do
+  if $t --to-stdout $@ > $RESULT_FILE
+  then
+      echo -e "[ \e[0;32mOK\e[0m ] $t"
+  else
+      echo -e "[\e[0;31mFAIL\e[0m] $t"
+      sed ' s/^/       /;' $RESULT_FILE
+  fi
+done

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
+  <l:l10n language="ja" english-language-name="Japanese">
+    <l:gentext key="NOTE" text="&#27880;&#35352;"/>
+    <l:gentext key="Note" text="&#27880;&#35352;"/>
+    <l:gentext key="note" text="&#27880;&#35352;"/>
+    <l:gentext key="notes" text="&#27880;&#35352;"/>
+    <l:gentext key="Notes" text="&#27880;&#35352;"/>
+    <l:gentext key="TableNotes" text="&#27880;&#35352;"/>
+    <l:gentext key="tablenotes" text="&#27880;&#35352;"/>
+  </l:l10n>
+</l:i18n>

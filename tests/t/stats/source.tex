@@ -1,0 +1,102 @@
+%
+% Copyright (C) 2016 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass[a4paper]{article}
+
+\usepackage[bloc,completemulti]{automultiplechoice}    
+\begin{document}
+
+\AMCrandomseed{1237893}
+
+\element{qs}{
+  \begin{question}{A}\scoring{b=2}
+    Question A
+    \begin{choiceshoriz}
+      \correctchoice{c}
+      \wrongchoice{w1}
+      \wrongchoice{w2}
+      \wrongchoice{w3}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{qs}{
+  \begin{questionmult}{B}\scoring{haut=2}
+    Question B
+    \begin{choices}
+      \correctchoice{c1}
+      \correctchoice{c2}
+      \wrongchoice{w1}
+      \wrongchoice{w2}
+    \end{choices}
+  \end{questionmult}
+}
+
+\element{qs}{
+  \begin{questionmult}{C}\scoring{haut=2}
+    Question C
+    \begin{choices}
+      \correctchoice{c1}
+      \correctchoice{c2}
+      \wrongchoice{w1}
+      \wrongchoice{w2}
+    \end{choices}
+  \end{questionmult}
+}
+
+\onecopy{5}{
+
+\noindent{\bf TEST \hfill Multiple}
+
+
+\vspace{1ex}
+
+
+{\setlength{\parindent}{0pt}
+Please code your student number and write your name below.
+
+\vspace{3ex}
+
+\hspace*{\fill}
+\hbox{\vbox{\AMCcodeH{student}{3}}}
+\hspace*{\fill}
+\namefield{\fbox{    
+    \begin{minipage}[b]{.35\linewidth}
+      Name:
+      
+      \vspace*{.5cm}\dotfill
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+    \end{minipage}
+  }}\hspace*{\fill}
+}
+
+\vspace{5ex}
+
+\noindent\hrulefill
+
+\vspace{2ex}
+
+\shufflegroup{qs}
+\insertgroup{qs}
+
+}
+
+\end{document}

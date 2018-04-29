@@ -1,0 +1,42 @@
+Correspondance FR/EN des noms de commandes LaTeX
+
+type =
+	cmd : commande
+	envir : environnement
+	opt : option du package
+
+--------------------------------------------
+type	FR		EN
+--------------------------------------------
+cmd	champnom	namefield
+cmd	question	question
+cmd	questionmult	questionmult
+envir	reponses	choices
+envir	reponseshoriz	choiceshoriz
+envir	reponsesperso	choicescustom
+cmd	bonne		correctchoice
+cmd	mauvaise	wrongchoice
+cmd	bareme		scoring
+cmd	baremeDefautM	scoringDefaultM
+cmd	baremeDefautS	scoringDefaultS
+cmd	exemplaire	onecopy
+envir	copieexamen	examcopy
+cmd	melangegroupe	shufflegroup
+cmd	restituegroupe	insertgroup
+cmd	alafin		lastchoices
+cmd	formulaire	AMCform
+cmd	AMCcode		AMCcode
+cmd			AMCformQuestion
+cmd			AMCformAnswer
+cmd	AMCdebutFormulaire
+-->			AMCformBegin
+opt	ordre		noshuffle
+opt	correc		answers
+opt	correcindiv	indivanswers
+opt	bloc		box
+opt	completemulti	completemulti
+opt	ensemble	separateanswersheet
+opt	chiffres	digits
+--------------------------------------------
+
+

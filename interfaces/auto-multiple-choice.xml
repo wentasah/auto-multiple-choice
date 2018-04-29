@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="text/x-amc-txt">
+    <sub-class-of type="text/plain"/>
+    <comment>AMC-TXT file for Auto Multiple Choice</comment>
+    <magic priority="80">
+      <match value="# AMC-TXT" type="string" offset="0:50"/>
+      <match value="#AMC-TXT" type="string" offset="0:50"/>
+    </magic>
+    <icon name="auto-multiple-choice"/>
+  </mime-type>
+  <mime-type type="application/x-amc-options">
+    <sub-class-of type="application/xml"/>
+    <comment>Auto Multiple Choice project options file</comment>
+    <magic priority="80">
+      <match value="&lt;projetAMC&gt;" type="string" offset="0:70"/>
+    </magic>
+  </mime-type>
+</mime-info>
+

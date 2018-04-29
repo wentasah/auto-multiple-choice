@@ -1,0 +1,266 @@
+# -*- coding:utf-8 -*-
+
+%define AMC_modsdir %{_libdir}/AMC
+%define AMC_modelsdir /usr/share/auto-multiple-choice/models
+%define AMC_texdocdir /usr/share/texmf/doc/latex/AMC
+%define AMC_texdir /usr/share/texmf/tex/latex/AMC
+%define AMC_bindir %{_bindir}
+%define AMC_pixdir /usr/share/pixmaps
+%define AMC_iconsdir /usr/share/auto-multiple-choice/icons
+
+%define AMC_texdocdir /usr/share/texmf-texlive/doc/AMC
+%if 0%{?suse_version}
+%define AMC_texdocdir /usr/lib/texmf/doc/AMC
+%else
+%define AMC_texdocdir /usr/share/texmf/doc/latex/AMC
+%endif
+
+%if 0%{?fedora}
+%define AMC_perldir %{perl_privlib}
+%else
+%define AMC_perldir %{perl_vendorlib}
+%endif
+
+%define AMC_man1dir %{_mandir}/man1
+%define AMC_docdir %{_docdir}/%{name}
+
+%define AMC_OPENCV -I /usr/include/opencv
+
+%if 0%{?suse_version}
+%define AMC_cat Education;Teaching;
+%else
+%define AMC_cat Education;
+%endif
+
+%define AMC_makepass SYSTEM_TYPE=rpm MODSDIR=%{AMC_modsdir} MODELSDIR=%{AMC_modelsdir} TEXDOCDIR=%{AMC_texdocdir} TEXDIR=%{AMC_texdir} BINDIR=%{AMC_bindir} ICONSDIR=%{AMC_iconsdir} PIXDIR=%{AMC_pixdir} PERLDIR=%{AMC_perldir} MAN1DIR=%{AMC_man1dir} DOCDIR=%{AMC_docdir} DESKTOPDIR="" DESKTOP_CAT="%{AMC_cat}" GCC_OPENCV="%{AMC_OPENCV}"
+
+Name: auto-multiple-choice
+Summary: Auto Multiple Choice - Multiple Choice Papers Management
+Version: @/PACKAGE_V_DEB/@
+Release: 1%{?dist}
+License: GPLv2+
+Group: Productivity/Other
+Source: auto-multiple-choice_@/PACKAGE_V_DEB/@_precomp.tar.gz
+%if 0%{?fedora}
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
+%else
+BuildRoot: %{_tmppath}/%{name}-%{version}-build
+%endif
+URL: http://home.gna.org/auto-qcm/
+Packager: Alexis Bienvenüe <pado@passoire.fr>
+BuildRequires: gcc-c++
+%if 0%{?suse_version}
+BuildRequires: update-desktop-files, libnetpbm-devel, texlive, fontconfig-devel, opencv-devel
+%endif
+%if 0%{?fedora}
+BuildRequires: desktop-file-utils, netpbm-devel, texlive, fontconfig-devel, opencv-devel
+%endif
+%if 0%{?mandriva_version}
+BuildRequires: desktop-file-utils, libnetpbm-devel, libfontconfig-devel, opencv-devel
+%endif
+
+%if 0%{?suse_version}
+%if 0%{?suse_version} < 1140
+Requires: perl = %{perl_version}
+%else
+%{perl_requires}
+%endif
+%else
+Requires: perl >= 5.8
+%endif
+
+Requires: ghostscript
+Requires: /usr/bin/ppmtoxpm
+Requires: /usr/bin/dvipdfm
+
+%if 0%{?suse_version} > 1000
+Suggests: perl(Email::Simple), perl(Email::MIME), perl(Email::Address), perl(Email::Sender), perl(Email::Sender::Simple), perl(Email::Date::Format)
+%else
+Requires: perl(Email::Simple), perl(Email::MIME), perl(Email::Address), perl(Email::Sender), perl(Email::Sender::Simple), perl(Email::Date::Format)
+%endif
+
+Requires: perl(DBI), perl(DBD::SQLite)
+
+%if 0%{?mandriva_version}
+Requires: poppler, graphicsmagick, imagemagick, tetex-cmsuper
+%else
+Requires: /usr/bin/pdftoppm, GraphicsMagick, ImageMagick
+%endif
+
+%if 0%{?suse_version}
+Requires: poppler >= 0.12.3, poppler-tools >= 0.12.3
+Requires: texlive, texlive-bin-latex, texlive-latex
+BuildRequires: texlive, texlive-bin-latex, texlive-latex
+Requires: perl(Archive::Tar), perl(Data::Dumper), perl(Encode), perl(Exporter), perl(Fcntl), perl(File::Copy), perl(File::Path), perl(File::Spec), perl(File::Spec::Functions), perl(File::Temp), perl(Getopt::Long), perl(Gtk2), perl(I18N::Langinfo), perl(IO::File), perl(IO::Select), perl(IPC::Open2), perl(Locale::gettext), perl(Module::Load), perl(Module::Load::Conditional), perl(POSIX), perl(Unicode::Normalize), perl(Time::Local), perl(XML::Simple), perl(XML::Writer), perl(constant), perl(encoding), perl(Digest::MD5), perl(Archive::Zip), perl(Text::CSV), perl(List::Util), perl(Text::ParseWords), perl(Cwd)
+%endif
+
+%if 0%{?fedora}
+Requires: perl(Image::Magick)
+%else
+Requires: perl(Graphics::Magick)
+%endif
+
+%if 0%{?fedora}
+Requires: texlive-latex, perl(Net::CUPS), perl(Net::CUPS::PPD), perl(Gtk2::Notify)
+BuildRequires: texlive-latex
+%if 0%{?fedora} < 18
+Requires: texlive-texmf-latex
+BuildRequires: texlive-texmf-latex
+%endif
+%endif
+%if 0%{?mandriva_version}
+Requires: tetex, tetex-latex, perl(Net::CUPS), perl(Net::CUPS::PPD), perl(Gtk2::Notify)
+BuildRequires: tetex, tetex-latex
+%endif
+
+%if 0%{?mandriva_version}
+Requires(post): tetex
+Requires(postun): tetex
+%else
+Requires(post): texlive
+Requires(postun): texlive
+%endif
+
+#################################################################
+# DESCRIPTION                                                   #
+#################################################################
+
+%{?perl_default_filter}
+
+%description
+Utility to manage multiple choice questionnaires, with optionnaly
+mixed questions and answers. AMC provides automatic marking from papers'
+scans. Annotated papers are produced. Marks can be exported as a
+OpenOffice.org sheet file.
+
+#'
+
+%prep
+
+#################################################################
+# SETUP                                                         #
+#################################################################
+
+%setup
+
+%if 0%{?fedora}
+# filter out package Perl modules, and optional OpenOffice::OODoc module.
+
+cat << \EOF > %{name}-req
+#!/bin/sh
+%{__perl_requires} $* |\
+sed -e '/perl(OpenOffice::OODoc)/d' -e '/perl(AMC::.*)/d'
+EOF
+
+%global __perl_requires %{_builddir}/%{name}-%{version}/%{name}-req
+chmod +x %{__perl_requires}
+
+%endif
+
+
+#################################################################
+# BUILD                                                         #
+#################################################################
+
+%build
+
+make %{AMC_makepass} GCC_NETPBM="-I /usr/include/netpbm -lnetpbm" GCC="gcc" GCC_PP="g++" CFLAGS="$RPM_OPT_FLAGS -Wall" CXXFLAGS="$RPM_OPT_FLAGS -Wall"
+
+#################################################################
+# INSTALL                                                       #
+#################################################################
+
+%install
+make DESTDIR=$RPM_BUILD_ROOT %{AMC_makepass} install
+
+%if 0%{?fedora:1}%{?mandriva_version:1}
+desktop-file-install --delete-original --dir=%{buildroot}%{_datadir}/applications auto-multiple-choice.desktop
+%endif
+
+%if 0%{?suse_version}
+%suse_update_desktop_file -i %{name}
+%endif
+
+%find_lang %{name}
+
+#################################################################
+# CLEAN                                                         #
+#################################################################
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+#################################################################
+# FILES                                                         #
+#################################################################
+
+%files -f %{name}.lang
+%defattr(-,root,root,-)
+
+%doc COPYING ChangeLog doc/html doc/auto-multiple-choice.??.xml doc/auto-multiple-choice.??.pdf
+%doc %{AMC_texdocdir}
+%doc %{AMC_docdir}
+
+%dir /usr/share/auto-multiple-choice
+%dir /usr/share/texmf
+%dir /usr/share/texmf/tex
+%dir /usr/share/texmf/tex/latex
+
+%if 0%{?suse_version}
+%dir /usr/lib/texmf/doc
+%endif
+
+%{AMC_modsdir}
+%{AMC_modelsdir}
+%{AMC_iconsdir}
+%{AMC_texdir}
+%{AMC_bindir}/auto-multiple-choice
+%{AMC_pixdir}/auto-multiple-choice.xpm
+%{AMC_perldir}/AMC
+%{_datadir}/applications/auto-multiple-choice.desktop
+%{AMC_man1dir}/auto-multiple-choice.*.1*
+%{AMC_man1dir}/auto-multiple-choice.1*
+%{AMC_man1dir}/AMC-*.1*
+
+/usr/share/gtksourceview-3.0
+/usr/share/gtksourceview-3.0/language-specs
+/usr/share/gtksourceview-3.0/language-specs/amc-txt.lang
+/usr/share/mime/packages/auto-multiple-choice.xml
+
+#################################################################
+# POST                                                          #
+#################################################################
+
+%post
+
+%if 0%{?fedora}
+texhash
+%endif
+%if 0%{?suse_version}
+texconfig-sys rehash
+%endif
+%if 0%{?mandriva_version}
+texconfig-sys rehash
+%endif
+
+%postun
+
+%if 0%{?fedora}
+texhash
+%endif
+%if 0%{?suse_version}
+texconfig-sys rehash
+%endif
+%if 0%{?mandriva_version}
+texhash
+%endif
+
+#################################################################
+# CHANGELOG                                                     #
+#################################################################
+
+%changelog
+
+* @/DATE_RPMCHL/@ Alexis Bienvenue <pado@passoire.fr> @/PACKAGE_V_DEB/@-1
+
+  - auto spec file for Fedora and SUSE. See ChangeLog for information.

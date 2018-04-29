@@ -1,0 +1,84 @@
+#! @/PERLPATH/@
+#
+# Copyright (C) 2008-2013 Alexis Bienvenue <paamc@passoire.fr>
+#
+# This file is part of Auto-Multiple-Choice
+#
+# Auto-Multiple-Choice is free software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 2 of
+# the License, or (at your option) any later version.
+#
+# Auto-Multiple-Choice is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Auto-Multiple-Choice.  If not, see
+# <http://www.gnu.org/licenses/>.
+
+# Local Variables:
+# mode:perl
+# End:
+
+use File::Spec::Functions qw/catfile catpath splitpath updir/;
+use Cwd;
+
+$mods_dir="@/MODSDIR/@";
+$ENV{'LC_NUMERIC'}="C";
+
+sub mod_path {
+    my ($action)=@_;
+    my $f;
+    $f=catfile($mods_dir,"perl","AMC-$action.pl");
+    return($f) if(-f $f);
+    $f=catfile($mods_dir,"exec","AMC-$action");
+    return($f) if(-f $f);
+    return('');
+}
+
+# For portable distribution
+if(! -d $mods_dir) {
+    ($volume,$directory,$file) = splitpath(__FILE__);
+    my $wd=getcwd();
+    $base_dir=catfile(catpath( $volume, $directory ),updir);
+    chdir($base_dir);
+    $base_dir=getcwd();
+    chdir($wd);
+    $mods_dir=catfile($base_dir,'lib');
+    if(! -d $ENV{'AMCBASEDIR'}) {
+	$ENV{'PERL5LIB'}=catfile($base_dir,'perl').":".$ENV{'PERL5LIB'};
+	$ENV{'TEXINPUTS'}=catfile($base_dir,'latex').":".$ENV{'TEXINPUTS'};
+	$ENV{'AMCBASEDIR'}=$base_dir;
+	$ENV{'PATH'}=$ENV{'PATH'}.":".catfile($base_dir,'bin');
+    }
+}
+
+if($#ARGV==0) {
+    if(mod_path($ARGV[0])) {
+	$action=shift;
+    } else {
+	$action='gui';
+    }
+} elsif($#ARGV>0) {
+    $action=shift;
+} else {
+    $action='gui';
+}
+
+my $f=mod_path($action);
+
+if($f) {
+    if($f =~ /\.pl$/) {
+	exec($^X,$f,@ARGV);
+    } else {
+	exec($f,@ARGV);
+    }
+} else {
+    die "Unknown action $action";
+}
+
+die "Exec $f failed: $!";
+
+

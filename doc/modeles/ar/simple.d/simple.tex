@@ -1,0 +1,82 @@
+\documentclass[a4paper]{article}
+\usepackage[box,completemulti]{automultiplechoice}    
+
+%% XeLaTeX with arabic texts, using Rasheeq font from arabeyes:
+\usepackage{arabxetex}
+\newfontfamily{\arabicfont}[Script=Arabic,Scale=1]{Rasheeq}
+%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% some commands to turn texts into arabic :
+
+\Arabic
+
+\def\AMCchoiceLabel#1{\textLR{\Alph{#1}}}
+\def\AMCbeginQuestion#1#2{\par\noindent{‫السؤال #1 #2 :}}
+\def\AMCformQuestion#1{\vspace{\AMCformVSpace}\par{\large ‫السؤال #1 :}}
+
+\AMCtext{none}{لا شيء من الإجابات أعلاه صحيحة}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\onecopy{10}{    
+
+%%% beginning of the test sheet header:    
+
+\noindent{\textLR{\bf AutoMultipleChoice}  \hfill \textLR{TEST}}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+\centering\large اختبار\\ الفصل الاول 2011\end{minipage}
+\namefield{\fbox{    
+                \begin{minipage}{.5\linewidth}
+                  الاسم الكامل:
+
+                  \vspace*{.5cm}\dotfill
+                  \vspace*{1mm}
+                \end{minipage}
+         }}
+
+\begin{center}\em
+مدة الاختبار : 10 دقائق.
+
+  لا يسمح باستخدام المذكرات أو الكتب، يسمح باستخدام الحاسبة.
+
+
+  وجود هذا الرمز  \multiSymbole{} يعني أن عدد الاجابات الصحيحة للسؤال صفر، أو واحد أو اثنين أو اكثر.  بقية الاسئلة لها اجابة صحيحة واحدة فقط.
+
+  يمكن وضع درجة سالبة للاجابة \emph{السيئة جدا}.
+\end{center}
+
+\vspace{1ex}
+
+%%% end of the header
+
+%%% questions
+
+\begin{question}{mecca}    
+  مدينة مكة المكرمة توجد في ؟
+  \begin{choices}
+    \correctchoice{السعودية}
+    \wrongchoice{الكويت}
+    \wrongchoice{سوريا}
+    \wrongchoice{المغرب}
+  \end{choices}
+\end{question}
+
+\begin{questionmult}{energy}    
+  من مصادر الطاقة النظيفة ؟
+  \begin{choices}
+    \correctchoice{الرياح}
+    \wrongchoice{الطاقة النووية}
+    \correctchoice{الشمس}
+  \end{choices}
+\end{questionmult}
+
+%%% end of questions
+
+}   
+
+\end{document}

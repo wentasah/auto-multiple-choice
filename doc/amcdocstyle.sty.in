@@ -1,0 +1,33 @@
+%
+% Copyright (C) 2008-2015 Alexis Bienvenue <paamc@passoire.fr>
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{amcdocstyle}
+\RequirePackageWithOptions{docbook}
+\RequirePackage[USenglish]{isodate}
+
+\AtBeginDocument{
+  \ifx\pdfinfo\undefined
+  \hypersetup{pdfcreationdate=D:@/PACKAGE_V_PDFDATE/@,pdfmoddate=D:@/PACKAGE_V_PDFDATE/@}
+  \else
+  \pdfinfo{/CreationDate (D:@/PACKAGE_V_PDFDATE/@) /ModDate (D:@/PACKAGE_V_PDFDATE/@)}
+  \fi
+  \renewcommand{\DBKdate}{\printdate{@/PACKAGE_V_ISODATE/@}}
+  \expandafter\def\expandafter\DBKsubtitle\expandafter{\DBKsubtitle{} \href{http://home.gna.org/auto-qcm/}{http://home.gna.org/auto-qcm/}}
+}

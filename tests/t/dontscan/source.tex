@@ -1,0 +1,30 @@
+\documentclass[a4paper]{article}
+\usepackage{automultiplechoice}
+\begin{document}
+\onecopy{5}{
+\namefield{\fbox{
+\begin{minipage}{.5\linewidth}
+Firstname and lastname:
+
+\vspace*{.5cm}\dotfill
+\vspace*{1mm}
+\end{minipage}
+}}
+
+\vspace{2cm}
+
+  \begin{question}{mc}
+    How much points?
+    \begin{choices}
+      \correctchoice{2}\scoring{2}
+      \wrongchoice{1}\scoring{1}
+      \wrongchoice{none}\scoring{0}
+    \end{choices}
+  \end{question}
+
+  \begin{question}{op}
+    Describe...
+    \AMCOpen{lines=5,scan=false}{\wrongchoice[W]{w}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[C]{c}\scoring{2}}
+  \end{question}
+}
+\end{document}

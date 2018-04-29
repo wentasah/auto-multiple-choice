@@ -1,0 +1,128 @@
+\documentclass{article}
+
+\usepackage[bloc,completemulti]{automultiplechoice}
+
+%% XeLaTeX with arabic texts, using Rasheeq font from arabeyes:
+\usepackage{arabxetex}
+\newfontfamily{\arabicfont}[Script=Arabic,Scale=1]{Rasheeq}
+%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% some commands to turn texts into arabic :
+
+\Arabic
+
+\def\AMCchoiceLabel#1{\textLR{\Alph{#1}}}
+\def\AMCbeginQuestion#1#2{\par\noindent{‫السؤال #1 #2 :}}
+\def\AMCformQuestion#1{\vspace{\AMCformVSpace}\par{\large ‫السؤال #1 :}}
+
+\AMCtext{none}{لا شيء من الإجابات أعلاه صحيحة}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\element{qqs}{
+\begin{question}{good choice}
+  كم نقطة تريد لهذا السؤال؟
+  \begin{choices}
+    \correctchoice{الاعلى: 10}\scoring{10}
+    \wrongchoice{فقط 5}\scoring{5}
+    \wrongchoice{نقطتين تكفي}\scoring{2}
+    \wrongchoice{لا شئ، شكرا}\scoring{0}
+  \end{choices}
+\end{question}
+}
+
+\element{qqs}{
+\begin{questionmult}{added}
+  وضع درجة مختلفة لكل اجابة:
+  \begin{choices}
+    \correctchoice{2 نقطة}\scoring{b=2}
+    \wrongchoice{نقطة سالبة واحدة!}\scoring{b=0,m=-1}
+    \correctchoice{3 نقاط}\scoring{b=3}
+    \correctchoice{1 نقطة}
+    \correctchoice{نصف نقطة}\scoring{b=0.5}
+  \end{choices}
+\end{questionmult}
+}
+
+\element{qqs}{
+\begin{questionmult}{3 or zero}\scoring{mz=3}
+  الاجابة الصحيحة الكاملة فقط تحصل على 3 نقاط، اما غير ذلك فتحصل على صفر.
+  \begin{choices}
+    \wrongchoice{خطأ}
+    \wrongchoice{خطأ}
+    \correctchoice{صح}
+    \correctchoice{صح}
+  \end{choices}
+\end{questionmult}
+}
+
+\element{qqs}{
+\begin{questionmult}{all for 2}\scoring{haut=2}
+  الاجابة الصحيحة الكاملة تحصل على نقطتين، وكل اجابة خاطئة تخصم نقطة...
+  \begin{choices}
+    \correctchoice{صح}
+    \correctchoice{هذه الاجابة صحيحة}
+    \correctchoice{نعم!}
+    \wrongchoice{خطأ!}
+    \wrongchoice{لا تختر هذه!}
+  \end{choices}
+\end{questionmult}
+}
+
+\element{qqs}{
+\begin{question}{attention}\scoring{b=2}
+  الاجابة الصحيحة تحصل على نقطتين، وكذلك الاجابة السيئة جدا تخصم نقطتين.
+  \begin{choices}
+    \correctchoice{جيد!}
+    \wrongchoice{غير صحيحة}
+    \wrongchoice{غير صحيحة}
+    \wrongchoice{غير صحيحة}
+    \wrongchoice{اجابة سيئة جدا!}\scoring{-2}
+  \end{choices}
+\end{question}
+}
+
+\element{qqs}{
+\begin{questionmult}{as you like}
+  اختر النقاط التي تريد:
+  \begin{choices}
+    \correctchoice{ستحصل على نقطتين}\scoring{b=2}
+    \wrongchoice{ستحصل على 3 نقاط}\scoring{b=0,m=3}
+    \correctchoice{ستحصل على نقطة اذا علمتها، وستخسر نقطة اذا تركتها}\scoring{m=-1}
+  \end{choices}
+\end{questionmult}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\onecopy{20}{
+
+\noindent{\bf اختبار  \hfill توزيع النقاط بشكل تفصيلي}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+\centering\large اختبار\\ يناير 2011\end{minipage}
+\namefield{\fbox{\begin{minipage}{.5\linewidth}
+الاسم:
+
+\vspace*{.5cm}\dotfill
+\vspace*{1mm}
+\end{minipage}}}
+\vspace{1cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\shufflegroup{qqs}
+
+\insertgroup{qqs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+}
+
+\end{document}

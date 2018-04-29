@@ -1,0 +1,697 @@
+<?xml version='1.0' standalone='yes'?>
+<analyse version="1" src="%PROJET/scans/201303061208_0002.tif" id="+1/1/60+" mode="opencv">
+  <transformation type="lineaire" mse="0.279508">
+    <parametres>
+        <a>0.961299</a>
+        <b>-0.000414</b>
+        <c>-0.000271</c>
+        <d>0.962880</d>
+        <e>39.956344</e>
+        <f>65.232495</f>
+    </parametres>
+  </transformation>
+  <cadre>
+    <coin id="1"><x>344.0000</x><y>346.0000</y></coin>
+    <coin id="2"><x>2120.0000</x><y>346.0000</y></coin>
+    <coin id="3"><x>2118.5000</x><y>3251.0000</y></coin>
+    <coin id="4"><x>343.0000</x><y>3252.0000</y></coin>
+  </cadre>
+  <chiffre n="1" i="10" pixels="850" pixelsnoirs="9" r="0.0105882352941176">
+    <coin id="1"><x>1056.6220</x><y>253.5933</y></coin>
+    <coin id="2"><x>1092.9591</x><y>253.5831</y></coin>
+    <coin id="3"><x>1092.9434</x><y>289.9703</y></coin>
+    <coin id="4"><x>1056.6063</x><y>289.9805</y></coin>
+  </chiffre>
+  <casetest id="3.7">
+    <coin id="1"><x>983.4000</x><y>832.7750</y></coin>
+    <coin id="2"><x>1017.7680</x><y>832.7650</y></coin>
+    <coin id="3"><x>1018.1830</x><y>867.6120</y></coin>
+    <coin id="4"><x>982.9550</x><y>867.6220</y></coin>
+  </casetest>
+  <case id="3.7" question="3" reponse="7" pixels="1208" pixelsnoirs="2" r="0.00165562913907285">
+    <coin id="1"><x>979.1056</x><y>828.4737</y></coin>
+    <coin id="2"><x>1022.0660</x><y>828.4616</y></coin>
+    <coin id="3"><x>1022.0475</x><y>871.4831</y></coin>
+    <coin id="4"><x>979.0871</x><y>871.4952</y></coin>
+  </case>
+  <casetest id="4.0">
+    <coin id="1"><x>419.1620</x><y>1397.7300</y></coin>
+    <coin id="2"><x>453.5230</x><y>1397.7200</y></coin>
+    <coin id="3"><x>453.9370</x><y>1432.5680</y></coin>
+    <coin id="4"><x>418.7170</x><y>1432.5780</y></coin>
+  </casetest>
+  <case id="4.0" question="4" reponse="0" pixels="1212" pixelsnoirs="0" r="0">
+    <coin id="1"><x>414.8686</x><y>1393.4292</y></coin>
+    <coin id="2"><x>457.8195</x><y>1393.4171</y></coin>
+    <coin id="3"><x>457.8010</x><y>1436.4386</y></coin>
+    <coin id="4"><x>414.8501</x><y>1436.4507</y></coin>
+  </case>
+  <casetest id="5.2">
+    <coin id="1"><x>764.7770</x><y>1577.8360</y></coin>
+    <coin id="2"><x>799.1380</x><y>1577.8260</y></coin>
+    <coin id="3"><x>799.5520</x><y>1612.6730</y></coin>
+    <coin id="4"><x>764.3330</x><y>1612.6830</y></coin>
+  </casetest>
+  <case id="5.2" question="5" reponse="2" pixels="1225" pixelsnoirs="2" r="0.00163265306122449">
+    <coin id="1"><x>760.4839</x><y>1573.5348</y></coin>
+    <coin id="2"><x>803.4347</x><y>1573.5227</y></coin>
+    <coin id="3"><x>803.4162</x><y>1616.5441</y></coin>
+    <coin id="4"><x>760.4654</x><y>1616.5562</y></coin>
+  </case>
+  <casetest id="5.4">
+    <coin id="1"><x>1297.6160</x><y>1577.6850</y></coin>
+    <coin id="2"><x>1331.9760</x><y>1577.6760</y></coin>
+    <coin id="3"><x>1332.3910</x><y>1612.5230</y></coin>
+    <coin id="4"><x>1297.1710</x><y>1612.5330</y></coin>
+  </casetest>
+  <case id="5.4" question="5" reponse="4" pixels="1223" pixelsnoirs="407" r="0.332788225674571">
+    <coin id="1"><x>1293.3223</x><y>1573.3846</y></coin>
+    <coin id="2"><x>1336.2731</x><y>1573.3724</y></coin>
+    <coin id="3"><x>1336.2546</x><y>1616.3939</y></coin>
+    <coin id="4"><x>1293.3038</x><y>1616.4060</y></coin>
+  </case>
+  <casetest id="4.1">
+    <coin id="1"><x>419.2440</x><y>1205.8760</y></coin>
+    <coin id="2"><x>453.6050</x><y>1205.8670</y></coin>
+    <coin id="3"><x>454.0200</x><y>1240.7140</y></coin>
+    <coin id="4"><x>418.8000</x><y>1240.7240</y></coin>
+  </casetest>
+  <case id="4.1" question="4" reponse="1" pixels="1206" pixelsnoirs="311" r="0.25787728026534">
+    <coin id="1"><x>414.9511</x><y>1201.5754</y></coin>
+    <coin id="2"><x>457.9019</x><y>1201.5633</y></coin>
+    <coin id="3"><x>457.8834</x><y>1244.5848</y></coin>
+    <coin id="4"><x>414.9326</x><y>1244.5969</y></coin>
+  </case>
+  <casetest id="6.3">
+    <coin id="1"><x>418.9550</x><y>1878.0350</y></coin>
+    <coin id="2"><x>453.3160</x><y>1878.0250</y></coin>
+    <coin id="3"><x>453.7310</x><y>1912.8800</y></coin>
+    <coin id="4"><x>418.5110</x><y>1912.8900</y></coin>
+  </casetest>
+  <case id="6.3" question="6" reponse="3" pixels="1190" pixelsnoirs="0" r="0">
+    <coin id="1"><x>414.6621</x><y>1873.7330</y></coin>
+    <coin id="2"><x>457.6129</x><y>1873.7209</y></coin>
+    <coin id="3"><x>457.5944</x><y>1916.7520</y></coin>
+    <coin id="4"><x>414.6436</x><y>1916.7641</y></coin>
+  </case>
+  <casetest id="6.1">
+    <coin id="1"><x>418.9830</x><y>1814.0890</y></coin>
+    <coin id="2"><x>453.3440</x><y>1814.0790</y></coin>
+    <coin id="3"><x>453.7580</x><y>1848.9270</y></coin>
+    <coin id="4"><x>418.5380</x><y>1848.9370</y></coin>
+  </casetest>
+  <case id="6.1" question="6" reponse="1" pixels="1190" pixelsnoirs="401" r="0.336974789915966">
+    <coin id="1"><x>414.6896</x><y>1809.7882</y></coin>
+    <coin id="2"><x>457.6404</x><y>1809.7761</y></coin>
+    <coin id="3"><x>457.6219</x><y>1852.7975</y></coin>
+    <coin id="4"><x>414.6711</x><y>1852.8097</y></coin>
+  </case>
+  <casetest id="3.2">
+    <coin id="1"><x>514.2460</x><y>832.9070</y></coin>
+    <coin id="2"><x>548.6070</x><y>832.8970</y></coin>
+    <coin id="3"><x>549.0220</x><y>867.7440</y></coin>
+    <coin id="4"><x>513.8020</x><y>867.7540</y></coin>
+  </casetest>
+  <case id="3.2" question="3" reponse="2" pixels="1207" pixelsnoirs="426" r="0.352941176470588">
+    <coin id="1"><x>509.9532</x><y>828.6060</y></coin>
+    <coin id="2"><x>552.9041</x><y>828.5939</y></coin>
+    <coin id="3"><x>552.8856</x><y>871.6153</y></coin>
+    <coin id="4"><x>509.9347</x><y>871.6275</y></coin>
+  </case>
+  <casetest id="1.1">
+    <coin id="1"><x>420.4720</x><y>697.0320</y></coin>
+    <coin id="2"><x>454.8330</x><y>697.0230</y></coin>
+    <coin id="3"><x>455.2480</x><y>731.8700</y></coin>
+    <coin id="4"><x>420.0280</x><y>731.8800</y></coin>
+  </casetest>
+  <case id="1.1" question="1" reponse="1" pixels="1176" pixelsnoirs="0" r="0">
+    <coin id="1"><x>416.1793</x><y>692.7315</y></coin>
+    <coin id="2"><x>459.1301</x><y>692.7194</y></coin>
+    <coin id="3"><x>459.1116</x><y>735.7409</y></coin>
+    <coin id="4"><x>416.1608</x><y>735.7530</y></coin>
+  </case>
+  <casetest id="5.1">
+    <coin id="1"><x>1564.0310</x><y>1577.6100</y></coin>
+    <coin id="2"><x>1598.3990</x><y>1577.6010</y></coin>
+    <coin id="3"><x>1598.8140</x><y>1612.4480</y></coin>
+    <coin id="4"><x>1563.5860</x><y>1612.4580</y></coin>
+  </casetest>
+  <case id="5.1" question="5" reponse="1" pixels="1222" pixelsnoirs="32" r="0.0261865793780687">
+    <coin id="1"><x>1559.7367</x><y>1573.3095</y></coin>
+    <coin id="2"><x>1602.6971</x><y>1573.2973</y></coin>
+    <coin id="3"><x>1602.6787</x><y>1616.3188</y></coin>
+    <coin id="4"><x>1559.7182</x><y>1616.3309</y></coin>
+  </case>
+  <casetest id="3.8">
+    <coin id="1"><x>1077.2310</x><y>832.7480</y></coin>
+    <coin id="2"><x>1111.5920</x><y>832.7390</y></coin>
+    <coin id="3"><x>1112.0060</x><y>867.5860</y></coin>
+    <coin id="4"><x>1076.7870</x><y>867.5960</y></coin>
+  </casetest>
+  <case id="3.8" question="3" reponse="8" pixels="1207" pixelsnoirs="1" r="0.000828500414250207">
+    <coin id="1"><x>1072.9380</x><y>828.4473</y></coin>
+    <coin id="2"><x>1115.8888</x><y>828.4352</y></coin>
+    <coin id="3"><x>1115.8703</x><y>871.4566</y></coin>
+    <coin id="4"><x>1072.9195</x><y>871.4687</y></coin>
+  </case>
+  <casetest id="1.5">
+    <coin id="1"><x>795.8020</x><y>696.9270</y></coin>
+    <coin id="2"><x>830.1630</x><y>696.9170</y></coin>
+    <coin id="3"><x>830.5770</x><y>731.7640</y></coin>
+    <coin id="4"><x>795.3580</x><y>731.7740</y></coin>
+  </casetest>
+  <case id="1.5" question="1" reponse="5" pixels="1225" pixelsnoirs="0" r="0">
+    <coin id="1"><x>791.5088</x><y>692.6257</y></coin>
+    <coin id="2"><x>834.4597</x><y>692.6136</y></coin>
+    <coin id="3"><x>834.4412</x><y>735.6351</y></coin>
+    <coin id="4"><x>791.4903</x><y>735.6472</y></coin>
+  </case>
+  <casetest id="3.10">
+    <coin id="1"><x>1264.8960</x><y>832.6950</y></coin>
+    <coin id="2"><x>1299.2570</x><y>832.6860</y></coin>
+    <coin id="3"><x>1299.6710</x><y>867.5330</y></coin>
+    <coin id="4"><x>1264.4520</x><y>867.5430</y></coin>
+  </casetest>
+  <case id="3.10" question="3" reponse="10" pixels="1225" pixelsnoirs="0" r="0">
+    <coin id="1"><x>1260.6028</x><y>828.3944</y></coin>
+    <coin id="2"><x>1303.5536</x><y>828.3822</y></coin>
+    <coin id="3"><x>1303.5351</x><y>871.4037</y></coin>
+    <coin id="4"><x>1260.5843</x><y>871.4158</y></coin>
+  </case>
+  <casetest id="2.1">
+    <coin id="1"><x>420.4430</x><y>764.9830</y></coin>
+    <coin id="2"><x>454.8040</x><y>764.9730</y></coin>
+    <coin id="3"><x>455.2180</x><y>799.8210</y></coin>
+    <coin id="4"><x>419.9990</x><y>799.8300</y></coin>
+  </casetest>
+  <case id="2.1" question="2" reponse="1" pixels="1208" pixelsnoirs="0" r="0">
+    <coin id="1"><x>416.1500</x><y>760.6820</y></coin>
+    <coin id="2"><x>459.1009</x><y>760.6699</y></coin>
+    <coin id="3"><x>459.0824</x><y>803.6914</y></coin>
+    <coin id="4"><x>416.1315</x><y>803.7035</y></coin>
+  </case>
+  <nom >
+    <coin id="1"><x>1399.7105</x><y>631.4269</y></coin>
+    <coin id="2"><x>2049.5390</x><y>631.2438</y></coin>
+    <coin id="3"><x>2049.4205</x><y>906.7622</y></coin>
+    <coin id="4"><x>1399.5920</x><y>906.9454</y></coin>
+  </nom>
+  <casetest id="5.3">
+    <coin id="1"><x>1031.2010</x><y>1577.7610</y></coin>
+    <coin id="2"><x>1065.5620</x><y>1577.7510</y></coin>
+    <coin id="3"><x>1065.9760</x><y>1612.5980</y></coin>
+    <coin id="4"><x>1030.7570</x><y>1612.6080</y></coin>
+  </casetest>
+  <case id="5.3" question="5" reponse="3" pixels="1209" pixelsnoirs="20" r="0.0165425971877585">
+    <coin id="1"><x>1026.9079</x><y>1573.4597</y></coin>
+    <coin id="2"><x>1069.8587</x><y>1573.4476</y></coin>
+    <coin id="3"><x>1069.8402</x><y>1616.4690</y></coin>
+    <coin id="4"><x>1026.8894</x><y>1616.4811</y></coin>
+  </case>
+  <casetest id="3.4">
+    <coin id="1"><x>701.9110</x><y>832.8540</y></coin>
+    <coin id="2"><x>736.2720</x><y>832.8440</y></coin>
+    <coin id="3"><x>736.6860</x><y>867.6920</y></coin>
+    <coin id="4"><x>701.4670</x><y>867.7020</y></coin>
+  </casetest>
+  <case id="3.4" question="3" reponse="4" pixels="1225" pixelsnoirs="0" r="0">
+    <coin id="1"><x>697.6180</x><y>828.5531</y></coin>
+    <coin id="2"><x>740.5688</x><y>828.5410</y></coin>
+    <coin id="3"><x>740.5503</x><y>871.5624</y></coin>
+    <coin id="4"><x>697.5995</x><y>871.5745</y></coin>
+  </case>
+  <chiffre n="3" i="1" pixels="841" pixelsnoirs="841" r="1">
+    <coin id="1"><x>942.8124</x><y>301.5864</y></coin>
+    <coin id="2"><x>979.1495</x><y>301.5762</y></coin>
+    <coin id="3"><x>979.1338</x><y>337.9634</y></coin>
+    <coin id="4"><x>942.7967</x><y>337.9737</y></coin>
+  </chiffre>
+  <chiffre n="1" i="4" pixels="849" pixelsnoirs="0" r="0">
+    <coin id="1"><x>829.0440</x><y>253.6575</y></coin>
+    <coin id="2"><x>865.3811</x><y>253.6472</y></coin>
+    <coin id="3"><x>865.3655</x><y>290.0345</y></coin>
+    <coin id="4"><x>829.0284</x><y>290.0447</y></coin>
+  </chiffre>
+  <casetest id="4.3">
+    <coin id="1"><x>419.1890</x><y>1333.7760</y></coin>
+    <coin id="2"><x>453.5500</x><y>1333.7660</y></coin>
+    <coin id="3"><x>453.9650</x><y>1368.6130</y></coin>
+    <coin id="4"><x>418.7450</x><y>1368.6230</y></coin>
+  </casetest>
+  <case id="4.3" question="4" reponse="3" pixels="1210" pixelsnoirs="386" r="0.31900826446281">
+    <coin id="1"><x>414.8961</x><y>1329.4747</y></coin>
+    <coin id="2"><x>457.8470</x><y>1329.4626</y></coin>
+    <coin id="3"><x>457.8285</x><y>1372.4841</y></coin>
+    <coin id="4"><x>414.8776</x><y>1372.4962</y></coin>
+  </case>
+  <chiffre n="1" i="12" pixels="861" pixelsnoirs="861" r="1">
+    <coin id="1"><x>1132.4877</x><y>253.5719</y></coin>
+    <coin id="2"><x>1168.8152</x><y>253.5617</y></coin>
+    <coin id="3"><x>1168.7995</x><y>289.9489</y></coin>
+    <coin id="4"><x>1132.4720</x><y>289.9592</y></coin>
+  </chiffre>
+  <chiffre n="2" i="6" pixels="841" pixelsnoirs="841" r="1">
+    <coin id="1"><x>904.8891</x><y>301.5971</y></coin>
+    <coin id="2"><x>941.2166</x><y>301.5869</y></coin>
+    <coin id="3"><x>941.2010</x><y>337.9741</y></coin>
+    <coin id="4"><x>904.8735</x><y>337.9844</y></coin>
+  </chiffre>
+  <casetest id="2.7">
+    <coin id="1"><x>983.4290</x><y>764.8240</y></coin>
+    <coin id="2"><x>1017.7970</x><y>764.8150</y></coin>
+    <coin id="3"><x>1018.2120</x><y>799.6620</y></coin>
+    <coin id="4"><x>982.9840</x><y>799.6720</y></coin>
+  </casetest>
+  <case id="2.7" question="2" reponse="7" pixels="1209" pixelsnoirs="0" r="0">
+    <coin id="1"><x>979.1348</x><y>760.5233</y></coin>
+    <coin id="2"><x>1022.0952</x><y>760.5112</y></coin>
+    <coin id="3"><x>1022.0768</x><y>803.5326</y></coin>
+    <coin id="4"><x>979.1163</x><y>803.5448</y></coin>
+  </case>
+  <chiffre n="3" i="5" pixels="857" pixelsnoirs="0" r="0">
+    <coin id="1"><x>1094.5342</x><y>301.5437</y></coin>
+    <coin id="2"><x>1130.8617</x><y>301.5334</y></coin>
+    <coin id="3"><x>1130.8460</x><y>337.9207</y></coin>
+    <coin id="4"><x>1094.5186</x><y>337.9309</y></coin>
+  </chiffre>
+  <chiffre n="1" i="11" pixels="856" pixelsnoirs="15" r="0.0175233644859813">
+    <coin id="1"><x>1094.5548</x><y>253.5826</y></coin>
+    <coin id="2"><x>1130.8823</x><y>253.5724</y></coin>
+    <coin id="3"><x>1130.8667</x><y>289.9596</y></coin>
+    <coin id="4"><x>1094.5392</x><y>289.9699</y></coin>
+  </chiffre>
+  <casetest id="3.3">
+    <coin id="1"><x>608.0790</x><y>832.8800</y></coin>
+    <coin id="2"><x>642.4400</x><y>832.8710</y></coin>
+    <coin id="3"><x>642.8540</x><y>867.7180</y></coin>
+    <coin id="4"><x>607.6340</x><y>867.7280</y></coin>
+  </casetest>
+  <case id="3.3" question="3" reponse="3" pixels="1218" pixelsnoirs="0" r="0">
+    <coin id="1"><x>603.7856</x><y>828.5795</y></coin>
+    <coin id="2"><x>646.7365</x><y>828.5674</y></coin>
+    <coin id="3"><x>646.7180</x><y>871.5889</y></coin>
+    <coin id="4"><x>603.7671</x><y>871.6010</y></coin>
+  </case>
+  <chiffre n="2" i="2" pixels="859" pixelsnoirs="0" r="0">
+    <coin id="1"><x>753.1673</x><y>301.6399</y></coin>
+    <coin id="2"><x>789.5044</x><y>301.6297</y></coin>
+    <coin id="3"><x>789.4888</x><y>338.0169</y></coin>
+    <coin id="4"><x>753.1517</x><y>338.0271</y></coin>
+  </chiffre>
+  <chiffre n="1" i="5" pixels="843" pixelsnoirs="0" r="0">
+    <coin id="1"><x>866.9769</x><y>253.6468</y></coin>
+    <coin id="2"><x>903.3140</x><y>253.6365</y></coin>
+    <coin id="3"><x>903.2983</x><y>290.0238</y></coin>
+    <coin id="4"><x>866.9612</x><y>290.0340</y></coin>
+  </chiffre>
+  <chiffre n="3" i="3" pixels="846" pixelsnoirs="846" r="1">
+    <coin id="1"><x>1018.6781</x><y>301.5651</y></coin>
+    <coin id="2"><x>1055.0056</x><y>301.5548</y></coin>
+    <coin id="3"><x>1054.9899</x><y>337.9421</y></coin>
+    <coin id="4"><x>1018.6624</x><y>337.9523</y></coin>
+  </chiffre>
+  <chiffre n="2" i="4" pixels="847" pixelsnoirs="0" r="0">
+    <coin id="1"><x>829.0234</x><y>301.6185</y></coin>
+    <coin id="2"><x>865.3605</x><y>301.6083</y></coin>
+    <coin id="3"><x>865.3449</x><y>337.9955</y></coin>
+    <coin id="4"><x>829.0078</x><y>338.0058</y></coin>
+  </chiffre>
+  <chiffre n="1" i="6" pixels="841" pixelsnoirs="0" r="0">
+    <coin id="1"><x>904.9098</x><y>253.6361</y></coin>
+    <coin id="2"><x>941.2372</x><y>253.6258</y></coin>
+    <coin id="3"><x>941.2216</x><y>290.0131</y></coin>
+    <coin id="4"><x>904.8941</x><y>290.0233</y></coin>
+  </chiffre>
+  <casetest id="2.10">
+    <coin id="1"><x>1264.9250</x><y>764.7450</y></coin>
+    <coin id="2"><x>1299.2860</x><y>764.7350</y></coin>
+    <coin id="3"><x>1299.7000</x><y>799.5820</y></coin>
+    <coin id="4"><x>1264.4810</x><y>799.5920</y></coin>
+  </casetest>
+  <case id="2.10" question="2" reponse="10" pixels="1225" pixelsnoirs="0" r="0">
+    <coin id="1"><x>1260.6320</x><y>760.4439</y></coin>
+    <coin id="2"><x>1303.5828</x><y>760.4318</y></coin>
+    <coin id="3"><x>1303.5643</x><y>803.4533</y></coin>
+    <coin id="4"><x>1260.6135</x><y>803.4654</y></coin>
+  </case>
+  <casetest id="3.1">
+    <coin id="1"><x>420.4140</x><y>832.9330</y></coin>
+    <coin id="2"><x>454.7750</x><y>832.9240</y></coin>
+    <coin id="3"><x>455.1890</x><y>867.7710</y></coin>
+    <coin id="4"><x>419.9700</x><y>867.7810</y></coin>
+  </casetest>
+  <case id="3.1" question="3" reponse="1" pixels="1208" pixelsnoirs="0" r="0">
+    <coin id="1"><x>416.1208</x><y>828.6324</y></coin>
+    <coin id="2"><x>459.0717</x><y>828.6203</y></coin>
+    <coin id="3"><x>459.0532</x><y>871.6418</y></coin>
+    <coin id="4"><x>416.1023</x><y>871.6539</y></coin>
+  </case>
+  <casetest id="4.4">
+    <coin id="1"><x>419.2720</x><y>1141.9220</y></coin>
+    <coin id="2"><x>453.6330</x><y>1141.9120</y></coin>
+    <coin id="3"><x>454.0470</x><y>1176.7590</y></coin>
+    <coin id="4"><x>418.8270</x><y>1176.7690</y></coin>
+  </casetest>
+  <case id="4.4" question="4" reponse="4" pixels="1207" pixelsnoirs="0" r="0">
+    <coin id="1"><x>414.9786</x><y>1137.6209</y></coin>
+    <coin id="2"><x>457.9294</x><y>1137.6088</y></coin>
+    <coin id="3"><x>457.9109</x><y>1180.6303</y></coin>
+    <coin id="4"><x>414.9601</x><y>1180.6424</y></coin>
+  </case>
+  <casetest id="1.8">
+    <coin id="1"><x>1077.2900</x><y>696.8470</y></coin>
+    <coin id="2"><x>1111.6500</x><y>696.8380</y></coin>
+    <coin id="3"><x>1112.0650</x><y>731.6850</y></coin>
+    <coin id="4"><x>1076.8450</x><y>731.6950</y></coin>
+  </casetest>
+  <case id="1.8" question="1" reponse="8" pixels="1207" pixelsnoirs="0" r="0">
+    <coin id="1"><x>1072.9964</x><y>692.5464</y></coin>
+    <coin id="2"><x>1115.9472</x><y>692.5343</y></coin>
+    <coin id="3"><x>1115.9287</x><y>735.5557</y></coin>
+    <coin id="4"><x>1072.9779</x><y>735.5679</y></coin>
+  </case>
+  <casetest id="3.9">
+    <coin id="1"><x>1171.0640</x><y>832.7220</y></coin>
+    <coin id="2"><x>1205.4240</x><y>832.7120</y></coin>
+    <coin id="3"><x>1205.8390</x><y>867.5590</y></coin>
+    <coin id="4"><x>1170.6190</x><y>867.5690</y></coin>
+  </casetest>
+  <case id="3.9" question="3" reponse="9" pixels="1220" pixelsnoirs="0" r="0">
+    <coin id="1"><x>1166.7704</x><y>828.4208</y></coin>
+    <coin id="2"><x>1209.7212</x><y>828.4087</y></coin>
+    <coin id="3"><x>1209.7027</x><y>871.4302</y></coin>
+    <coin id="4"><x>1166.7519</x><y>871.4423</y></coin>
+  </case>
+  <chiffre n="1" i="9" pixels="844" pixelsnoirs="3" r="0.00355450236966825">
+    <coin id="1"><x>1018.6987</x><y>253.6040</y></coin>
+    <coin id="2"><x>1055.0262</x><y>253.5938</y></coin>
+    <coin id="3"><x>1055.0106</x><y>289.9810</y></coin>
+    <coin id="4"><x>1018.6831</x><y>289.9912</y></coin>
+  </chiffre>
+  <casetest id="3.5">
+    <coin id="1"><x>795.7440</x><y>832.8280</y></coin>
+    <coin id="2"><x>830.1040</x><y>832.8180</y></coin>
+    <coin id="3"><x>830.5190</x><y>867.6650</y></coin>
+    <coin id="4"><x>795.2990</x><y>867.6750</y></coin>
+  </casetest>
+  <case id="3.5" question="3" reponse="5" pixels="1225" pixelsnoirs="0" r="0">
+    <coin id="1"><x>791.4504</x><y>828.5266</y></coin>
+    <coin id="2"><x>834.4012</x><y>828.5145</y></coin>
+    <coin id="3"><x>834.3827</x><y>871.5360</y></coin>
+    <coin id="4"><x>791.4319</x><y>871.5481</y></coin>
+  </case>
+  <chiffre n="1" i="7" pixels="841" pixelsnoirs="0" r="0">
+    <coin id="1"><x>942.8330</x><y>253.6254</y></coin>
+    <coin id="2"><x>979.1701</x><y>253.6151</y></coin>
+    <coin id="3"><x>979.1545</x><y>290.0024</y></coin>
+    <coin id="4"><x>942.8174</x><y>290.0126</y></coin>
+  </chiffre>
+  <casetest id="2.2">
+    <coin id="1"><x>514.2760</x><y>764.9560</y></coin>
+    <coin id="2"><x>548.6360</x><y>764.9470</y></coin>
+    <coin id="3"><x>549.0510</x><y>799.7940</y></coin>
+    <coin id="4"><x>513.8310</x><y>799.8040</y></coin>
+  </casetest>
+  <case id="2.2" question="2" reponse="2" pixels="1207" pixelsnoirs="0" r="0">
+    <coin id="1"><x>509.9824</x><y>760.6555</y></coin>
+    <coin id="2"><x>552.9333</x><y>760.6434</y></coin>
+    <coin id="3"><x>552.9148</x><y>803.6649</y></coin>
+    <coin id="4"><x>509.9639</x><y>803.6770</y></coin>
+  </case>
+  <casetest id="2.3">
+    <coin id="1"><x>608.1080</x><y>764.9300</y></coin>
+    <coin id="2"><x>642.4690</x><y>764.9200</y></coin>
+    <coin id="3"><x>642.8830</x><y>799.7680</y></coin>
+    <coin id="4"><x>607.6640</x><y>799.7780</y></coin>
+  </casetest>
+  <case id="2.3" question="2" reponse="3" pixels="1216" pixelsnoirs="390" r="0.320723684210526">
+    <coin id="1"><x>603.8148</x><y>760.6291</y></coin>
+    <coin id="2"><x>646.7657</x><y>760.6170</y></coin>
+    <coin id="3"><x>646.7472</x><y>803.6384</y></coin>
+    <coin id="4"><x>603.7963</x><y>803.6506</y></coin>
+  </case>
+  <casetest id="1.7">
+    <coin id="1"><x>983.4580</x><y>696.8740</y></coin>
+    <coin id="2"><x>1017.8270</x><y>696.8640</y></coin>
+    <coin id="3"><x>1018.2410</x><y>731.7110</y></coin>
+    <coin id="4"><x>983.0140</x><y>731.7210</y></coin>
+  </casetest>
+  <case id="1.7" question="1" reponse="7" pixels="1210" pixelsnoirs="0" r="0">
+    <coin id="1"><x>979.1640</x><y>692.5728</y></coin>
+    <coin id="2"><x>1022.1245</x><y>692.5607</y></coin>
+    <coin id="3"><x>1022.1060</x><y>735.5822</y></coin>
+    <coin id="4"><x>979.1455</x><y>735.5943</y></coin>
+  </case>
+  <casetest id="1.4">
+    <coin id="1"><x>701.9700</x><y>696.9530</y></coin>
+    <coin id="2"><x>736.3300</x><y>696.9430</y></coin>
+    <coin id="3"><x>736.7450</x><y>731.7910</y></coin>
+    <coin id="4"><x>701.5250</x><y>731.8010</y></coin>
+  </casetest>
+  <case id="1.4" question="1" reponse="4" pixels="1225" pixelsnoirs="0" r="0">
+    <coin id="1"><x>697.6764</x><y>692.6522</y></coin>
+    <coin id="2"><x>740.6273</x><y>692.6401</y></coin>
+    <coin id="3"><x>740.6088</x><y>735.6616</y></coin>
+    <coin id="4"><x>697.6579</x><y>735.6737</y></coin>
+  </case>
+  <casetest id="1.3">
+    <coin id="1"><x>608.1370</x><y>696.9800</y></coin>
+    <coin id="2"><x>642.4980</x><y>696.9700</y></coin>
+    <coin id="3"><x>642.9120</x><y>731.8170</y></coin>
+    <coin id="4"><x>607.6930</x><y>731.8270</y></coin>
+  </casetest>
+  <case id="1.3" question="1" reponse="3" pixels="1214" pixelsnoirs="0" r="0">
+    <coin id="1"><x>603.8440</x><y>692.6786</y></coin>
+    <coin id="2"><x>646.7949</x><y>692.6665</y></coin>
+    <coin id="3"><x>646.7764</x><y>735.6880</y></coin>
+    <coin id="4"><x>603.8255</x><y>735.7001</y></coin>
+  </case>
+  <chiffre n="1" i="3" pixels="855" pixelsnoirs="0" r="0">
+    <coin id="1"><x>791.1208</x><y>253.6682</y></coin>
+    <coin id="2"><x>827.4483</x><y>253.6579</y></coin>
+    <coin id="3"><x>827.4326</x><y>290.0452</y></coin>
+    <coin id="4"><x>791.1051</x><y>290.0554</y></coin>
+  </chiffre>
+  <casetest id="6.4">
+    <coin id="1"><x>418.9280</x><y>1941.9880</y></coin>
+    <coin id="2"><x>453.2890</x><y>1941.9790</y></coin>
+    <coin id="3"><x>453.7030</x><y>1976.8260</y></coin>
+    <coin id="4"><x>418.4830</x><y>1976.8360</y></coin>
+  </casetest>
+  <case id="6.4" question="6" reponse="4" pixels="1225" pixelsnoirs="0" r="0">
+    <coin id="1"><x>414.6346</x><y>1937.6875</y></coin>
+    <coin id="2"><x>457.5854</x><y>1937.6754</y></coin>
+    <coin id="3"><x>457.5669</x><y>1980.6969</y></coin>
+    <coin id="4"><x>414.6161</x><y>1980.7090</y></coin>
+  </case>
+  <chiffre n="3" i="2" pixels="841" pixelsnoirs="841" r="1">
+    <coin id="1"><x>980.7452</x><y>301.5758</y></coin>
+    <coin id="2"><x>1017.0823</x><y>301.5655</y></coin>
+    <coin id="3"><x>1017.0667</x><y>337.9527</y></coin>
+    <coin id="4"><x>980.7296</x><y>337.9630</y></coin>
+  </chiffre>
+  <casetest id="2.8">
+    <coin id="1"><x>1077.2600</x><y>764.7980</y></coin>
+    <coin id="2"><x>1111.6210</x><y>764.7880</y></coin>
+    <coin id="3"><x>1112.0360</x><y>799.6350</y></coin>
+    <coin id="4"><x>1076.8160</x><y>799.6450</y></coin>
+  </casetest>
+  <case id="2.8" question="2" reponse="8" pixels="1207" pixelsnoirs="3" r="0.00248550124275062">
+    <coin id="1"><x>1072.9672</x><y>760.4968</y></coin>
+    <coin id="2"><x>1115.9180</x><y>760.4847</y></coin>
+    <coin id="3"><x>1115.8995</x><y>803.5062</y></coin>
+    <coin id="4"><x>1072.9487</x><y>803.5183</y></coin>
+  </case>
+  <chiffre n="2" i="3" pixels="853" pixelsnoirs="0" r="0">
+    <coin id="1"><x>791.1002</x><y>301.6292</y></coin>
+    <coin id="2"><x>827.4277</x><y>301.6190</y></coin>
+    <coin id="3"><x>827.4120</x><y>338.0062</y></coin>
+    <coin id="4"><x>791.0845</x><y>338.0164</y></coin>
+  </chiffre>
+  <chiffre n="2" i="5" pixels="842" pixelsnoirs="0" r="0">
+    <coin id="1"><x>866.9563</x><y>301.6078</y></coin>
+    <coin id="2"><x>903.2934</x><y>301.5976</y></coin>
+    <coin id="3"><x>903.2777</x><y>337.9848</y></coin>
+    <coin id="4"><x>866.9406</x><y>337.9951</y></coin>
+  </chiffre>
+  <casetest id="6.2">
+    <coin id="1"><x>419.0100</x><y>1750.1350</y></coin>
+    <coin id="2"><x>453.3710</x><y>1750.1250</y></coin>
+    <coin id="3"><x>453.7860</x><y>1784.9720</y></coin>
+    <coin id="4"><x>418.5660</x><y>1784.9820</y></coin>
+  </casetest>
+  <case id="6.2" question="6" reponse="2" pixels="1190" pixelsnoirs="0" r="0">
+    <coin id="1"><x>414.7171</x><y>1745.8337</y></coin>
+    <coin id="2"><x>457.6679</x><y>1745.8216</y></coin>
+    <coin id="3"><x>457.6494</x><y>1788.8431</y></coin>
+    <coin id="4"><x>414.6986</x><y>1788.8552</y></coin>
+  </case>
+  <casetest id="1.6">
+    <coin id="1"><x>889.6340</x><y>696.9000</y></coin>
+    <coin id="2"><x>923.9950</x><y>696.8910</y></coin>
+    <coin id="3"><x>924.4100</x><y>731.7380</y></coin>
+    <coin id="4"><x>889.1900</x><y>731.7480</y></coin>
+  </casetest>
+  <case id="1.6" question="1" reponse="6" pixels="1224" pixelsnoirs="0" r="0">
+    <coin id="1"><x>885.3412</x><y>692.5993</y></coin>
+    <coin id="2"><x>928.2921</x><y>692.5872</y></coin>
+    <coin id="3"><x>928.2736</x><y>735.6087</y></coin>
+    <coin id="4"><x>885.3227</x><y>735.6208</y></coin>
+  </case>
+  <casetest id="2.9">
+    <coin id="1"><x>1171.0930</x><y>764.7710</y></coin>
+    <coin id="2"><x>1205.4530</x><y>764.7620</y></coin>
+    <coin id="3"><x>1205.8680</x><y>799.6090</y></coin>
+    <coin id="4"><x>1170.6480</x><y>799.6190</y></coin>
+  </casetest>
+  <case id="2.9" question="2" reponse="9" pixels="1217" pixelsnoirs="0" r="0">
+    <coin id="1"><x>1166.7996</x><y>760.4704</y></coin>
+    <coin id="2"><x>1209.7504</x><y>760.4583</y></coin>
+    <coin id="3"><x>1209.7319</x><y>803.4797</y></coin>
+    <coin id="4"><x>1166.7811</x><y>803.4918</y></coin>
+  </case>
+  <chiffre n="1" i="8" pixels="841" pixelsnoirs="0" r="0">
+    <coin id="1"><x>980.7659</x><y>253.6147</y></coin>
+    <coin id="2"><x>1017.1030</x><y>253.6045</y></coin>
+    <coin id="3"><x>1017.0873</x><y>289.9917</y></coin>
+    <coin id="4"><x>980.7502</x><y>290.0019</y></coin>
+  </chiffre>
+  <chiffre n="3" i="6" pixels="863" pixelsnoirs="22" r="0.0254924681344148">
+    <coin id="1"><x>1132.4671</x><y>301.5330</y></coin>
+    <coin id="2"><x>1168.7945</x><y>301.5227</y></coin>
+    <coin id="3"><x>1168.7789</x><y>337.9100</y></coin>
+    <coin id="4"><x>1132.4514</x><y>337.9202</y></coin>
+  </chiffre>
+  <casetest id="4.2">
+    <coin id="1"><x>419.2170</x><y>1269.8310</y></coin>
+    <coin id="2"><x>453.5780</x><y>1269.8210</y></coin>
+    <coin id="3"><x>453.9920</x><y>1304.6680</y></coin>
+    <coin id="4"><x>418.7720</x><y>1304.6780</y></coin>
+  </casetest>
+  <case id="4.2" question="4" reponse="2" pixels="1208" pixelsnoirs="393" r="0.325331125827815">
+    <coin id="1"><x>414.9236</x><y>1265.5299</y></coin>
+    <coin id="2"><x>457.8744</x><y>1265.5178</y></coin>
+    <coin id="3"><x>457.8559</x><y>1308.5393</y></coin>
+    <coin id="4"><x>414.9051</x><y>1308.5514</y></coin>
+  </case>
+  <casetest id="2.4">
+    <coin id="1"><x>701.9400</x><y>764.9040</y></coin>
+    <coin id="2"><x>736.3010</x><y>764.8940</y></coin>
+    <coin id="3"><x>736.7160</x><y>799.7410</y></coin>
+    <coin id="4"><x>701.4960</x><y>799.7510</y></coin>
+  </casetest>
+  <case id="2.4" question="2" reponse="4" pixels="1225" pixelsnoirs="0" r="0">
+    <coin id="1"><x>697.6472</x><y>760.6026</y></coin>
+    <coin id="2"><x>740.5981</x><y>760.5905</y></coin>
+    <coin id="3"><x>740.5796</x><y>803.6120</y></coin>
+    <coin id="4"><x>697.6287</x><y>803.6241</y></coin>
+  </case>
+  <casetest id="6.0">
+    <coin id="1"><x>418.9000</x><y>2005.9430</y></coin>
+    <coin id="2"><x>453.2610</x><y>2005.9330</y></coin>
+    <coin id="3"><x>453.6760</x><y>2040.7810</y></coin>
+    <coin id="4"><x>418.4560</x><y>2040.7900</y></coin>
+  </casetest>
+  <case id="6.0" question="6" reponse="0" pixels="1225" pixelsnoirs="1" r="0.000816326530612245">
+    <coin id="1"><x>414.6071</x><y>2001.6420</y></coin>
+    <coin id="2"><x>457.5579</x><y>2001.6299</y></coin>
+    <coin id="3"><x>457.5395</x><y>2044.6514</y></coin>
+    <coin id="4"><x>414.5886</x><y>2044.6635</y></coin>
+  </case>
+  <chiffre n="1" i="2" pixels="861" pixelsnoirs="0" r="0">
+    <coin id="1"><x>753.1879</x><y>253.6789</y></coin>
+    <coin id="2"><x>789.5250</x><y>253.6686</y></coin>
+    <coin id="3"><x>789.5094</x><y>290.0558</y></coin>
+    <coin id="4"><x>753.1723</x><y>290.0661</y></coin>
+  </chiffre>
+  <casetest id="1.9">
+    <coin id="1"><x>1171.1220</x><y>696.8210</y></coin>
+    <coin id="2"><x>1205.4830</x><y>696.8110</y></coin>
+    <coin id="3"><x>1205.8970</x><y>731.6580</y></coin>
+    <coin id="4"><x>1170.6780</x><y>731.6680</y></coin>
+  </casetest>
+  <case id="1.9" question="1" reponse="9" pixels="1215" pixelsnoirs="0" r="0">
+    <coin id="1"><x>1166.8288</x><y>692.5199</y></coin>
+    <coin id="2"><x>1209.7796</x><y>692.5078</y></coin>
+    <coin id="3"><x>1209.7611</x><y>735.5293</y></coin>
+    <coin id="4"><x>1166.8103</x><y>735.5414</y></coin>
+  </case>
+  <casetest id="2.6">
+    <coin id="1"><x>889.6050</x><y>764.8510</y></coin>
+    <coin id="2"><x>923.9660</x><y>764.8410</y></coin>
+    <coin id="3"><x>924.3800</x><y>799.6880</y></coin>
+    <coin id="4"><x>889.1610</x><y>799.6980</y></coin>
+  </casetest>
+  <case id="2.6" question="2" reponse="6" pixels="1222" pixelsnoirs="0" r="0">
+    <coin id="1"><x>885.3120</x><y>760.5497</y></coin>
+    <coin id="2"><x>928.2629</x><y>760.5376</y></coin>
+    <coin id="3"><x>928.2444</x><y>803.5591</y></coin>
+    <coin id="4"><x>885.2935</x><y>803.5712</y></coin>
+  </case>
+  <casetest id="3.6">
+    <coin id="1"><x>889.5760</x><y>832.8010</y></coin>
+    <coin id="2"><x>923.9370</x><y>832.7910</y></coin>
+    <coin id="3"><x>924.3510</x><y>867.6390</y></coin>
+    <coin id="4"><x>889.1320</x><y>867.6490</y></coin>
+  </casetest>
+  <case id="3.6" question="3" reponse="6" pixels="1219" pixelsnoirs="0" r="0">
+    <coin id="1"><x>885.2828</x><y>828.5002</y></coin>
+    <coin id="2"><x>928.2336</x><y>828.4881</y></coin>
+    <coin id="3"><x>928.2151</x><y>871.5095</y></coin>
+    <coin id="4"><x>885.2643</x><y>871.5216</y></coin>
+  </case>
+  <casetest id="2.5">
+    <coin id="1"><x>795.7730</x><y>764.8770</y></coin>
+    <coin id="2"><x>830.1340</x><y>764.8670</y></coin>
+    <coin id="3"><x>830.5480</x><y>799.7150</y></coin>
+    <coin id="4"><x>795.3280</x><y>799.7250</y></coin>
+  </casetest>
+  <case id="2.5" question="2" reponse="5" pixels="1225" pixelsnoirs="0" r="0">
+    <coin id="1"><x>791.4796</x><y>760.5762</y></coin>
+    <coin id="2"><x>834.4305</x><y>760.5641</y></coin>
+    <coin id="3"><x>834.4120</x><y>803.5855</y></coin>
+    <coin id="4"><x>791.4611</x><y>803.5977</y></coin>
+  </case>
+  <casetest id="1.10">
+    <coin id="1"><x>1264.9540</x><y>696.7940</y></coin>
+    <coin id="2"><x>1299.3150</x><y>696.7850</y></coin>
+    <coin id="3"><x>1299.7300</x><y>731.6320</y></coin>
+    <coin id="4"><x>1264.5100</x><y>731.6420</y></coin>
+  </casetest>
+  <case id="1.10" question="1" reponse="10" pixels="1225" pixelsnoirs="1" r="0.000816326530612245">
+    <coin id="1"><x>1260.6612</x><y>692.4935</y></coin>
+    <coin id="2"><x>1303.6120</x><y>692.4814</y></coin>
+    <coin id="3"><x>1303.5935</x><y>735.5028</y></coin>
+    <coin id="4"><x>1260.6427</x><y>735.5150</y></coin>
+  </case>
+  <casetest id="1.2">
+    <coin id="1"><x>514.3050</x><y>697.0060</y></coin>
+    <coin id="2"><x>548.6660</x><y>696.9960</y></coin>
+    <coin id="3"><x>549.0800</x><y>731.8440</y></coin>
+    <coin id="4"><x>513.8600</x><y>731.8540</y></coin>
+  </casetest>
+  <case id="1.2" question="1" reponse="2" pixels="1186" pixelsnoirs="415" r="0.34991568296796">
+    <coin id="1"><x>510.0116</x><y>692.7051</y></coin>
+    <coin id="2"><x>552.9625</x><y>692.6930</y></coin>
+    <coin id="3"><x>552.9440</x><y>735.7145</y></coin>
+    <coin id="4"><x>509.9932</x><y>735.7266</y></coin>
+  </case>
+  <chiffre n="1" i="1" pixels="867" pixelsnoirs="0" r="0">
+    <coin id="1"><x>715.2551</x><y>253.6895</y></coin>
+    <coin id="2"><x>751.5922</x><y>253.6793</y></coin>
+    <coin id="3"><x>751.5765</x><y>290.0665</y></coin>
+    <coin id="4"><x>715.2394</x><y>290.0768</y></coin>
+  </chiffre>
+  <chiffre n="2" i="1" pixels="865" pixelsnoirs="0" r="0">
+    <coin id="1"><x>715.2345</x><y>301.6506</y></coin>
+    <coin id="2"><x>751.5716</x><y>301.6404</y></coin>
+    <coin id="3"><x>751.5559</x><y>338.0276</y></coin>
+    <coin id="4"><x>715.2188</x><y>338.0378</y></coin>
+  </chiffre>
+  <chiffre n="3" i="4" pixels="852" pixelsnoirs="852" r="1">
+    <coin id="1"><x>1056.6013</x><y>301.5544</y></coin>
+    <coin id="2"><x>1092.9384</x><y>301.5441</y></coin>
+    <coin id="3"><x>1092.9228</x><y>337.9314</y></coin>
+    <coin id="4"><x>1056.5857</x><y>337.9416</y></coin>
+  </chiffre>
+</analyse>
