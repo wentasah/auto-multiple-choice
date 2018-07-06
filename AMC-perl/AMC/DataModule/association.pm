@@ -1,6 +1,6 @@
 # -*- perl -*-
 #
-# Copyright (C) 2011-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2011-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -46,11 +46,6 @@ package AMC::DataModule::association;
 #   file) associated with the answer sheet by manual association,
 #   or NULL if no automatic association were made for this sheet.
 
-# IMPORTANT !
-#
-# When ID are numerical values, leading zeros are removed in the
-# database by perl calls to the AMC::DataModule::association object.
-
 # VARIABLES:
 #
 # key_in_list is the column name from students list file where to find
@@ -72,9 +67,15 @@ sub version_current {
   return(1);
 }
 
+sub immutable_variables {
+  return("code_storage");
+}
+
 sub version_upgrade {
     my ($self,$old_version)=@_;
     if($old_version==0) {
+
+      $self->variable("code_storage","full");
 
 	# Upgrading from version 0 (empty database) to version 1 :
 	# creates all the tables.
@@ -171,6 +172,11 @@ sub define_statements {
 		  ." ELSE auto END AS real, student, copy"
 		  ." FROM $at"
 		  ." ) WHERE real=?||''"},
+     'realBackInt'=>{'sql'=>"SELECT student,copy FROM ( SELECT CASE"
+                     ." WHEN manual IS NOT NULL THEN manual"
+                     ." ELSE auto END AS real, student, copy"
+                     ." FROM $at"
+                     ." ) WHERE CAST(real AS INTEGER)=?"},
      'counts'=>{'sql'=>"SELECT COUNT(auto),COUNT(manual),"
 		." SUM(CASE WHEN auto IS NOT NULL OR manual IS NOT NULL"
 		."          THEN 1 ELSE 0 END)"
@@ -214,7 +220,15 @@ sub get_auto {
 sub get_real {
   my ($self,$student,$copy)=@_;
   return($self->sql_single($self->statement('getReal'),
-			   $student,$copy));
+                           $student,$copy));
+}
+
+# with_association($student,$copy) returns TRUE if the copy is associated
+
+sub with_association {
+  my ($self,$student,$copy)=@_;
+  my $r=$self->get_real($student,$copy);
+  return(defined($r) && $r ne '');
 }
 
 # set_manual($student,$copy,$manual) sets the manual association ID for the
@@ -292,6 +306,15 @@ sub check_keys {
 sub real_back {
   my ($self,$code)=@_;
   my @r=$self->sql_row($self->statement('realBack'),$code);
+  # for backward compatibility, makes real_back work even if the
+  # leading zeroes are givenn or not in the database or in
+  # $code... but only for databases created with older versions or
+  # with code_storage variable different from "full"
+  if($self->{immutable}->{code_storage} ne "full" &&
+     $#r<1 && $code=~/^[0-9]*[1-9][0-9]*$/) {
+    $code =~ s/^0+//;
+    @r=$self->sql_row($self->statement('realBackInt'),$code);
+  }
   return(@r);
 }
 

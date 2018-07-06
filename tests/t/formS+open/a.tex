@@ -2,6 +2,7 @@
 
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{fp}
 \usepackage[francais,bloc,completemulti,ensemble]{automultiplechoice}
 
 \def\AMCotextReserved{\emph{($\leftarrow$ cases réservées aux correcteurs)}}
@@ -33,6 +34,11 @@ Commenter...
 \bonne[TB]{tb}\bareme{12}
 }
 \end{question}
+
+\begin{questionmultx}{Numeric}
+Calculer 2+2.
+\AMCnumericChoices{4}{digits=1,decimals=0,sign=true}
+\end{questionmultx}
 
 \cleardoublepage
 

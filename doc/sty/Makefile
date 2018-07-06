@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2011-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -19,30 +19,39 @@
 
 SHELL=/bin/sh
 
+include ../../Makefile-all.conf
+
 PACK=automultiplechoice
 
 SAMPLES=$(wildcard sample-*.tex)
 
+all %.pdf: export SOURCE_DATE_EPOCH=$(PACKAGE_V_EPOCH)
+all %.pdf: export SOURCE_DATE_EPOCH_TEX_PRIMITIVES=1
+all %.pdf: export FORCE_SOURCE_DATE=1
+
+PDFLATEX=pdflatex -halt-on-error -interaction=nonstopmode
 all: FORCE
-	pdflatex $(PACK).dtx
+	$(PDFLATEX) $(PACK).dtx
 	$(MAKE) $(SAMPLES:.tex=.pdf)
-	pdflatex $(PACK).dtx
+	$(PDFLATEX) $(PACK).dtx
 	makeindex -s gglo.ist -o $(PACK).gls $(PACK).glo
 	makeindex -s gind.ist -o $(PACK).ind $(PACK).idx
-	pdflatex $(PACK).dtx
-	pdflatex $(PACK).dtx
-	../../reproducible-pdf.pl --id $(PACK).pdf
+	$(PDFLATEX) $(PACK).dtx
+	$(PDFLATEX) $(PACK).dtx
+	$(MAKE) postclean
+
+styonly: $(PACK).dtx
+	$(PDFLATEX) $<
 	$(MAKE) postclean
 
 sample-%.datetex.in: sample-%.tex
-	perl -pe 's!\\begin\{document\}!\\begin{document}\\pdfinfo{/CreationDate (D:@/PACKAGE_V_PDFDATE/@) /ModDate (D:@/PACKAGE_V_PDFDATE/@)}!;' < $< > $@
+	$(PERLPATH) -pe 's!\\begin\{document\}!\\begin{document}\\pdfinfo{/CreationDate (D:@/PACKAGE_V_PDFDATE/@) /ModDate (D:@/PACKAGE_V_PDFDATE/@)}!;' < $< > $@
 
 sample-%.datetex: sample-%.datetex.in
 	$(MAKE) -C ../.. doc/sty/$@
 
 sample-%.pdf: sample-%.datetex
 	pdflatex -jobname sample-$* $<
-	../../reproducible-pdf.pl --id $@
 
 postclean:
 	-rm -f pexa-*

@@ -1,3 +1,43 @@
+1.4.0~rc1 (2018-07-04)
+
+  * GUI: store the size of the marks window.
+
+1.4.0~beta2 (2018-05-30)
+
+  * Bugfixes and translations updates.
+
+1.4.0~beta1 (2018-05-02)
+
+  * New \AMCformFilter macro to separate answers from different
+	categories in the separate answer sheet.
+
+  * Accept non-ascii project names and directories
+
+  * AMCnumericChoices is rewritten using LaTeX3, with new options for
+	scientific notation (exponent, Texponent, exposign, expovertical).
+
+  * Warning when some data capture overwrites old data.
+
+  * New \AMCcodeGrid and \AMCcodeGridInt LaTeX commands
+
+  * Authenticated SMTP
+
+  * Scoring: new setglobal.XXX directive
+
+  * AMC-TXT: typewritter, underline, verbatim
+
+  * New workflow with PDF forms instead of printed copies
+
+  * Switch to Gtk3
+
+  * AMC-TXT: new group option 'needspace'
+
+  * AMC-TXT: new option Pages, RandomSeed
+
+  * New AMCopen option: lineuptext
+
+  * Bugfixes
+
 1.3.0 (2016-03-16)
 
   * New \AMCsetFoot LaTeX command

@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2009-2015 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2009-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -20,7 +20,7 @@
 
 use Getopt::Long;
 
-use Gtk2;
+use Gtk3;
 use Cairo;
 
 use List::Util qw(min max sum);
@@ -35,7 +35,7 @@ use AMC::DataModule::capture qw/:zone :position/;
 use AMC::DataModule::layout qw/:flags/;
 use AMC::Substitute;
 
-use encoding 'utf8';
+use utf8;
 
 my $cr_dir="";
 my $rep_projet='';
@@ -158,7 +158,7 @@ if($fich_noms) {
 
 sub color_rgb {
     my ($s)=@_;
-    my $col=Gtk2::Gdk::Color->parse($s);
+    my $col=Gtk3::Gdk::Color::parse($s);
     return($col->red/65535,$col->green/65535,$col->blue/65535);
 }
 

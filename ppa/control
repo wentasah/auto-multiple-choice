@@ -1,0 +1,80 @@
+Source: auto-multiple-choice
+Section: education
+Priority: optional
+Maintainer: Alexis Bienvenüe <pado@passoire.fr>
+Uploaders: Georges Khaznadar <georgesk@debian.org>
+Build-Depends: debhelper (>= 9), gettext, libnetpbm10-dev,
+ libxml-libxml-perl, dblatex, xsltproc, docbook-xml,
+ docbook-xsl, librsvg2-bin, netpbm, texlive-pictures,
+ pkg-config, libopencv-dev,
+ libpoppler-glib-dev, libcairo2-dev, libpango1.0-dev,
+ texlive-latex-recommended, texlive-xetex, lmodern,
+ texlive-lang-french, texlive-lang-japanese
+Standards-Version: 3.9.4
+Homepage: http://www.auto-multiple-choice.net/
+Vcs-Browser: https://gitlab.com/jojo_boulix/auto-multiple-choice/
+Vcs-Git: https://gitlab.com/jojo_boulix/auto-multiple-choice.git
+
+Package: auto-multiple-choice
+Architecture: any
+Replaces: auto-multiple-choice-common (<< 1.3.0-1)
+Breaks: auto-multiple-choice-common (<< 1.3.0-1)
+Depends: ${misc:Depends}, ${shlibs:Depends},
+ auto-multiple-choice-common (= ${source:Version})
+Recommends: auto-multiple-choice-doc (= ${source:Version})
+Suggests: texstudio | texmaker | kile, openoffice.org-calc
+Description: Auto Multiple Choice - multiple choice papers management
+ Utility to manage multiple choice questionnaires, with optionally
+ mixed questions and answers. AMC provides automatic marking from papers'
+ scans. Annotated papers are produced. Marks can be exported as a
+ OpenOffice.org sheet file.
+
+Package: auto-multiple-choice-common
+Architecture: all
+Replaces: auto-multiple-choice (<< 1.1.0-1)
+Breaks: auto-multiple-choice (<< 1.1.0-1)
+Depends: ${misc:Depends}, ${perl:Depends},
+ liblocale-gettext-perl, libxml-simple-perl, libxml-writer-perl,
+ libgtk3-perl, libio-compress-perl|libcompress-zlib-perl,
+ libgraphics-magick-perl, libdbd-sqlite3-perl, libdbi-perl,
+ libfile-mimeinfo-perl, libtext-csv-perl, texlive-latex-base,
+ texlive-latex-recommended, texlive-generic-recommended, texlive-latex-extra,
+ texlive-fonts-extra, imagemagick (>= 7:6.5.5) |
+ graphicsmagick-imagemagick-compat, netpbm, ghostscript,
+ poppler-utils, libarchive-zip-perl, librsvg2-common, unzip,
+ libglib-object-introspection-perl, libclone-perl
+Recommends: libsys-cpu-perl, libnet-cups-perl (>= 0.60), 
+ libopenoffice-oodoc-perl, libemail-mime-perl, libemail-sender-perl,
+ fonts-linuxlibertine | ttf-linux-libertine, lmodern, texlive-xetex,
+ libfilesys-df-perl, qpdf | pdftk
+Description: Auto Multiple Choice - architecture independent files
+ Utility to manage multiple choice questionnaires, with optionally
+ mixed questions and answers. AMC provides automatic marking from papers'
+ scans. Annotated papers are produced. Marks can be exported as a
+ OpenOffice.org sheet file.
+ .
+ These are architecture independent files.
+
+Package: auto-multiple-choice-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Description: Auto Multiple Choice - HTML documentation
+ Utility to manage multiple choice questionnaires, with optionally
+ mixed questions and answers. AMC provides automatic marking from papers'
+ scans. Annotated papers are produced. Marks can be exported as a
+ OpenOffice.org sheet file.
+ .
+ This is AMC HTML documentation.
+
+Package: auto-multiple-choice-doc-pdf
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Description: Auto Multiple Choice - PDF documentation
+ Utility to manage multiple choice questionnaires, with optionally
+ mixed questions and answers. AMC provides automatic marking from papers'
+ scans. Annotated papers are produced. Marks can be exported as a
+ OpenOffice.org sheet file.
+ .
+ This is AMC PDF documentation.

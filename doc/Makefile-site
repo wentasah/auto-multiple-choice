@@ -23,7 +23,7 @@ version:
 	echo '<!--#set var="DOCVERSION" value="$(DOCVERSION)"-->' >> $(HVERSION)
 
 map: FORCE
-	./sitemap.pl --repertoire htdocs --root http://home.gna.org/auto-qcm --o htdocs/sitemap.xml
+	./sitemap.pl --repertoire htdocs --root https://www.auto-multiple-choice.net/ --o htdocs/sitemap.xml
 
 xml: FORCE
 	tar xvzf $(SRC) -C $(TMPDIR)

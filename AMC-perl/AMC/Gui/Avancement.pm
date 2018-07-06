@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2008-2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -76,7 +76,7 @@ sub etat {
 }
 
 sub lit {
-    my ($self,$s,$oo)=(@_);
+    my ($self,$s)=(@_);
     my $r=-1;
     if($s =~ /===<(.*)>=\+([0-9,.]+(?:e[+-]?[0-9]+)?)/) {
 	my $id=$1;
@@ -96,16 +96,15 @@ sub lit {
 	$r=$self->{'progres'};
     }
     if($s =~ /===<(.*)>=T\((.*)\)$/) {
-      if($oo->{'bar'}) {
-	$oo->{'bar'}->set_text($2);
+      if($self->{'bar'}) {
+	$self->{'bar'}->set_text($2);
       }
       $self->{'progres'}=0;
       $r=0;
     }
-    if($r>=0 && $oo->{'bar'}) {
-      $oo->{'bar'}->set_fraction($r);
+    if($r>=0 && $self->{'bar'}) {
+      $self->{'bar'}->set_fraction($r);
       if($r==0 || $r>=$self->{'lastshown'}+$self->{'epsilon'}) {
-	Gtk2->main_iteration while ( Gtk2->events_pending );
 	$self->{'lastshown'}=$r;
       }
     }

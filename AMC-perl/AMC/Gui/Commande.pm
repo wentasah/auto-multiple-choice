@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 #
-# Copyright (C) 2008-2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -20,7 +20,7 @@
 
 package AMC::Gui::Commande;
 
-use Gtk2::Helper;
+use Glib;
 use Encode;
 
 use AMC::Basic;
@@ -43,7 +43,8 @@ sub new {
 	'finw'=>'',
 	'signal'=>9,
 	'o'=>{},
-	'clear'=>1,
+        'clear'=>1,
+        'output_to_debug'=>(debug_file() eq 'stdout'),
 
 	'messages'=>[],
 	'variables'=>{},
@@ -51,7 +52,7 @@ sub new {
 	'pid'=>'',
 	'avance'=>'',
 	'fh'=>'',
-	'tag'=>'',
+	'tag'=>[],
 	'pid'=>'',
     };
 
@@ -112,9 +113,11 @@ sub open {
     $self->{'pid'}=open($self->{'fh'},"-|",@{$self->{'commande'}});
     if(defined($self->{'pid'})) {
 
-	$self->{'tag'}=Gtk2::Helper->add_watch( fileno( $self->{'fh'} ),
-						in => sub { $self->get_output() }
-						);
+	push @{$self->{'tag'}},
+	  Glib::IO->add_watch( fileno( $self->{'fh'} ),
+			       in => sub { $self->get_output() }),
+          Glib::IO->add_watch( fileno( $self->{'fh'} ),
+                               hup => sub { $self->get_output() });
 
 	debug "Command [".$self->{'pid'}."] : "
 	  .join(' ',map { /\s/ || ! $_ ? "\"$_\"" : $_ }
@@ -140,10 +143,10 @@ sub open {
 sub stop_watch {
   my ($self)=@_;
 
-  if($self->{tag}) {
-    Gtk2::Helper->remove_watch( $self->{tag} );
-    $self->{tag}='';
+  for my $t (@{$self->{tag}}) {
+    Glib::Source->remove( $t );
   }
+  $self->{tag}=[];
 }
 
 sub close {
@@ -165,7 +168,10 @@ sub close {
   $self->{'avancement'}->set_text('');
 
   &{$self->{'finw'}}($self,%data) if($self->{'finw'});
-  &{$self->{'fin'}}($self,%data) if($self->{'fin'});
+  if($self->{'fin'}) {
+    debug "Calling <fin> hook @".$self;
+    &{$self->{'fin'}}($self,%data);
+  }
 }
 
 sub get_output {
@@ -174,44 +180,52 @@ sub get_output {
     return if($self->{closing});
 
     if( eof($self->{'fh'}) ) {
+      debug "END of input";
       $self->close();
     } else {
 	my $fh=$self->{'fh'};
-	my $line = decode("utf8",<$fh>);
-	my $r='';
+	my $line = <$fh>;
+        utf8::decode($line);
+
+        if($self->{output_to_debug}) {
+          debug_raw($line);
+        }
 
 	if($self->{'avancement'}) {
 	    if($self->{'progres.pulse'}) {
 		$self->{'avancement'}->pulse;
 	    } else {
-	      $self->{'avance'}->lit($line,
-				     {'bar'=>$self->{'avancement'}});
+	      $self->{'avance'}->lit($line);
 	    }
 	}
 
-	if($r eq '') {
-	  my $log=$self->{'log'};
-	  my $logbuff=$log->get_buffer();
+        my $log=$self->{'log'};
+        my $logbuff=$log->get_buffer();
 
-	  $logbuff->insert($logbuff->get_end_iter(),$line);
-	  $logbuff->place_cursor($logbuff->get_end_iter());
-	  $log->scroll_to_iter($logbuff->get_end_iter(),0,0,0,0);
+        $logbuff->insert($logbuff->get_end_iter(),$line);
+        $logbuff->place_cursor($logbuff->get_end_iter());
+        $log->scroll_to_iter($logbuff->get_end_iter(),0,0,0,0);
 
-	  if($line =~ /^(ERR|INFO|WARN)/) {
-	    chomp(my $lc=$line);
-	    $lc =~ s/^(ERR|INFO|WARN)[:>]\s*//;
-	    $self->add_message($1,$lc);
-	  }
-	  if($line =~ /^VAR:\s*([^=]+)=(.*)/) {
-	    $self->{'variables'}->{$1}=$2;
-	  }
-	  for my $k (qw/OK FAILED/) {
-	    if($line =~ /^$k/) {
-	      $self->{'variables'}->{$k}++;
-	    }
-	  }
-	}
-
+        if($line =~ /^(ERR|INFO|WARN)/) {
+          chomp(my $lc=$line);
+          $lc =~ s/^(ERR|INFO|WARN)[:>]\s*//;
+          my $type=$1;
+          debug "Detected $type message";
+          $self->add_message($type,$lc);
+        }
+        if($line =~ /^VAR:\s*([^=]+)=(.*)/) {
+          $self->{'variables'}->{$1}=$2;
+          debug "Set variable @".$self." $1 to ".$self->{'variables'}->{$1};
+        }
+        if($line =~ /^VAR\+:\s*(.*)/) {
+          $self->{'variables'}->{$1}++;
+          debug "Step variable @".$self." $1 to ".$self->{'variables'}->{$1};
+        }
+        for my $k (qw/OK FAILED/) {
+          if($line =~ /^$k/) {
+            $self->{'variables'}->{$k}++;
+          }
+        }
 
     }
 

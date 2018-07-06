@@ -1,6 +1,6 @@
 /*
 
- Copyright (C) 2013-2014 Alexis Bienvenue <paamc@passoire.fr>
+ Copyright (C) 2013-2017 Alexis Bienvenue <paamc@passoire.fr>
 
  This file is part of Auto-Multiple-Choice
 
@@ -39,8 +39,31 @@
 #include <iostream>
 #endif
 
+#include "opencv2/core/core.hpp"
+
+#if CV_MAJOR_VERSION > 2
+  #define OPENCV_23 1
+  #define OPENCV_21 1
+  #define OPENCV_20 1
+  #define OPENCV_30 1
+#else
+  #if CV_MAJOR_VERSION == 2
+    #define OPENCV_20 1
+    #if CV_MINOR_VERSION >= 1
+       #define OPENCV_21 1
+    #endif
+    #if CV_MINOR_VERSION >= 3
+       #define OPENCV_23 1
+    #endif
+  #endif
+#endif
+
 #include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/highgui/highgui.hpp"
+#ifdef OPENCV_30
+  #include "opencv2/imgcodecs/imgcodecs.hpp"
+#else
+  #include "opencv2/highgui/highgui.hpp"
+#endif
 
 #define FORMAT_JPEG 1
 #define FORMAT_PNG 2
@@ -715,7 +738,7 @@ int BuildPdf::new_page_from_image(const char* filename) {
 
   // read the image from disk to memory
 
-  cv::Mat image=cv::imread(filename,CV_LOAD_IMAGE_COLOR);
+  cv::Mat image=cv::imread(filename);
   const char* mime_type;
 
   if(debug) {  
@@ -731,13 +754,13 @@ int BuildPdf::new_page_from_image(const char* filename) {
 
   if(embedded_image_format==FORMAT_JPEG) {
     std::vector<int> params;
-    params.push_back(CV_IMWRITE_JPEG_QUALITY);
+    params.push_back(cv::IMWRITE_JPEG_QUALITY);
     params.push_back(jpeg_quality);
     imencode(".jpg",image,image_buffer,params);
     mime_type=CAIRO_MIME_TYPE_JPEG;
   } else if(embedded_image_format==FORMAT_PNG) {
     std::vector<int> params;
-    params.push_back(CV_IMWRITE_PNG_COMPRESSION);
+    params.push_back(cv::IMWRITE_PNG_COMPRESSION);
     params.push_back(png_compression_level);
     imencode(".png",image,image_buffer,params);
     mime_type=CAIRO_MIME_TYPE_PNG;

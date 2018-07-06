@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy toplevel-contextual -->
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="upper">20</property>
     <property name="value">4</property>
@@ -14,13 +14,14 @@
     <property name="title" translatable="yes">Manual association</property>
     <signal name="delete-event" handler="quitter" swapped="no"/>
     <child>
-      <object class="GtkHBox" id="hbox1">
+      <object class="GtkBox" id="hbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkVBox" id="vbox1">
+          <object class="GtkBox" id="vbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="titre">
                 <property name="visible">True</property>
@@ -33,9 +34,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVPaned" id="vpaned1">
+              <object class="GtkPaned" id="vpaned1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkDrawingArea" id="photo">
                     <property name="width_request">400</property>
@@ -50,16 +52,17 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkVBox" id="Vbox1">
+                  <object class="GtkBox" id="Vbox1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkHBox" id="hbox3">
+                      <object class="GtkBox" id="hbox3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="spacing">10</property>
                         <child>
-                          <object class="GtkHBox" id="hbox4">
+                          <object class="GtkBox" id="hbox4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
@@ -67,11 +70,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="invisible_char">●</property>
-                                <property name="invisible_char_set">True</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
-                                <property name="primary_icon_sensitive">True</property>
-                                <property name="secondary_icon_sensitive">True</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -82,11 +82,12 @@
                             <child>
                               <object class="GtkCheckButton" id="v_complete_beginning">
                                 <property name="label" translatable="yes" comments="This is the label of the check button that controls wheter the auto-completion for students names will be made looking at the beginnig of the names or at the whole names.">beginning</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="tooltip_text" translatable="yes">Is auto-completion looking at the beginning of the names only?</property>
-                                <property name="use_action_appearance">False</property>
+                                <property name="xalign">0.5</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="set_complete_beginning" swapped="no"/>
                               </object>
@@ -104,15 +105,15 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkHBox" id="Hbox1">
+                          <object class="GtkBox" id="Hbox1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
                               <object class="GtkButton" id="button4">
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <signal name="clicked" handler="assoc_add_column" swapped="no"/>
                                 <child>
                                   <object class="GtkImage" id="image2">
@@ -131,10 +132,10 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="button3">
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <signal name="clicked" handler="assoc_del_column" swapped="no"/>
                                 <child>
                                   <object class="GtkImage" id="image3">
@@ -154,10 +155,10 @@
                             <child>
                               <object class="GtkToggleButton" id="button_show_all">
                                 <property name="label" translatable="yes">Show all</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <signal name="toggled" handler="set_show_all" swapped="no"/>
                               </object>
                               <packing>
@@ -193,11 +194,10 @@
                             <property name="can_focus">False</property>
                             <property name="resize_mode">queue</property>
                             <child>
-                              <object class="GtkTable" id="tableau">
+                              <object class="GtkGrid" id="tableau">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="n_rows">10</property>
-                                <property name="n_columns">3</property>
+                                <property name="column_homogeneous">True</property>
                                 <child>
                                   <placeholder/>
                                 </child>
@@ -320,9 +320,10 @@
           </packing>
         </child>
         <child>
-          <object class="GtkVSeparator" id="vseparator1">
+          <object class="GtkSeparator" id="vseparator1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -331,20 +332,21 @@
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="vbox2">
+          <object class="GtkBox" id="vbox2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkHButtonBox" id="hbuttonbox2">
+              <object class="GtkButtonBox" id="hbuttonbox2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkButton" id="button1">
                     <property name="label">gtk-go-back</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_stock">True</property>
                     <signal name="clicked" handler="va_precedent" swapped="no"/>
                   </object>
@@ -357,11 +359,12 @@
                 <child>
                   <object class="GtkCheckButton" id="associes_cb">
                     <property name="label" translatable="yes">associated</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="tooltip_text" translatable="yes">If this is not ticked, the next copy is taken from the copies which are not yet associated (already associated copies are skipped), and when it is ticked, the next copy is taken from all the copies (you pass all associated and non-associated copies in turn).</property>
-                    <property name="use_action_appearance">False</property>
+                    <property name="tooltip_text" translatable="yes">Unticking this box, you see only non-associated papers. Tick it to be able to check already associated papers.</property>
+                    <property name="xalign">0.5</property>
                     <property name="draw_indicator">True</property>
                   </object>
                   <packing>
@@ -373,10 +376,10 @@
                 <child>
                   <object class="GtkButton" id="button2">
                     <property name="label">gtk-go-forward</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_stock">True</property>
                     <signal name="clicked" handler="va_suivant" swapped="no"/>
                   </object>
@@ -394,18 +397,18 @@
               </packing>
             </child>
             <child>
-              <object class="GtkHButtonBox" id="hbuttonbox3">
+              <object class="GtkButtonBox" id="hbuttonbox3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="layout_style">spread</property>
                 <child>
                   <object class="GtkButton" id="bouton_effacer">
                     <property name="label">gtk-clear</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Remove manual association for this paper</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_stock">True</property>
                     <signal name="clicked" handler="efface_manuel" swapped="no"/>
                   </object>
@@ -417,14 +420,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="bouton_inconnu">
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Tell the system that this papers does not correspond to any of the students from the list.</property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="inconnu" swapped="no"/>
                     <child>
-                      <object class="GtkHBox" id="hbox2">
+                      <object class="GtkBox" id="hbox2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
@@ -476,6 +479,9 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <signal name="cursor-changed" handler="goto_from_list" swapped="no"/>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="treeview-selection1"/>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -489,18 +495,18 @@
               <placeholder/>
             </child>
             <child>
-              <object class="GtkHButtonBox" id="hbuttonbox1">
+              <object class="GtkButtonBox" id="hbuttonbox1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="layout_style">spread</property>
                 <child>
                   <object class="GtkButton" id="enregistrement">
                     <property name="label">gtk-quit</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Save associations.</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_stock">True</property>
                     <signal name="clicked" handler="enregistrer" swapped="no"/>
                   </object>

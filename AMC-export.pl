@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2009,2011-2012 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2009-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -89,6 +89,7 @@ for my $oo (@o_out) {
 
 debug "Exporting...";
 
+utf8::downgrade($output);
 $ex->export($output);
 
 print $ex->messages_as_string();

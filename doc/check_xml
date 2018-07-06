@@ -1,0 +1,20 @@
+#! /bin/bash
+
+RESULT_FILE=/tmp/amc-check-xml.log
+FAILS=0
+
+echo "Checks validity of XML files from documentation..."
+
+for x in *.in.xml
+do
+    if xmllint --valid --noout $x >$RESULT_FILE 2>&1
+    then
+        echo -e "[ \e[0;32mOK\e[0m ] $x"
+    else
+        echo -e "[\e[0;31mFAIL\e[0m] $x"
+        sed ' s/^/       /;' $RESULT_FILE
+        FAILS=1
+    fi
+done
+
+exit $FAILS

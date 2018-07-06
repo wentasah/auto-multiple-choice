@@ -1,0 +1,87 @@
+%
+% Copyright (C) 2017 Alexis Bienvenue
+%
+% This file is part of Auto-Multiple-Choice
+%
+% Auto-Multiple-Choice is free software: you can redistribute it
+% and/or modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation, either version 2 of
+% the License, or (at your option) any later version.
+%
+% Auto-Multiple-Choice is distributed in the hope that it will be
+% useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+% of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with Auto-Multiple-Choice.  If not, see
+% <http://www.gnu.org/licenses/>.
+%
+\documentclass[a4paper]{article}
+
+\usepackage[utf8x]{inputenc}    
+\usepackage[T1]{fontenc}
+
+\usepackage[box,completemulti,pdfform]{automultiplechoice}    
+\begin{document}
+
+\onecopy{10}{    
+
+%%% beginning of the test sheet header:    
+
+\noindent{\bf QCM  \hfill TEST}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+\centering\large\bf Test\\ Examination on Jan., 1st, 2008\end{minipage}
+\namefield{\fbox{    
+                \begin{minipage}{.5\linewidth}
+                  Firstname and lastname:
+
+                  \vspace*{.5cm}
+
+                  \namefielddots
+                  
+                  \vspace*{1mm}
+                \end{minipage}
+         }}
+
+\begin{center}\em
+Duration : 10 minutes.
+
+  No documents allowed. The use of electronic calculators is forbidden.
+
+  Questions using the sign \multiSymbole{} may have
+  zero, one or several correct answers.  Other questions have a single correct answer.
+
+  Negative points may be attributed to \emph{very
+    bad} answers.
+\end{center}
+\vspace{1ex}
+
+%%% end of the header
+
+\begin{question}{prez}    
+  Among the following persons, which one has ever been a President of the French Republic?
+  \begin{choices}
+    \correctchoice{René Coty}
+    \wrongchoice{Alain Prost}
+    \wrongchoice{Marcel Proust}
+    \wrongchoice{Claude Monet}
+  \end{choices}
+\end{question}
+
+\begin{questionmult}{pref}    
+  Among the following cities, which ones are French prefectures?
+  \begin{choices}
+    \correctchoice{Poitiers}
+    \wrongchoice{Sainte-Menehould}
+    \correctchoice{Avignon}
+  \end{choices}
+\end{questionmult}
+
+% \AMCaddpagesto{3} 
+
+}   
+
+\end{document}

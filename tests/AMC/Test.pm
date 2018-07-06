@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 #
-# Copyright (C) 2012-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -63,6 +63,7 @@ sub new {
      'seuil'=>0.5,
      'seuil_up'=>1.0,
      'bw_threshold'=>0.6,
+     'ignore_red'=>'',
      'tol_marque'=>0.4,
      'rounding'=>'i',
      'grain'=>0.01,
@@ -93,6 +94,10 @@ sub new {
      'skip_scans'=>0,
      'tracedest'=>'STDERR',
      'debug_file'=>'',
+     'pages'=>'',
+     'extract_with'=>'qpdf',
+     'force_convert'=>0,
+     'documents'=>'sc',
     };
 
   for (keys %oo) {
@@ -114,7 +119,7 @@ sub new {
   if (!$self->{'list'}) {
     opendir(my $dh, $self->{'dir'})
       || die "can't opendir $self->{'dir'}: $!";
-    my @l = grep { /\.txt$/ } readdir($dh);
+    my @l = grep { /\.(csv|txt)$/ } readdir($dh);
     closedir $dh;
     $self->{'list'}=$l[0];
   }
@@ -126,7 +131,9 @@ sub new {
   GetOptions("debug!"=>\$self->{'debug'},
              "blind!"=>\$self->{'blind'},
              "log-to=s"=>\$self->{debug_file},
-             "to-stdout!"=>\$to_stdout);
+             "to-stdout!"=>\$to_stdout,
+             "extract-with=s"=>\$self->{extract_with},
+            );
 
   $self->{tracedest} = 'STDOUT' if($to_stdout);
   binmode $self->{tracedest}, ":utf8";
@@ -140,6 +147,14 @@ sub new {
   $self->read_checksums($self->{'dir'}.'/ok-checksums');
 
   return $self;
+}
+
+sub set {
+  my ($self,%oo)=@_;
+
+  for (keys %oo) {
+    $self->{$_}=$oo{$_} if(exists($self->{$_}));
+  }
 }
 
 sub read_checksums {
@@ -238,7 +253,7 @@ sub see_file {
 	$self->trace("[T] File ok (compare): $ff");
       } else {
 	$self->trace("[E] File different (compare): $ff");
-	exit(1);
+	exit(1) if(!$self->{blind});
       }
     } else {
       my $i=0;
@@ -266,7 +281,10 @@ sub command {
 
   $self->trace("[*] ".join(' ',@c)) if($self->{'debug'});
   if(!run(\@c,'>>',$self->{'debug_file'},'2>>',$self->{'debug_file'})) {
-    $self->trace("[E] Command returned with $?");
+    my $cc=$c[0];
+    $cc.=" ".$c[1] if($#c>0);
+    $cc.=" ..." if($#c>1);
+    $self->trace("[E] Command `$cc' returned with $?");
     exit 1;
   }
 }
@@ -289,10 +307,12 @@ sub prepare {
   $self->amc_command('prepare',
 		     '--filter',$self->{'filter'},
 		     '--with',$self->{'tex_engine'},
-		     '--mode','s',
+		     '--mode','s['.$self->{documents}.']',
+                     '--epoch',946684800,
 		     '--n-copies',$self->{'n_copies'},
 		     '--prefix',$self->{'temp_dir'}.'/',
 		     '%PROJ/'.$self->{'src'},
+		     '--data','%DATA',
 		    );
   $self->amc_command('meptex',
 		     '--src','%PROJ/calage.xy',
@@ -316,6 +336,7 @@ sub analyse {
 		       '--filter',$self->{'filter'},
 		       '--with',$self->{'tex_engine'},
 		       '--mode','k',
+                       '--epoch',946684800,
 		       '--n-copies',$self->{'n_copies'},
 		       '--prefix','%PROJ/',
 		       '%PROJ/'.$self->{'src'},
@@ -331,6 +352,7 @@ sub analyse {
 		       '--output','%PROJ/xx-copie-%e.pdf',
 		       '--fich-numeros',$nf,
 		       '--data','%DATA',
+                       '--extract-with',$self->{'extract_with'},
 		      );
 
     opendir(my $dh, $self->{'temp_dir'})
@@ -349,10 +371,24 @@ sub analyse {
 
   #
 
+  $self->amc_command('read-pdfform',
+		     '--list',$scans_list,
+		     '--data','%DATA',
+		     ($self->{'multiple'} ? '--multiple' : '--no-multiple'),
+                    );
+
+  my @extract_opts=();
+  if($self->{extract_with} =~ /^pdftk/) {
+    push @extract_opts, '--no-use-qpdf';
+  } elsif($self->{extract_with} eq 'qpdf') {
+    push @extract_opts, '--no-use-pdftk';
+  }
   $self->amc_command('getimages',
 		     '--list',$scans_list,
 		     '--copy-to',$self->{'temp_dir'}."/scans",
 		     '--orientation',$self->get_orientation(),
+                     ($self->{force_convert} ? "--force-convert" : "--no-force-convert"),
+                     @extract_opts,
 		     );
 
   $self->amc_command('analyse',
@@ -360,6 +396,7 @@ sub analyse {
 		     '--bw-threshold',$self->{'bw_threshold'},
 		     '--pre-allocate',$self->{'pre_allocate'},
 		     '--tol-marque',$self->{'tol_marque'},
+                     ($self->{ignore_red} ? '--ignore-red' : '--no-ignore-red'),
 		     '--projet','%PROJ',
 		     '--data','%DATA',
 		     '--debug-image-dir','%PROJ/cr',
@@ -370,6 +407,7 @@ sub analyse {
 		     '--bw-threshold',$self->{'bw_threshold'},
 		     '--pre-allocate',$self->{'pre_allocate'},
 		     '--tol-marque',$self->{'tol_marque'},
+                     ($self->{ignore_red} ? '--ignore-red' : '--no-ignore-red'),
 		     ($self->{'debug'} || $self->{debug_pixels}
 		      ? '--debug-pixels' : '--no-debug-pixels'),
 		     '--projet','%PROJ',
@@ -566,7 +604,7 @@ sub check_assoc {
 
 sub annote {
   my ($self)=@_;
-  return if(!$self->{'annote'});
+  return if($self->{blind} || !$self->{'annote'});
 
   my $nf=$self->{'temp_dir'}."/num-pdf";
   open(NUMS,">$nf");
@@ -625,16 +663,25 @@ sub ok {
   }
 }
 
-sub defects {
+sub get_defects {
   my ($self)=@_;
 
   my $l=AMC::Data->new($self->{'temp_dir'}."/data")->module('layout');
   $l->begin_read_transaction('test');
-  my $d=$l->defects();
+  my $d={$l->defects()};
   $l->end_transaction('test');
+  return($d);
+}
+
+sub defects {
+  my ($self)=@_;
+
+  my $d=$self->get_defects();
+  delete $d->{NO_NAME};
   my @t=(keys %$d);
   if(@t) {
     $self->trace("[E] Layout defects: ".join(', ',@t));
+    exit 1;
   } else {
     $self->trace("[T] No layout defects");
   }
@@ -923,7 +970,7 @@ sub test_scoring {
   set_debug($self->{debug_file});
 
   $scoring->prepare_question($qdata->{questions}->{1});
-  my ($score,$why)=$scoring->score_question(1,0,$qdata->{questions}->{1},0);
+  my ($score,$why)=$scoring->score_question(1,$qdata->{questions}->{1},0);
 
   set_debug('');
 
@@ -939,11 +986,30 @@ sub update_sqlite {
   return($self);
 }
 
+sub check_pages {
+  my ($self)=@_;
+  if($self->{pages}) {
+    $self->trace("[T] Pages check : ".join(",",@{$self->{pages}}));
+    my $l=AMC::Data->new($self->{'temp_dir'}."/data")->module('layout');
+    $l->begin_read_transaction('npag');
+    for my $i (0..$#{$self->{pages}}) {
+      my @p=$l->pages_for_student($i+1);
+      my $mx=-1;
+      for my $pp (@p) {
+        $mx=$pp if $pp>$mx;
+      }
+      $self->test($mx,$self->{pages}->[$i]);
+    }
+    $l->end_transaction('npag');
+  }
+}
+
 sub default_process {
   my ($self)=@_;
 
   $self->prepare if(!$self->{skip_prepare});
   $self->defects;
+  $self->check_pages;
   $self->analyse if(!$self->{skip_scans});
   $self->check_zooms;
   $self->note;

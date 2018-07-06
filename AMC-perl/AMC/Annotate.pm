@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2013-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2013-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -20,7 +20,7 @@
 
 package AMC::Annotate;
 
-use Gtk2 -init;
+use Gtk3;
 use List::Util qw(min max sum);
 use File::Copy;
 use Unicode::Normalize;
@@ -36,7 +36,7 @@ use AMC::DataModule::capture qw/:zone :position/;
 use AMC::DataModule::layout qw/:flags/;
 use AMC::Gui::Avancement;
 
-use encoding 'utf8';
+use utf8;
 
 sub new {
     my (%o)=(@_);
@@ -83,11 +83,16 @@ sub new {
 	      embedded_max_size=>'',
 	      embedded_format=>'jpeg',
 	      embedded_jpeg_quality=>80,
+              rtl=>'',
 	      debug=>(get_debug() ? 1 : 0),
 	  };
 
     for my $k (keys %o) {
 	$self->{$k}=$o{$k} if(defined($self->{$k}));
+    }
+
+    for my $k (grep { /_(dir|file)$/ || /^pdf_/ } (keys %$self)) {
+      utf8::downgrade($self->{$k});
     }
 
     $self->{type}=($self->{single_output} ? REPORT_SINGLE_ANNOTATED_PDF
@@ -183,46 +188,8 @@ sub absolute_path {
 		   },
 		   $path);
   }
+  utf8::downgrade($path);
   return($path);
-}
-
-# converts a filename to a string with only ascii characters and no
-# spaces...
-
-sub ascii_version {
-  my ($f)=@_;
-
-  # no accents and special characters in filename
-  $f=~s/\xe4/ae/g;		##  treat characters ä ñ ö ü ÿ
-  $f=~s/\xf1/ny/g;
-  $f=~s/\xf6/oe/g;
-  $f=~s/\xfc/ue/g;
-  $f=~s/\xff/yu/g;
-
-  $f = NFD( $f );	  ##  decompose (Unicode Normalization Form D)
-  $f=~s/\pM//g;		  ##  strip combining characters
-
-  # additional normalizations:
-
-  $f=~s/\x{00df}/ss/g;		##  German beta “ß” -> “ss”
-  $f=~s/\x{00c6}/AE/g;		##  Æ
-  $f=~s/\x{00e6}/ae/g;		##  æ
-  $f=~s/\x{0132}/IJ/g;		##  Ĳ
-  $f=~s/\x{0133}/ij/g;		##  ĳ
-  $f=~s/\x{0152}/Oe/g;		##  Œ
-  $f=~s/\x{0153}/oe/g;		##  œ
-
-  $f=~tr/\x{00d0}\x{0110}\x{00f0}\x{0111}\x{0126}\x{0127}/DDddHh/; # ÐĐðđĦħ
-  $f=~tr/\x{0131}\x{0138}\x{013f}\x{0141}\x{0140}\x{0142}/ikLLll/; # ıĸĿŁŀł
-  $f=~tr/\x{014a}\x{0149}\x{014b}\x{00d8}\x{00f8}\x{017f}/NnnOos/; # ŊŉŋØøſ
-  $f=~tr/\x{00de}\x{0166}\x{00fe}\x{0167}/TTtt/; # ÞŦþŧ
-
-  $f=~s/[^\0-\x80]/_/g;		##  clear everything else
-
-  # no whitespaces in filename
-  $f =~ s/[^a-zA-Z0-9+_\.-]+/_/g;
-
-  return($f);
 }
 
 # Tests if the report that has already been made is still present and
@@ -236,13 +203,19 @@ sub student_uptodate {
     =$self->{report}->get_student_report_time(REPORT_ANNOTATED_PDF,@$student);
 
   if($filename) {
+    debug "Registered filename ".show_utf8($filename);
+    utf8::encode($filename);
     my $source_change=$self->{capture}->variable('annotate_source_change');
     debug "Registered answer sheet: updated at $timestamp, source change at $source_change";
 
     # we say there is an up-to-date annotated answer sheet if the file
     # exists and has been built after the last time some result or
     # configuration variable were changed.
-    if(-f "$self->{pdf_dir}/$filename" && $timestamp>$source_change) {
+    debug "Directory ".show_utf8($self->{pdf_dir});
+    debug "Looking for filename ".show_utf8($filename);
+    my $path="$self->{pdf_dir}/$filename";
+    if(-f $path && $timestamp>$source_change) {
+      debug "Exists!";
       return($filename);
     } else {
       debug "NOT up-to-date.";
@@ -276,7 +249,7 @@ sub pdf_output_filename {
   }
   $f =~ s/\(N\)/$ex/gi;
 
-  debug "F[N]=$f";
+  debug "F[N]=".show_utf8($f);
 
   # get student data from the students list file, and substitutes
   # into filename
@@ -298,7 +271,7 @@ sub pdf_output_filename {
       }
     }
 
-    debug "F[n]=$f";
+    debug "F[n]=".show_utf8($f);
 
   } else {
     $f =~ s/-?\(ID\)//gi;
@@ -308,8 +281,8 @@ sub pdf_output_filename {
   # if the user asked so.
 
   if($self->{force_ascii}) {
-    $f=ascii_version($f);
-    debug "F[a]=$f";
+    $f=string_to_filename($f,'copy');
+    debug "F[a]=".show_utf8($f);
   }
 
   # The filename we would like to use id $f, but now we have to check
@@ -337,7 +310,9 @@ sub pdf_output_filename {
 
   $self->{data}->end_transaction('rSST');
 
-  debug "F[R]=$f";
+  utf8::encode($f);
+
+  debug "F[R]=".show_utf8($f);
 
   return($f,$uptodate_filename);
 }
@@ -360,6 +335,11 @@ sub connects_to_database {
     ->variable_transaction('darkness_threshold') if(!$self->{darkness_threshold});
   $self->{darkness_threshold_up}=$self->{scoring}
     ->variable_transaction('darkness_threshold_up') if(!$self->{darkness_threshold_up});
+
+  # But darkness_threshold_up is not defined for old projects… set it
+  # to an inactive value in this case
+
+  $self->{darkness_threshold_up}=1.0 if(!$self->{darkness_threshold_up});
 }
 
 sub error {
@@ -586,6 +566,7 @@ sub command {
 
 sub stext {
   my ($self,$text)=@_;
+  utf8::encode($text);
   $self->command("stext begin\n$text\n__END__");
 }
 
@@ -593,7 +574,7 @@ sub stext {
 
 sub color_rgb {
   my ($s)=@_;
-  my $col=Gtk2::Gdk::Color->parse($s);
+  my $col=Gtk3::Gdk::Color::parse($s);
   if($col) {
     return($col->red/65535,$col->green/65535,$col->blue/65535);
   } else {
@@ -720,21 +701,11 @@ sub draw_symbol {
   my $r=$b->{'id_b'}; # answer number
   my $indic=$self->{scoring}->indicative($p_strategy,$q); # is it an indicative question?
 
-  return if($indic && !$self->{annotate_indicatives});
-
-  # to be ticked?
-  my $bonne=$self->{scoring}->correct_answer($p_strategy,$q,$r);
-
   # ticked on this scan?
   my $cochee=$self->{capture}->ticked(@$student,
 				      $q,$r,
 				      $self->{darkness_threshold},
 				      $self->{darkness_threshold_up});
-
-  debug "Q=$q R=$r $bonne-$cochee";
-
-  # get symbol to draw
-  my $sy=$self->{symbols}->{"$bonne-$cochee"};
 
   # get box position on subject
   my $box=$self->{layout}->get_box_info($student->[0],$q,$r,$b->{role});
@@ -748,6 +719,16 @@ sub draw_symbol {
 			map { $box->{$_} } (qw/xmin xmax ymin ymax/)
 		       ));
   }
+
+  return if($indic && !$self->{annotate_indicatives});
+
+  # to be ticked?
+  my $bonne=$self->{scoring}->correct_answer($p_strategy,$q,$r);
+
+  debug "Q=$q R=$r $bonne-$cochee";
+
+  # get symbol to draw
+  my $sy=$self->{symbols}->{"$bonne-$cochee"};
 
   if ($box->{flags}
       & BOX_FLAGS_DONTANNOTATE) {
@@ -1021,16 +1002,22 @@ sub process_student {
 
   if(!$self->{single_output}) {
     my ($f,$f_ok)=$self->pdf_output_filename($student);
+    debug "Directory ".show_utf8($self->{pdf_dir});
+    debug "Dest file ".show_utf8($f);
+    debug "Existing  ".show_utf8($f_ok);
+    my $path=$self->{pdf_dir}."/$f";
     if($f_ok ne '') {
       # we only need to move the file!
-      debug "The file is up-to-date: $f_ok --> $f";
+      debug "The file is up-to-date";
       if($f ne $f_ok) {
-	move("$self->{pdf_dir}/$f_ok","$self->{pdf_dir}/$f")
+        debug "... but has to be moved: $f_ok --> $f";
+        my $path_ok=$self->{pdf_dir}."/$f_ok";
+	move($path_ok,$path)
 	  || debug "ERROR: moving the annotated file in directory $self->{pdf_dir} from $f_ok to $f";
       }
       return();
     }
-    $self->command("output ".$self->{pdf_dir}."/$f");
+    $self->command("output $path");
   }
 
   # Go through all the pages for the student.

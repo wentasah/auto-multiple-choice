@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2014-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2014-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -22,11 +22,15 @@ package AMC::Gui::Prefs;
 
 use AMC::Basic;
 
+use Data::Dumper;
+
 sub new {
   my (%o)=(@_);
 
   my $self={stores=>{},
 	    shortcuts=>'',
+            config=>'',
+            kinds=>[qw/c cb ce col f s t v x fb p/],
 	    w=>{},
 	    alternate_w=>'',
 	   };
@@ -52,20 +56,91 @@ sub store_get {
   return($self->{stores}->{$key});
 }
 
+sub default_object_options {
+  my ($self,$o)=@_;
+  $o->{store}=$o->{prefix} if(!$o->{store});
+  $o->{store}='default' if(!$o->{store});
+  $o->{prefix}='pref_' if(!$o->{prefix});
+  $o->{keys}=[] if(!$o->{keys});
+}
+
+sub widget_store_set {
+  my ($self,$full_key,$key,$kind,$widget,%o)=@_;
+  $self->default_object_options(\%o);
+  $self->{w}->{$o{store}}->{$full_key}=
+    { widget=>$widget,
+      full_key=>$full_key,
+      key=>$key,
+      kind=>$kind,
+    };
+}
+
+sub widget_store_get {
+  my ($self,$full_key,%o)=@_;
+  $self->default_object_options(\%o);
+  my $full_key_alt=$full_key;
+  $full_key_alt =~ s+:+:/+ if($full_key_alt !~ s+:/+:+);
+  my $ww=$self->{w}->{$o{store}}->{$full_key}
+    || $self->{w}->{$o{store}}->{$full_key_alt};
+  if($ww) {
+    if($ww->{widget} && ref($ww->{widget}) =~ /^Gtk/) {
+      return($ww);
+    } else {
+      debug "Non-Gtk widget store element: $ww";
+    }
+  }
+  $Data::Dumper::Indent = 0;
+  debug "STORE: ".Dumper($self->{w}->{$o{store}}) if($o{trace});
+  return();
+}
+
+sub widget_store_clear {
+  my ($self,%o)=@_;
+  $self->{w}->{$o{store}}={};
+}
+
+sub widget_store_delete {
+  my ($self,$key,%o)=@_;
+  $self->default_object_options(\%o);
+  delete $self->{w}->{$o{store}}->{$key};
+}
+
+sub widget_store_keys {
+  my ($self,%o)=@_;
+  $self->default_object_options(\%o);
+  return(keys %{$self->{w}->{$o{store}}});
+}
+
 sub find_object {
-  my ($self,$gap,$prefix,$type,$ta,$t,$keep)=@_;
-  my $ww;
+  my ($self,$gap,$full_key,%o)=@_;
+  $self->default_object_options(\%o);
+  my $key=$full_key;
+  $key =~ s/.*[\/:]//;
 
-  $ww=$gap->get_object($prefix.$type.$ta) if(!$keep);
-  if(!$ww && $self->{alternate_w}) {
-    $ww=$self->{alternate_w}->{$prefix.$type.$ta};
-  }
-  if ($ww) {
-    $self->{w}->{$prefix.$type.$ta}=$ww;
-    $self->{w}->{$prefix.$type.$t}=$ww;
+  if(!$gap) {
+    my $record=$self->widget_store_get($full_key,%o);
+    return($record->{widget},$record->{kind}) if($record);
   }
 
-  return($self->{w}->{$prefix.$type.$ta});
+  for my $kind (@{$self->{kinds}}) {
+    my $ww;
+    if($gap) {
+      $ww=$gap->get_object($o{prefix}.'_'.$kind.'_'.$key);
+    }
+    if(!$ww) {
+      my $alt=$self->{alternate_w}->{$o{prefix}.'_'.$kind.'_'.$key};
+      if($alt) {
+        debug "  :alt: ".ref($alt);
+        $ww=$alt;
+      }
+    }
+    if($ww && ref($ww) =~ '^Gtk') {
+      $self->widget_store_set($full_key,$key,$kind,$ww,%o);
+      return($ww,$kind);
+    }
+  }
+
+  return('');
 }
 
 # transmet les preferences vers les widgets correspondants
@@ -79,163 +154,208 @@ sub find_object {
 # _v_ check button
 # _x_ one line text
 # _fb_ font button
+# _p_ password (label)
 
 sub transmet_pref {
-  my ($self,$gap,$prefixe,$h,$alias,$seulement,$update)=@_;
+  my ($self,$gap,%o)=@_;
+  #,$prefix,$root,$alias,$seulement,$update)=@_;
   my $wp;
 
-  debug "Updating GUI for <$prefixe>";
+  $Data::Dumper::Indent = 0;
+  debug "Updating GUI with options ".Dumper(\%o);
 
-  for my $t (keys %$h) {
-    if (!$seulement || $seulement->{$t}) {
-      my $ta=$t;
-      $ta=$alias->{$t} if($alias->{$t});
+  $self->default_object_options(\%o);
 
-      if ($wp=$self->find_object($gap,$prefixe,'_t_',$ta,$t,$update)) {
-	$wp->get_buffer->set_text($h->{$t});
-      } elsif ($wp=$self->find_object($gap,$prefixe,'_x_',$ta,$t,$update)) {
-	$wp->set_text($h->{$t});
-      } elsif ($wp=$self->find_object($gap,$prefixe,'_f_',$ta,$t,$update)) {
-	my $path=$h->{$t};
-	if ($self->{shortcuts}) {
-	  if ($t =~ /^projects_/) {
-	    $path=$self->{shortcuts}->absolu($path,'<HOME>');
-	  } elsif ($t !~ /^rep_/) {
-	    $path=$self->{shortcuts}->absolu($path);
-	  }
-	}
-	if ($wp->get_action =~ /-folder$/i) {
-	  mkdir($path) if(!-e $path);
-	  $wp->set_current_folder($path);
-	} else {
-	  $wp->set_filename($path);
-	}
-      } elsif ($wp=$self->find_object($gap,$prefixe,'_v_',$ta,$t,$update)) {
-	$wp->set_active($h->{$t});
-      } elsif ($wp=$self->find_object($gap,$prefixe,'_s_',$ta,$t,$update)) {
-	$wp->set_value($h->{$t});
-      } elsif ($wp=$self->find_object($gap,$prefixe,'_fb_',$ta,$t,$update)) {
-	$wp->set_font_name($h->{$t});
-      } elsif ($wp=$self->find_object($gap,$prefixe,'_col_',$ta,$t,$update)) {
-	$wp->set_color(Gtk2::Gdk::Color->parse($h->{$t}));
-      } elsif ($wp=$self->find_object($gap,$prefixe,'_cb_',$ta,$t,$update)) {
-	$wp->set_active($h->{$t});
-      } elsif ($wp=$self->find_object($gap,$prefixe,'_c_',$ta,$t,$update)) {
-	if ($self->store_get($ta)) {
-	  debug "CB_STORE($t) ALIAS $ta modifie ($t=>$h->{$t})";
-	  $wp->set_model($self->store_get($ta));
-	  my $i=model_id_to_iter($wp->get_model,COMBO_ID,$h->{$t});
-	  if ($i) {
-	    debug("[$t] find $i",
-		  " -> ".$self->store_get($ta)->get($i,COMBO_TEXT));
-	    $wp->set_active_iter($i);
-	  }
-	} else {
-	  $self->{w}->{$prefixe.'_c_'.$t}='';
-	  debug "no CB_STORE for $ta";
-	  $wp->set_active($h->{$t});
-	}
-      } elsif ($wp=$self->find_object($gap,$prefixe,'_ce_',$ta,$t,$update)) {
-	if ($self->store_get($ta)) {
-	  debug "CB_STORE($t) ALIAS $ta changed";
-	  $wp->set_model($self->store_get($ta));
-	}
-	my @we=grep { my (undef,$pr)=$_->class_path();$pr =~ /(yrtnE|Entry)/ } ($wp->get_children());
-	if (@we) {
-	  $we[0]->set_text($h->{$t});
-	  $self->{w}->{$prefixe.'_x_'.$t}=$we[0];
-	} else {
-	  print STDERR $prefixe.'_ce_'.$t." : cannot find text widget\n";
-	}
+  push @{$o{keys}},
+    map { "$o{root}/$_" }
+    $self->{config}->list_keys_from_root($o{root})
+    if($o{root});
+
+  $o{keys}=[keys %{$o{hash}}]
+    if($o{hash} && !@{$o{keys}});
+
+  for my $full_key (@{$o{keys}}) {
+
+    my $value;
+
+    if($o{hash}) {
+      $value=$o{hash}->{$full_key};
+    } else {
+      $value=$self->{config}->get($full_key);
+    }
+
+    if($o{container}) {
+      $full_key =~ s/^.*:/$o{container}:/;
+    }
+
+    my $key=$full_key;
+    $key =~ s/.*[\/:]//;
+
+    my ($w,$kind)=$self->find_object($gap,$full_key,%o);
+
+    debug "Key $full_key --> "
+      .($w ? "found widget ".ref($w) : "NONE")
+      .($kind ? " {$kind}" : "")
+      ." [$o{store}]";
+    if(defined($value)) {
+      debug "  gui <- $value" if($w);
+    } else {
+      debug_and_stderr "WARNING: undefined value for key $full_key\n";
+    }
+
+    if($w) {
+      if ($kind eq 't') {
+        $w->get_buffer->set_text($value);
+      } elsif ($kind eq 'x') {
+        $w->set_text($value);
+      } elsif ($kind eq 'f') {
+        my $path=$value;
+        if ($self->{shortcuts}) {
+          if ($key =~ /^projects_/) {
+            $path=$self->{shortcuts}->absolu($path,'<HOME>');
+          } elsif ($key !~ /^rep_/) {
+            $path=$self->{shortcuts}->absolu($path);
+          }
+        }
+        if ($w->get_action =~ /-folder$/i) {
+          mkdir($path) if(!-e $path);
+          $w->set_current_folder($path);
+        } else {
+          $w->set_filename($path);
+        }
+      } elsif ($kind eq 'v') {
+        $w->set_active($value);
+      } elsif ($kind eq 's') {
+        $w->set_value($value);
+      } elsif ($kind eq 'fb') {
+        $w->set_font_name($value);
+      } elsif ($kind eq 'col') {
+        my $c=Gtk3::Gdk::Color::parse($value);
+        $w->set_color($c);
+      } elsif ($kind eq 'cb') {
+        $w->set_active($value);
+      } elsif ($kind eq 'c') {
+        if ($self->store_get($key)) {
+          debug "CB_STORE($key) modifie ($key=>$value)";
+          $w->set_model($self->store_get($key));
+          my $i=model_id_to_iter($w->get_model,COMBO_ID,$value);
+          if ($i) {
+            debug("[$key] find $i",
+                  " -> ".$self->store_get($key)->get($i,COMBO_TEXT));
+            $w->set_active_iter($i);
+          }
+        } else {
+          $self->widget_store_delete($full_key,%o);
+          debug "no CB_STORE for $key";
+          $w->set_active($value);
+        }
+      } elsif ($kind eq 'ce') {
+        if ($self->store_get($key)) {
+          debug "CB_STORE($key) changed";
+          $w->set_model($self->store_get($key));
+        }
+        my @we=grep { my (undef,$pr)=$_->class_path();$pr =~ /(yrtnE|Entry)/ } ($w->get_children());
+        if (@we) {
+          $we[0]->set_text($value);
+          $self->widget_store_set($full_key,$key,'x',$we[0],%o);
+        } else {
+          print STDERR "$key/CE : cannot find text widget\n";
+        }
+      } elsif($kind eq 'p') {
+        $w->set_text($self->{config}->get_passwd($key));
       }
-      debug "Key $t --> $ta : ".(defined($wp) ? "found widget $wp" : "NONE");
     }
   }
 
-  debug "End GUI update for <$prefixe>";
+  debug "End GUI update for <$o{prefix}>";
 }
 
 # met a jour les preferences depuis les widgets correspondants
 sub reprend_pref {
-  my ($self,$prefixe,$h,$oprefix,$seulement)=@_;
-  $h->{'_modifie'}=($h->{'_modifie'} ? 1 : '');
+  my ($self,%o)=@_;
+  #$prefixe,$root,$oprefix,$seulement)=@_;
 
-  debug "Restricted search: ".join(',',keys %$seulement)
-    if ($seulement);
-  for my $t (keys %$h) {
-    if (!$seulement || $seulement->{$t}) {
-      my $tgui=$t;
-      $tgui =~ s/$oprefix$// if($oprefix);
-      debug "Looking for widget <$tgui> in domain <$prefixe>";
-      my $n;
-      my $wp;
+  $Data::Dumper::Indent = 0;
+  debug "Update configuration from GUI with options ".Dumper(\%o);
+
+  $self->default_object_options(\%o);
+  $o{keys}=[$self->widget_store_keys(%o)]
+    if(!@{$o{keys}});
+
+  for my $key (@{$o{keys}}) {
+    my $s=$self->widget_store_get($key,%o);
+    if($s) {
+      debug "Key $s->{full_key}: kind $s->{kind}";
+
       my $found=1;
-      if ($wp=$self->{w}->{$prefixe.'_x_'.$tgui}) {
-	debug "Found string entry";
-	$n=$wp->get_text();
-      } elsif($wp=$self->{w}->{$prefixe.'_t_'.$tgui}) {
-	debug "Found text entry";
-	my $buf=$wp->get_buffer;
+      if ($s->{kind} eq 'x') {
+	$n=$s->{widget}->get_text();
+      } elsif($s->{kind} eq 't') {
+	my $buf=$s->{widget}->get_buffer;
 	$n=$buf->get_text($buf->get_start_iter,$buf->get_end_iter,1);
-      } elsif($wp=$self->{w}->{$prefixe.'_f_'.$tgui}) {
-	debug "Found file chooser";
-	if ($wp->get_action =~ /-folder$/i) {
-	  if (-d $wp->get_filename()) {
-	    $n=$wp->get_filename();
+      } elsif($s->{kind} eq 'f') {
+	if ($s->{widget}->get_action =~ /-folder$/i) {
+	  if (-d $s->{widget}->get_filename()) {
+	    $n=$s->{widget}->get_filename();
 	  } else {
-	    $n=$wp->get_current_folder();
+	    $n=$s->{widget}->get_current_folder();
 	  }
 	} else {
-	  $n=$wp->get_filename();
+	  $n=$s->{widget}->get_filename();
 	}
 	if ($self->{shortcuts}) {
-	  if ($tgui =~ /^projects_/) {
+	  if ($s->{key} =~ /^projects_/) {
 	    $n=$self->{shortcuts}->relatif($n,'<HOME>');
-	  } elsif ($tgui !~ /^rep_/) {
+	  } elsif ($s->{key} !~ /^rep_/) {
 	    $n=$self->{shortcuts}->relatif($n);
 	  }
 	}
-      } elsif($wp=$self->{w}->{$prefixe.'_v_'.$tgui}) {
-	debug "Found (v) check button";
-	$n=$wp->get_active();
-      } elsif($wp=$self->{w}->{$prefixe.'_s_'.$tgui}) {
-	debug "Found spin button";
-	$n=$wp->get_value();
-      } elsif($wp=$self->{w}->{$prefixe.'_fb_'.$tgui}) {
-	debug "Found font button";
-	$n=$wp->get_font_name();
-      } elsif($wp=$self->{w}->{$prefixe.'_col_'.$tgui}) {
-	debug "Found color chooser";
-	$n=$wp->get_color()->to_string();
-      } elsif($wp=$self->{w}->{$prefixe.'_cb_'.$tgui}) {
-	debug "Found checkbox";
-	$n=$wp->get_active();
-      } elsif($wp=$self->{w}->{$prefixe.'_c_'.$tgui}) {
-	debug "Found combobox";
-	if ($wp->get_model) {
-	  if ($wp->get_active_iter) {
-	    $n=$wp->get_model->get($wp->get_active_iter,COMBO_ID);
+      } elsif($s->{kind} eq 'v') {
+	$n=$s->{widget}->get_active();
+      } elsif($s->{kind} eq 's') {
+	$n=$s->{widget}->get_value();
+      } elsif($s->{kind} eq 'fb') {
+	$n=$s->{widget}->get_font_name();
+      } elsif($s->{kind} eq 'col') {
+	$n=$s->{widget}->get_color()->to_string();
+      } elsif($s->{kind} eq 'cb') {
+	$n=$s->{widget}->get_active();
+      } elsif($s->{kind} eq 'c') {
+	if (my $model=$s->{widget}->get_model) {
+          my ($ok,$iter)=$s->{widget}->get_active_iter;
+	  if ($ok && $iter) {
+	    $n=$s->{widget}->get_model->get($iter,COMBO_ID);
 	  } else {
-	    debug "No active iter for combobox ".$prefixe.'_c_'.$tgui;
+	    debug "No active iter for combobox $key [$o{store}]";
 	    $n='';
 	  }
 	} else {
-	  $n=$wp->get_active();
+	  $n=$s->{widget}->get_active();
 	}
+      } elsif($s->{kind} eq 'p') {
+        $self->{config}->set_passwd($s->{key},$s->{widget}->get_text());
+        $found=0;
       } else {
         $found=0;
       }
       if($found) {
-        $h->{$t}='' if(!defined($h->{$t}));
-	$h->{'_modifie'}.=",$t" if($h->{$t} ne $n);
-	$h->{$t}=$n;
+        debug "  gui -> $n";
+        if($o{container}) {
+          $key=$o{container}.":".$key if($key !~ s/.*:/$o{container}:/)
+        }
+        if($o{hash}) {
+          $o{hash}->{$key}=$n;
+        } else {
+          $self->{config}->set($key,$n);
+        }
       }
     } else {
-      debug "Skip widget <$t>";
+      debug "Key $key: widget not found [$o{store}]";
     }
   }
 
-  debug "Changes : $h->{'_modifie'}";
+  debug "Update <$o{prefix}> finished / changed: "
+    .join(', ',$self->{config}->changed_keys());
 }
 
 1;

@@ -1,0 +1,134 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{csvsimple}%
+
+\usepackage[bloc,separateanswersheet,completemulti]{automultiplechoice}
+
+%%%%%%%%%%%%command
+\newcommand{\Test}{%
+%
+\onecopy{1}{%
+
+%%%beginning of the  header
+\begin{center}
+\noindent{}\fbox{\vspace*{3mm}
+         \Large\bf\name{}~\forename{}\normalsize{}% 
+          \vspace*{3mm}
+      }
+\end{center}
+
+
+\noindent{\bf QCM  \hfill TEST}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+  \centering\large\bf Test\\ Examination on Jan. 1st, 2008
+\end{minipage}
+
+\begin{center}\em
+Duration : 10 minutes.
+
+  No documents allowed. The use of electronic calculators is forbidden.
+
+  Questions using the sign \multiSymbole{} may have
+  zero, one or several correct answers.  Other questions have a single correct answer.
+
+  Negative points may be attributed to \emph{very
+    bad} answers.
+\end{center}
+\vspace{1ex}
+%%% end of the header
+
+
+
+\restituegroupe{general}
+
+\clearpage
+
+%\AMCcleardoublepage   
+
+% \AMCaddpagesto{3}
+
+
+
+
+%%% beginning of the test sheet header:    
+
+\begin{center}
+
+{\large\bf Answer sheet:}
+
+\noindent{}\champnom{\fbox{%
+         \Large\bf\name{}~\forename{}\normalsize{} 
+          \vspace*{1mm}
+      }}
+\end{center}
+
+
+\begin{center}
+  \bf\em Answers must be given exclusively on this sheet: 
+  answers given on the other sheets will be ignored.
+\end{center}
+
+
+\AMCassociation{\id}
+
+\formulaire
+
+%\AMCaddpagesto{3}
+
+}%onecopy
+}%Test
+
+\begin{document}
+
+%%%Options
+\AMCrandomseed{1237893}
+
+\def\AMCformQuestion#1{{\sc Question #1 :}}
+
+\setdefaultgroupmode{withoutreplacement}
+%%% end of Options
+
+%%% groups
+
+\element{general}{
+  \begin{question}{prez}    
+    Among the following persons, which one has ever been a President of the French Republic?
+    \begin{choices}
+      \correctchoice{René Coty}
+      \wrongchoice{Alain Prost}
+      \wrongchoice{Marcel Proust}
+      \wrongchoice{Claude Monet}
+    \end{choices}
+  \end{question}
+}
+
+\element{general}{
+  \begin{questionmult}{pref}    
+    Among the following cities, which ones are French prefectures?
+    \begin{choices}
+      \correctchoice{Poitiers}
+      \wrongchoice{Sainte-Menehould}
+      \correctchoice{Avignon}
+    \end{choices}
+  \end{questionmult}
+}
+
+\element{general}{
+  \begin{question}{nb-ue}
+    How many different states were members of the European Union in Jan. 2009?
+    \begin{choiceshoriz}[o]
+      \wrongchoice{15}
+      \wrongchoice{21}
+      \wrongchoice{25}
+      \correctchoice{27}
+      \wrongchoice{31}
+    \end{choiceshoriz}
+  \end{question}
+}
+%%% end of groups
+
+\csvreader[head to column names]{list.csv}{}{\Test}
+
+\end{document}

@@ -1,0 +1,56 @@
+# perl -e 'use AMC::Filter::plain; AMC::Filter::plain->new()->filter("a.txt","a.tex");'
+#
+Title: Un essai avec le filtre « plain »
+Columns: 2
+Code: 8
+Lang: ES
+ShuffleQuestions: 1
+Presentation: Dzień dobry. Voici un petit essai de mon premier filtre.
+
+Je n'ai rien d'autre à dire !
+
+*[ordered,columns=2,id=deuxdeux] Combien font deux et deux ?
+- zéro
+- deux
++ quatre
+- douze
+
+* Quelle est la racine
+carrée de 16 ?
++ quatre
+- on ne
+peut pas savoir...
+- zéro
+- l'un & l'autre
+
+**[ordered,name=fusion] Quelle est la température de fusion de l'eau ?
+- -10°C
++ 0°C
+- 25°C
++ 32°F
+- 30$
+- 50€
+
+*( Géographie et informatique
+
+**[name=france] Où se situe la France ?
++ en Europe
++ dans le monde
+-{m=-2} en Asie
+
+**[name=oceans]{m=-1} Quels noms correspondent à des océans ?
++ Atlantique
++ Pacifique
+- Numérique
+- Magnifique
+
+* Quelle est la commande qui permet de copier un fichier a vers un fichier b ?
++ cp a b
+- find ~/* -exec rm \{\} \;
+- 5%-->10%
+- la \#2
+- rien^[rien]_(rien)
+- pere-noël@pôle-nord.int
+
+*)
+

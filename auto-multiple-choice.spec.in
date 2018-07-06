@@ -46,7 +46,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 %else
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 %endif
-URL: http://home.gna.org/auto-qcm/
+URL: https://www.auto-multiple-choice.net/
 Packager: Alexis Bienvenüe <pado@passoire.fr>
 BuildRequires: gcc-c++
 %if 0%{?suse_version}

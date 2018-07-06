@@ -19,12 +19,10 @@
       describes its use (for the version
       @/PACKAGE_V_DEB/@~@/PACKAGE_V_VC/@).</para>
 
-      <para>The AMC project is hosted by <ulink
-      url="http://gna.org/">Gna !</ulink> : you can find the AMC web-site
-      there <ulink
-      url="http://home.gna.org/auto-qcm/">http://home.gna.org/auto-qcm/</ulink>,
-      and the web-page where the project is hosted there <ulink
-      url="https://bitbucket.org/auto-multiple-choice/auto-multiple-choice">https://bitbucket.org/auto-multiple-choice/auto-multiple-choice</ulink>.</para>
+      <para>You can find the AMC web-site at <ulink
+      url="https://www.auto-multiple-choice.net/">https://www.auto-multiple-choice.net/</ulink>,
+      and the source code at <ulink
+      url="https://gitlab.com/jojo_boulix/auto-multiple-choice/">https://gitlab.com/jojo_boulix/auto-multiple-choice/</ulink>.</para>
     </abstract>
 
     <author>
@@ -64,7 +62,7 @@
     </author>
 
     <copyright>
-      <year>2008-2016</year>
+      <year>2008-2018</year>
 
       <holder>Alexis Bienvenüe</holder>
     </copyright>
@@ -246,7 +244,7 @@
           <para>The LaTeX command <command>\AMCcode</command> was rewritten in
           version 0.518. It is now more robust and configurable, but you will
           have to adapt the LaTeX sources you wrote for older versions to keep
-          the same layout.</para>
+         the same layout.</para>
         </listitem>
 
         <listitem>
@@ -264,11 +262,12 @@
       the debian official repository and ubuntu AMC repositories. On Mandriva,
       openSUSE or Fedora, you can use prebuilt RPM packages. The installation
       procedure is described on the <ulink
-      url="http://home.gna.org/auto-qcm/download">AMC web-site</ulink>.</para>
+      url="http://www.auto-multiple-choice.net/download">AMC
+      web-site</ulink>.</para>
 
       <para>You can also download the source code archive on the project
-      <ulink url="http://download.gna.org/auto-qcm/">download space</ulink>,
-      then use the following commands in a terminal:</para>
+      <ulink url="http://download.auto-multiple-choice.net/">download
+      space</ulink>, then use the following commands in a terminal:</para>
 
       <screen>tar xvzf auto-multiple-choice_xxxx_precomp.tar.gz
 cd auto-multiple-choice-xxx
@@ -413,6 +412,24 @@ the best you can.
         </varlistentry>
 
         <varlistentry>
+          <term>RandomSeed:</term>
+
+          <listitem>
+            <para>One can modify the seed of the random number generator used
+            to produce the shuffle, thanks to the option. If the value that is
+            assigned ( to be chosen between 1 and 4194303) is modified, then
+            the shuffling will differ. Of course, one must not modify this
+            value after the test sheets have been printed.</para>
+
+            <note>
+              <para>The value is recorded in the xy file (as
+              <code>\rngstate{1}{1527384}</code>). The default value is equal
+              to 1527384.</para>
+            </note>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>Code:</term>
 
           <listitem>
@@ -547,6 +564,21 @@ the best you can.
         </varlistentry>
 
         <varlistentry>
+          <term>Pages:</term>
+
+          <listitem>
+            <para>Gives a minimal number of pages for each question sheet. If
+            a question has less pages, some white pages will be added. When
+            using a separate answer sheet, this option can be written
+            <option><replaceable>q</replaceable>+<replaceable>a</replaceable></option>
+            (eg. <option>4+2</option>), where <replaceable>q</replaceable>
+            will be the minimum number of pages for the question itself, and
+            <replaceable>q</replaceable>+<replaceable>a</replaceable> the
+            minimum number of pages for the whole sheet.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>ManualDuplex:</term>
 
           <listitem>
@@ -646,7 +678,8 @@ the best you can.
 
           <listitem>
             <para>Gives a comma-separated list of features to disable. Current
-            implemented features are <code>images</code> (see <xref
+            implemented features are <code>verbatim</code> (see <xref
+            linkend="parse_verbatim"/>), <code>images</code> (see <xref
             linkend="parse_images"/>), <code>embf</code> (see <xref
             linkend="parse_embf"/>) and <code>local_latex</code> (see <xref
             linkend="parse_local_latex"/>).</para>
@@ -947,12 +980,35 @@ How many stars in the sky?
       <code>==]</code>.</para>
     </sect2>
 
+    <sect2 id="parse_verbatim">
+      <title>Verbatim content</title>
+
+      <para>To get a <emphasis>verbatim</emphasis> block (as computer code),
+      enclose it between <code>[verbatim]</code> and
+      <code>[/verbatim]</code>:</para>
+
+      <programlisting>* What does this program print?
+[verbatim]
+main( )
+{
+    printf("hello, world\n");
+}
+[/verbatim]
+
++ [| hello, world |]
+- [| hello |]
+- [| world |]</programlisting>
+    </sect2>
+
     <sect2 id="parse_embf">
-      <title>Bold, italic</title>
+      <title>Bold, italic, typewriter, underlined</title>
 
       <para>To get <emphasis>bold</emphasis> text, enclose it between
       <code>[*</code> and <code>*]</code>. To get <emphasis>italic</emphasis>
-      text, enclose it between <code>[_</code> and <code>_]</code>.</para>
+      text, enclose it between <code>[_</code> and <code>_]</code>. To get
+      <emphasis>typewriter</emphasis> text, enclose it between <code>[|</code>
+      and <code>|]</code>. To get <emphasis>underlined</emphasis> text,
+      enclose it between <code>[/</code> and <code>/]</code>.</para>
 
       <programlisting>* What is the [*capital city*] of [_France_]?
 + Paris
@@ -1064,6 +1120,17 @@ How many stars in the sky?
               inserted). Moreover, questions stuck together with option
               <option>next</option> count as one single question.</para>
             </note>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>needspace=<replaceable>dimen</replaceable></term>
+
+          <listitem>
+            <para>Gives a height (dimension with unit, such as
+            <replaceable>4cm</replaceable>) necessary to begin with the group.
+            If the remaining vertical space on the current page is lower than
+            this value, the group will begin on the next page.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1414,7 +1481,7 @@ Firstname and lastname:
     </sect2>
 
     <sect2 id="secensemble">
-      <title>An example with a separate answer sheet</title>
+      <title id="secensemble.title">An example with a separate answer sheet</title>
 
       <para>In this example, one wants the check-boxes to be put together in a
       separate sheet. This makes cheating more difficult, and, more
@@ -1429,7 +1496,7 @@ Firstname and lastname:
 DESC: An example (from the documentation) where all check-boxes are put together on a separate sheet for each student.--><programlisting
       id="modeles-separate.tex" linenumbering="numbered">\documentclass[a4paper]{article}
 
-\usepackage[utf8x]{inputenc}    
+\usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 
 \usepackage[box,completemulti,separateanswersheet]{automultiplechoice}    <co
@@ -1438,13 +1505,13 @@ DESC: An example (from the documentation) where all check-boxes are put together
 
 \AMCrandomseed{1237893}
 
-\def\AMCformQuestion#1{\vspace{\AMCformVSpace}\par {\sc Question #1:} }    <co
-            id="ensemble.fq" linkends="ensemble.fq.exp"/>
+\def\AMCformQuestion#1{{\sc Question #1:}}    <co id="ensemble.fq"
+            linkends="ensemble.fq.exp"/>
 
 \setdefaultgroupmode{withoutreplacement}
 
 \element{general}{
-  \begin{question}{prez}    
+  \begin{question}{prez}
     Among the following persons, which one has ever been a President of the French Republic?
     \begin{choices}
       \correctchoice{René Coty}
@@ -1456,7 +1523,7 @@ DESC: An example (from the documentation) where all check-boxes are put together
 }
 
 \element{general}{
-  \begin{questionmult}{pref}    
+  \begin{questionmult}{pref}
     Among the following cities, which ones are French prefectures?
     \begin{choices}
       \correctchoice{Poitiers}
@@ -1479,9 +1546,9 @@ DESC: An example (from the documentation) where all check-boxes are put together
   \end{question}
 }
 
-\onecopy{5}{    
+\onecopy{5}{
 
-%%% beginning of the test sheet header:    
+%%% beginning of the test sheet header:
 
 \noindent{\bf QCM  \hfill TEST}
 
@@ -1491,7 +1558,7 @@ DESC: An example (from the documentation) where all check-boxes are put together
 \end{minipage}
 
 \begin{center}\em
-Durée : 10 minutes.
+Duration : 10 minutes.
 
   No documents allowed. The use of electronic calculators is forbidden.
 
@@ -1521,14 +1588,14 @@ Durée : 10 minutes.
 \hfill \namefield{\fbox{    <co id="ensemble.nom" linkends="ensemble.nom.exp"/>
     \begin{minipage}{.5\linewidth}
       Firstname and lastname:
-      
+
       \vspace*{.5cm}\dotfill
       \vspace*{1mm}
     \end{minipage}
   }}
 
 \begin{center}
-  \bf\em Answers must be given exclusively on this sheet: 
+  \bf\em Answers must be given exclusively on this sheet:
   answers given on the other sheets will be ignored.
 \end{center}
 
@@ -1539,7 +1606,7 @@ Durée : 10 minutes.
 % \AMCaddpagesto{5} <co id="AMCaddpage.separateanswersheet.total"
             linkends="AMCaddpage.separateanswersheet.total.exp"/>
 
-}  
+}
 
 \end{document}</programlisting>The following remarks should make the above
       example clearer :<calloutlist>
@@ -1573,7 +1640,7 @@ Durée : 10 minutes.
             <para>This command marks the beginning of the answer sheet part.
             Its use is necessary for the appropriate treatment of the
             questions which appear only in that part, e.g. those generated by
-            <command>\AMCcode</command>.</para>
+            <command>\AMCcodeGrid</command>.</para>
           </callout>
 
           <callout arearefs="ensemble.nom" id="ensemble.nom.exp">
@@ -1628,6 +1695,14 @@ Durée : 10 minutes.
             <package>automultiplechoice</package> will be translated, such as
             "None of these answers are correct", see option
             <option>completemulti</option>.</para>
+          </listitem>
+
+          <listitem>
+            <para><option>pdfform</option>: create a pdf file to fill. </para>
+
+            <note>
+              <para>AMC does not automatically manage sending topics.</para>
+            </note>
           </listitem>
 
           <listitem>
@@ -1694,7 +1769,7 @@ Durée : 10 minutes.
             <para><option>separateanswersheet</option>: requires that all
             check-boxes be put together at the end of the test sheet (usually,
             this option is used when one wants to have only one sheet to scan
-            per student - see the example in <xref
+            per student - see the example in <xref endterm="secensemble.title"
             linkend="secensemble"/>).</para>
           </listitem>
 
@@ -1774,6 +1849,13 @@ Durée : 10 minutes.
               process these pages.</para>
             </warning>
           </listitem>
+
+          <listitem>
+            <para><option>nopage</option>: use this option if you don't need
+            margins, corner circles and page identification boxes, that is if
+            the document is not intended to be used with AMC (for example to
+            produce exercises lists).</para>
+          </listitem>
         </itemizedlist>
       </sect3>
 
@@ -1802,6 +1884,12 @@ Durée : 10 minutes.
           distribution, still used in Ubuntu distributions up to version 9.10
           (Karmic Koala).</para>
         </note>
+
+        <para>To differentiate between odd and even-numbered copy, use
+        <command>\exemplairepair</command> command.</para>
+
+        <para>The command <command>\AMCStudentNumber</command> get the copy
+        number.</para>
       </sect3>
 
       <sect3 id="latex.qr">
@@ -1871,7 +1959,7 @@ Durée : 10 minutes.
 
         <para><programlisting>\begin{question}{difficulty}\QuestionIndicative
   \scoring{auto=0,v=-1,e=-2}
-  Did you find this class easy or difficult? Please answer on a scale from 0 (very difficult) to 5 
+  Did you find this class easy or difficult? Please answer on a scale from 0 (very difficult) to 5
   (very easy).
   \begin{choiceshoriz}[o]
     \correctchoice{0}
@@ -2048,7 +2136,7 @@ Durée : 10 minutes.
   \begin{multicols}{2}\AMCBoxedAnswers
     \begin{choices}
       \correctchoice{It is an animal with wings, laying eggs. There are birds with all sorts of colors.}
-      \wrongchoice{It is a large piece of furniture, made of wood, and used most of the time to store 
+      \wrongchoice{It is a large piece of furniture, made of wood, and used most of the time to store
       household linen}
       \wrongchoice{It is a steam machine devised to seal cans at high speed.}
     \end{choices}
@@ -2077,7 +2165,10 @@ Durée : 10 minutes.
         area</title>
 
         <para>You may add an additional option of marking area (see <xref
-        endterm="marks.position.title" linkend="marks.position"/>).</para>
+        endterm="marks.position.title" linkend="marks.position"/>) with the
+        package <package>tikz</package>.</para>
+
+        <programlisting>\usepackage{tikz}</programlisting>
 
         <sect4 id="latex.zone.std">
           <title>Without the <option>separateanswersheet</option>
@@ -2114,7 +2205,10 @@ Durée : 10 minutes.
           none, question, margin, margins.</para>
 
           <warning>
-            <para>Don't type one of those commands <emphasis> after</emphasis>
+            <para>The option <option>margins</option> does not work with
+            AMC-TXT.</para>
+
+            <para>Don't type one of those commands <emphasis>after</emphasis>
             printing.</para>
           </warning>
         </sect4>
@@ -2539,13 +2633,18 @@ Durée : 10 minutes.
         <programlisting>\AMCinterIrep=0pt
 \AMCinterBrep=.5ex
 \AMCinterIquest=0pt
-\AMCinterBquest=3ex</programlisting>
+\AMCinterBquest=3ex
+\AMCpostOquest=7mm
+\setlength{\AMChorizAnswerSep}{3em plus 4em}
+\setlength{\AMChorizBoxSep}{1em}
+</programlisting>
 
         <para>These dimensions are the vertical space between questions
         (<code>quest</code>) or answers (<code>rep</code>), in boxed mode
         (<code>B</code>, with <command>\AMCBoxedAnswers</command> or
-        <option>box</option> package option) or standard mode
-        (<code>I</code>).</para>
+        <option>box</option> package option) or standard mode (<code>I</code>)
+        and the space left after an open question. The two last lengths are used
+        in environment: <option>choicescustom</option></para>
       </sect3>
 
       <sect3 id="latex.layout">
@@ -2580,7 +2679,7 @@ Durée : 10 minutes.
 
         <para>It is also possible to modify the layout of the separate answer
         sheet produced with the <option>separateanswersheet</option> option
-        (see section <xref linkend="secensemble"/>).</para>
+        (see  <xref endterm="secensemble.title" linkend="secensemble"/>).</para>
 
         <orderedlist>
           <listitem>
@@ -2596,42 +2695,71 @@ Durée : 10 minutes.
           <listitem>
             <para>For a deeper modification of the display settings, one can
             also redefine the commands that are used at the beginning of each
-            question and for each answer (here follows the default
-            definitions):</para>
+            question and for each answer:</para>
 
-            <programlisting>\def\AMCformQuestion#1{\vspace{\AMCformVSpace}\par{\bf Question #1:}}
+            <programlisting>\def\AMCformBeforeQuestion{\vspace{\AMCformVSpace}\par}
+\def\AMCformQuestion#1{\textbf{Question #1:}}
 \def\AMCformAnswer#1{\hspace{\AMCformHSpace} #1}
 </programlisting>
-          </listitem>
-        </orderedlist>
 
         <para>These definitions have to be inserted just after
         <code>\begin{document}</code> in the LaTeX file.</para>
+          </listitem>
+          
+          <listitem>
+          <para>
+         You can force AMC not to respect the arrangement of the questions and to store the open
+         questions in order to restore them together. This can be useful when you use package
+          <package>multicols</package >, the answers to open questions needing more space
+          when hand written.
+          </para>
+        
+        <para >The command <command>\AMCformFilter {!\AMCifcategory {open}}</command> 
+        displays all questions except the open questions then the command
+        <command>\AMCformFilter {\AMCifcategory {open}}</command > 
+        displays only the open questions. Both commands must be used <emphasis> together</emphasis >.</para > 
+        
+         <programlisting>
+%On two columns, the answers boxes are displayed
+%except the open questions.
+\begin{multicols}{2}
+\AMCformFilter{!\AMCifcategory{open}}
+\end{multicols}
+
+%All the open questions are displayed.
+\AMCformFilter{\AMCifcategory{open}}
+         </programlisting>
+         
+         <note><para>The ascending numbering is always respected.</para></note>
+          </listitem>
+        </orderedlist>
       </sect3>
 
       <sect3 id="latex.codes">
         <title>Code acquisition</title>
 
         <para>Code acquisition can be easily performed thanks to the LaTeX
-        command <command>\AMCcode</command>, for instance to allow each
-        student to enter her/his student number by herself/himself on the
-        answer sheet. The two arguments of this command are a code/question
-        identifier, and the number of digits to be used by the code. One can
+        command
+        <command>\AMCcodeGridInt[<replaceable>options</replaceable>]{<replaceable>key</replaceable>}{<replaceable>n</replaceable>}</command>,
+        for instance to allow each student to enter her/his student number by
+        herself/himself on the answer sheet. The two arguments of this command
+        are a code/question key (identifier), and the number
+        <replaceable>n</replaceable> of digits to be used by the code. One can
         e.g. use the following header</para>
 
-        <para><programlisting>{\setlength{\parindent}{0pt}\hspace*{\fill}\AMCcode{etu}{8}\hspace*{\fill}
+        <para><programlisting>{\setlength{\parindent}{0pt}\hspace*{\fill}\AMCcodeGridInt{etu}{8}\hspace*{\fill}
 \begin{minipage}[b]{6.5cm}
 $\longleftarrow{}$\hspace{0pt plus 1cm} please encode your student number below,
 and write your first and last names below.
 
 \vspace{3ex}
 
-\hfill\namefield{\fbox{    
+\hfill\namefield{\fbox{
     \begin{minipage}{.9\linewidth}
       Firstname and lastname:
-      
+
       \vspace*{.5cm}\dotfill
-      
+
       \vspace*{.5cm}\dotfill
       \vspace*{1mm}
     \end{minipage}
@@ -2641,24 +2769,67 @@ and write your first and last names below.
 </programlisting></para>
 
         <para>If the <option>separateanswersheet</option> option is used, the
-        <command>\AMCcode</command> command has to be placed after the
+        <command>\AMCcodeGridInt</command> command has to be placed after the
         <command>\AMCformBegin</command> command.</para>
 
-        <para>Note that the codes rendering from <command>\AMCcode</command>
-        can be adapted modifying the lengths
-        <command>\AMCcodeHspace</command>, <command>\AMCcodeVspace</command>
-        and <command>\AMCcodeBoxSep</command>, representing the horizontal and
-        vertical amount of space between boxes, and the amount of space
-        between boxes and labels (when the labels are written outside the
-        boxes). Default values are set with the following commands:</para>
+        <para>Note that the codes rendering can be adapted modifying the
+        lengths <command>\AMCcodeHspace</command>,
+        <command>\AMCcodeVspace</command> representing the horizontal and
+        vertical amount of space between boxes. Default values are set with
+        the following commands:</para>
 
         <programlisting>\AMCcodeHspace=.5em
 \AMCcodeVspace=.5em
-\AMCcodeBoxSep=.1em</programlisting>
+</programlisting>
 
-        <para>Note that an horizontal version <command>\AMCcodeH</command> is
-        also available, specially for the case of small number of
-        digits.</para>
+        <para>The command
+        <command>\AMCcodeGrid[<replaceable>options</replaceable>]{<replaceable>key</replaceable>}{<replaceable>description</replaceable>}</command>
+        can be used to handle more complex codes, as codes including letters.
+        Here, <replaceable>description</replaceable> is a coma-separated list
+        of character pools to offer. As an example, a client code formed with
+        a lettre from A to E followed by three digits can be handled with
+        <command>\AMCcodeGrid{client}{ABCDE,0123456789,0123456789,0123456789}</command>.</para>
+
+        <para>The two commands \AMCcodeGrid and \AMCcodeGridInt accept the
+        following options (coma-separated into the optional
+        <replaceable>options</replaceable> argument):</para>
+
+        <variablelist>
+          <varlistentry>
+            <term>vertical=<replaceable>bool</replaceable></term>
+
+            <listitem>
+              <para>where <replaceable>bool</replaceable> is <code>true</code>
+              or <code>false</code>, to indicate the direction to be used (the
+              default value is <code>true</code>);</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>v</term>
+
+            <listitem>
+              <para>is an alias for <code>vertical=true</code>;</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>h</term>
+
+            <listitem>
+              <para>is an alias for <code>vertical=false</code>;</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>top</term>
+
+            <listitem>
+              <para>allows to get top-aligned columns in vertical
+              direction.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
       </sect3>
 
       <sect3 id="openquestions">
@@ -2694,6 +2865,15 @@ and write your first and last names below.
               boxes will be on the same line. If <code>false</code> (this is
               default), the answering area is enclosed in a frame and placed
               below the scoring boxes.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>lineuptext=<replaceable>text</replaceable></term>
+
+            <listitem>
+              <para>if <code>lineup=true</code>, the text and ansewering area
+              will be on the same line.</para>
             </listitem>
           </varlistentry>
 
@@ -2801,7 +2981,26 @@ and write your first and last names below.
               area for corrected answer sheets.</para>
             </listitem>
           </varlistentry>
+        </variablelist>
 
+        <tip>
+          <para>Use the command <command>\savebox</command>, <emphasis>outside
+          the onecopy command</emphasis>, to display a longer text with
+          linebreaks.</para>
+
+          <programlisting>
+       \newsavebox{\correcbox}
+        \savebox{\correcbox}{\parbox{5cm}{\color{red}{Here a linebreak\\or\\here...}}}
+       </programlisting>
+
+          <para>Call out the boxe's contents:</para>
+
+          <programlisting>
+        \AMCOpen{lines=4,lineheight=0.15cm, answer= \usebox{\correcbox}}{Question}
+       </programlisting>
+        </tip>
+
+        <variablelist>
           <varlistentry>
             <term>width=<replaceable>dim</replaceable></term>
 
@@ -2872,6 +3071,28 @@ and write your first and last names below.
         question can also be defined, as:</para>
 
         <programlisting>\def\AMCotextGoto{\par{\bf\emph{Please write the answer on the separate answer sheet.}}}</programlisting>
+
+        <tip>
+          <para>if the number of boxes is significant, use this tip
+          (<command>\parbox</command>) to force a linebreak.</para>
+
+          <programlisting>\AMCOpen{lines=6}{
+          \hbox{\parbox{8.5cm}{
+			    \correctchoice[1]{1}\scoring{b=1}
+			    \correctchoice[2]{2}\scoring{b=2}
+			    \correctchoice[3]{3}\scoring{b=3}
+			    \correctchoice[4]{4}\scoring{b=4}
+			    \correctchoice[5]{5}\scoring{b=5}
+			    \correctchoice[6]{6}\scoring{b=6}
+			    \correctchoice[7]{7}\scoring{b=7}
+			    \correctchoice[8]{8}\scoring{b=8}
+			    \correctchoice[9]{9}\scoring{b=9}
+			    \correctchoice[10]{10}\scoring{b=10}
+			    \wrongchoice[F]{F}\scoring{b=0}
+                    }}
+            }
+	      </programlisting>
+        </tip>
       </sect3>
 
       <sect3 id="latex.oneletter">
@@ -2928,6 +3149,11 @@ and write your first and last names below.
         4194303) is modified, then the shuffling will differ. Of course, one
         must not modify this value after the test sheets have been
         printed.</para>
+
+        <note>
+          <para>The value is recorded in the xy file (as
+          <code>\rngstate{1}{1515}</code>). The default value is 1515.</para>
+        </note>
       </sect3>
 
       <sect3 id="latex.separate.sect">
@@ -2936,7 +3162,10 @@ and write your first and last names below.
         <para>For sectioning to be also visible in the separate answer sheet
         (if any), use <command>\AMCsection</command> and
         <command>\AMCsubsection</command> instead of
-        <command>\section</command> and <command>\subsection</command>.</para>
+        <command>\section</command> and <command>\subsection</command>
+        (<command>\AMCsection*</command> and
+        <command>\AMCsubsection*</command> are also defined, for unnumbered
+        sectionning)</para>
       </sect3>
 
       <sect3 id="latex.refs">
@@ -2953,11 +3182,10 @@ and write your first and last names below.
         <command>\ref</command> and <command>\pageref</command>.</para>
 
         <note>
-          <para>If you updated the test version (1.2.2014.041103) to the
-          current version (1.2.2015.102901) or greater, you don't have to type
-          the command <command>\AMCqlabel</command> to label a question but
-          type <command>\AMClabel</command>. The old command remain compatible
-          with your previous tex files/exams.</para>
+          <para>Since the version 1.2.2015.102901, you don't have to use the
+          command <command>\AMCqlabel</command> to label a question but type
+          <command>\AMClabel</command>. The old command remain compatible with
+          your previous tex files/exams.</para>
         </note>
 
         <para>One also has to reset counters to zero at the beginning of each
@@ -2972,7 +3200,7 @@ and write your first and last names below.
     \caption{An animal}
     \AMClabel{tiger}
   \end{figure}
-    
+
   \begin{question}{tiger}
     Which is the animal on figure~\AMCref{tiger} page~\AMCpageref{tiger}?
     \begin{choices}
@@ -3106,9 +3334,9 @@ and write your first and last names below.
         default values).</para>
 
         <programlisting>\makeatletter
-\AMC@NCBetud=12
-\AMC@NCBpage=6
-\AMC@NCBcheck=6
+\def\AMC@NCBetud{12}
+\def\AMC@NCBpage{6}
+\def\AMC@NCBcheck{6}
 \makeatother          </programlisting>
       </sect3>
     </sect2>
@@ -3219,7 +3447,7 @@ and write your first and last names below.
   \FPeval\VQa{trunc(2 + random * 4,0)}
   \FPeval\VQb{trunc(6 + random * 5,0)}
   \FPeval\VQr{VQa/(VQa+VQb)}
-  
+
   Let $X$ and $Y$ be two independent random variables, following the exponential distribution with
 respective parameters \VQa{} and \VQb{}.
   To which interval does the probability $\mathbb{P}[X&lt;Y]$ belong ?
@@ -3342,6 +3570,15 @@ respective parameters \VQa{} and \VQb{}.
             </varlistentry>
 
             <varlistentry>
+              <term>exponent=<replaceable>num</replaceable></term>
+
+              <listitem>
+                <para>switch to scientific notation mode, with
+                <replaceable>num</replaceable> digits for the exponent.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
               <term>nozero=<replaceable>bool</replaceable></term>
 
               <listitem>
@@ -3357,6 +3594,14 @@ respective parameters \VQa{} and \VQb{}.
               <listitem>
                 <para>requests (or not) a signed value (defaults to
                 true).</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>exposign=<replaceable>bool</replaceable></term>
+
+              <listitem>
+                <para>same for the exponent sign.</para>
               </listitem>
             </varlistentry>
 
@@ -3377,6 +3622,17 @@ respective parameters \VQa{} and \VQb{}.
               <listitem>
                 <para>if true, each digit is represented on one raw. If false
                 (default), each digit is represented on one line.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>expovertical=<replaceable>bool</replaceable></term>
+
+              <listitem>
+                <para>if <code>true</code>, the mantissa is
+                <emphasis>above</emphasis> the exponent. If <code>false</code>
+                (default), the mantissa is <emphasis>beside</emphasis> the
+                exponent.</para>
               </listitem>
             </varlistentry>
 
@@ -3474,6 +3730,18 @@ respective parameters \VQa{} and \VQb{}.
             </varlistentry>
 
             <varlistentry>
+              <term>Texponent=<replaceable>text</replaceable></term>
+
+              <listitem>
+                <para>sets the text that separates mantissa and exponent. Can
+                also be redefined by
+                <code>\def\AMCexponent{<replaceable>text</replaceable>}</code>,
+                and defaults to
+                <code>$\times10$\textasciicircum</code>.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
               <term>scoring=<replaceable>bool</replaceable></term>
 
               <listitem>
@@ -3533,6 +3801,15 @@ respective parameters \VQa{} and \VQb{}.
                 </warning>
               </listitem>
             </varlistentry>
+
+              <varlistentry>
+              <term>scorewrong=<replaceable>num</replaceable></term>
+                <listitem>
+                <para>gives the score for an wrong answer (defaults to
+                0).</para>
+              </listitem>
+            </varlistentry>
+
           </variablelist>
 
           <para>You can set other default values (for the whole exam) for all
@@ -3555,7 +3832,7 @@ respective parameters \VQa{} and \VQb{}.
       <sect3 id="latex.numerical.pgf">
         <title>Using package pgf/tikz</title>
 
-        <para>This package must be declare <emphasis>after</emphasis> the
+        <para>This package must be declared <emphasis>after</emphasis> the
         package <package>automultiplechoice</package>.</para>
 
         <para>LaTeX package <package>pgf/tikz</package> (see <ulink
@@ -3575,7 +3852,7 @@ respective parameters \VQa{} and \VQb{}.
 
           <para><programlisting>\begin{question}{inverse}
   \pgfmathrandominteger{\x}{1}{50}
-       
+
   How much is the reciprocal of $x=\x$?
 
   \begin{choices}
@@ -3602,7 +3879,7 @@ respective parameters \VQa{} and \VQb{}.
   How much is the reciprocal of $x=\pgfmathprintnumber{\x}$?
 
   \begin{choices}
-    \correctchoice{\pgfmathparse{1/\x}\pgfmathprintnumber{\pgfmathresult}} 
+    \correctchoice{\pgfmathparse{1/\x}\pgfmathprintnumber{\pgfmathresult}}
     \wrongchoice{\pgfmathparse{1/(\x +1))} \pgfmathprintnumber{\pgfmathresult}}
     \wrongchoice{\pgfmathparse{cos(\x)} \pgfmathprintnumber{\pgfmathresult}}
     \wrongchoice{\pgfmathparse{\x^(-0.5)} \pgfmathprintnumber{\pgfmathresult}}
@@ -3624,7 +3901,7 @@ respective parameters \VQa{} and \VQb{}.
 
           <para><programlisting>\begin{questionmult}{graph}
   Let us consider the three functions which graphs are plotted below:
-  \pgfmathrandominteger{\a}{2}{4}  
+  \pgfmathrandominteger{\a}{2}{4}
   \begin{center}
     \begin{tikzpicture}[domain=0:4]
       \draw[very thin,color=gray] (-0.1,-4.1) grid (3.9,3.9);
@@ -3637,7 +3914,7 @@ respective parameters \VQa{} and \VQb{}.
   \end{center}
   Then:
   \begin{choices}
-    \pgfmathrandominteger{\x0}{2}{4}  
+    \pgfmathrandominteger{\x0}{2}{4}
     \correctchoice{$f_{2}(\x0)$=\pgfmathparse{\a*sin(\x0 r)} \pgfmathprintnumber{\pgfmathresult}.}
     \correctchoice{$f_{3}(\x0)$=\pgfmathparse{\a*cos(\x0 r)} \pgfmathprintnumber{\pgfmathresult}.}
     \wrongchoice{La fonction $f_{1}(x)$ est une fonction linéaire.}
@@ -3714,9 +3991,9 @@ Name :
   How much is the square root of \directlua{tex.print(a)}?
 
   \begin{choices}
-    \correctchoice{\directlua{tex.print(math.sqrt(a))}} 
-    \wrongchoice{\directlua{tex.print(math.sqrt(2*a))}} 
-    \wrongchoice{\directlua{tex.print(math.sqrt(a*1.001))}} 
+    \correctchoice{\directlua{tex.print(math.sqrt(a))}}
+    \wrongchoice{\directlua{tex.print(math.sqrt(2*a))}}
+    \wrongchoice{\directlua{tex.print(math.sqrt(a*1.001))}}
   \end{choices}
 \end{question}
 
@@ -3739,9 +4016,9 @@ Name :
         <title>Use PSTricks</title>
 
         <para>Load this package <emphasis>after</emphasis>
-        <package>automuliplechoice</package>.</para>
+        <package>automultiplechoice</package>.</para>
 
-        <para>To use <command>PSTricks</command>, vous have to configure AMC :
+        <para>To use <command>PSTricks</command>, you have to configure AMC :
         <menuchoice>
             <guimenu>Edit</guimenu>
 
@@ -3832,7 +4109,7 @@ Name :
 
       <para>Preparing a project is done in two steps. First we must make the
       reference documents from the LaTeX source file. This can be done by
-      clicking the <guibutton>Update documents</guibutton>. The following
+      clicking the <guibutton>Update documents</guibutton> or <keycode>Alt+U</keycode>. The following
       documents are produced:</para>
 
       <itemizedlist>
@@ -4002,6 +4279,13 @@ Name :
         lists of the section <guilabel>Diagnosis</guilabel>:</para>
 
         <itemizedlist>
+
+        <listitem>
+          <para>The value<option>update</option> displays the date
+          the date the page was last modified. Hided by default. Click on the button
+          <guimenuitem>columns</guimenuitem> to show it.</para>
+        </listitem>
+
           <listitem>
             <para>The value <emphasis>MSD</emphasis> (mean square deviation)
             is an indication of the good framing of the marks (the four black
@@ -4021,6 +4305,13 @@ Name :
             worked correctly, and correct it if needed drag-and-dropping the
             boxes images).</para>
           </listitem>
+
+        <listitem>
+          <para>The value <emphasis>scan files</emphasis> displays the name of
+          the handled page.  Hided by default. Click on the button
+          <guimenuitem>columns</guimenuitem> to show it.</para>
+        </listitem>
+
         </itemizedlist>
       </sect3>
 
@@ -4348,6 +4639,22 @@ Name :
               </row>
 
               <row>
+                <entry>setglobal.<replaceable>XXX</replaceable></entry>
+
+                <entry>●</entry>
+
+                <entry>●</entry>
+
+                <entry>●</entry>
+
+                <entry>●</entry>
+
+                <entry>Gives a value to the variable
+                <replaceable>XXX</replaceable> for all following questions
+                (relative to the lexicographic order of IDs)</entry>
+              </row>
+
+              <row>
                 <entry>default.<replaceable>XXX</replaceable></entry>
 
                 <entry>●</entry>
@@ -4614,7 +4921,8 @@ Name:
           <para>The test part can use operators like <code>&gt;</code>
           (greater), <code>&gt;=</code> (greater or equal), <code>&lt;</code>
           (lesser), <code>&lt;=</code> (lesser or equal), <code>==</code>
-          (equal), <code>!=</code> (different).</para>
+          (equal), <code>!=</code> (different), <code>||</code> (or),
+          <code>&amp;&amp;</code> (and).</para>
         </note>
 
         <para>Other variables can also be used:</para>
@@ -5259,7 +5567,7 @@ Boulix,Jojo,"jojo@boulix.fr,parents@boulix.com"       </programlisting>
       <para>Here is a minimal example:</para>
 
       <programlisting>\documentclass[a4paper]{article}
-\usepackage[separateanswersheet]{automultiplechoice}    
+\usepackage[separateanswersheet]{automultiplechoice}
 \begin{document}
 
 \noindent{\bf Subject}
@@ -5282,25 +5590,25 @@ Boulix,Jojo,"jojo@boulix.fr,parents@boulix.com"       </programlisting>
   \end{choices}
 \end{question}
 
-\AMCcleardoublepage    
+\AMCcleardoublepage
 
-\onecopy{5}{    
+\onecopy{5}{
 
-\AMCformBegin    
+\AMCformBegin
 
 {\large\bf Answer sheet:}
-\hfill \namefield{\fbox{    
+\hfill \namefield{\fbox{
     \begin{minipage}{.5\linewidth}
       Name:
-      
+
       \vspace*{.5cm}\dotfill
       \vspace*{1mm}
     \end{minipage}
   }}
 
-\AMCformS    
+\AMCformS
 
-}  
+}
 
 \end{document}
 </programlisting>
@@ -5342,11 +5650,11 @@ Boulix,Jojo,"jojo@boulix.fr,parents@boulix.com"       </programlisting>
 
       <programlisting>\documentclass[a4paper]{article}
 \usepackage{multicol}
-\usepackage[insidebox,noshuffle,postcorrect]{automultiplechoice}    
+\usepackage[insidebox,noshuffle,postcorrect]{automultiplechoice}
 
 \begin{document}
 
-\onecopy{5}{    
+\onecopy{5}{
 
 \noindent
 \begin{tabular}{|l|l|l|}
@@ -5361,12 +5669,12 @@ student number &amp; class &amp; subject\\
 \\
 \hline
 \end{tabular}
-\hfill\namefield{\fbox{    
+\hfill\namefield{\fbox{
     \begin{minipage}{.25\linewidth}
       Name:
-      
+
       \vspace*{.5cm}\dotfill
-      
+
       \vspace*{.5cm}\dotfill
       \vspace*{1mm}
     \end{minipage}
@@ -5400,9 +5708,9 @@ student number &amp; class &amp; subject\\
 
 % continue here to get as many questions as needed...
 
-\end{multicols}  
+\end{multicols}
 
-}   
+}
 
 \end{document}
 </programlisting>
@@ -5464,7 +5772,7 @@ Moniuszko,Stanisław,003</programlisting>
 
           <warning>
             <para>Do not use _ (underscore) with the student's name or
-            forename. A compilation error will be display.</para>
+            forename. A compilation error will be displayed.</para>
           </warning>
         </listitem>
 
@@ -5483,7 +5791,7 @@ Moniuszko,Stanisław,003</programlisting>
           <code>general</code>):</para>
 
           <programlisting>\newcommand{\subject}{
-  \onecopy{1}{    
+  \onecopy{1}{
 
     \noindent{\bf AutoMultipleChoice  \hfill TEST}
 
@@ -5493,10 +5801,10 @@ Moniuszko,Stanisław,003</programlisting>
       Pre-filled test.
     \end{center}
 
-    \hfill \namefield{\fbox{    
+    \hfill \namefield{\fbox{
         \begin{minipage}{.5\linewidth}
           Name:
-      
+
           \Large\bf \name{} \surname{}
 
           \vspace*{1mm}
@@ -5823,6 +6131,16 @@ Moniuszko,Stanisław,003</programlisting>
           </varlistentry>
 
           <varlistentry>
+            <term><option>--epoch
+            <replaceable>EPOCH</replaceable></option></term>
+
+            <listitem>
+              <para>gives an epoch (number of seconds since january 1, 1970)
+              to get a reproducible pdf output.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
             <term><option>--data
             <replaceable>project-data-dir</replaceable></option></term>
 
@@ -6082,10 +6400,11 @@ Moniuszko,Stanisław,003</programlisting>
 
               <listitem>
                 <para>gives the command to use to extract pages from the PDF
-                subject. Currently only <command>pdftk</command> and
-                <command>gs</command> are available. The default value is
-                <command>pdftk</command>, but <command>gs</command> will be
-                used if the <command>pdftk</command> command is not
+                subject. Currently, <command>pdftk</command>, <command>gs</command>
+                and <command>qpdf</command> are available.
+                The default value is <command>pdftk</command>,
+                but <command>qpdf</command> and then <command>gs</command>
+                will be used if the <command>pdftk</command> command is not
                 installed.</para>
               </listitem>
             </varlistentry>
@@ -7063,7 +7382,7 @@ Moniuszko,Stanisław,003</programlisting>
               <term>separateur</term>
 
               <listitem>
-                <para>sets the character used between colums (default is a
+                <para>sets the character used between columns (default is a
                 comma).</para>
               </listitem>
             </varlistentry>
@@ -8014,6 +8333,16 @@ Moniuszko,Stanisław,003</programlisting>
               <para>gives a file to fill with debugging information.</para>
             </listitem>
           </varlistentry>
+
+          <varlistentry>
+            <term><option>--delay
+            <replaceable>time</replaceable></option></term>
+
+            <listitem>
+              <para>sets a delay of <replaceable>time</replaceable> seconds
+              between each sending.</para>
+            </listitem>
+          </varlistentry>
         </variablelist>
       </refsect1>
 
@@ -8062,6 +8391,37 @@ Moniuszko,Stanisław,003</programlisting>
                 <para>sets the port to use (default value is 25).</para>
               </listitem>
             </varlistentry>
+
+            <varlistentry>
+              <term><option>--smtp-ssl
+              <replaceable>mode</replaceable></option></term>
+
+              <listitem>
+                <para>sets the security mode for the SMTP connection. The
+                option <replaceable>mode</replaceable> can be
+                <code>ssl</code>, <code>starttls</code>, or <code>0</code>
+                (unsecured).</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term><option>--smtp-user
+              <replaceable>user</replaceable></option></term>
+
+              <listitem>
+                <para>sets the username for authenticated SMTP.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term><option>--smtp-passwd-file
+              <replaceable>file</replaceable></option></term>
+
+              <listitem>
+                <para>gives the path of a file containing the password (as the
+                first line of the file) for authenticated SMTP.</para>
+              </listitem>
+            </varlistentry>
           </variablelist>
         </refsect2>
       </refsect1>
@@ -8083,4 +8443,89 @@ Moniuszko,Stanisław,003</programlisting>
       </refsect1>
     </refentry>
   </sect1>
+
+  <sect1>
+  <title>miscellaneous</title>
+
+  <sect2 id="divers.gmail">
+      <title>Configure AMC to use GMAIL</title>
+
+      <para>Login to your gmail account then enable the option :
+      Allowing less secure apps to access your account.</para>
+
+      <sect3>
+        <title>Linux users (Ubuntu,Xubuntu,Lubuntu etc.)</title>
+
+         <para>Type in a terminal : </para>
+
+         <programlisting>sudo apt-get install msmtp</programlisting>
+         <programlisting>sudo gedit /etc/msmtprc</programlisting>
+
+         <para>add the following content to msmtprc file and save it. </para>
+
+ <programlisting>
+account gmail
+host smtp.gmail.com
+tls on
+tls_certcheck off
+port 587
+auth login
+from <emphasis>your_user_name@gmail.com</emphasis>
+user <emphasis>your_user_name@gmail.com</emphasis>
+password <emphasis>your_password</emphasis>
+</programlisting>
+
+          <para>
+          Set up AMC : <menuchoice>
+          <guimenu>Edit</guimenu>
+
+          <guisubmenu>Preferences</guisubmenu>
+
+          <guisubmenu>Email</guisubmenu>
+
+          <guimenuitem>Mail delivery method</guimenuitem>
+          </menuchoice>,  select <guibutton>sendmail</guibutton> and type
+         the path : <programlisting>/usr/bin/msmtp</programlisting>
+          </para>
+        </sect3>
+
+        <sect3>
+         <title>Macintosh users</title>
+
+          <para>Type in a terminal : </para>
+
+           <programlisting>sudo port install msmtp</programlisting>
+          <programlisting>sudo pico ~/.msmtprc</programlisting>
+
+           <para>add the following content to msmtprc file and save it. </para>
+
+ <programlisting>
+account gmail
+host smtp.gmail.com
+tls on
+tls_certcheck off
+port 587
+auth login
+from <emphasis>your_user_name@gmail.com</emphasis>
+user <emphasis>your_user_name@gmail.com</emphasis>
+password <emphasis>your_password</emphasis>
+</programlisting>
+
+        <para>
+          Set up AMC : <menuchoice>
+          <guimenu>Edit</guimenu>
+
+          <guisubmenu>Preferences</guisubmenu>
+
+          <guisubmenu>Email</guisubmenu>
+
+          <guimenuitem>Mail delivery method</guimenuitem>
+          </menuchoice>,  select <guibutton>sendmail</guibutton> and type
+         the path : <programlisting>/opt/local/bin/msmtp</programlisting>
+          </para>
+        </sect3>
+    </sect2>
+  </sect1>
 </article>
+
+

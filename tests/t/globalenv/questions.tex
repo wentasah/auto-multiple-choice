@@ -1,0 +1,139 @@
+\documentclass{article}
+\usepackage{multicol}
+
+\usepackage[nowatermark]{automultiplechoice}
+\usepackage{cleveref}
+
+\begin{document}
+
+\setdefaultgroupmode{withoutreplacement}
+
+\element{geography}{
+  \begin{question}{g:Ghana}\AMClabel{g:Ghana}\scoring{b=Geography}
+    What is the capital of Ghana?
+    \begin{choiceshoriz}
+      \correctchoice{Accra}
+      \wrongchoice{Addis Abeba}
+      \wrongchoice{Ankara}
+      \wrongchoice{Apia}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{geography}{
+  \begin{question}{g:Thailand}\AMClabel{g:Thailand}\scoring{b=Geography}
+    What is the capital of Thailand?
+    \begin{choiceshoriz}
+      \correctchoice{Bangkok}
+      \wrongchoice{Banjul}
+      \wrongchoice{Beijing}
+      \wrongchoice{Beirut}
+      \wrongchoice{Berlin}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{geography}{
+  \begin{question}{g:Egypt}\AMClabel{g:Egypt}\scoring{b=Geography}
+    What is the capital of Egypt?
+    \begin{choices}
+      \correctchoice{Cairo}
+      \wrongchoice{Caracas}
+      \wrongchoice{Cayenne}
+      \wrongchoice{Chisinau}
+      \wrongchoice{Conakry}
+    \end{choices}
+  \end{question}
+}
+
+\element{geography}{
+  \begin{question}{g:Ireland}\AMClabel{g:Ireland}\scoring{b=Geography}
+    What is the capital of Ireland?
+    \begin{multicols}{3}
+      \begin{choices}
+        \correctchoice{Dublin}
+        \wrongchoice{Dili}
+        \wrongchoice{Djibouti}
+        \wrongchoice{Doha}
+        \wrongchoice{Dakar}
+        \wrongchoice{Dhaka}
+      \end{choices}
+    \end{multicols}
+  \end{question}
+}
+
+\element{history}{
+  \begin{questionmult}{h:1901}\AMClabel{h:1901}\scoring{formula=(History*(NBC-NMC))}
+    Which of the following events are taking place during the year
+    1901?
+    \begin{choices}
+      \correctchoice{Funeral of Queen Victoria in London}
+      \correctchoice{Official end of the Caste War of Yucat\'an}
+      \wrongchoice{King George of Greece becomes absolute monarch of Crete}
+      \wrongchoice{The first line of the Paris M\'etro is opened}
+    \end{choices}
+  \end{questionmult}
+}
+
+\element{history}{
+  \begin{questionmult}{h:1850}\AMClabel{h:1850}\scoring{formula=(History*(NBC-NMC))}
+    Which of the following events are taking place during the year
+    1850?
+    \begin{choices}
+      \correctchoice{American Express is founded by Henry Wells \& William Fargo}
+      \wrongchoice{Napoleon Bonaparte crosses the Alps and invades Italy}
+      \wrongchoice{Kwang-su becomes emperor of China}
+      \wrongchoice{First horse-drawn omnibuses established in London}
+    \end{choices}
+  \end{questionmult}
+}
+
+\element{history}{
+  \begin{questionmult}{h:1971}\AMClabel{h:1971}\scoring{formula=(History*(NBC-NMC))}
+    Which of the following events are taking place during the year
+    1971?
+    \begin{choices}
+      \correctchoice{Apollo 14 lands on the Moon}
+      \correctchoice{The Soviet Union launches Salyut 1}
+      \correctchoice{Death of Louis Armstrong}
+      \wrongchoice{The first commercial Concorde flight takes off}
+    \end{choices}
+  \end{questionmult}
+}
+
+
+\onecopy{3}{
+
+\noindent{\bf AMC  \hfill SAMPLE TEST}
+
+\vspace{2ex}
+
+\fbox{\begin{minipage}{.9\linewidth}
+{\AMCquestionNumberfalse
+\def\AMCbeginQuestion##1##2{}
+\begin{questionmult}{a:Choice}\QuestionIndicative
+
+You have to answer to one of the two sections (geography or  history), not both. 
+
+Mark your choice below
+
+\begin{choiceshoriz}[o]\scoring{formula=0}
+  \correctchoice{geography: \cref{\AMCstudentlabel{g:Ghana},\AMCstudentlabel{g:Thailand},%
+  \AMCstudentlabel{g:Egypt},\AMCstudentlabel{g:Ireland}}}
+  \scoring{setglobal.History=0,setglobal.Geography=1}
+  %
+    \correctchoice{history: \cref{\AMCstudentlabel{h:1901},\AMCstudentlabel{h:1850},\AMCstudentlabel{h:1971}}}
+    \scoring{setglobal.History=1,setglobal.Geography=0}
+ \end{choiceshoriz}
+\end{questionmult}
+}
+\end{minipage}}
+
+\vspace{3ex}
+
+\insertgroup{geography}
+
+\insertgroup{history}
+
+}
+\end{document}

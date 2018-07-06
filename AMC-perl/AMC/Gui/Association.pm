@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 #
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -30,7 +30,7 @@ use AMC::Gui::WindowSize;
 use Getopt::Long;
 
 use POSIX;
-use Gtk2 -init;
+use Gtk3 -init;
 
 use constant {
     COPIES_N => 0,
@@ -47,9 +47,9 @@ use constant {
 
 use_gettext;
 
-my $col_pris = Gtk2::Gdk::Color->new(65353,208*256,169*256);
-my $col_actif = Gtk2::Gdk::Color->new(20*256,147*256,58*256);
-my $col_actif_fond = Gtk2::Gdk::Color->new(95*256,213*256,129*256);
+my $col_pris = Gtk3::Gdk::RGBA::parse("#FFD0A9");
+my $col_actif = Gtk3::Gdk::RGBA::parse("#14933A");
+my $col_actif_fond = Gtk3::Gdk::RGBA::parse("#5FD581");
 
 sub new {
     my %o=(@_);
@@ -116,15 +116,14 @@ sub new {
     $self->{'capture'}->end_transaction('AIMG');
 
     for my $p (@$nfs) {
-      my $file='';
-      if($p->{'image'}) {
-	$file=$self->{'namefield_dir'}."/".$p->{'image'};
+      my $file=$p->{image};
+      $file='' if(!defined($file));
+      if($file && $file !~ /^text:/) {
+        $file=$self->{'namefield_dir'}."/".$file;
+        utf8::downgrade($file);
+        $file='' if(!-r $file);
       }
-      if(-r $file) {
-	push @images,{'file'=>$file,%$p};
-      } else {
-	push @images,{'file'=>'',%$p};
-      }
+      push @images,{'file'=>$file,%$p};
     }
 
     my $iimage=-1;
@@ -140,7 +139,7 @@ sub new {
     my $glade_xml=__FILE__;
     $glade_xml =~ s/\.p[ml]$/.glade/i;
 
-    $self->{'gui'}=Gtk2::Builder->new();
+    $self->{'gui'}=Gtk3::Builder->new();
     $self->{'gui'}->set_translation_domain('auto-multiple-choice');
     $self->{'gui'}->add_from_file($glade_xml);
 
@@ -150,11 +149,11 @@ sub new {
 
     $self->{'button_show_all'}->set_active($self->{'show_all'});
 
-    $self->{'cursor_watch'}=Gtk2::Gdk::Cursor->new('GDK_WATCH');
+    $self->{'cursor_watch'}=Gtk3::Gdk::Cursor->new('GDK_WATCH');
 
     AMC::Gui::PageArea::add_feuille($self->{'photo'});
 
-    $self->{'names_model'}=Gtk2::ListStore->new ('Glib::String',
+    $self->{'names_model'}=Gtk3::ListStore->new ('Glib::String',
 						 'Glib::String',
 						 );
 
@@ -170,16 +169,16 @@ sub new {
 
     my ($x,$y)=(0,0);
     for my $i (0..($self->{'liste'}->taille()-1)) {
-	my $eb=Gtk2::EventBox->new();
-	my $b=Gtk2::Button->new();
+	my $eb=Gtk3::EventBox->new();
+	my $b=Gtk3::Button->new();
 	my $name=$self->{'liste'}->data_n($i,'_ID_');
-	my $l=Gtk2::Label->new($name);
+	my $l=Gtk3::Label->new($name);
 	$self->{'names_model'}->insert_with_values($i,
 						   NAMES_NAME,$name,
 						   NAMES_I,$i);
 	$b->add($l);
 	$b->set_tooltip_text($name);
-	$l->set_size_request(10,-1);
+	$l->set_ellipsize("middle");
 	if($self->{'rtl'}
 	   && $self->{'general'}->get_direction() eq 'rtl') {
 	  $l->set_alignment(0,.5);
@@ -200,7 +199,7 @@ sub new {
     # vue arborescente
 
     my ($copies_store,$renderer,$column);
-    $copies_store = Gtk2::ListStore->new ('Glib::String',
+    $copies_store = Gtk3::ListStore->new ('Glib::String',
 					  'Glib::String',
 					  'Glib::String',
 					  'Glib::String',
@@ -211,8 +210,8 @@ sub new {
 
     $self->{'copies_tree'}->set_model($copies_store);
 
-    $renderer=Gtk2::CellRendererText->new;
-    $column = Gtk2::TreeViewColumn->new_with_attributes ("copie",
+    $renderer=Gtk3::CellRendererText->new;
+    $column = Gtk3::TreeViewColumn->new_with_attributes ("copie",
 							 $renderer,
 							 text=> COPIES_N,
 							 'background'=> COPIES_BG);
@@ -220,16 +219,16 @@ sub new {
 
     $self->{'copies_tree'}->append_column ($column);
 
-    $renderer=Gtk2::CellRendererText->new;
-    $column = Gtk2::TreeViewColumn->new_with_attributes ("auto",
+    $renderer=Gtk3::CellRendererText->new;
+    $column = Gtk3::TreeViewColumn->new_with_attributes ("auto",
 							 $renderer,
 							 text=> COPIES_AUTO,
 							 'background'=> COPIES_BG);
     $column->set_sort_column_id(COPIES_AUTO);
     $self->{'copies_tree'}->append_column ($column);
 
-    $renderer=Gtk2::CellRendererText->new;
-    $column = Gtk2::TreeViewColumn->new_with_attributes ("manuel",
+    $renderer=Gtk3::CellRendererText->new;
+    $column = Gtk3::TreeViewColumn->new_with_attributes ("manuel",
 							 $renderer,
 							 text=> COPIES_MANUEL,
 							 'background'=> COPIES_BG);
@@ -264,7 +263,7 @@ sub new {
 
     # auto-completion
 
-    $self->{'completion'}=Gtk2::EntryCompletion->new();
+    $self->{'completion'}=Gtk3::EntryCompletion->new();
     $self->{'completion'}->set_model($self->{'names_model'});
     $self->{'completion'}->set_text_column(NAMES_NAME);
     $self->{'completion'}->set_minimum_key_length(2);
@@ -276,7 +275,6 @@ sub new {
 
     $self->{'images'}=\@images;
 
-    $self->{'photo'}->signal_connect('expose_event'=>\&AMC::Gui::PageArea::expose_drawing);
     $self->{'gui'}->connect_signals(undef,$self);
 
     $self->{'iimage'}=-1;
@@ -331,16 +329,19 @@ sub get_show_all {
 # {X:X}
 sub set_n_cols {
   my ($self)=@_;
-  my $nligs=POSIX::ceil($self->{'liste'}->taille()/$self->{'assoc-ncols'});
 
-  $self->{'general'}->window()->set_cursor($self->{'cursor_watch'});
-  Gtk2->main_iteration while ( Gtk2->events_pending );
+  $self->{'general'}->get_window()->set_cursor($self->{'cursor_watch'});
 
-  $self->{'tableau'}->hide();
+  $self->{'tableau'}->set_sensitive(0);
+
+  # wait for GUI update before going on with the table
+  Glib::Idle->add(\&set_n_cols_fill,$self,Glib::G_PRIORITY_LOW);
+}
+
+sub set_n_cols_fill {
+  my ($self)=@_;
 
   $self->{'tableau'}->foreach(sub { $self->{'tableau'}->remove(shift); });
-
-  $self->{'tableau'}->resize($self->{'assoc-ncols'},$nligs);
 
   my $x=0;
   my $y=0;
@@ -348,7 +349,7 @@ sub set_n_cols {
  NAME: for my $b (@{$self->{'boutons_eb'}}) {
     $i++;
     next NAME if(!$self->{'show_all'} && $self->{'taken_list'}->[$i]);
-    $self->{'tableau'}->attach($b,$x,$x+1,$y,$y+1,["expand","fill"],[],1,1);
+    $self->{'tableau'}->attach($b,$x,$y,1,1);
     $x++;
     if($x>=$self->{'assoc-ncols'}) {
       $y++;
@@ -358,9 +359,11 @@ sub set_n_cols {
   $self->{'scrolled_tableau'}->set_policy('never','automatic');
 
   $self->{'tableau'}->show_all();
+  $self->{'tableau'}->set_sensitive(1);
 
-  Gtk2->main_iteration while ( Gtk2->events_pending );
-  $self->{'general'}->window()->set_cursor(undef);
+  $self->{'general'}->get_window()->set_cursor(undef);
+
+  return(0);
 }
 
 # Add a column to the names table
@@ -407,7 +410,7 @@ sub initial_size {
   my ($self)=@_;
   if($self->{'size_prefs'}) {
     AMC::Gui::WindowSize::size_monitor
-	($self->{'general'},{env=>$self->{'size_prefs'},
+	($self->{'general'},{config=>$self->{'size_prefs'},
 			     key=>'assoc_window_size'});
   }
 }
@@ -461,14 +464,15 @@ sub maj_couleurs_liste { # mise a jour des couleurs la liste
   my ($self)=@_;
   my $counts=$self->{'assoc'}->counts_hash();
   my $iter=$self->{'copies_store'}->get_iter_first();
-  while(defined($iter)) {
+  my $ok=defined($iter);
+  while($ok) {
     my @sc=$self->{'copies_store'}->get($iter,COPIES_STUDENT,COPIES_COPY);
     $self->{'copies_store'}
       ->set($iter,
             COPIES_BG,
             $counts->{studentids_string(@sc)}->{color},
            );
-    $iter=$self->{'copies_store'}->iter_next($iter);
+    $ok=$self->{'copies_store'}->iter_next($iter);
   }
 }
 
@@ -477,7 +481,7 @@ sub quitter {
     my ($self)=(@_);
 
     if($self->{'global'}) {
-	Gtk2->main_quit;
+	Gtk3->main_quit;
     } else {
       $self->{'general'}->destroy;
       &{$self->{'fin'}}($self);
@@ -648,7 +652,7 @@ sub goto_image {
     if($i>=0) {
 	my $iter=model_id_to_iter($self->{'copies_store'},COPIES_IIMAGE,$i);
 	my $path=$self->{'copies_store'}->get_path($iter);
-	$self->{'copies_tree'}->set_cursor($path);
+	$self->{'copies_tree'}->set_cursor($path,undef,FALSE);
     } else {
 	my $sel=$self->{'copies_tree'}->get_selection;
 	$sel->unselect_all();
@@ -693,8 +697,7 @@ sub image_sc_string {
 sub image_filename {
   my ($self,$i)=@_;
   return(undef) if ($i<0 || $i>$#{$self->{'images'}});
-  my $f=$self->{'images'}->[$i]->{'file'};
-  return(-r $f ? $f : '');
+  return( $self->{'images'}->[$i]->{'file'} );
 }
 
 # Shows name field image corresponding to sheet at line $i in the
@@ -708,17 +711,21 @@ sub charge_image {
 
     if(defined($file)) {
       if($file) {
-	$self->{'photo'}->set_image($file);
+	if($file =~ /^text:(.*)/) {
+          $self->{'photo'}->set_content(text=>$1);
+        } else {
+          $self->{'photo'}->set_content(image=>$file);
+        }
       } else {
 	my $text=pageids_string(map { $self->{'images'}->[$i]->{$_} } (qw/student page copy/));
-	$self->{'photo'}->set_image("text:$text");
+	$self->{'photo'}->set_content(text=>$text);
       }
       $self->{'image_sc'}
 	= [$self->image_sc($i)];
       $self->vraie_copie(1);
     } else {
 	$i=-1;
-	$self->{'photo'}->set_image('');
+	$self->{'photo'}->set_image(background_color=>'#6CB9ED',text=>__"End");
 	$self->vraie_copie(0);
     }
     $self->{'iimage'}=$i;
@@ -752,7 +759,7 @@ sub image_suivante {
 
     $self->{'assoc'}->begin_read_transaction('ALIS');
     while($i != $self->{'iimage'}
-	  && ($self->{'assoc'}->get_real($self->image_sc($i)) ne ''
+	  && ($self->{'assoc'}->with_association($self->image_sc($i))
 	      && ! $self->{'associes_cb'}->get_active()) ) {
 	$i=$self->i_suivant($i,$pas);
 	if($pas==1) {
@@ -817,18 +824,18 @@ sub style_bouton {
     if($b) {
 	if($pris) {
 	    $b->set_relief(GTK_RELIEF_NONE);
-	    $b->modify_bg('prelight',($actif ? $col_actif : $col_pris));
-	    $b->child->set_text($self->{'liste'}->data_n($i,'_ID_')." ($pris)");
+	    $b->override_background_color('prelight',($actif ? $col_actif : $col_pris));
+	    $b->get_child()->set_text($self->{'liste'}->data_n($i,'_ID_')." ($pris)");
 	} else {
 	    $b->set_relief(GTK_RELIEF_NORMAL);
-	    $b->modify_bg('prelight',undef);
-	    $b->child->set_text($self->{'liste'}->data_n($i,'_ID_'));
+	    $b->override_background_color('prelight',undef);
+	    $b->get_child()->set_text($self->{'liste'}->data_n($i,'_ID_'));
 	}
 	if($eb) {
 	    my $col=undef;
 	    $col=$col_actif_fond if($actif);
 	    for(qw/normal active selected/) {
-		$eb->modify_bg($_,$col);
+		$eb->override_background_color($_,$col);
 	    }
 	} else {
 	    debug_and_stderr "*** no EventBox for $i ***\n";
