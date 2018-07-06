@@ -1,6 +1,6 @@
 # -*- perl -*-
 #
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -31,8 +31,8 @@ use XML::Simple;
 use POSIX qw/strftime/;
 use Encode;
 use Module::Load;
-use Module::Load::Conditional qw/check_install/;
-use Glib;
+use Module::Load::Conditional qw/check_install can_load/;
+use Glib qw/TRUE FALSE/;
 
 use constant {
     COMBO_ID => 1,
@@ -44,7 +44,7 @@ BEGIN {
     our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
     @ISA         = qw(Exporter);
-    @EXPORT      = qw( &perl_module_search &amc_specdir &get_sty &file2id &id2idf &get_ep &get_epo &get_epc &get_qr &file_triable &sort_from_columns &sort_string &sort_num &attention &model_id_to_iter &commande_accessible &magick_module &magick_perl_module &debug &debug_and_stderr &debug_pm_version &set_debug &get_debug &debug_file &use_gettext &clear_old &new_filename &pack_args &unpack_args &__ &__p &translate_column_title &translate_id_name &pageids_string &studentids_string &studentids_string_filename &format_date &cb_model &COMBO_ID &COMBO_TEXT &check_fonts &amc_user_confdir &use_amc_plugins &find_latex_file &file_mimetype &file_content &amc_component &annotate_source_change &join_nonempty);
+    @EXPORT      = qw( &perl_module_search &amc_specdir &get_sty &file2id &id2idf &get_ep &get_epo &get_epc &get_qr &file_triable &sort_from_columns &sort_string &sort_num &attention &model_id_to_iter &commande_accessible &magick_module &use_gm_command &magick_perl_module &debug &debug_raw &debug_and_stderr &debug_pm_version &set_debug &get_debug &debug_file &use_gettext &clear_old &new_filename &pack_args &unpack_args &__ &__p &translate_column_title &translate_id_name &pageids_string &studentids_string &studentids_string_filename &format_date &cb_model &get_active_id &COMBO_ID &COMBO_TEXT &check_fonts &amc_user_confdir &use_amc_plugins &find_latex_file &file_mimetype &file_content &amc_component &annotate_source_change &join_nonempty &string_to_usascii &string_to_filename &show_utf8 &path_to_filename &free_disk_mo);
     %EXPORT_TAGS = ( );     # eg: TAG => [ qw!name1 name2! ],
 
     # your exported package globals go here,
@@ -91,6 +91,7 @@ sub amc_adapt_path {
     'icons'=>"@/ICONSDIR/@",
     'models'=>"@/MODELSDIR/@",
     'doc/auto-multiple-choice'=>"@/DOCDIR/@",
+    'locale' => "@/LOCALEDIR/@",
     );
 
 sub amc_specdir {
@@ -148,6 +149,10 @@ sub magick_module {
     } else {
 	return($m);
     }
+}
+
+sub use_gm_command {
+  return($gm_ok);
 }
 
 my $magick_pmodule='';
@@ -353,45 +358,50 @@ my $amc_debug='';
 my $amc_debug_fh='';
 my $amc_debug_filename='';
 
-sub set_debug_file {
-    if(!$amc_debug_fh) {
-	$amc_debug_fh = new File::Temp(TEMPLATE =>'AMC-DEBUG-XXXXXXXX',
-				       SUFFIX => '.log',
-				       UNLINK=>0,
-				       DIR=>File::Spec->tmpdir);
-	$amc_debug_filename=$amc_debug_fh->filename;
-	$amc_debug_fh->autoflush(1);
-	open(STDERR,">&",$amc_debug_fh);
+sub debug_general_info {
+  print $amc_debug_fh "This is AutoMultipleChoice, version @/PACKAGE_V_DEB/@ (@/PACKAGE_V_VC/@)\n";
+  print $amc_debug_fh "Perl: $^X $^V\n";
 
- 	# versions diverses...
+  print $amc_debug_fh "\n".("=" x 40)."\n\n";
+  if(commande_accessible('convert')) {
+    open(VERS,"-|",'convert','-version');
+    while(<VERS>) { chomp; print $amc_debug_fh "$_\n"; }
+    close(VERS);
+  } else {
+    print $amc_debug_fh "ImageMagick: not found\n";
+  }
 
-	print $amc_debug_fh "This is AutoMultipleChoice, version @/PACKAGE_V_DEB/@ (@/PACKAGE_V_VC/@)\n";
-	print $amc_debug_fh "Perl: $^X $^V\n";
+  print $amc_debug_fh ("=" x 40)."\n\n";
+  if(commande_accessible('gm')) {
+    open(VERS,"-|",'gm','-version');
+    while(<VERS>) { chomp; print $amc_debug_fh "$_\n"; }
+    close(VERS);
+  } else {
+    print $amc_debug_fh "GraphicsMagick: not found\n";
+  }
+  print $amc_debug_fh ("=" x 40)."\n\n";
 
- 	print $amc_debug_fh "\n".("=" x 40)."\n\n";
- 	if(commande_accessible('convert')) {
- 	    open(VERS,"-|",'convert','-version');
- 	    while(<VERS>) { chomp; print $amc_debug_fh "$_\n"; }
- 	    close(VERS);
- 	} else {
- 	    print $amc_debug_fh "ImageMagick: not found\n";
- 	}
-
- 	print $amc_debug_fh ("=" x 40)."\n\n";
- 	if(commande_accessible('gm')) {
- 	    open(VERS,"-|",'gm','-version');
- 	    while(<VERS>) { chomp; print $amc_debug_fh "$_\n"; }
- 	    close(VERS);
- 	} else {
- 	    print $amc_debug_fh "GraphicsMagick: not found\n";
- 	}
- 	print $amc_debug_fh ("=" x 40)."\n\n";
-
-    }
 }
 
 sub debug_file {
     return($amc_debug ? $amc_debug_filename : '');
+  }
+
+sub debug_raw {
+  my @s=@_;
+  return if(!$amc_debug);
+  for my $l (@s) {
+    $l=$l."\n" if($l !~ /\n$/);
+    if($amc_debug_filename eq 'stderr' || $amc_debug_filename eq 'stdout') {
+      print $amc_debug_fh $l;
+    } else {
+      flock($amc_debug_fh, LOCK_EX);
+      $amc_debug_fh->sync;
+      seek($amc_debug_fh, 0, SEEK_END);
+      print $amc_debug_fh $l;
+      flock($amc_debug_fh, LOCK_UN);
+    }
+  }
 }
 
 sub debug {
@@ -399,26 +409,18 @@ sub debug {
     return if(!$amc_debug);
     for my $l (@s) {
 	my @t = times();
-	$l=sprintf("[%7d,%7.02f] ",$$,$t[0]+$t[1]+$t[2]+$t[3]).$l;
-	$l=$l."\n" if($l !~ /\n$/);
-	if($amc_debug_fh) {
-	    flock($amc_debug_fh, LOCK_EX);
-	    $amc_debug_fh->sync;
-	    seek($amc_debug_fh, 0, SEEK_END);
-	    print $amc_debug_fh $l;
-	    flock($amc_debug_fh, LOCK_UN);
-	} else {
-	    print $l;
-	}
+	debug_raw(sprintf("[%7d,%7.02f] ",$$,$t[0]+$t[1]+$t[2]+$t[3]).$l);
     }
 }
 
 sub debug_and_stderr {
-    my @s=@_;
-    debug(@s);
+  my @s=@_;
+  debug(@s);
+  if(!($amc_debug && $amc_debug_filename eq 'stderr')) {
     for(@s) {
-	print STDERR "$_\n";
+      print STDERR "$_\n";
     }
+  }
 }
 
 sub debug_pm_version {
@@ -438,27 +440,52 @@ sub next_debug {
 local *AMC_STDERR_BACKUP;
 
 sub set_debug {
-    my ($debug)=@_;
-    if($debug =~ /[\/.]/ && -f $debug) {
-	# c'est un nom de fichier
-	$amc_debug_fh=new IO::File;
-	$amc_debug_fh->open($debug,">>");
-	$amc_debug_fh->autoflush(1);
-	$amc_debug_filename=$debug;
-	$debug=1;
-	*AMC_STDERR_BACKUP=*STDERR;
-	*STDERR=$amc_debug_fh;
-	$amc_debug=1;
-	debug("[".$$."]>>");
+  my ($debug)=@_;
+  if($debug) {
+    my $empty=0;
+    *AMC_STDERR_BACKUP=*STDERR;
+    if($debug =~ /^(1|yes)$/i) {
+      # Continue with already used file
+      $debug=$amc_debug_filename || 'new';
     }
-    if($debug eq '') {
-      *STDERR=*AMC_STDERR_BACKUP;
+    if($debug eq 'stderr') {
+      $amc_debug_fh=*STDERR;
+      $amc_debug_filename='stderr';
+    } elsif($debug eq 'stdout') {
+      $amc_debug_fh=*STDOUT;
+      $amc_debug_filename='stdout';
+    } else {
+      # Use a file for debug log
+      if($debug =~ /^(new)$/i) {
+        # Create new file
+        $empty=1;
+        $amc_debug_fh = new File::Temp(TEMPLATE =>'AMC-DEBUG-XXXXXXXX',
+                                       SUFFIX => '.log',
+                                       UNLINK=>0,
+                                       DIR=>File::Spec->tmpdir);
+        $amc_debug_filename=$amc_debug_fh->filename;
+      } else {
+        # Use file given as argument
+        $empty = (!-s $debug);
+        $amc_debug_fh=new IO::File;
+        $amc_debug_filename=$debug;
+        $amc_debug_fh->open($debug,">>");
+      }
+      $amc_debug_fh->autoflush(1);
     }
-    $amc_debug=$debug;
-    set_debug_file() if($amc_debug && !$amc_debug_fh);
+    binmode $amc_debug_fh;
+    *STDERR=$amc_debug_fh;
+    $amc_debug=1;
+    debug("[".$$."]>>");
+    debug_general_info() if($empty);
 
     debug(@debug_memory);
     @debug_memory=();
+  } else {
+    # Leave debugging mode…
+    *STDERR=*AMC_STDERR_BACKUP if($amc_debug);
+    $amc_debug=0;
+  }
 }
 
 sub get_debug {
@@ -485,26 +512,29 @@ sub clear_old {
 }
 
 sub new_filename_compose {
-    my ($prefix,$suffix,$n)=@_;
-    my $file;
-    do {
-	$n++;
-	$file=$prefix."_".sprintf("%04d",$n).$suffix;
-    } while(-e $file);
-    return($file);
+  my ($prefix,$suffix,$n)=@_;
+  $suffix='' if(!$suffix);
+  my $file;
+  do {
+    $n++;
+    $file=$prefix."_".sprintf("%04d",$n).$suffix;
+    utf8::downgrade($file);
+  } while(-e $file);
+  return($file);
 }
 
 sub new_filename {
-    my ($file)=@_;
-    if(! -e $file) {
-	return($file);
-    } elsif($file =~ /^(.*?)_([0-9]+)(\.[a-z0-9]+)?$/i) {
-	return(new_filename_compose($1,$3,$2));
-    } elsif($file =~ /^(.*?)(\.[a-z0-9]+)?$/i) {
-	return(new_filename_compose($1,$2,0));
-    } else {
-	return(new_filename_compose($file,'',0));
-    }
+  my ($file)=@_;
+  utf8::downgrade($file);
+  if(! -e $file) {
+    return($file);
+  } elsif($file =~ /^(.*?)_([0-9]+)(\.[a-z0-9]+)?$/i) {
+    return(new_filename_compose($1,$3,$2));
+  } elsif($file =~ /^(.*?)(\.[a-z0-9]+)?$/i) {
+    return(new_filename_compose($1,$2,0));
+  } else {
+    return(new_filename_compose($file,'',0));
+  }
 }
 
 sub pack_args {
@@ -549,7 +579,7 @@ sub use_gettext {
     if(! -f ($localisation->dir()."/fr/LC_MESSAGES/auto-multiple-choice.mo")) {
 	$localisation->dir(amc_adapt_path(
 			       'locals'=>['locale'],
-			       'alt'=>[$localisation->dir()],
+			       'alt'=>[amc_specdir('locale'), $localisation->dir()],
 			   ));
     }
 
@@ -589,7 +619,7 @@ sub translate_id_name {
 
 sub format_date {
   my ($time)=@_;
-  return(decode('UTF-8',strftime("%x %X",localtime($time))));
+  return(strftime("%x %X",localtime($time)));
 }
 
 sub pageids_string {
@@ -632,7 +662,7 @@ sub __p($) {
 
 sub cb_model {
     my @texte=(@_);
-    my $cs=Gtk2::ListStore->new ('Glib::String','Glib::String');
+    my $cs=Gtk3::ListStore->new ('Glib::String','Glib::String');
     my $k;
     my $t;
     while(($k,$t)=splice(@texte,0,2)) {
@@ -641,6 +671,16 @@ sub cb_model {
 		 COMBO_TEXT,$t);
     }
     return($cs);
+}
+
+sub get_active_id {
+  my ($combo_widget)=@_;
+  my ($ok,$iter)=$combo_widget->get_active_iter;
+  if($ok) {
+    return($combo_widget->get_model->get($iter,COMBO_ID));
+  } else {
+    return('');
+  }
 }
 
 sub check_fonts {
@@ -671,7 +711,9 @@ sub check_fonts {
 }
 
 sub amc_user_confdir {
-  return(Glib::get_home_dir().'/.AMC.d');
+  my $d=Glib::get_home_dir().'/.AMC.d';
+  utf8::downgrade($d);
+  return($d);
 }
 
 sub use_amc_plugins {
@@ -722,6 +764,43 @@ sub file_content {
   return($c);
 }
 
+sub string_to_usascii {
+  my ($s)=@_;
+  utf8::decode($s);
+  if(check_install(module=>"Text::Unidecode")) {
+    autoload("Text::Unidecode");
+    $s=unidecode($s);
+  } elsif(check_install(module=>"Unicode::Normalize")) {
+    autoload("Unicode::Normalize");
+    $s=NFKD($s);
+    $s =~ s/\pM//g;
+  }
+  $s =~ s/[^\x{00}-\x{7f}]/_/g;
+  return($s);
+}
+
+sub show_utf8 {
+  my ($s)=@_;
+  my $u=$s;
+  utf8::upgrade($u);
+  return($u . (utf8::is_utf8($s) ? " (utf8)" : ""));
+}
+
+sub string_to_filename {
+  my ($s,$prefix)=@_;
+  $prefix='f' if(!$prefix);
+  $s=string_to_usascii($s);
+  $s =~ s/[^a-zA-Z0-9.-]/_/g;
+  $s =~ s/^[^a-zA-Z0-9]/$prefix_/;
+  return($s);
+}
+
+sub path_to_filename {
+  my ($volume,$directories,$file) =
+    File::Spec->splitpath(@_);
+  return($file);
+}
+
 sub amc_component {
   my ($name)=@_;
   $0="auto-multiple-choice $name";
@@ -730,5 +809,16 @@ sub amc_component {
 my @call=caller();
 
 amc_component($1) if($call[0] eq 'main' && $call[1] =~ /AMC-([a-z0-9]+)\.pl$/i);
+
+sub free_disk_mo {
+  my ($path)=@_;
+  if(can_load(modules=>{"Filesys::Df"=>undef})) {
+    my $d=Filesys::Df::df($path,1024**2);
+    if(defined($d)) {
+      return(int($d->{bavail}));
+    }
+  }
+  return undef;
+}
 
 1;

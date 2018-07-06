@@ -1,0 +1,70 @@
+# AMC-TXT source file
+Title: Verbatims!
+
+Presentation: Please answer the following questions
+the best you can.
+
+*[id=Cam] What is the capital city of Cameroon?
++{3} Yaounde
+-{2} Douala
+-{1} Kribi
+
+*([columns=2] [==Coding questions==]
+
+*[id=zero] What is the return value of the following perl function ?
+[verbatim]
+sub zero { # no [* bold *] here
+  return( 12 % 6 );
+}
+[/verbatim]
+
++{4} 0
+-{1} 2
+- 12
+- 6
+
+*[id=eleven] What is the return value of the following perl function ?
+[verbatim]
+sub eleven {
+  return( int(130/11) );
+}
+[/verbatim]
+
++{4} 11
+- 10
+-{1} 12
+- 130
+
+*[next,id=twelve] And of this one?
+[verbatim]sub twelve {
+  $a=12;
+}[/verbatim]
++{4} 12
+-{1} [|undef|]
+- 0
+
+*[first,id=one] First question:
+is this perl code correct?
+[verbatim]
+sub one { /* !one.jpg! */
+  return(1);
+}
+[/verbatim]
++ no
+- yes
+
+**[last,id=way]{b=1,m=0} Last question: which one(s) do you prefer?
++ The simple way:
+[verbatim]
+sub ten { return 10; }
+[/verbatim]
+- The hexadecimal way:
+[verbatim]sub ten { return hex "0xA"; }[/verbatim]
++ [verbatim]10[/verbatim]
+
+*) [== End of coding questions==]
+
+**[id=positive] From the following numbers, which are positive?
+- -2
++ 2
++ 10

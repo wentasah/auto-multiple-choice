@@ -1,0 +1,63 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8x]{inputenc}    
+\usepackage[T1]{fontenc}
+\usepackage[box,completemulti]{automultiplechoice}    
+\begin{document}
+
+\onecopy{10}{    
+
+%%% beginning of the test sheet header:    
+
+\noindent{\bf QCM  \hfill TEST}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+\centering\large\bf Test\\ Examination on Jan., 1st, 2008\end{minipage}
+\namefield{\fbox{    
+                \begin{minipage}{.5\linewidth}
+                  Firstname and lastname:
+
+                  \vspace*{.5cm}\dotfill
+                  \vspace*{1mm}
+                \end{minipage}
+         }}
+
+\begin{center}\em
+Duration : 10 minutes.
+
+  No documents allowed. The use of electronic calculators is forbidden.
+
+
+  Questions using the sign \multiSymbole{} may have
+  zero, one or several correct answers.  Other questions have a single correct answer.
+
+  Negative points may be attributed to \emph{very
+    bad} answers.
+\end{center}
+\vspace{1ex}
+
+%%% end of the header
+
+\begin{question}{prez}    
+  What is the value of $\pi$?
+  \begin{choices}
+    \correctchoice{\directlua{tex.print(math.pi)}}
+    \wrongchoice{0}
+    \wrongchoice{3}
+    \wrongchoice{$\sqrt{10}$}
+  \end{choices}
+\end{question}
+
+\begin{questionmult}{pref}    
+  Among the following cities, which ones are French prefectures?
+  \begin{choices}
+    \correctchoice{Poitiers}
+    \wrongchoice{Sainte-Menehould}
+    \correctchoice{Avignon}
+  \end{choices}
+\end{questionmult}
+
+}   
+
+\end{document}

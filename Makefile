@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -21,9 +21,8 @@
 
 include Makefile-all.conf
 
-PACKAGE_DEB_TARGET=unstable
-PERLPATH ?= /usr/bin/perl
-
+PACKAGE_DEB_TARGET = unstable
+PACKAGE_DEB_DV ?= -1
 # DATE/TIME to be substituted
 
 DATE_RPMCHL:=$(shell LC_TIME=en date +"%a %b %e %Y")
@@ -31,7 +30,8 @@ DATE_DEBCHL:=$(shell LANG=en date "+%a, %d %b %Y %H:%M:%S %z")
 
 # list variables to be substituted in *.in files
 
-SUBST_VARS:=$(sort $(shell grep -h '=' $(SUB_MAKEFILES) | perl -pe 's/\#.*//;s/\??\+?=.*//;' ) PACKAGE_DEB_DV PACKAGE_DEB_TARGET PERLPATH DATE_DEBCHL DATE_RPMCHL)
+SUBST_VARS:=$(sort $(shell grep -h '=' $(SUB_MAKEFILES) | $(PERLPATH) -pe 's/\#.*//;s/\??\+?=.*//;' ) PACKAGE_DEB_DV PACKAGE_DEB_TARGET PERLPATH DATE_DEBCHL DATE_RPMCHL)
+SUBST_VARS_FOR_TEX = PACKAGE_V_STY PACKAGE_V_DEB
 
 # Some default values
 
@@ -43,7 +43,9 @@ CXXFLAGS ?= -O2
 # try to find right names for OpenCV libs 
 
 ifeq ($(GCC_OPENCV_LIBS),auto)
-ifeq ($(shell echo 'int main(){}' | gcc -xc -lopencv_core - && ( rm -f a.out ; echo "OK")),OK)
+ifeq ($(shell echo 'int main(){}' | gcc -xc -lopencv_imgcodecs - && ( rm -f a.out ; echo "OK")),OK)
+  GCC_OPENCV_LIBS:=-lopencv_core -lopencv_imgproc -lopencv_imgcodecs
+else ifeq ($(shell echo 'int main(){}' | gcc -xc -lopencv_core - && ( rm -f a.out ; echo "OK")),OK)
   GCC_OPENCV_LIBS:=-lopencv_core -lopencv_highgui -lopencv_imgproc
 else
   GCC_OPENCV_LIBS:=-lcv -lhighgui -lcxcore
@@ -53,6 +55,7 @@ endif
 GCC_OPENCV ?= $(shell pkg-config --cflags opencv)
 GCC_OPENCV_LIBS ?= $(shell pkg-config --libs opencv)
 GCC_PDF ?= $(shell pkg-config --cflags --libs cairo pangocairo poppler-glib)
+GCC_POPPLER ?= $(shell pkg-config --cflags --libs poppler-glib gio-2.0)
 
 #
 
@@ -67,7 +70,7 @@ print-%: FORCE
 
 # AMC components to build
 
-BINARIES ?= AMC-detect AMC-buildpdf
+BINARIES ?= AMC-detect AMC-buildpdf AMC-pdfformfields
 
 MODS=AMC-*.pl
 GLADE_FROMIN:=$(basename $(wildcard AMC-gui-*.glade.in))
@@ -125,19 +128,28 @@ AMC-detect: AMC-detect.cc Makefile
 AMC-buildpdf: AMC-buildpdf.cc buildpdf.cc Makefile
 	$(GCC_PP) -o $@ $< $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXLDFLAGS) -lstdc++ -lm $(GCC_PDF) $(GCC_OPENCV) $(GCC_OPENCV_LIBS)
 
+AMC-pdfformfields: pdfformfields.c Makefile
+	$(GCC_PP) -o $@ $< $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXLDFLAGS) -lstdc++ -lm $(GCC_POPPLER)
+
+rebuild: FORCE
+	$(MAKE) $(BINARIES) -W Makefile
+
 # substitution in *.in files
 
-vars-subs.pl: $(SUB_MAKEFILES)
+vars-subs.pl: $(SUB_MAKEFILES) authors-subs.xsl authors.xml
 	@echo "Recording substitution variables from $(SUB_MAKEFILES)"
-	@echo "# Variables:" > $@
-	@$(foreach varname,$(SUBST_VARS), echo 's|@/$(varname)/@|$($(varname))|g;' >> $@ ; )
-	@echo 's+/usr/share/xml/docbook/schema/dtd/4.5/docbookx.dtd+$(DOCBOOK_DTD)+g;' >> $@
+	$(file > $@,# Variables:)
+	$(foreach varname,$(SUBST_VARS), $(file >> $@,s|@/$(varname)/@|$($(varname))|g;) )
+	$(foreach varname,$(SUBST_VARS_FOR_TEX), $(file >> $@,s|@/$(varname)_TEX/@|$(subst ~,\\string~,$($(varname)))|g;) )
+	$(file >> $@,s+/usr/share/xml/docbook/schema/dtd/4.5/docbookx.dtd+$(DOCBOOK_DTD)+g;)
+	$(file >> $@,# From authors.xml:)
+	xsltproc --nonet authors-subs.xsl authors.xml >> $@
 
 %.xml: %.in.xml vars-subs.pl 
-	perl -p vars-subs.pl $< > $@
+	$(PERLPATH) -p vars-subs.pl $< > $@
 
 %: %.in vars-subs.pl
-	perl -p vars-subs.pl $< > $@
+	$(PERLPATH) -p vars-subs.pl $< > $@
 
 # some components
 
@@ -172,10 +184,16 @@ clean_IN: FORCE
 	rm -f local/deb-auto-changelog
 	rm -f $(FROM_IN)
 
-clean: clean_IN FORCE
-	-rm -f $(BINARIES) $(MAIN_LOGO).xpm
-	-rm -f auto-multiple-choice.spec
+# When we are inside an extracted dist tarball, 'clean' will only remove the
+# files that did not come with in the dist tarball (we keep Makefile.versions
+# and doc/ for example). Otherwise, we remove everything.
+clean: clean_IN $(if $(PRECOMP_ARCHIVE),,distclean)
+	-rm -f $(BINARIES)
 	-rm -f vars-subs.pl
+
+distclean: clean_IN clean
+	-rm -f $(MAIN_LOGO).xpm
+	-rm -f auto-multiple-choice.spec
 	$(MAKE) -C doc/sty clean
 	$(MAKE) -C doc clean
 	$(MAKE) -C I18N clean
@@ -295,6 +313,7 @@ local: global
 	sudo ln -s $(LOCALDIR)/AMC-perl/AMC /usr/share/perl5/AMC
 	sudo ln -s $(LOCALDIR)/AMC-detect /usr/lib/AMC/exec/AMC-detect
 	sudo ln -s $(LOCALDIR)/AMC-buildpdf /usr/lib/AMC/exec/AMC-buildpdf
+	sudo ln -s $(LOCALDIR)/AMC-pdfformfields /usr/lib/AMC/exec/AMC-pdfformfields
 	sudo ln -s $(LOCALDIR)/AMC-*.pl $(LOCALDIR)/AMC-*.glade /usr/lib/AMC/perl
 	sudo ln -s $(LOCALDIR)/auto-multiple-choice /usr/bin
 	sudo ln -s $(LOCALDIR)/icons $(ICONSDIR)
@@ -308,26 +327,27 @@ local: global
 ifdef DEBSIGN_KEY
 DEBSIGN=-k$(DEBSIGN_KEY)
 else
-DEBSIGN=-us -uc
+DEBSIGN=--no-sign
 endif
 
 BUILDOPTS=-I.svn -Idownload_area -Ilocal $(DEBSIGN)
 
-TMP_DIR=/tmp
+TMP_DIR=tmp
 SOURCE_DIR=auto-multiple-choice-$(PACKAGE_V_DEB)
 TMP_SOURCE_DIR=$(TMP_DIR)/$(SOURCE_DIR)
-ORIG_SOURCES=/tmp/auto-multiple-choice_$(PACKAGE_V_DEB).orig.tar.gz
+TARBALLS_DIR=tarballs
+ORIG_SOURCES=$(TMP_DIR)/auto-multiple-choice_$(PACKAGE_V_DEB).orig.tar.gz
 
-SRC_EXCL=--exclude debian '--exclude=*~' --exclude .hgignore --exclude .hgtags
+SRC_EXCL=--exclude debian '--exclude=*~' --exclude .hgignore --exclude .hgtags --exclude .gitignore
 
 version_files:
-	perl local/versions.pl
+	$(PERLPATH) local/versions.pl
 	$(MAKE) auto-multiple-choice.spec
 
 tmp_copy:
 	rm -rf $(TMP_SOURCE_DIR)
 	mkdir $(TMP_SOURCE_DIR)
-	rsync -aC --exclude '*~' --exclude download_area --exclude local . $(TMP_SOURCE_DIR)
+	rsync -aC --exclude '*~' --exclude .hg --exclude .git --exclude download_area --exclude local --exclude tmp --exclude tarballs . $(TMP_SOURCE_DIR)
 	$(MAKE) -C $(TMP_SOURCE_DIR) clean
 
 portable_vok:
@@ -335,38 +355,48 @@ portable_vok:
 	$(MAKE) tmp_copy
 	make AMCCONF=portable INSTREP=$(TMP_PORTABLE)/AMC -C $(TMP_SOURCE_DIR)
 	make AMCCONF=portable INSTREP=$(TMP_PORTABLE)/AMC -C $(TMP_SOURCE_DIR) install
-	cd $(TMP_PORTABLE) ; tar cvzf /tmp/auto-multiple-choice_$(PACKAGE_V_DEB)_portable.tar.gz $(SRC_EXCL) AMC
+	cd $(TMP_PORTABLE) ; tar cvzf auto-multiple-choice_$(PACKAGE_V_DEB)_portable.tar.gz $(SRC_EXCL) AMC
+	mv $(TMP_PORTABLE)/auto-multiple-choice_$(PACKAGE_V_DEB)_portable.tar.gz $(TARBALLS_DIR)
 	rm -rf $(TMP_PORTABLE)
 
 ssources_vok:
 	$(MAKE) tmp_copy
-	cd /tmp ; tar cvzf auto-multiple-choice_$(PACKAGE_V_DEB)_sources.tar.gz $(SRC_EXCL) $(SOURCE_DIR)
+	cd $(TMP_DIR) ; tar cvzf auto-multiple-choice_$(PACKAGE_V_DEB)_sources.tar.gz $(SRC_EXCL) $(SOURCE_DIR)
+	rm -rf $(TMP_SOURCE_DIR)
 
 sources_vok:
 	$(MAKE) tmp_copy
-	cd /tmp ; tar cvzf auto-multiple-choice_$(PACKAGE_V_DEB)_sources.tar.gz $(SRC_EXCL) $(SOURCE_DIR)
+	cd $(TMP_DIR) ; tar cvzf auto-multiple-choice_$(PACKAGE_V_DEB)_sources.tar.gz $(SRC_EXCL) $(SOURCE_DIR)
 	$(MAKE) -C $(TMP_SOURCE_DIR) MAJ
 	$(MAKE) -C $(TMP_SOURCE_DIR) $(MAIN_LOGO).xpm I18N doc
 	$(MAKE) -C $(TMP_SOURCE_DIR) clean_IN
 	$(MAKE) -C $(TMP_SOURCE_DIR) auto-multiple-choice.spec
 	touch $(TMP_SOURCE_DIR)/$(PRECOMP_FLAG_FILE)
-	cd /tmp ; tar cvzf auto-multiple-choice_$(PACKAGE_V_DEB)_precomp.tar.gz $(SRC_EXCL) $(SOURCE_DIR)
+	cd $(TMP_DIR) ; tar cvzf auto-multiple-choice_$(PACKAGE_V_DEB)_precomp.tar.gz $(SRC_EXCL) $(SOURCE_DIR)
+	mv $(TMP_DIR)/auto-multiple-choice_$(PACKAGE_V_DEB)_*.tar.gz $(TARBALLS_DIR)
+	rm -rf $(TMP_SOURCE_DIR)
 
 tmp_deb:
 	$(MAKE) local/deb-auto-changelog
 	$(MAKE) tmp_copy
+	cd $(TMP_SOURCE_DIR) ; cp -r ppa debian
 	cp local/deb-auto-changelog $(TMP_SOURCE_DIR)/debian/changelog
-	perl -pi -e 's/^DL=.*/DL=$(SRC_DOC_LANG)/' $(TMP_SOURCE_DIR)/debian/rules
+	$(PERLPATH) -pi -e 's/^DL=.*/DL=$(SRC_DOC_LANG)/' $(TMP_SOURCE_DIR)/debian/rules
 ifneq (,$(SKIP_DEP))
-	$(foreach onedep,$(SKIP_DEP),perl -pi -e 's/(,\s*$(onedep)|$(onedep),)//' $(TMP_SOURCE_DIR)/debian/control)
+	$(foreach onedep,$(SKIP_DEP),$(PERLPATH) -pi -e 's/(,\s*$(onedep)|$(onedep),)//' $(TMP_SOURCE_DIR)/debian/control)
+endif
+ifneq (,$(ADD_BUILD_DEP))
+	$(foreach onedep,$(ADD_BUILD_DEP),$(PERLPATH) -pi -e 's/(?<=Build-Depends: )/$(onedep), /' $(TMP_SOURCE_DIR)/debian/control)
 endif
 
 debsrc_vok: ssources tmp_deb
-	test -f $(ORIG_SOURCES) || cp /tmp/auto-multiple-choice_$(PACKAGE_V_DEB)_sources.tar.gz $(ORIG_SOURCES)
-	cd $(TMP_SOURCE_DIR) ; dpkg-buildpackage -S $(BUILDOPTS)
+	test -f $(ORIG_SOURCES) || cp $(TMP_DIR)/auto-multiple-choice_$(PACKAGE_V_DEB)_sources.tar.gz $(ORIG_SOURCES)
+	cd $(TMP_SOURCE_DIR) ; dpkg-buildpackage -S $(BUILDOPTS) $(MORE_BUILDOPTS)
+	rm -rf $(TMP_SOURCE_DIR)
 
 deb_vok: tmp_deb
-	cd $(TMP_SOURCE_DIR) ; dpkg-buildpackage -b $(BUILDOPTS)
+	cd $(TMP_SOURCE_DIR) ; dpkg-buildpackage -b $(BUILDOPTS) $(MORE_BUILDOPTS)
+	rm -rf $(TMP_SOURCE_DIR)
 
 # % : make sure version_files are rebuilt before calling target %_vok
 

@@ -1,0 +1,14 @@
+# AMC-TXT source
+PaperSize: A4
+Lang: FR
+Title: Mon premier questionnaire
+
+Presentation: Veuillez répondre aux questions
+ci-dessous du mieux que vous pouvez.
+
+** Ajoutez les points !
++{b=1} 1
++{b=2} 2
++{b=3} 3
++{b=4} 4
+

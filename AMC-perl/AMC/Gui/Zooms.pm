@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2012-2015 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -26,7 +26,7 @@ use AMC::Basic;
 use AMC::DataModule::capture ':zone';
 use AMC::Gui::Prefs;
 
-use Gtk2 -init;
+use Gtk3 -init;
 
 use POSIX qw(ceil);
 
@@ -37,8 +37,8 @@ use constant {
   ZOOMS_EDIT_CLICK => 1,
 };
 
-my $col_manuel = Gtk2::Gdk::Color->new(223*256,224*256,133*256);
-my $col_modif = Gtk2::Gdk::Color->new(226*256,184*256,178*256);
+my $col_manuel = Gtk3::Gdk::RGBA::parse("#DFE085");
+my $col_modif = Gtk3::Gdk::RGBA::parse("#E2B8B2");
 
 sub new {
     my %o=(@_);
@@ -68,7 +68,7 @@ sub new {
     }
 
     if($self->{global_options}) {
-      $self->{zooms_edit_mode}=$self->{global_options}->{zooms_edit_mode};
+      $self->{zooms_edit_mode}=$self->{global_options}->get('zooms_edit_mode');
     }
 
     $self->{prefs}->store_register(
@@ -101,8 +101,8 @@ sub new {
     }
 
     if($self->{'size-prefs'}) {
-	$self->{'factor'}=$self->{'size-prefs'}->{'zoom_window_factor'}
-	if($self->{'size-prefs'}->{'zoom_window_factor'});
+	$self->{'factor'}=$self->{'size-prefs'}->get('zoom_window_factor')
+	if($self->{'size-prefs'}->get('zoom_window_factor'));
     }
     $self->{'factor'}=0.1 if($self->{'factor'}<0.1);
     $self->{'factor'}=5 if($self->{'factor'}>5);
@@ -110,7 +110,7 @@ sub new {
     my $glade_xml=__FILE__;
     $glade_xml =~ s/\.p[ml]$/.glade/i;
 
-    $self->{'gui'}=Gtk2::Builder->new();
+    $self->{'gui'}=Gtk3::Builder->new();
     $self->{'gui'}->set_translation_domain('auto-multiple-choice');
     $self->{'gui'}->add_from_file($glade_xml);
 
@@ -118,22 +118,19 @@ sub new {
 	$self->{$_}=$self->{'gui'}->get_object($_);
     }
 
-    $self->{prefs}->transmet_pref($self->{'gui'},'zooms',$self);
+    $self->{prefs}->transmet_pref($self->{'gui'},
+                                  prefix=>'zooms',hash=>$self);
 
     $self->{'label_0'}->set_markup('<b>'.$self->{'label_0'}->get_text.'</b>');
     $self->{'label_1'}->set_markup('<b>'.$self->{'label_1'}->get_text.'</b>');
     $self->{'info'}->set_markup('<b>'.sprintf(__("Boxes zooms for page %s"),
 					      pageids_string(@{$self->{'page_id'}})).'</b>');
 
-    $self->{'decoupage'}->child1_resize(1);
-    $self->{'decoupage'}->child2_resize(1);
-
     for(0,1) {
-	$self->{'event_'.$_}->drag_dest_set('all', [GDK_ACTION_MOVE],
-					    {'target' => 'STRING',
-					      'flags' => [],
-					      'info' => ID_AMC_BOX },
-					    );
+      $self->{'event_'.$_}->drag_dest_set('all',
+                                          [Gtk3::TargetEntry->new('STRING',0,ID_AMC_BOX)],
+                                          [GDK_ACTION_MOVE],
+                                         );
 	$self->{'event_'.$_}->signal_connect(
 	    'drag-data-received' => \&target_drag_data_received,[$self,$_]);
     }
@@ -142,7 +139,7 @@ sub new {
 
     if($self->{'size-prefs'}) {
 	my @s=$self->{'main_window'}->get_size();
-	$s[1]=$self->{'size-prefs'}->{'zoom_window_height'};
+	$s[1]=$self->{'size-prefs'}->get('zoom_window_height');
 	$s[1]=200 if($s[1]<200);
 	$self->{'main_window'}->resize(@s);
     }
@@ -155,12 +152,9 @@ sub new {
 sub edit_mode_update {
   my ($self)=@_;
 
-  $self->{prefs}->reprend_pref('zooms',$self);
+  $self->{prefs}->reprend_pref(prefix=>'zooms',hash=>$self);
   if($self->{global_options}) {
-    if($self->{global_options}->{zooms_edit_mode} != $self->{zooms_edit_mode}) {
-      $self->{global_options}->{_modifie_ok}=1;
-      $self->{global_options}->{zooms_edit_mode}=$self->{zooms_edit_mode};
-    }
+    $self->{global_options}->set('zooms_edit_mode',$self->{zooms_edit_mode});
   }
 }
 
@@ -237,8 +231,8 @@ sub safe_pixbuf {
   if($image) {
     # first try with a PixbufLoader
 
-    my $pxl=Gtk2::Gdk::PixbufLoader->new;
-    $pxl->write($image);
+    my $pxl=Gtk3::Gdk::PixbufLoader->new;
+    $pxl->write([unpack 'C*', $image]);
     $pxl->close();
     $p=$pxl->get_pixbuf();
     return($p,1) if($p);
@@ -260,7 +254,7 @@ sub safe_pixbuf {
       my @xpm=grep { $_ ne '' }
 	map { s/^\"//;s/\",?$//;$_; }
 	  split(/\n+/,$b[0]);
-      eval { $p=Gtk2::Gdk::Pixbuf->new_from_xpm_data(@xpm); };
+      eval { $p=Gtk3::Gdk::Pixbuf->new_from_xpm_data(@xpm); };
       return($p,1) if($p);
     }
   }
@@ -270,11 +264,11 @@ sub safe_pixbuf {
   my $colormap =$g->get_colormap;
   $layout->set_font_description(Pango::FontDescription->from_string("128"));
   my ($text_x,$text_y)=$layout->get_pixel_size();
-  my $pixmap=Gtk2::Gdk::Pixmap->new(undef,$text_x,$text_y,$colormap->get_visual->depth);
+  my $pixmap=Gtk3::Gdk::Pixmap->new(undef,$text_x,$text_y,$colormap->get_visual->depth);
   $pixmap->set_colormap($colormap);
   $pixmap->draw_rectangle($g->style->bg_gc(GTK_STATE_NORMAL),TRUE,0,0,$text_x,$text_y);
   $pixmap->draw_layout($g->style->fg_gc(GTK_STATE_NORMAL),0,0,$layout);
-  $p=Gtk2::Gdk::Pixbuf->get_from_drawable($pixmap, $colormap,0,0,0,0, $text_x, $text_y);
+  $p=Gtk3::Gdk::Pixbuf->get_from_drawable($pixmap, $colormap,0,0,0,0, $text_x, $text_y);
   return($p,0);
 }
 
@@ -313,28 +307,25 @@ sub load_boxes {
 	($self->{'pb_src'}->{$id},$self->{'real_src'}->{$id})
 	  =$self->safe_pixbuf($z->{imagedata});
 
-	$self->{'image'}->{$id}=Gtk2::Image->new();
+	$self->{'image'}->{$id}=Gtk3::Image->new();
 
 	$self->{'label'}->{$id}=
-	  Gtk2::Label->new(sprintf("%.3f",
+	  Gtk3::Label->new(sprintf("%.3f",
 				   $self->{'_capture'}
 				   ->zone_darkness($z->{'zoneid'})));
 	$self->{'label'}->{$id}->set_justify(GTK_JUSTIFY_LEFT);
 
-	my $hb=Gtk2::HBox->new();
-	$self->{'eb'}->{$id}=Gtk2::EventBox->new();
+	my $hb=Gtk3::HBox->new();
+	$self->{'eb'}->{$id}=Gtk3::EventBox->new();
 	$self->{'eb'}->{$id}->add($hb);
 
 	$hb->add($self->{'image'}->{$id});
 	$hb->add($self->{'label'}->{$id});
 
 	$self->{'eb'}->{$id}->drag_source_set(GDK_BUTTON1_MASK,
-					      GDK_ACTION_MOVE,
-					      {
-					       target => 'STRING',
-					       flags => [],
-					       info => ID_AMC_BOX,
-					      });
+					      [Gtk3::TargetEntry->new('STRING',0,ID_AMC_BOX)],
+                                              [GDK_ACTION_MOVE],
+                                             );
 	$self->{'eb'}->{$id}
 	  ->signal_connect('drag-data-get' => \&source_drag_data_get,
 			   $id );
@@ -378,14 +369,14 @@ sub load_boxes {
     $self->{'main_window'}->show_all();
     $self->{'button_apply'}->hide();
 
-    Gtk2->main_iteration while ( Gtk2->events_pending );
+    Gtk3::main_iteration while ( Gtk3::events_pending );
 
     $self->ajuste_sep();
 
     my $va=$self->{'scrolled_0'}->get_vadjustment();
-    $va->clamp_page($va->upper(),$va->upper());
+    $va->clamp_page($va->get_upper(),$va->get_upper());
     $va=$self->{'scrolled_1'}->get_vadjustment();
-    $va->clamp_page($va->lower(),$va->lower());
+    $va->clamp_page($va->get_lower(),$va->get_lower());
 
     $self->buttons_availability;
 }
@@ -404,11 +395,11 @@ sub page {
     if(!$self->{'conforme'}) {
 	return() if($forget_it);
 
-	my $dialog = Gtk2::MessageDialog
-	    ->new_with_markup($self->{'main_window'},
-			      'destroy-with-parent',
-			      'warning','yes-no',
-			      __("You moved some boxes to correct automatic data query, but this work is not saved yet.")." ".__("Do you want to save these modifications before looking at another page?")
+	my $dialog = Gtk3::MessageDialog
+	    ->new($self->{'main_window'},
+                  'destroy-with-parent',
+                  'warning','yes-no',
+                  __("You moved some boxes to correct automatic data query, but this work is not saved yet.")." ".__("Do you want to save these modifications before looking at another page?")
 	    );
 	my $reponse=$dialog->run;
 	$dialog->destroy;
@@ -488,7 +479,6 @@ sub remplit {
     my @good_ids=grep { $self->{'position'}->{$_} == $cat } (@{$self->{'ids'}});
 
     my $n_ligs=ceil((@good_ids ? (1+$#good_ids)/$self->{'n_cols'} : 1));
-    $self->{'zooms_table_'.$cat}->resize($n_ligs,$self->{'n_cols'});
     $self->{'n_ligs'}->{$cat}=$n_ligs;
 
     for my $i (0..$#good_ids) {
@@ -497,18 +487,18 @@ sub remplit {
 	my $y=int($i/$self->{'n_cols'});
 
 	if($self->{'eff_pos'}->{$id} != $cat) {
-	    $self->{'eb'}->{$id}->modify_bg(GTK_STATE_NORMAL,$col_modif);
+	    $self->{'eb'}->{$id}->override_background_color(GTK_STATE_FLAG_NORMAL,$col_modif);
 	    $self->{'conforme'}=0;
 	} else {
 	    if($self->{'auto_pos'}->{$id} == $cat) {
-		$self->{'eb'}->{$id}->modify_bg(GTK_STATE_NORMAL,undef);
+		$self->{'eb'}->{$id}->override_background_color(GTK_STATE_FLAG_NORMAL,undef);
 	    } else {
-		$self->{'eb'}->{$id}->modify_bg(GTK_STATE_NORMAL,$col_manuel);
+		$self->{'eb'}->{$id}->override_background_color(GTK_STATE_FLAG_NORMAL,$col_manuel);
 	    }
 	}
 
 	$self->{'zooms_table_'.$cat}->attach($self->{'eb'}->{$id},
-					     $x,$x+1,$y,$y+1,[],[],4,3);
+					     $x,$y,1,1);
     }
 }
 
@@ -610,7 +600,7 @@ sub zoom_list_previous {
   my ($self)=@_;
   my $path_prev=$self->list_prev;
   if($path_prev) {
-    $self->{'list_view'}->set_cursor($path_prev);
+    $self->{'list_view'}->set_cursor($path_prev,undef,FALSE);
   }
 }
 
@@ -618,7 +608,7 @@ sub zoom_list_next {
   my ($self)=@_;
   my $path_next=$self->list_next;
   if($path_next) {
-    $self->{'list_view'}->set_cursor($path_next);
+    $self->{'list_view'}->set_cursor($path_next,undef,FALSE);
   }
 }
 
@@ -627,17 +617,16 @@ sub quit {
 
     if($self->{'size-prefs'}) {
 	my ($x,$y)=$self->{'main_window'}->get_size();
-	$self->{'size-prefs'}->{'zoom_window_factor'}=$self->{'factor'};
-	$self->{'size-prefs'}->{'zoom_window_height'}=$y;
-	$self->{'size-prefs'}->{'_modifie_ok'}=1;
+	$self->{'size-prefs'}->set('zoom_window_factor',$self->{'factor'});
+	$self->{'size-prefs'}->set('zoom_window_height',$y);
     }
 
     if(!$self->{'conforme'}) {
-	my $dialog = Gtk2::MessageDialog
-	    ->new_with_markup($self->{'main_window'},
-			      'destroy-with-parent',
-			      'warning','yes-no',
-			      __("You moved some boxes to correct automatic data query, but this work is not saved yet.")." ".__("Dou you really want to close and ignore these modifications?")
+	my $dialog = Gtk3::MessageDialog
+	    ->new($self->{'main_window'},
+                  'destroy-with-parent',
+                  'warning','yes-no',
+                  __("You moved some boxes to correct automatic data query, but this work is not saved yet.")." ".__("Dou you really want to close and ignore these modifications?")
 	    );
 	my $reponse=$dialog->run;
 	$dialog->destroy;
@@ -645,7 +634,7 @@ sub quit {
     }
 
     if($self->{'global'}) {
-        Gtk2->main_quit;
+        Gtk3->main_quit;
     } else {
         $self->{'main_window'}->destroy;
     }
@@ -654,7 +643,7 @@ sub quit {
 sub actif {
     my ($self)=@_;
     return($self->{'main_window'} &&
-	   $self->{'main_window'}->realized);
+	   $self->{'main_window'}->get_realized);
 }
 
 sub checked {

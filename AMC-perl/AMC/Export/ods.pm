@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2009-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2009-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -36,14 +36,13 @@ sub new {
     $self->{'out.code'}="";
     $self->{'out.columns'}='student.key,student.name';
     $self->{'out.font'}="Arial";
-    $self->{'out.size'}="10";
     $self->{'out.stats'}='';
     $self->{'out.statsindic'}='';
-    $self->{'out.groupsums'}='';
+    $self->{'out.groupsums'}=0;
     $self->{'out.groupsep'}=':';
-    if(can_load(modules=>{'Gtk2'=>undef,'Cairo'=>undef})) {
-      debug "Using Gtk2/Cairo to compute column width";
-      $self->{'calc.Gtk2'}=1;
+    if(can_load(modules=>{'Pango'=>undef,'Cairo'=>undef})) {
+      debug "Using Pango/Cairo to compute column width";
+      $self->{'calc.Cairo'}=1;
     }
     bless ($self, $class);
     return $self;
@@ -53,17 +52,19 @@ sub load {
   my ($self)=@_;
   $self->SUPER::load();
   $self->{'_capture'}=$self->{'_data'}->module('capture');
+  $self->{'_layout'}=$self->{'_data'}->module('layout');
 }
 
 # returns the column width (in cm) to use when including the given texts.
 
 sub text_width {
-  my ($self,$title,@t)=@_;
+  my ($self,$size,$title,@t)=@_;
   my $width=0;
+  my $height=0;
 
-  if($self->{'calc.Gtk2'}) {
+  if($self->{'calc.Cairo'}) {
 
-    my $font=Pango::FontDescription->from_string($self->{'out.font'}." ".(10*$self->{'out.size'}));
+    my $font=Pango::FontDescription->from_string($self->{'out.font'}." ".(10*$size));
     $font->set_stretch('normal');
 
     my $surface = Cairo::ImageSurface->create('argb32', 10,10);
@@ -73,7 +74,7 @@ sub text_width {
     $font->set_weight('bold');
     $layout->set_font_description($font);
     $layout->set_text($title);
-    ($width,undef)=$layout->get_pixel_size();
+    ($width,$height)=$layout->get_pixel_size();
 
     $font->set_weight('normal');
     $layout->set_font_description($font);
@@ -81,16 +82,18 @@ sub text_width {
       $layout->set_text($text);
       my ($text_x,$text_y)=$layout->get_pixel_size();
       $width=$text_x if($text_x>$width);
+      $height=$text_y if($text_y>$height);
     }
 
-    return( 0.002772 * $width + 0.019891 + 0.3 );
+    return( 0.002772 * $width + 0.019891 + 0.3,
+            0.002772 * $height + 0.019891);
 
   } else {
     $width=length($title);
     for my $text (@t) {
       $width=length($text) if(length($text)>$width);
     }
-    return(0.22*$width+0.3);
+    return(0.22*$width+0.3,0.5);
   }
 }
 
@@ -190,6 +193,7 @@ my %style_col=(qw/student.key CodeA
 	       student.copy NumCopie
 	       TOTAL NoteQ
 	       GS NoteGS
+	       GSp NoteGSp
 	       MAX NoteQ
 	       HEAD General
 	       /);
@@ -207,12 +211,14 @@ my %fonction_arrondi=(qw/i ROUNDDOWN
 sub set_cell {
   my ($doc,$feuille,$jj,$ii,$abs,$x,$value,%oo)=@_;
 
-  $value=encode('utf-8',$value) if($oo{'utf8'});
-  $doc->cellValueType($feuille,$jj,$ii,'float')
-    if($oo{'numeric'} && !$abs);
   $doc->cellStyle($feuille,$jj,$ii,
 		  ($abs && $style_col_abs{$x}
 		   ? $style_col_abs{$x} : ($style_col{$x} ? $style_col{$x} : $style_col{'HEAD'})));
+  $value=encode('utf-8',$value) if($oo{'utf8'});
+  $doc->cellValueType($feuille,$jj,$ii,'float')
+    if($oo{'numeric'} && !$abs);
+  $doc->cellValueType($feuille,$jj,$ii,'percentage')
+    if($oo{'pc'} && !$abs);
   if($oo{'formula'}) {
     $doc->cellFormula($feuille,$jj,$ii,$oo{'formula'});
   } else {
@@ -245,6 +251,8 @@ sub build_stats_table {
 
   my $ybase=0;
   my $x=0;
+
+  $self->{_layout}->begin_read_transaction('Xods');
 
   for my $q (@q) {
 
@@ -287,7 +295,9 @@ sub build_stats_table {
 	  $amax=$counts->{'answer'}
 	    if($counts->{'answer'}>$amax);
 	  $ya=4+$counts->{'answer'};
-	  $name=chr(ord("A")+$counts->{'answer'}-1);
+          $name=$self->{_layout}->char($q->{question},$counts->{answer});
+	  $name=chr(ord("A")+$counts->{'answer'}-1)
+            if(!defined($name) || $name eq '');
 	} else {
 	  $amax++;
 	  $ya=4+$amax;
@@ -352,6 +362,8 @@ sub build_stats_table {
     }
 
   }
+
+  $self->{_layout}->end_transaction('Xods');
 
 }
 
@@ -612,15 +624,28 @@ sub export {
 				  },
 		     );
 
-    # NoteQ : note pour une question
-    $styles->createStyle('NoteQ',
+    # NoteQbase
+    $styles->createStyle('NoteQbase',
 			 parent=>'Tableau',
 			 family=>'table-cell',
 			 properties=>{
 			     -area => 'paragraph',
 			     'fo:text-align' => "center",
 			 },
+			 );
+
+    # NoteQ : note pour une question
+    $styles->createStyle('NoteQ',
+			 parent=>'NoteQbase',
+			 family=>'table-cell',
 			 'references'=>{'style:data-style-name' => 'DeuxDecimales'},
+			 );
+
+    # NoteQp : note pour une question, en pourcentage
+    $styles->createStyle('NoteQ',
+			 parent=>'NoteQbase',
+			 family=>'table-cell',
+			 'references'=>{'style:data-style-name' => 'Percentage'},
 			 );
 
     # NoteV : note car pas de reponse
@@ -632,7 +657,7 @@ sub export {
 			     'fo:background-color'=>"#ffff99",
 			 },
 			 'references'=>{'style:data-style-name' => 'NombreVide'},
-			 );
+ 			 );
 
     # NoteC : question annulee (par un allowempty)
     $styles->createStyle('NoteC',
@@ -658,13 +683,33 @@ sub export {
 
     # NoteGS : score total pour un groupe
     $styles->createStyle('NoteGS',
-			 parent=>'NoteQ',
+			 parent=>'NoteQbase',
 			 family=>'table-cell',
 			 properties=>{
 			     -area => 'table-cell',
 			     'fo:background-color'=>"#c4eeba",
-			 },
-			 'references'=>{'style:data-style-name' => 'DeuxDecimales'},
+                                     },
+                         'references'=>{'style:data-style-name' => 'DeuxDecimales'},
+			 );
+
+    # NoteGSp : pourcentage global pour un groupe
+    $styles->createStyle('NoteGSp',
+			 parent=>'NoteQbase',
+			 family=>'table-cell',
+			 properties=>{
+			     -area => 'table-cell',
+			     'fo:background-color'=>"#c4eeba",
+                                     },
+                         'references'=>{'style:data-style-name' => 'Percentage'},
+			 );
+    # NoteGSx : pourcentage maximal = 100%
+    $styles->createStyle('NoteGSx',
+			 parent=>'NoteGSp',
+			 family=>'table-cell',
+			 properties=>{
+                                      -area=>'text',
+				      'fo:font-size'=>"6pt",
+                                     },
 			 );
 
     # NoteX : pas de note car la question ne figure pas dans cette copie la
@@ -858,6 +903,20 @@ sub export {
 
     my $jj=$y0;
 
+    my @titles=();
+
+    sub get_title {
+      my ($o)=@_;
+      my $t;
+      if(ref($o) eq 'HASH') {
+        $t=encode('utf-8',$o->{'title'});
+      } else {
+        $t=encode('utf-8',$o);
+      }
+      push @titles,$t;
+      return $t;
+    }
+
     ##########################################################################
     # first row: titles
     ##########################################################################
@@ -886,16 +945,16 @@ sub export {
 	$doc->columnStyle($feuille,$ii,'col.notes');
 	$doc->cellStyle($feuille,$y0,$ii,
 			($_->{group_sum} ? 'EnteteGS' : 'EnteteVertical'));
-	$doc->cellValue($feuille,$y0,$ii++,encode('utf-8',$_->{'title'}));
+	$doc->cellValue($feuille,$y0,$ii++,get_title($_));
     }
     for(@questions_1) {
 	$doc->columnStyle($feuille,$ii,'col.notes');
 	$doc->cellStyle($feuille,$y0,$ii,'EnteteIndic');
-	$doc->cellValue($feuille,$y0,$ii++,encode('utf-8',$_->{'title'}));
+	$doc->cellValue($feuille,$y0,$ii++,get_title($_));
     }
     for(@codes) {
 	$doc->cellStyle($feuille,$y0,$ii,'EnteteIndic');
-	$doc->cellValue($feuille,$y0,$ii++,encode('utf-8',$_));
+	$doc->cellValue($feuille,$y0,$ii++,get_title($_));
     }
 
     ##########################################################################
@@ -1046,6 +1105,7 @@ sub export {
 	    $doc->cellStyle($feuille,$jj,$ii,'NoteX');
 	  } else {
 	    if(defined($q->{group_sum})) {
+              # this is a group total column...
 	      if(@group_columns) {
 		if(defined($group_single{$q->{group_sum}})) {
 		  $group_single{$q->{group_sum}}->{ok}=0
@@ -1054,9 +1114,17 @@ sub export {
 		  $group_single{$q->{group_sum}}=
 		    {ii=>$ii,maxsum=>$group_maxsum,ok=>1};
 		}
-		set_cell($doc,$feuille,$jj,$ii,$m->{'abs'},
-			 'GS','','numeric'=>1,
-			 'formula'=>"oooc:=SUM(".subrow_condensed($jj,@group_columns).")");
+                if($self->{'out.groupsums'}==2) {
+                  # as a percentage
+                  set_cell($doc,$feuille,$jj,$ii,$m->{'abs'},
+                           'GSp','',pc=>1,
+                           'formula'=>"oooc:=SUM(".subrow_condensed($jj,@group_columns).")/".$group_maxsum);
+                } else {
+                  # value
+                  set_cell($doc,$feuille,$jj,$ii,$m->{'abs'},
+                           'GS','',numeric=>1,
+                           'formula'=>"oooc:=SUM(".subrow_condensed($jj,@group_columns).")");
+                }
 		push @{$col_cells{$ii}},$jj;
 	      } else {
 		$doc->cellStyle($feuille,$jj,$ii,'NoteX');
@@ -1145,7 +1213,14 @@ sub export {
     for my $g (keys %group_single) {
       my $j0=$code_row{'max'};
       my $i0=$group_single{$g}->{ii};
-      if($group_single{$g}->{ok}) {
+      if($self->{'out.groupsums'}==2) {
+        # for each student, percentages are reported, so that maximal
+        # value is 100%
+	$doc->cellStyle($feuille,$j0,$i0,'NoteGSx');
+        $doc->cellValueType($feuille,$j0,$i0,'percentage');
+	$doc->cellValue($feuille,$j0,$i0,1);
+	$doc->cellStyle($feuille,$code_row{'average'},$i0,'QpcGS');
+      } elsif($group_single{$g}->{ok}) {
 	$doc->cellStyle($feuille,$j0,$i0,'NoteGS');
 	$doc->cellValueType($feuille,$j0,$i0,'float');
 	$doc->cellValue($feuille,$j0,$i0,$group_single{$g}->{maxsum});
@@ -1164,7 +1239,7 @@ sub export {
       if($col_styles{$_}) {
 	$doc->columnStyle($feuille,$code_col{$_},"col.".$col_styles{$_});
       } else {
-	my $cm=$self->text_width(@{$col_content{$_}});
+	my ($cm,$cmh)=$self->text_width(10,@{$col_content{$_}});
 	debug "Column width [$_] = $cm cm";
 	$doc->createStyle("col.X.$_",
 			  family=>'table-column',
@@ -1178,6 +1253,36 @@ sub export {
     }
 
     ##########################################################################
+    # try to set right line height for titles
+    ##########################################################################
+
+    {
+      my ($cm,$cmh)=$self->text_width(10,@titles);
+      debug "Titles height = $cm cm";
+      $doc->createStyle("row.Titles",
+                        family=>'table-row',
+                        properties=>{
+                                     -area=>'table-row',
+                                     'row-height' => $cm."cm",
+                                     'use-optimal-row-height'=>"false",
+                                    },
+                       );
+      $doc->rowStyle($feuille,$y0,"row.Titles");
+
+      ($cm,$cmh)=$self->text_width(16,encode('utf-8',$self->{'out.nom'}));
+      debug "Name height = $cmh cm";
+      $doc->createStyle("row.Head",
+                        family=>'table-row',
+                        properties=>{
+                                     -area=>'table-row',
+                                     'row-height' => $cmh."cm",
+                                     'use-optimal-row-height'=>"false",
+                                    },
+                       );
+      $doc->rowStyle($feuille,0,"row.Head");
+    }
+
+    ##########################################################################
     # tables for questions basic statistics
     ##########################################################################
 
@@ -1187,6 +1292,12 @@ sub export {
       $self->{'_scoring'}->begin_read_transaction('XsLO');
       $dt=$self->{'_scoring'}->variable('darkness_threshold');
       $dtu=$self->{'_scoring'}->variable('darkness_threshold_up');
+
+      # comming back to old projects, the darkness_threshold_up was
+      # not stored but now we need a value: use the default value 1
+      # (which produces the same behavior as when it was not defined).
+      $dtu=1 if(!defined($dtu));
+
       $cts=$self->{'_capture'}->ticked_sums($dt,$dtu);
       $man=$self->{'_capture'}->max_answer_number();
       $correct_data=$self->{'_scoring'}->correct_for_all

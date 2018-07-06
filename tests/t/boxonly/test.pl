@@ -18,8 +18,10 @@
 # along with Auto-Multiple-Choice.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-use AMC::Test;
+require "./AMC/Test.pm";
 
-AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'xelatex')
+AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
+	       'seuil'=>0.5,
+	      )
   ->default_process;
 

@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2008-2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -49,5 +49,5 @@ my $g=AMC::Gui::Manuel::new('liste'=>$liste,
 			    'global'=>1,
 			    );
 
-Gtk2->main;
+Gtk3->main;
 

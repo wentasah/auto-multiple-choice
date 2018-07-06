@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -19,6 +19,10 @@
 
 SHELL=/bin/sh
 
+include ../Makefile-all.conf
+
+export PERLPATH
+
 SVG=$(shell find . -name '*.svg')
 EPS=$(SVG:.svg=.eps)
 
@@ -30,8 +34,19 @@ all: $(EPS)
 clean:
 	-rm $(EPS)
 
-test: $(EPS)
+test: $(EPS) FORCE
+	@echo "Using qpdf"
 	./all_tests
+	@echo "Using pdftk"
+	./selected_tests --extract-with pdftk
 
-.PHONY: all clean test
+blind-test: $(EPS) FORCE
+	@echo "Using qpdf"
+	./all_tests --blind
+	@echo "Using pdftk"
+	./selected_tests --blind --extract-with pdftk
+
+FORCE: ;
+
+.PHONY: FORCE all clean test blind-test
 

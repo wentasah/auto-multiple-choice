@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+DL=
+
+%:
+	SYSTEM_TYPE=deb $(if $(DL),DOC_LANG="$(DL)",) dh $@ --with tex
+
+override_dh_installtex:
+	dh_installtex -pauto-multiple-choice-common

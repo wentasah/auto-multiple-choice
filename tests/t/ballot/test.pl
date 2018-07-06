@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2012 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -18,10 +18,11 @@
 # along with Auto-Multiple-Choice.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-use AMC::Test;
+require "./AMC/Test.pm";
 
 AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
 	       'seuil'=>0.5,perfect_copy=>'',
+               ignore_red=>1,
 	       'export_full_csv'=>
 	       [{-copy=>4,-question=>'ballot1',-abc=>'BE'}],
 	      )->default_process;

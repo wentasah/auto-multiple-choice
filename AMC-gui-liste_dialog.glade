@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="3.2"/>
   <object class="GtkFileChooserDialog" id="liste_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -24,9 +25,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
-                  <object class="GtkHBox" id="hbox34">
+                  <object class="GtkBox" id="hbox34">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -68,9 +68,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
-                  <object class="GtkHBox" id="hbox36">
+                  <object class="GtkBox" id="hbox36">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -112,9 +111,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
-                  <object class="GtkHBox" id="hbox35">
+                  <object class="GtkBox" id="hbox35">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>

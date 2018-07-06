@@ -1,0 +1,6 @@
+?package(auto-multiple-choice-common):\
+        needs="X11"\
+        section="Applications/Education"\
+        title="QCM Automatique"\
+        icon="/usr/share/pixmaps/auto-multiple-choice.xpm"\
+        command="/usr/bin/auto-multiple-choice"

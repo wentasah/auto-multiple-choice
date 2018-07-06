@@ -1,0 +1,51 @@
+# AMC-TXT file
+DefaultScoringS: e=-10,v=0,b=1,m=-1
+ShuffleQuestions: 0
+Title: Test d'une réponse avec note zéro
+Presentation: Test d'une réponse avec note zéro
+
+*[ordered] Quelle première note voulez-vous (choisir 1) ?
+- -1
++ 1
+-{0} 0
+
+*[ordered] Quelle deuxième note voulez-vous (choisir -1) ?
++ 1
+- -1
+-{0} 0
+
+*[ordered] Quelle troisième note voulez-vous (choisir 2) ?
++ 1
+- -1
+-{2} 2
+
+*[ordered] Quelle quatrième note voulez-vous (choisir -2) ?
++ 1
+- -1
+-{-2} -2
+
+*[ordered] Quelle cinquième note voulez-vous (choisir 0) ?
++ 1
+- -1
+-{0} 0
+
+*[ordered] Quelle sixième note voulez-vous (choisir 1 et 0) ?
++ 1
+- -1
+-{0} 0
+
+*[ordered] Quelle septième note voulez-vous (choisir 1 et 2) ?
++ 1
+- -1
+-{2} 2
+
+*[ordered] Quelle huitième note voulez-vous (choisir 1 et -1) ?
++ 1
+- -1
+-{0} 0
+
+*[ordered] Quelle neuvième note voulez-vous (ne rien choisir) ?
++ 1
+- -1
+-{0} 0
+

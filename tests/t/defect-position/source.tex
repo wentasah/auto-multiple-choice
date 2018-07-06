@@ -1,0 +1,52 @@
+\documentclass[a4paper]{article}
+
+\usepackage{automultiplechoice}
+
+\begin{document}
+
+\onecopy{2}{
+
+  \noindent{\bf QCM \hfill TEST}
+  
+  \vspace*{.5cm}
+  \begin{minipage}{.4\linewidth}
+    \centering\large\bf Test\\ Examination on Jan., 1st, 2008
+  \end{minipage}
+  \namefield{\fbox{
+      \begin{minipage}{.5\linewidth}
+        Firstname and lastname:
+
+        \vspace*{.5cm}\dotfill
+        \vspace*{1mm}
+      \end{minipage}
+    }}
+
+  \begin{question}{prez}
+    Among the following persons, which one has ever been a President of the French Republic?
+    \begin{choices}
+      \correctchoice{René Coty}
+      \wrongchoice{Alain Prost}
+      \wrongchoice{Marcel Proust}
+      \wrongchoice{Claude Monet}
+    \end{choices}
+  \end{question}
+
+  % change bottom margin on the 2nd page of the 2nd subject, to get a
+  % different position for the two bottom circles.
+  \exemplairepair\else
+  \newgeometry{bmargin=5cm}
+  \fi
+  \clearpage
+
+  \begin{questionmult}{pref}
+    Among the following cities, which ones are French prefectures?
+    \begin{choices}
+      \correctchoice{Poitiers}
+      \wrongchoice{Sainte-Menehould}
+      \correctchoice{Avignon}
+    \end{choices}
+  \end{questionmult}
+
+}
+
+\end{document}

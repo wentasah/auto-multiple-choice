@@ -1,6 +1,6 @@
 # -*- perl -*-
 #
-# Copyright (C) 2011-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2011-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -87,6 +87,9 @@ package AMC::DataModule::layout;
 # * flags is an integer that contains the flags from BOX_FLAGS_* (see
 #   below)
 #
+# * char is the character associated with the box (written inside or
+#   beside the box)
+#
 # layout_digit lists all the binary boxes to read student/page number
 # and checksum from the scans (boxes white for digit 0, black for
 # digit 1):
@@ -122,6 +125,14 @@ package AMC::DataModule::layout;
 #
 # * id is the association value (student id from the students list)
 #   for the corresponding student sheet
+#
+# layout_char contains the chars written inside the answer boxes in catalog mode
+#
+# * question is the question ID (see explanation in layout_box)
+#
+# * answer is the answer number
+#
+# * char is the character written inside the box
 
 use Exporter qw(import);
 
@@ -148,7 +159,7 @@ use XML::Simple;
 @ISA=("AMC::DataModule");
 
 sub version_current {
-  return(5);
+  return(7);
 }
 
 sub drop_box_table {
@@ -250,6 +261,19 @@ sub version_upgrade {
       $self->sql_do("DROP TABLE box_tmp");
       return(5);
     }
+    if($old_version==5) {
+      $self->sql_do("ALTER TABLE ".$self->table("box")
+                    ." ADD COLUMN char TEXT");
+      return(6);
+    }
+    if($old_version==6) {
+      $self->sql_do("CREATE TABLE IF NOT EXISTS ".$self->table("char")
+                    ." (question INTEGER, answer INTEGER, char TEXT)");
+      $self->sql_do("CREATE UNIQUE INDEX IF NOT EXISTS "
+                    .$self->index("index_char")." ON "
+                    .$self->table("char","self")." (question,answer)");
+      return(7);
+    }
     return('');
 }
 
@@ -294,7 +318,7 @@ sub populate_from_xml {
 			    );
 		    }
 		    for my $c (@{$l->{'case'}}) {
-			$self->statement('NEWBox')->execute(
+			$self->statement('NEWBox0')->execute(
 			    @lid,BOX_ROLE_ANSWER,(map { $c->{$_} } (qw/question reponse xmin xmax ymin ymax/)),0
 			    );
 		    }
@@ -350,9 +374,12 @@ sub define_statements {
        },
        'NEWMark'=>{'sql'=>"INSERT INTO ".$self->table("mark")
 		   ." (student,page,corner,x,y) VALUES (?,?,?,?,?)"},
-       'NEWBox'=>{'sql'=>"INSERT INTO ".$self->table("box")
+       'NEWBox0'=>{'sql'=>"INSERT INTO ".$self->table("box")
 		  ." (student,page,role,question,answer,xmin,xmax,ymin,ymax,flags)"
 		  ." VALUES (?,?,?,?,?,?,?,?,?,?)"},
+       'NEWBox'=>{'sql'=>"INSERT INTO ".$self->table("box")
+		  ." (student,page,role,question,answer,xmin,xmax,ymin,ymax,flags,char)"
+		  ." VALUES (?,?,?,?,?,?,?,?,?,?,?)"},
        'NEWDigit'=>{'sql'=>"INSERT INTO ".$self->table("digit")
 		    ." (student,page,numberid,digitid,xmin,xmax,ymin,ymax)"
 		    ." VALUES (?,?,?,?,?,?,?,?)"},
@@ -383,6 +410,8 @@ sub define_statements {
 		 ." WHERE student=? AND question=? AND answer=? AND role=?"},
        'PAGES_STUDENT_box'=>{'sql'=>"SELECT page FROM ".$self->table("box")
 			     ." WHERE student=? AND role=? GROUP BY student,page"},
+       'PAGES_Q_box'=>{'sql'=>"SELECT student,page,min(ymin) as miny,max(ymax) as maxy FROM ".$self->table("box")
+                       ." WHERE role=? AND question=? GROUP BY student,page"},
        'PAGES_STUDENT_namefield'=>{'sql'=>"SELECT page FROM ".$self->table("namefield")
 				   ." WHERE student=? GROUP BY student,page"},
        'PAGES_STUDENT_enter'=>
@@ -422,6 +451,14 @@ sub define_statements {
 			   ." WHERE student=? AND page=?"},
        'students'=>{'sql'=>"SELECT student FROM ".$self->table("page")
 		    ." GROUP BY student"},
+       'DEFECT_OUT_OF_PAGE'=>
+       {'sql'=>"SELECT student,page,count() as n FROM "
+        ." (SELECT b.student,b.page,xmin,xmax,ymin,ymax,width,height FROM "
+        .$self->table("box")." as b, "
+        .$self->table("page")." as p "
+        ."  ON b.student==p.student AND b.page==p.page)"
+        ." WHERE (xmin<0 OR ymin<0 OR xmax>width OR ymax>height)"
+        ." GROUP BY student,page ORDER BY student,page"},
        'subjectpageForStudent'=>
        {'sql'=>"SELECT MIN(subjectpage),MAX(subjectpage) FROM ".$self->table("page")
 	." WHERE student=?"},
@@ -436,6 +473,12 @@ sub define_statements {
        'studentPage'=>{'sql'=>"SELECT student,page FROM ".$self->table("page")
 		       ." WHERE markdiameter>0"
 		       ." LIMIT 1"},
+       'boxChar'=>{'sql'=>"SELECT char FROM ".$self->table("box")
+                   ." WHERE student=? AND question=? AND answer=? AND role=?"},
+       'boxPage'=>{'sql'=>"SELECT page FROM ".$self->table("box")
+                   ." WHERE student=? AND question=? AND answer=? AND role=?"},
+       'namefieldPage'=>{'sql'=>"SELECT page FROM ".$self->table("namefield")
+                   ." WHERE student=?"},
        'dims'=>{'sql'=>"SELECT width,height,markdiameter,dpi FROM "
 		.$self->table("page")
 		." WHERE student=? AND page=?"},
@@ -471,8 +514,8 @@ sub define_statements {
 	."  GROUP BY numberid,digitid) AS a,"
 	."  ".$self->table("digit")." AS b"
 	." ON a.digitid=b.digitid AND a.numberid=b.numberid"
-	."    AND (abs(a.xmin-b.xmin)>? OR abs(a.xmax-b.xmax)>?"
-	."         OR abs(a.ymin-b.ymin)>? OR abs(a.ymax-b.ymax)>?)"
+	."    AND (abs(a.xmin-b.xmin)>(?+0) OR abs(a.xmax-b.xmax)>(?+0)"
+	."         OR abs(a.ymin-b.ymin)>(?+0) OR abs(a.ymax-b.ymax)>(?+0))"
 	." LIMIT 1"},
        'checkPosMarks'=>
        {'sql'=>"SELECT a.student AS student_a,b.student AS student_b,"
@@ -483,7 +526,7 @@ sub define_statements {
 	."  GROUP BY corner) AS a,"
 	."  ".$self->table("mark")." AS b"
 	." ON a.corner=b.corner"
-	."    AND (abs(a.x-b.x)>? OR abs(a.y-b.y)>?)"
+	."    AND (abs(a.x-b.x)>(?+0) OR abs(a.y-b.y)>(?+0))"
 	." LIMIT 1"},
        'AssocNumber'=>{'sql'=>"SELECT COUNT(*) FROM ".$self->table("association")},
        'orientation'=>{'sql'=>"SELECT MIN(ratio) AS minratio,"
@@ -497,7 +540,16 @@ sub define_statements {
        {'sql'=>"SELECT student, page, question "
 	." FROM ".$self->table("box")." WHERE answer=1"
        },
-      };
+       'QuestionsList'=>{sql=>"SELECT * FROM ".$self->table("question")},
+       'CharClear'=>{sql=>"DELETE FROM ".$self->table("char")},
+       'CharSet'=>
+       {sql=>"INSERT OR IGNORE INTO ".$self->table("char")
+        ." (question,answer,char) VALUES (?,?,?)"},
+        'CharGet'=>
+       {sql=>"SELECT char FROM ".$self->table("char")
+        ." WHERE question=? AND answer=?"},
+       'CharNb'=>{sql=>"SELECT COUNT(*) FROM ".$self->table("char")},
+     };
 }
 
 # clear_page_layout($student,$page) clears all the layout data for a
@@ -656,6 +708,17 @@ sub pages_for_student {
     }
     return($self->sql_list($self->statement('PAGES_STUDENT_'.$oo{'select'}),
 			   @args));
+  }
+
+# pages_for_question($question_id) returns all the pages (in the form
+# {student=>xx,page=>xx}) where one can find boxes to be checked for
+# this particular question.
+
+sub pages_for_question {
+  my ($self,$question_id)=@_;
+  return(@{$self->dbh->selectall_arrayref($self->statement('PAGES_Q_box'),
+                                          {Slice=>{}},
+                                          BOX_ROLE_ANSWER,$question_id)});
 }
 
 # pages_info_for_student($student,[%options]) returns a list of
@@ -697,6 +760,9 @@ sub students {
 # * {'SEVERAL_NAMES'} is a pointer on an array containing all the student
 #   numbers for which there is more than one name field
 #
+# * {'OUT_OF_PAGE'} is a pointer on a array containing all pages where
+#   some box is outside the page.
+#
 # * {'DIFFERENT_POSITIONS'} is a pointer to a hash returned by
 #   check_positions($delta)
 sub defects {
@@ -706,6 +772,11 @@ sub defects {
     for my $type (qw/NO_BOX NO_NAME SEVERAL_NAMES/) {
 	my @s=$self->sql_list($self->statement('DEFECT_'.$type));
 	$r{$type}=[@s] if(@s);
+      }
+    for my $type (qw/OUT_OF_PAGE/) {
+      my @s=@{$self->dbh->selectall_arrayref($self->statement('DEFECT_'.$type),
+                                            {Slice=>{}})};
+      $r{$type}=[@s] if(@s);
     }
     my $pos=$self->check_positions($delta);
     $r{'DIFFERENT_POSITIONS'}=$pos if($pos);
@@ -754,11 +825,17 @@ sub question_name {
 
 # clear_all clears all the layout data tables.
 
-sub clear_all {
+sub clear_mep {
     my ($self)=@_;
     for my $t (qw/page mark namefield box digit source question association/) {
 	$self->sql_do("DELETE FROM ".$self->table($t));
     }
+  }
+
+sub clear_all {
+  my ($self)=@_;
+  $self->clear_mep;
+  $self->clear_char;
 }
 
 # get_pages returns a reference to an array like
@@ -871,7 +948,7 @@ sub orientation {
 sub code_digit_pattern {
   my ($self)=@_;
   my $type=$self->variable("build:codedigit");
-  if($type eq 'squarebrackets') {
+  if($type && $type eq 'squarebrackets') {
     # 'codename[N]'
     return("\\[(\\d+)\\]");
   } else {
@@ -879,6 +956,73 @@ sub code_digit_pattern {
     # 'codename[N]'
     return("\\.(\\d+)");
   }
+}
+
+# Get the page where we can find the box for a particular student,
+# question, box
+
+sub box_page {
+  my ($self,$student,$question,$answer,$role)=@_;
+  $role=BOX_ROLE_ANSWER if(!$role);
+  return($self->sql_single($self->statement('boxPage'),
+                           $student,$question,$answer,$role));
+}
+
+# Get the chararacter written inside or beside a box
+
+sub box_char {
+  my ($self,$student,$question,$answer,$role)=@_;
+  $role=BOX_ROLE_ANSWER if(!$role);
+  return($self->sql_single($self->statement('boxChar'),
+                           $student,$question,$answer,$role));
+}
+
+# Get the page where we can find the namefield for a particular student
+
+sub namefield_page {
+  my ($self,$student)=@_;
+  return($self->sql_single($self->statement('namefieldPage'),
+                           $student));
+}
+
+# Get the list of all questions
+
+sub questions_list {
+  my ($self)=@_;
+  return @{$self->dbh->selectall_arrayref($self->statement('QuestionsList'),
+                                          {Slice=>{}})};
+}
+
+# clear_char() clears the char table
+
+sub clear_char {
+  my ($self)=@_;
+  $self->statement("CharClear")->execute();
+}
+
+# char($question, $answer [,$char] ) gets or sets the character
+# associated with a particular answer.
+
+sub char {
+  my ($self,$question,$answer,$char)=@_;
+  if(defined($char)) {
+    $self->statement("CharSet")->execute($question,$answer,$char);
+  } else {
+    return($self->sql_single($self->statement('CharGet'),
+                             $question,$answer));
+  }
+}
+
+# nb_chars_transaction() returns the number of characters stored in
+# the layout_char table. This is often used to know if the table is
+# empty or not.
+
+sub nb_chars_transaction {
+  my ($self)=@_;
+  $self->begin_read_transaction('nbCh');
+  my $n=$self->sql_single($self->statement('CharNb'));
+  $self->end_transaction('nbCh');
+  return($n);
 }
 
 1;

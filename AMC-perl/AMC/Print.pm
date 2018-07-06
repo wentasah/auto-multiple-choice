@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2015-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -103,20 +103,18 @@ sub printer_options_table {
     $_->destroy();
   }
 
-  $table->resize(@options ? 1+$#options : 1,2);
-
   my $y=0;
   my $widget;
   my $renderer;
   for my $o (@options) {
-    $table->attach(Gtk2::Label->new($o->{description}),
-		   0,1,$y,$y+1,["expand","fill"],[],0,0);
-    $widget=Gtk2::ComboBox->new_with_model();
-    $renderer = Gtk2::CellRendererText->new();
+    $table->attach(Gtk3::Label->new($o->{description}),
+		   0,$y,1,1);
+    $widget=Gtk3::ComboBox->new();
+    $renderer = Gtk3::CellRendererText->new();
     $widget->pack_start($renderer, TRUE);
     $widget->add_attribute($renderer,'text',COMBO_TEXT);
     $w->{'printer_c_'.$o->{name}}=$widget;
-    $table->attach($widget,1,2,$y,$y+1,["expand","fill"],[],0,0);
+    $table->attach($widget,1,$y,1,1);
     $y++;
 
     my %opt_values=map {

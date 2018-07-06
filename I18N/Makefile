@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2010-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2010-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -18,6 +18,8 @@
 # <http://www.gnu.org/licenses/>.
 
 SHELL=/bin/sh
+
+include ../Makefile-all.conf
 
 DOMAIN=auto-multiple-choice
 
@@ -51,7 +53,7 @@ po-clean.pl: po-clean.pl.in ../Makefile.versions
 	$(MAKE) -C .. I18N/po-clean.pl
 
 %.pot: %.bpot po-clean.pl
-	perl po-clean.pl $< $@
+	$(PERLPATH) po-clean.pl $< $@
 
 $(DOMAIN).bpot: $(PERL) $(GLADE)
 	xgettext $(XGETTO) --from-code=UTF-8 --add-comments=TRANSLATORS: $(PERL) -k__ -k__p -k -o $@

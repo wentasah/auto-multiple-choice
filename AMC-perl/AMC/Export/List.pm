@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2011-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -20,7 +20,8 @@
 package AMC::Export::List;
 
 use File::Temp qw/ tempfile tempdir /;
-use Gtk2;
+
+use Pango;
 use Cairo;
 
 use AMC::Basic;

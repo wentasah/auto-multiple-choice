@@ -1,6 +1,6 @@
 # -*- perl -*-
 #
-# Copyright (C) 2011-2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2011-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -61,7 +61,6 @@ sub connect {
   $self->{'dbh'}=DBI->connect("dbi:SQLite:",undef,undef,
 			      {AutoCommit => 0,
 			       RaiseError => 0,
-			       sqlite_see_if_its_a_number => 1,
 			      });
   $self->{'dbh'}->sqlite_busy_timeout($self->{'timeout'});
   $self->{'dbh'}->{sqlite_unicode}=1;
@@ -174,25 +173,28 @@ sub sql_tables {
 # defined in AMC::DataModule::$module perl package.
 
 sub require_module {
-    my ($self,$module)=@_;
-    if(!$self->{'modules'}->{$module}) {
-	my $filename=$self->{'directory'}."/".$module.".sqlite";
-	if(! -f $filename) {
-	    debug("Creating unexistant database file for module $module...");
-	}
-
-	debug "Connecting to database $module...";
-	$self->{'dbh'}->{AutoCommit}=1;
-	$self->sql_do("ATTACH DATABASE ".$self->sql_quote($filename)." AS $module");
-	$self->{'dbh'}->{AutoCommit}=0;
-
-	debug "Loading perl module $module...";
-	load("AMC::DataModule::$module");
-	$self->{'modules'}->{$module}="AMC::DataModule::$module"->new($self);
-	$self->{'files'}->{$module}=$filename;
-
-	debug "Module $module loaded.";
+  my ($self,$module)=@_;
+  if(!$self->{'modules'}->{$module}) {
+    my $filename=$self->{'directory'}."/".$module.".sqlite";
+    utf8::downgrade($filename);
+    if(! -f $filename) {
+      debug("Creating unexistant database file for module $module...");
     }
+
+    debug "Connecting to database $module...";
+    $self->{'dbh'}->{AutoCommit}=1;
+    $self->{'dbh'}->{sqlite_unicode}=0;
+    $self->sql_do("ATTACH DATABASE ? AS $module",$filename);
+    $self->{'dbh'}->{sqlite_unicode}=1;
+    $self->{'dbh'}->{AutoCommit}=0;
+
+    debug "Loading perl module $module...";
+    load("AMC::DataModule::$module");
+    $self->{'modules'}->{$module}="AMC::DataModule::$module"->new($self);
+    $self->{'files'}->{$module}=$filename;
+
+    debug "Module $module loaded.";
+  }
 }
 
 # module($module) returns the module object associated to module
@@ -230,7 +232,7 @@ sub progression {
 
       if($self->{'progress'}->{'annulation'}) {
 	$self->{'progress.lastcancel'}
-	  =$self->{'progress'}->{'annulation'}->sensitive;
+	  =$self->{'progress'}->{'annulation'}->get_sensitive;
 	$self->{'progress'}->{'annulation'}->set_sensitive(0);
       }
 
@@ -240,30 +242,30 @@ sub progression {
       $self->{'progress'}->{'avancement'}->set_fraction(0);
 
       $self->{'progress.lastvisible'}
-	  =$self->{'progress'}->{'commande'}->visible;
+	  =$self->{'progress'}->{'commande'}->get_visible;
       $self->{'progress'}->{'commande'}->show();
 
       $self->{'progress.time'}=0;
 
-      Gtk2->main_iteration while ( Gtk2->events_pending );
+      Gtk3::main_iteration while ( Gtk3::events_pending );
     } elsif($action eq 'end') {
       $self->{'progress'}->{'avancement'}
 	->set_fraction($self->{'progress.lastfaction'});
       $self->{'progress'}->{'commande'}
-	->visible($self->{'progress.lastvisible'});
+	->set_visible($self->{'progress.lastvisible'});
       $self->{'progress'}->{'avancement'}
 	->set_text($self->{'progress.lasttext'});
       if($self->{'progress'}->{'annulation'}) {
 	$self->{'progress'}->{'annulation'}
 	  ->set_sensitive($self->{'progress.lastcancel'});
       }
-      Gtk2->main_iteration while ( Gtk2->events_pending );
+      Gtk3::main_iteration while ( Gtk3::events_pending );
     } elsif($action eq 'fraction') {
       # Don't update progress bar more than once a second.
       if(time>$self->{'progress.time'}) {
 	$self->{'progress.time'}=time;
 	$self->{'progress'}->{'avancement'}->set_fraction($argument);
-	Gtk2->main_iteration while ( Gtk2->events_pending );
+	Gtk3::main_iteration while ( Gtk3::events_pending );
       }
     }
   }

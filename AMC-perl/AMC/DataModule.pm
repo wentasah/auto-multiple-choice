@@ -1,6 +1,6 @@
 # -*- perl -*-
 #
-# Copyright (C) 2011-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2011-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -41,6 +41,7 @@ sub new {
        'data'=>$data,
        'name'=>'',
        'statements'=>{},
+       immutable=>{},
       };
 
     for(keys %oo) {
@@ -367,55 +368,75 @@ sub clear_variables {
 # version_check upgrades the module database to the last version.
 
 sub version_check {
-    my ($self)=@_;
-    my $vt=$self->table("variables");
+  my ($self)=@_;
+  my $vt=$self->table("variables");
 
-    # First try with only a read transaction, so that the process is
-    # not blocked if someone else is using the database.
-    $self->begin_read_transaction('rVAR');
+  # First try with only a read transaction, so that the process is
+  # not blocked if someone else is using the database.
+  $self->begin_read_transaction('rVAR');
+  my @vt=$self->{'data'}->sql_tables("%".$self->{'name'}."_variables");
+  $self->end_transaction('rVAR');
+  if (!@vt) {
+    # opens a RW transaction only if necessary
+    $self->begin_transaction('tVAR');
     my @vt=$self->{'data'}->sql_tables("%".$self->{'name'}."_variables");
-    $self->end_transaction('rVAR');
-    if(!@vt) {
-      # opens a RW transaction only if necessary
-      $self->begin_transaction('tVAR');
-      my @vt=$self->{'data'}->sql_tables("%".$self->{'name'}."_variables");
-      if(@vt) {
-	debug "variables table has just been created!";
-      } else {
-	debug "Empty database: creating variables table";
-	$self->sql_do("CREATE TABLE $vt (name TEXT UNIQUE, value TEXT)");
-	$self->variable('version','0');
-      }
-      $self->end_transaction('tVAR');
+    if (@vt) {
+      debug "variables table has just been created!";
     } else {
-      debug "variables table present.";
+      debug "Empty database: creating variables table";
+      $self->sql_do("CREATE TABLE $vt (name TEXT UNIQUE, value TEXT)");
+      $self->variable('version','0');
     }
+    $self->end_transaction('tVAR');
+  } else {
+    debug "variables table present.";
+  }
 
-    my $cv=$self->version_current;
-    if($cv) {
-      my $vu=$self->variable_transaction('version');
+  my $cv=$self->version_current;
+  if ($cv) {
+    my $vu=$self->variable_transaction('version');
 
-      if($vu < $cv) {
-	# Database upgrade
-	$self->begin_transaction('dbUG');
-	$vu=$self->variable('version');
-	my $v;
-	debug "Database version: $vu, needs to upgrade (current $cv)";
-	do {
-	  $v=$vu;
-	  $vu=$self->version_upgrade($v);
-	  debug("Upgraded data module ".$self->{'name'}
-		." from version $v to $vu")
-	    if($vu);
-	} while($vu);
-	$self->variable('version',$v);
-	$self->end_transaction('dbUG');
-      } elsif($vu > $cv) {
-	debug "WARNING: Database version ($vu) is higher than module current version ($cv)";
-      }
-    } else {
-      debug "WARNING: No module current version";
+    if ($vu < $cv) {
+      # Database upgrade
+      $self->begin_transaction('dbUG');
+      $vu=$self->variable('version');
+      my $v;
+      debug "Database version: $vu, needs to upgrade (current $cv)";
+      do {
+        $v=$vu;
+        $vu=$self->version_upgrade($v);
+        debug("Upgraded data module ".$self->{'name'}
+              ." from version $v to $vu")
+          if ($vu);
+      } while ($vu);
+      $self->variable('version',$v);
+
+      $self->end_transaction('dbUG');
+    } elsif ($vu > $cv) {
+      debug "WARNING: Database version ($vu) is higher than module current version ($cv)";
     }
+  } else {
+    debug "WARNING: No module current version";
+  }
+
+  # also get some specific database variables in memory
+  my @ivs=$self->immutable_variables();
+  if(@ivs) {
+    $self->begin_transaction('imtb');
+    for my $v (@ivs) {
+      $self->{immutable}->{$v}=$self->variable($v);
+      $self->{immutable}->{$v}='' if(!defined($self->{immutable}->{$v}));
+    }
+    $self->end_transaction('imtb');
+  }
+}
+
+# immutable_variables() returns the list of variables that has to be
+# read to the object when opening the database. There are none by
+# default, overload by AMC::DataModule::XXX if neaded.
+
+sub immutable_variables {
+  return();
 }
 
 # version_current($v) is to be overloaded by AMC::DataModule::XXX

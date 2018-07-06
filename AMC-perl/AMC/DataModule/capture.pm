@@ -1,6 +1,6 @@
 # -*- perl -*-
 #
-# Copyright (C) 2011-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2011-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -80,6 +80,9 @@ package AMC::DataModule::capture;
 #   %PROJET/cr/corrections/jpg directory.
 #
 # * timestamp_annotate is the time the annotated page was produced.
+#
+# * overwritten is the number of times capture data has been
+#   overwritten
 
 # zone describes the different objects that can be found on the scans
 # (corner marks, boxes, name field)
@@ -162,6 +165,7 @@ use DBI qw(:sql_types);
 
 use AMC::Basic;
 use AMC::DataModule;
+use AMC::DataModule::layout ':flags';
 use XML::Simple;
 
 @ISA=("AMC::DataModule");
@@ -169,7 +173,7 @@ use XML::Simple;
 use_gettext();
 
 sub version_current {
-  return(4);
+  return(5);
 }
 
 sub version_upgrade {
@@ -237,6 +241,10 @@ sub version_upgrade {
 
       $self->progression('end');
       return(4);
+    } elsif($old_version==4) {
+      $self->sql_do("ALTER TABLE ".$self->table("page")
+                    ." ADD COLUMN overwritten INTEGER DEFAULT 0");
+      return(5);
     }
     return('');
 }
@@ -396,6 +404,10 @@ sub define_statements {
      'SetPageAuto'=>{'sql'=>"UPDATE $t_page"
 		     ." SET src=?, timestamp_auto=?, a=?, b=?, c=?, d=?, e=?, f=?, mse=?"
 		     ." WHERE student=? AND page=? AND copy=?"},
+     'overwritePage'=>{sql=>"UPDATE ".$t_page
+                       ." SET overwritten=overwritten+1"
+                       ." WHERE student=? AND page=? AND copy=?"},
+     'overwriteClear'=>{sql=>"UPDATE $t_page SET overwritten=0"},
      'SetPageManual'=>{'sql'=>"UPDATE $t_page"
 		       ." SET timestamp_manual=?"
 		       ." WHERE student=? AND page=? AND copy=?"},
@@ -432,6 +444,10 @@ sub define_statements {
      'nCopies'=>{'sql'=>"SELECT COUNT(*) FROM (SELECT student,copy FROM $t_page"
 		 ." WHERE timestamp_auto>0 OR timestamp_manual>0"
 		 ." GROUP BY student,copy)"},
+     'nOverwritten'=>{sql=>"SELECT SUM(overwritten) FROM $t_page"},
+     'overwrittenPages'=>{sql=>"SELECT student,page,copy,overwritten,timestamp_auto"
+                          ." FROM $t_page WHERE overwritten>0"
+                          ." ORDER BY timestamp_auto DESC, student ASC, page ASC, copy ASC"},
      'studentCopies'=>{'sql'=>"SELECT student,copy FROM $t_page"
 		       ." WHERE timestamp_auto>0 OR timestamp_manual>0"
 		       ." GROUP BY student,copy ORDER BY student,copy"},
@@ -445,7 +461,7 @@ sub define_statements {
      'pagesChanged'=>{'sql'=>"SELECT student,page,copy FROM $t_page"
 		      ." WHERE timestamp_auto>? OR timestamp_manual>?"},
      'pagesSummary'=>
-     {'sql'=>"SELECT student,page,copy,mse,timestamp_auto,timestamp_manual"
+     {'sql'=>"SELECT student,page,copy,src,mse,timestamp_auto,timestamp_manual"
       .",CASE WHEN timestamp_auto>0 AND mse>? THEN ?"
       ."      ELSE ?"
       ."  END AS mse_color"
@@ -499,6 +515,10 @@ sub define_statements {
      'zoomsCleanup'=>{'sql'=>"UPDATE $t_zone SET imagedata=NULL WHERE type=?"},
      'pageZonesAll'=>{'sql'=>"SELECT * FROM $t_zone"
 		      ." WHERE type=?"},
+     'pageZonesAutoCount'=>
+     {'sql'=>"SELECT COUNT(*) FROM $t_zone"
+      ." WHERE student=? AND page=? AND copy=? AND type=?"
+      ." AND total>0"},
      'pageZonesD'=>{'sql'=>"SELECT zoneid,id_a,id_b,total,black,manual"
 		    ." FROM $t_zone"
 		    ." WHERE student=? AND page=? AND copy=? AND type=?"
@@ -525,7 +545,7 @@ sub define_statements {
 			    ." WHERE student=? AND page=? AND copy=?"},
      'ticked'=>{'sql'=>"SELECT CASE"
 		." WHEN manual >= 0 THEN manual"
-		." WHEN total<=0 THEN -1"
+		." WHEN total<=0 THEN 0"
 		." WHEN black >= ? * total AND black <= ? * total THEN 1"
 		." ELSE 0"
 		." END FROM $t_zone"
@@ -535,7 +555,7 @@ sub define_statements {
 		    ." WHEN why=\"V\" THEN 0"
 		    ." WHEN why=\"E\" THEN 0"
 		    ." WHEN zone.manual >= 0 THEN zone.manual"
-		    ." WHEN zone.total<=0 THEN -1"
+		    ." WHEN zone.total<=0 THEN 0"
 		    ." WHEN zone.black >= ? * zone.total AND zone.black <= ? * zone.total THEN 1"
 		    ." ELSE 0"
 		    ." END) AS nb"
@@ -559,15 +579,22 @@ sub define_statements {
 		   },
      'tickedList'=>{'sql'=>"SELECT CASE"
 		    ." WHEN manual >= 0 THEN manual"
-		    ." WHEN total<=0 THEN -1"
+		    ." WHEN total<=0 THEN 0"
 		    ." WHEN black >= ? * total AND black <= ? * total THEN 1"
 		    ." ELSE 0"
 		    ." END FROM $t_zone"
 		    ." WHERE student=? AND copy=? AND type=? AND id_a=?"
 		    ." ORDER BY id_b"},
+     'tickedChars'=>{sql=>"SELECT char FROM (SELECT id_b FROM $t_zone"
+                     ."       WHERE student=? AND copy=? AND id_a=? AND type=?"
+                     ."       AND (manual=1 OR (black >= ? * total AND black <= ? * total))"
+                     ." ),( SELECT answer,char FROM ".$self->table("box","layout")
+                     ."       WHERE student=? AND question=? AND role=?)"
+                     ." ON id_b=answer ORDER BY id_b"
+                    },
      'tickedPage'=>{'sql'=>"SELECT CASE"
 		    ." WHEN manual >= 0 THEN manual"
-		    ." WHEN total<=0 THEN -1"
+		    ." WHEN total<=0 THEN 0"
 		    ." WHEN black >= ? * total AND black <= ? * total THEN 1"
 		    ." ELSE 0"
 		    ." END,id_a,id_b FROM $t_zone"
@@ -680,7 +707,8 @@ sub get_page {
 				       $student,$page,$copy));
 }
 
-# set_page_auto(...) fills one row of the page table.
+# set_page_auto(...) fills one row of the page table, and returns 1 if
+# some previous data has been overwritten.
 
 sub set_page_auto {
   my ($self,$src,$student,$page,$copy,
@@ -690,11 +718,20 @@ sub set_page_auto {
 					     $timestamp,$a,$b,$c,$d,$e,$f,
 					     $mse,
 					     $student,$page,$copy);
+    return(1);
   } else {
     $self->statement('NEWPageAuto')->execute($src,$student,$page,$copy,
 					     $timestamp,$a,$b,$c,$d,$e,$f,
 					     $mse);
+    return(0);
   }
+}
+
+# tag_overwritten(...) tags a page data as overwritten
+
+sub tag_overwritten {
+  my ($self,$student,$page,$copy)=@_;
+  $self->statement('overwritePage')->execute($student,$page,$copy);
 }
 
 # sep_page_manual($student,$page,$copy,$timestamp) sets the timestamp
@@ -779,6 +816,37 @@ sub set_zone_auto_id_without_imagedata {
 sub n_copies {
   my ($self)=@_;
   return($self->sql_single($self->statement('nCopies')));
+}
+
+# n_overwritten returns the total number of overwritten pages
+
+sub n_overwritten {
+  my ($self)=@_;
+  return($self->sql_single($self->statement('nOverwritten')));
+}
+
+# clear_overwritten clears overwritten status of all pages
+
+sub clear_overwritten {
+  my ($self)=@_;
+  $self->statement('overwriteClear')->execute();
+}
+
+# overwritten_pages() returns an arrayref of hashrefs with all pages
+# which have some overwritten data
+
+sub overwritten_pages {
+  my ($self)=@_;
+  return($self->dbh->selectall_arrayref($self->statement('overwrittenPages'),
+                                        { Slice=>{} }));
+}
+
+sub overwritten_pages_transaction {
+  my ($self)=@_;
+  $self->begin_read_transaction;
+  my $r=$self->overwritten_pages;
+  $self->end_transaction;
+  return($r);
 }
 
 # n_pages returns the number of pages for which a data capture (manual
@@ -1034,6 +1102,35 @@ sub ticked_list {
 			 $student,$copy,ZONE_BOX,$question));
 }
 
+# ticked_chars($student,$copy,$question,$darkness_threshold,$darkness_threshold_up)
+# returns a list with all the box labels (characters written inside or
+# beside the box) from the ticked answers related to a particular
+# question.
+
+sub ticked_chars {
+  my ($self,$student,$copy,$question,$darkness_threshold,$darkness_threshold_up)=@_;
+  die "Missing parameters in ticked_chars call"
+    if(!defined($darkness_threshold_up));
+  $self->{'data'}->require_module('layout');
+  return($self->sql_list($self->statement('tickedChars'),
+                         $student,$copy,$question,ZONE_BOX,
+			 $darkness_threshold,$darkness_threshold_up,
+                         $student,$question,BOX_ROLE_ANSWER));
+}
+
+# Same as ticked_chars, but paste the chars if they all exist, and
+# return undef otherwise
+
+sub ticked_chars_pasted {
+  my ($self,@args)=@_;
+  my @c=$self->ticked_chars(@args);
+  if(grep { !defined($_) } @c) {
+    return(undef);
+  } else {
+    return(join("",@c));
+  }
+}
+
 # ticked_list_0 id the same as ticked_list, but answer 0
 # (corresponding to "None of the above") is placed at the end of the
 # list.
@@ -1261,6 +1358,9 @@ sub remove_manual {
   my ($self,$student,$page,$copy)=@_;
   $self->statement('setManualPage')->execute(-1,$student,$page,$copy);
   $self->statement('setManualPageZones')->execute(-1,$student,$page,$copy);
+  if($self->page_zones_auto_count($student,$page,$copy)==0) {
+    $self->delete_page_data($student,$page,$copy);
+  }
 }
 
 # counts returns a hash %r giving the %r{'complete'} number of
@@ -1324,6 +1424,15 @@ sub delete_page_data {
   $self->statement('deletePagePositions')->execute($student,$page,$copy);
   $self->statement('deletePageZones')->execute($student,$page,$copy);
   $self->statement('deletePage')->execute($student,$page,$copy);
+}
+
+# page_zones_auto_count($student,$page,$copy) returns the number of
+# zones in page with automatic data capture.
+
+sub page_zones_auto_count {
+  my ($self,$student,$page,$copy)=@_;
+  return($self->sql_single($self->statement('pageZonesAutoCount'),
+                           $student,$page,$copy,ZONE_BOX));
 }
 
 # get_student_pages($student,$copy) returns an arrayref giving some

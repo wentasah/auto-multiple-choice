@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2011 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2011-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -76,7 +76,7 @@ my @styles=get_sty();
 
 sub rehash {
     print "Calling mktexlsr to refresh LaTeX files list...\n";
-    open(LSR,"-|","mktexlsr");
+    open(LSR,"-|","mktexlsr", "--quiet");
     while(<LSR>) {
 	print $_;
     }
@@ -89,7 +89,7 @@ if($ARGV[0] =~ /^(remove|rm)$/i) {
 	print "Removing link $link...\n";
 	unlink($link);
 	if(-e $link) {
-	    print "ERROR: Unsuccessful.\n";
+	    die "ERROR: could not remove link $link.\n";
 	    exit(2);
 	} else {
 	    print("Done.\n");
@@ -115,12 +115,13 @@ if(@styles) {
 } else {
     my $loc=get_tex_var('TEXMFLOCAL');
     if(! -d $loc) {
-	print STDERR "ERROR: I don't find TEXMFLOCAL ($loc)\n";
-	exit(2);
+        print STDERR "WARNING: the directory TEXMFLOCAL does not exist ($loc).\n";
+        print STDERR "WARNING: trying to create $loc...\n";
+        mkdir("$loc");
     }
     my $installed='@/TEXDIR/@/automultiplechoice.sty';
     if(! -f $installed) {
-	print STDERR "ERROR: I don't find the installed style file $installed\n";
+	print STDERR "ERROR: I cannot find the installed style file $installed\n";
 	exit(2);
     }
     for my $dir (qw:tex tex/latex:) {
@@ -130,8 +131,14 @@ if(@styles) {
 	}
     }
     $link="$loc/tex/latex/automultiplechoice.sty";
+    if(-l $link) {
+        print "WARNING: removing a previously installed non-working symlink...\n";
+        unlink($link)
+            or die "ERROR: Failed to remove previous symlink $link\n";
+    }
     print "Creating link to AMC style file...\n";
-    symlink($installed,$link);
+    symlink($installed,$link)
+        or die "ERROR: Failed to create symlink $link\n";
 
     rehash();
 
@@ -139,14 +146,15 @@ if(@styles) {
 	if(! -d $conf_dir) {
 	    mkdir($conf_dir);
 	}
-	print "Saving to configuration...\n";
+	print "Saving information about this 'latex-link' run in $link_file...\n";
 	open(LF,">$link_file")
 	    or die "Unable to write to $link_file: $!";
 	print LF "$link\n";
 	close(LF);
 
-	print "Done.\n";
+	print "Done, 'automultiplechoice.sty' is now reachable from latex.\n";
     } else {
-	print "ERROR: Unsuccessful.\n";
-    } 
+	die "ERROR: even though the symlink has been properly created, 'automultiplechoice.sty'\n\
+         cannot be found using 'kpsewhich -all automultiplechoice.sty'.\n";
+    }
 }

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2009-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2009-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -52,6 +52,7 @@ sub new {
 	'out.rtl'=>'',
 
 	'sort.keys'=>['s:student.name','n:student.line'],
+        'sort.cols'=>'smart',
 
 	'marks'=>[],
 
@@ -68,6 +69,7 @@ sub set_options {
 	if(defined($self->{$k})) {
 	    debug "Option $k = $f{$_}";
 	    $self->{$k}=$f{$_};
+            utf8::downgrade($self->{$k}) if($domaine eq 'fich');
 	} else {
 	    debug "Unusable option <$domaine.$_>\n";
 	}
@@ -151,16 +153,34 @@ sub test_indicative {
   }
 }
 
+sub sort_cols {
+  my ($self,@x)=@_;
+  return(sort { $self->cols_cmp($a->{title},$b->{title}) } (@x));
+}
+
+sub cols_cmp {
+  my ($self,$a,$b)=@_;
+  if($self->{'sort.cols'} eq 'smart') {
+    if($a !~ /[^0-9\s]/ && $b !~ /[^0-9\s]/) {
+      return($a <=> $b);
+    } else {
+      return($a cmp $b);
+    }
+  } else {
+    return(0);
+  }
+}
+
 sub codes_questions {
   my ($self,$codes,$questions,$plain)=@_;
   @$codes=$self->{'_scoring'}->codes();
   my $code_digit_pattern=$self->{_layout}->code_digit_pattern();
   if($plain) {
     my $codes_re="(".join("|",map { "\Q$_\E" } @$codes).")";
-    @$questions=grep { $_->{'title'} !~ /^$codes_re$code_digit_pattern$/ }
-      $self->{'_scoring'}->questions;
+    @$questions=$self->sort_cols(grep { $_->{'title'} !~ /^$codes_re$code_digit_pattern$/ }
+                                 $self->{'_scoring'}->questions);
   } else {
-    @$questions=$self->{'_scoring'}->questions;
+    @$questions=$self->sort_cols($self->{'_scoring'}->questions);
   }
   for(@$questions) { $self->test_indicative($_); }
   @$questions=$self->insert_groups_sum_headers(@$questions);
@@ -204,6 +224,10 @@ sub pre_process {
 	$m->{'student.name'}=$n->{'_ID_'};
 	$m->{'student.line'}=$n->{'_LINE_'};
 	$m->{'student.all'}={%$n};
+        # $n->{$lk} should be equal to $m->{'student.key'}, but in
+        # some cases (older versions), the code stored in the database
+        # has leading zeroes removed...
+        $keys{$n->{$lk}}=1;
       } else {
 	for(qw/name line/) {
 	  $m->{"student.$_"}='?';

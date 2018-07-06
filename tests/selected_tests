@@ -1,0 +1,15 @@
+#! /bin/bash
+
+RESULT_FILE=/tmp/amc-test.log
+FAILS=0
+
+ARGS=$@
+
+source ./try_one.sh
+
+for t in t/{ensemble,numeric,pdfform}/test.pl
+do
+    try_one "$PERLPATH $t" || FAILS=1
+done
+
+exit $FAILS

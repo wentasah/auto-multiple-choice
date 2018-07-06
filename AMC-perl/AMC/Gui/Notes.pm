@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 #
-# Copyright (C) 2009-2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2009-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -21,10 +21,11 @@
 package AMC::Gui::Notes;
 
 use AMC::Basic;
+use AMC::Gui::WindowSize;
 
 use Encode;
 
-use Gtk2 -init;
+use Gtk3 -init;
 
 use constant {
     TAB_ID => 0,
@@ -35,8 +36,8 @@ use constant {
 
 sub ajoute_colonne {
     my ($tree,$store,$titre,$i)=@_;
-    my $renderer=Gtk2::CellRendererText->new;
-    my $column = Gtk2::TreeViewColumn->new_with_attributes(
+    my $renderer=Gtk3::CellRendererText->new;
+    my $column = Gtk3::TreeViewColumn->new_with_attributes(
 	$titre,
 	$renderer,
 	text=> $i,
@@ -56,8 +57,11 @@ sub formatte {
 
 sub new {
     my %o=(@_);
-    my $self={'scoring'=>'',
-	  };
+    my $self={
+              scoring=>'',
+              layout=>'',
+              size_prefs=>'',
+             };
     my $it;
 
     for (keys %o) {
@@ -69,7 +73,7 @@ sub new {
     my $glade_xml=__FILE__;
     $glade_xml =~ s/\.p[ml]$/.glade/i;
 
-    $self->{'gui'}=Gtk2::Builder->new();
+    $self->{'gui'}=Gtk3::Builder->new();
     $self->{'gui'}->set_translation_domain('auto-multiple-choice');
     $self->{'gui'}->add_from_file($glade_xml);
 
@@ -88,15 +92,16 @@ sub new {
     for (qw/student copy/) {
       $self->{'postcorrect_'.$_}=
 	$self->{'scoring'}->variable('postcorrect_'.$_);
-      $self->{'postcorrect_'.$_}=-1 if(!defined($self->{'postcorrect_'.$_}));
+      $self->{'postcorrect_'.$_}=-1 if(!defined($self->{'postcorrect_'.$_}) || $self->{'postcorrect_'.$_} eq '');
     }
 
+    my $code_digit_pattern = $self->{layout}->code_digit_pattern();
     my @codes=$self->{'scoring'}->codes;
     my @questions=sort { $a->{'title'} cmp $b->{'title'} }
-      grep { $_->{'title'} !~ /\.[0-9]+$/ }
+      grep { $_->{'title'} !~ /$code_digit_pattern$/ }
       ($self->{'scoring'}->questions);
 
-    my $store = Gtk2::ListStore->new ( map {'Glib::String' } (1..(3+1+$#codes+1+$#questions)) );
+    my $store = Gtk3::ListStore->new ( map {'Glib::String' } (1..(3+1+$#codes+1+$#questions)) );
 
     $self->{'tableau'}->set_model($store);
 
@@ -161,6 +166,11 @@ sub new {
     $store->insert_with_values($row++,@vv);
 
     $self->{'scoring'}->end_transaction;
+
+    AMC::Gui::WindowSize::size_monitor
+        ($self->{general},{config=>$self->{size_prefs},
+                           key=>'marks_window_size'});
+
     return($self);
 }
 
@@ -168,7 +178,7 @@ sub quitter {
     my ($self)=(@_);
 
     if($self->{'global'}) {
-	Gtk2->main_quit;
+	Gtk3->main_quit;
     } else {
 	$self->{'general'}->destroy;
     }

@@ -2,59 +2,34 @@
 \usepackage{fp}
 \usepackage[plain]{automultiplechoice}
 \begin{document}
-\makeatletter
 
-\def\test@section{}
-\newcommand{\testsection}[1]{\def\test@section{#1}\message{^^JSECTION(#1)^^J}}
-\newcommand{\test}[2]{%
-\message{^^JTEST(#1,#2)^^J}%
-}
+\newcommand{\testsection}[1]{\message{^^JSECTION(#1)^^J}}
 
-\newcount\r
+\def\test#1#2#3{\AMCsignificantDigits{#1}{#2}\message{^^JTEST(\AMCshowSignificantDigits,#3)^^J}}
 
 \testsection{Significant::base10}
 
-\AMCsignificantDigits{2}{1.2345}{\r}
-\test{\the\r}{12}
+\test{1.2345}{2}{12}
 
-\AMCsignificantDigits{2}{0.034345}{\r}
-\test{\the\r}{34}
+\test{0.034345}{2}{34}
 
-\AMCsignificantDigits{2}{10789.5}{\r}
-\test{\the\r}{11}
+\test{10789.5}{2}{11}
 
-\AMCsignificantDigits{3}{-25678.56}{\r}
-\test{\the\r}{-257}
+\test{-25678.56}{3}{-257}
 
-\AMCsignificantDigits{1}{0.0065}{\r}
-\test{\the\r}{7}
+\test{0.0065}{1}{6}
 
-\AMCsignificantDigits{1}{-0.0065}{\r}
-\test{\the\r}{-7}
+\test{-0.0065}{1}{-6}
 
-\AMCsignificantDigits{2}{0.996}{\r}
-\test{\the\r}{10}
+\test{0.0075}{1}{8}
 
-\AMCsignificantDigits{1}{-9.76}{\r}
-\test{\the\r}{-1}
+\test{-0.0075}{1}{-8}
 
-\AMCsignificantDigits{3}{0}{\r}
-\test{\the\r}{0}
+\test{0.996}{2}{10}
 
-\testsection{Significant::base2}
+\test{-9.76}{1}{-1}
 
-\AMCsignificantDigits[2]{3}{-643}{\r}
-\test{\the\r}{-5}
-
-\AMCsignificantDigits[2]{4}{2345}{\r}
-\test{\the\r}{9}
-
-\AMCsignificantDigits[2]{2}{7632}{\r}
-\test{\the\r}{2}
-
-\AMCsignificantDigits[2]{3}{0}{\r}
-\test{\the\r}{0}
-
+\test{0}{3}{0}
 
 \end{document}
 

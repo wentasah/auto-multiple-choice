@@ -1,0 +1,53 @@
+\documentclass[a4paper]{article}
+
+\usepackage{automultiplechoice}
+
+\begin{document}
+
+\scoringDefaultS{formula=(NMC>1?-1:NMC>0?0:NBC==1?2:0)}
+\scoringDefaultM{haut=2,formula=NBC}
+
+\begin{examcopy}
+
+  \AMCcodeH{id}{4}
+
+  \begin{questionmult}{h}
+    \scoring{formula=}
+    Please choose
+    \begin{choices}
+      \wrongchoice{no}
+      \wrongchoice{no}
+      \correctchoice{yes}
+      \correctchoice{yes}
+    \end{choices}
+  \end{questionmult}
+
+  \begin{questionmult}{f}
+    \scoring{haut=}
+    Please tick correct answers
+    \begin{choices}
+      \wrongchoice{as you like}
+      \wrongchoice{as you like}
+      \correctchoice{correct}
+      \correctchoice{correct}
+    \end{choices}
+  \end{questionmult}
+
+  \begin{question}{s}
+    Another one...
+    \begin{choiceshoriz}
+      \wrongchoice{no}
+      \wrongchoice{no}
+      \wrongchoice{no}
+      \correctchoice{yes}
+    \end{choiceshoriz}
+  \end{question}
+
+  \begin{questionmultx}{m}
+    Code 123
+    \AMCnumericChoices{123}{digits=3,decimals=0,approx=1}
+  \end{questionmultx}
+  
+\end{examcopy}
+
+\end{document}

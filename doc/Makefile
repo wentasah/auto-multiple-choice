@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -55,37 +55,30 @@ img_pdf/%.pdf: img_src/%.svg
 	rsvg-convert -f pdf $< -o $@
 
 html/index.html: FORCE
-	./index.pl $(DOCBOOKS:.xml=) > $@
+	$(PERLPATH) ./index.pl $(SELECTED_DOCBOOKS:.xml=) > $@
 
 %.tex: %.xml amcdocstyle.sty
-	 case $< in \
-	   *.ja.xml) dblatex -P latex.encoding=utf8 -b xetex -t tex -p custom.xsl --texstyle=amcdocstyle --xslt-opts="--nonet" --xslt-opts="--catalogs" $(DBLATEX_OPT) $< -o $@ ;; \
-	   *.xml) dblatex -t tex -p custom.xsl --texstyle=amcdocstyle --xslt-opts="--nonet" --xslt-opts="--catalogs" $(DBLATEX_OPT) $< -o $@ ;; \
-	 esac
+	dblatex -P latex.encoding=utf8 -b xetex -t tex -p custom.xsl --texstyle=amcdocstyle --xslt-opts="--nonet" --xslt-opts="--catalogs" $(DBLATEX_OPT) $< -o $@
+
+XELATEX=xelatex -halt-on-error -interaction=nonstopmode
+
+%.pdf: export SOURCE_DATE_EPOCH=$(PACKAGE_V_EPOCH)
+%.pdf: export SOURCE_DATE_EPOCH_TEX_PRIMITIVES=1
+%.pdf: export FORCE_SOURCE_DATE=1
+%.pdf: export TEXINPUTS=./img_pdf/:
 
 %.pdf: %.tex $(BLOCK_IMAGES:.svg=.pdf)
-	export TEXINPUTS=./img_pdf/: ; case $< in \
-	  *.ja.tex) \
-            sed -i -e '/setuplocale/a\
-\\usepackage{xeCJK}\
-\\setCJKmainfont{IPAexMincho}\
-\\setCJKsansfont{IPAexGothic}\
-\\setCJKmonofont{IPAexGothic}\
-' $<; \
-            xelatex $<; xelatex $<; ../reproducible-pdf.pl --fonts --id $@ ;; \
-	  *.tex) pdflatex $<; pdflatex $<; ../reproducible-pdf.pl --id $@ ;; \
-	esac
+	set -e ; $(XELATEX) $<; $(XELATEX) $<
 	rm -f $(foreach ext,aux cb cb2 glo idx log out toc,$*.$(ext))
 
 %.x: %.ext %.man %.html ;
 
 %.ext: %.xml
-	perl extrait-fichiers.pl --liste $@ $<
+	$(PERLPATH) extrait-fichiers.pl --liste $@ $<
 
 %.man: %.xml
 	xsltproc --nonet --catalogs --param man.charmap.use.subset "0" --param make.year.ranges "1" --param make.single.year.ranges "1" --param man.output.lang.in.name.enabled "1" $(DOCBOOK_MAN_XSL) $<
 	date > $@
-
 
 %.html: %.xml doc-xhtml.xsl
 	rm -f html/$*/*.html
@@ -95,8 +88,15 @@ html/index.html: FORCE
 %.tgz: %.d
 	find $< -type d -exec chmod 0755 '{}' \;
 	find $< -type f -exec chmod 0644 '{}' \;
+ifeq ($(TAR_REPRODUCIBLE_ARGS),nonreproducible)
+	tar -cz -f $@ -C $< .
+else
 	tar cn -C $< $(TAR_REPRODUCIBLE_ARGS) -O . | gzip $(GZIP_REPRODUCIBLE_ARGS) -c > $@
+endif
+
+check: FORCE
+	./check_xml
 
 FORCE: ;
 
-.PHONY: FORCE all images clean
+.PHONY: FORCE all images clean check

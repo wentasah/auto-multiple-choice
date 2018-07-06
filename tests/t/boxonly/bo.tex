@@ -1,0 +1,52 @@
+\documentclass[a4paper]{article}
+\usepackage[separateanswersheet,calibration]{automultiplechoice}
+\begin{document}
+
+
+\element{grq}{
+  \begin{question}{arm}
+    Which letter shows the \textit{arm} on the diagram?
+    \AMCBoxOnly{}{\wrongchoice[A]{}\correctchoice[B]{}%
+      \wrongchoice[C]{}\wrongchoice[D]{}}
+  \end{question}
+}
+
+\element{grq}{
+  \begin{question}{foot}
+    Which letter shows the \textit{foot} on the diagram?
+    \AMCBoxOnly{ordered=true,help=foot}{\correctchoice[A]{}\wrongchoice[B]{}%
+      \wrongchoice[C]{}\wrongchoice[D]{}}
+  \end{question}
+}
+
+\onecopy{5}{
+
+  \begin{center}
+    \bf\Large Questions
+  \end{center}
+
+  Include here a diagram...
+
+  \vspace{5mm}
+
+\shufflegroup{grq}
+\insertgroup{grq}
+
+\clearpage \AMCformBegin
+
+\begin{center}
+  \bf\Large Answers...
+\end{center}
+
+\hspace*{\fill}\namefield{\fbox{
+\begin{minipage}{15em}
+Name and surname:\vspace*{3ex}\par
+\noindent\dotfill\vspace{2mm}
+\end{minipage}
+}}
+
+\AMCform
+
+}
+
+\end{document}

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012,2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -42,12 +42,12 @@ sub extension {
 }
 
 sub options_from_config {
-  my ($self,$options_project,$options_main,$options_default)=@_;
-  return("nom"=>$options_project->{'nom_examen'},
-	 "code"=>$options_project->{'code_examen'},
-	 "decimal"=>$options_main->{'delimiteur_decimal'},
-	 "pagesize"=>$options_project->{'export_pagesize'},
-	 "ncols"=>$options_project->{'export_ncols'},
+  my ($self,$config)=@_;
+  return("nom"=>$config->get('nom_examen'),
+	 "code"=>$config->get('code_examen'),
+	 "decimal"=>$config->get('delimiteur_decimal'),
+	 "pagesize"=>$config->get('export_pagesize'),
+	 "ncols"=>$config->get('export_ncols'),
 	);
 }
 
@@ -58,19 +58,20 @@ sub options_default {
 
 sub build_config_gui {
   my ($self,$w,$prefs)=@_;
-  my $t=Gtk2::Table->new(2,2);
+  my $t=Gtk3::Grid->new();
   my $widget;
   my $y=0;
-  $t->attach(Gtk2::Label->new(__"Number of columns"),
-	     0,1,$y,$y+1,["expand","fill"],[],0,0);
-  $widget=Gtk2::SpinButton->new(Gtk2::Adjustment->new(1,1,5,1,1,0),0,0);
+  $t->attach(Gtk3::Label->new(__"Number of columns"),
+	     0,$y,1,1);
+  $widget=Gtk3::SpinButton->new(Gtk3::Adjustment->new(1,1,5,1,1,0),0,0);
   $widget->set_tooltip_text(__"Long list is divided into this number of columns on each page.");
   $w->{'export_s_export_ncols'}=$widget;
-  $t->attach($widget,1,2,$y,$y+1,["expand","fill"],[],0,0);
+  $t->attach($widget,1,$y,1,1);
   $y++;
-  $t->attach(Gtk2::Label->new(__"Paper size"),0,1,$y,$y+1,["expand","fill"],[],0,0);
-  $widget=Gtk2::ComboBox->new_with_model();
-  my $renderer = Gtk2::CellRendererText->new();
+  $t->attach(Gtk3::Label->new(__"Paper size"),
+             0,$y,1,1);
+  $widget=Gtk3::ComboBox->new();
+  my $renderer = Gtk3::CellRendererText->new();
   $widget->pack_start($renderer, TRUE);
   $widget->add_attribute($renderer,'text',COMBO_TEXT);
   $prefs->store_register('export_pagesize'=>cb_model("a3"=>"A3",
@@ -78,7 +79,7 @@ sub build_config_gui {
 						     "letter"=>"Letter",
 						     "legal"=>"Legal"));
   $w->{'export_c_export_pagesize'}=$widget;
-  $t->attach($widget,1,2,$y,$y+1,["expand","fill"],[],0,0);
+  $t->attach($widget,1,$y,1,1);
   $y++;
 
   $t->show_all;
