@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 9), gettext, libnetpbm10-dev,
  docbook-xsl, librsvg2-bin, netpbm, texlive-pictures,
  pkg-config, libopencv-dev (>=2.1),
  libpoppler-glib-dev, libcairo2-dev, libpango1.0-dev,
- texlive-latex-recommended, texlive-xetex, lmodern, pdftk,
+ texlive-latex-recommended, texlive-xetex, lmodern,
  texlive-lang-french, texlive-lang-japanese
 Standards-Version: 3.9.8.0
 Homepage: http://www.auto-multiple-choice.net/
@@ -36,19 +36,19 @@ Replaces: auto-multiple-choice (<< 1.1.0-1)
 Breaks: auto-multiple-choice (<< 1.1.0-1)
 Depends: ${misc:Depends}, ${perl:Depends},
  liblocale-gettext-perl, libxml-simple-perl, libxml-writer-perl,
- libgtk2-perl, libio-compress-perl|libcompress-zlib-perl,
+ libgtk3-perl, libio-compress-perl|libcompress-zlib-perl,
  libgraphics-magick-perl, libdbd-sqlite3-perl, libdbi-perl,
  libfile-mimeinfo-perl, libtext-csv-perl, texlive-latex-base,
- texlive-latex-recommended, texlive-plain-generic, texlive-latex-extra,
+ texlive-latex-recommended, texlive-generic-recommended, texlive-latex-extra,
  texlive-fonts-recommended, texlive-fonts-extra,
  imagemagick (>= 7:6.5.5) | graphicsmagick-imagemagick-compat,
  netpbm, ghostscript,
  poppler-utils, libarchive-zip-perl, librsvg2-common, unzip,
- libglib-object-introspection-perl
+ libglib-object-introspection-perl, libclone-perl
 Recommends: libsys-cpu-perl, libnet-cups-perl (>= 0.60), 
  libopenoffice-oodoc-perl, libemail-mime-perl, libemail-sender-perl,
  fonts-linuxlibertine | ttf-linux-libertine, texlive-xetex,
- libgtk2-notify-perl
+ libfilesys-df-perl, qpdf | pdftk
 Description: Auto Multiple Choice - architecture independent files
  Utility to manage multiple choice questionnaires, with optionally
  mixed questions and answers. AMC provides automatic marking from papers'
