@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2008-2015 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -25,7 +25,7 @@ use AMC::Gui::Avancement;
 use AMC::Scoring;
 use AMC::Data;
 
-use encoding 'utf8';
+use utf8;
 
 my $darkness_threshold=0.1;
 my $darkness_threshold_up=1.0;
@@ -137,11 +137,11 @@ my $layout=$data->module('layout');
 # Uses an AMC::Scoring object to actually compute the questions
 # scores.
 
-my $bar=AMC::Scoring::new('onerror'=>'die',
-			  'data'=>$data,
-			  'seuil'=>$darkness_threshold,
-			  'seuil_up'=>$darkness_threshold_up,
-			 );
+my $score=AMC::Scoring::new('onerror'=>'die',
+                            'data'=>$data,
+                            'seuil'=>$darkness_threshold,
+                            'seuil_up'=>$darkness_threshold_up,
+                           );
 
 $avance->progres(0.05);
 
@@ -204,12 +204,12 @@ for my $sc (@captured_studentcopy) {
   # Gets the scoring strategy for current student/copy, including
   # which answers are correct, from the scoring database.
 
-  my $ssb=$scoring->student_scoring_base(@$sc,$darkness_threshold,$darkness_threshold_up);
+  my $ssb=$scoring->student_scoring_base_sorted(@$sc,$darkness_threshold,$darkness_threshold_up);
 
   # transmits the main strategy (default strategy options values for
   # all questions) to the scoring engine.
 
-  $bar->set_default_strategy($ssb->{'main_strategy'});
+  $score->set_default_strategy($ssb->{'main_strategy'});
 
   # The @question_scores collects scores for all questions
 
@@ -217,15 +217,14 @@ for my $sc (@captured_studentcopy) {
 
   # Process each question in turn
 
-  for my $question (keys %{$ssb->{'questions'}}) {
+  for my $q (@{$ssb->{'questions'}}) {
+
+    my $question=$q->{question};
 
     # $question is the question numerical ID, and
     # $q is the question scoring data (see AMC::DataModule::scoring)
 
-    my $q=$ssb->{'questions'}->{$question};
-
     debug "MARK: QUESTION $question TITLE ".$q->{'title'};
-    debug "Unknown question data !" if(!defined($q));
 
     # Uses the scoring engine to score the question...
     #
@@ -236,16 +235,24 @@ for my $sc (@captured_studentcopy) {
     #
     # $max_score is the maximum score (score for perfect answers)
 
-    $bar->prepare_question($q);
-    ($xx,$why)=$bar->score_question(@$sc,$q,0);
-    ($max_score)=$bar->score_max_question($sc->[0],$q);
+    $score->prepare_question($q);
+    $score->set_type(0);
+    ($xx,$why)=$score->score_question($sc->[0],$q,0);
+    $score->set_type(1);
+    ($max_score)=$score->score_max_question($sc->[0],$q);
 
     # If the title of the question is 'codename[N]' (with a numerical
     # N), then this question represents a digit from a AMCcode, so we
     # collect the value in the %codes hash.
 
     if ($q->{'title'} =~ /^(.*)$code_digit_pattern$/) {
-      $codes{$1}->{$2}=$xx;
+      my $code_name=$1;
+      my $code_digit=$2;
+      my $chars=$capture->
+        ticked_chars_pasted(@$sc,$question,$darkness_threshold,$darkness_threshold_up);
+      $chars=$xx if(!defined($chars));
+      debug "- code($code_name,$code_digit) = '$chars'";
+      $codes{$code_name}->{$code_digit}=$chars;
     }
 
     if ($q->{'indicative'}) {
@@ -270,7 +277,7 @@ for my $sc (@captured_studentcopy) {
 
   # Compute the final total score aggregating questions scores
 
-  my ($total,$max_i)=$bar->global_score($scoring,@question_scores);
+  my ($total,$max_i)=$score->global_score($scoring,@question_scores);
 
   # Now apply rounding scheme
 

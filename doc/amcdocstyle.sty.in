@@ -1,5 +1,5 @@
 %
-% Copyright (C) 2008-2015 Alexis Bienvenue <paamc@passoire.fr>
+% Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 %
 % This file is part of Auto-Multiple-Choice
 %
@@ -21,7 +21,7 @@
 \ProvidesPackage{amcdocstyle}
 \RequirePackageWithOptions{docbook}
 \RequirePackage[USenglish]{isodate}
-
+\RequirePackage{ifxetex}
 \AtBeginDocument{
   \ifx\pdfinfo\undefined
   \hypersetup{pdfcreationdate=D:@/PACKAGE_V_PDFDATE/@,pdfmoddate=D:@/PACKAGE_V_PDFDATE/@}
@@ -29,5 +29,11 @@
   \pdfinfo{/CreationDate (D:@/PACKAGE_V_PDFDATE/@) /ModDate (D:@/PACKAGE_V_PDFDATE/@)}
   \fi
   \renewcommand{\DBKdate}{\printdate{@/PACKAGE_V_ISODATE/@}}
-  \expandafter\def\expandafter\DBKsubtitle\expandafter{\DBKsubtitle{} \href{http://home.gna.org/auto-qcm/}{http://home.gna.org/auto-qcm/}}
+  \expandafter\def\expandafter\DBKsubtitle\expandafter{\DBKsubtitle{} \href{https://www.auto-multiple-choice.net/}{https://www.auto-multiple-choice.net/}}
 }
+\ifxetex%
+  \RequirePackage{xeCJK}%
+  \setCJKmainfont{IPAexMincho}%
+  \setCJKsansfont{IPAexGothic}%
+  \setCJKmonofont{IPAexGothic}%
+\fi

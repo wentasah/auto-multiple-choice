@@ -1,6 +1,6 @@
 # -*- perl -*-
 #
-# Copyright (C) 2012-2015 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -23,6 +23,8 @@ package AMC::Scoring;
 use AMC::Basic;
 use AMC::DataModule::scoring qw/:question/;
 use AMC::ScoringEnv;
+
+use Data::Dumper;
 
 sub new {
     my (%o)=(@_);
@@ -104,7 +106,8 @@ sub set_default_strategy {
 sub prepare_question {
   my ($self,$question_data)=@_;
 
-  $self->{env}=$self->{default_strategy}->clone;
+  debug "Question data is ".Dumper($question_data);
+  $self->{env}=$self->{default_strategy}->clone(1);
   $self->{env}->process_directives($question_data->{default_strategy});
   $self->{env}->process_directives($question_data->{strategy});
 }
@@ -117,8 +120,6 @@ sub set_number_variables {
 
   my $vars={'NB'=>0,'NM'=>0,'NBC'=>0,'NMC'=>0};
 
-  $self->{env}->set_type($correct);
-
   my $n_ok=0;
   my $n_ticked=0;
   my $ticked_adata='';
@@ -130,7 +131,7 @@ sub set_number_variables {
     my $c=$a->{'correct'};
     my $t=($correct ? $c : $a->{'ticked'});
 
-    debug("[ Q ".$a->{'question'}." A ".$a->{'answer'}." ] ticked $t (correct $c) TYPE=$correct\n");
+    debug("[ Q ".$a->{'question'}." A ".$a->{'answer'}." ] ticked $t (correct $c) CORRECT=$correct\n");
 
     $n_ok+=($c == $t ? 1 : 0);
     $n_ticked+=$t;
@@ -172,13 +173,18 @@ sub process_ticked_answers_setx {
     my $c=$a->{'correct'};
     my $t=($correct ? $c : $a->{'ticked'});
 
-    $self->{env}->variables_from_directives_string($a->{strategy},set=>1)
+    $self->{env}->variables_from_directives_string($a->{strategy},set=>1,setx=>1,setglobal=>1)
       if($t);
   }
 }
 
 #######################################################
 # small methods to relay to embedded ScoringEnv object
+
+sub set_type {
+  my ($self,$type)=@_;
+  return($self->{env}->set_type($type));
+}
 
 sub variable {
   my ($self,$key)=@_;
@@ -190,6 +196,11 @@ sub directive {
   return($self->{env}->get_directive($key));
 }
 
+sub directive_raw {
+  my ($self,$key)=@_;
+  return($self->{env}->get_directive_raw($key));
+}
+
 sub set_directive {
   my ($self,$key,$value)=@_;
   return($self->{env}->set_directive($key,$value));
@@ -198,6 +209,11 @@ sub set_directive {
 sub defined_directive {
   my ($self,$key)=@_;
   return($self->{env}->defined_directive($key));
+}
+
+sub evaluate {
+  my ($self,$formula)=@_;
+  return($self->{env}->evaluate($formula));
 }
 
 #######################################################
@@ -257,7 +273,7 @@ sub syntax_error {
 sub use_formula {
   my ($self,$score,$why)=@_;
   if($self->defined_directive("formula")
-    && $self->directive("formula") =~ /[^\s]/) {
+    && $self->directive_raw("formula") =~ /[^\s]/) {
     # a formula is given to compute the score directly
     debug "Using formula";
     $$score=$self->directive("formula");
@@ -326,12 +342,13 @@ sub simple_standard_score {
   my ($self,$score,$why)=@_;
 
   my $sb=$self->{ticked_answer_data}->{'strategy'};
-  $sb =~ s/^\s*,+//;
-  $sb =~ s/,+\s*$//;
-  if($sb ne '') {
+  my $plain_directives=$self->{env}->parse_defs($sb,1);
+
+  if(@$plain_directives) {
     # some value is given as a score for the
     # ticked answer
-    $$score=$sb;
+    debug "Scoring: plain value";
+    $$score=$self->evaluate(pop @$plain_directives);
   } else {
     # take into account the scoring strategy for
     # the question: 'auto', or 'b'/'m'
@@ -351,7 +368,7 @@ sub simple_standard_score {
 # returns the score for a particular student-sheet/question, applying
 # the given scoring strategy.
 sub score_question {
-  my ($self,$etu,$copy,$question_data,$correct)=@_;
+  my ($self,$etu,$question_data,$correct)=@_;
   my $answers=$question_data->{'answers'};
 
   my $xx='';
@@ -360,6 +377,7 @@ sub score_question {
   $self->{env}->clear_errors;
 
   $self->set_number_variables($question_data,$correct);
+  $self->{env}->variables_from_directives(setglobal=>1);
   $self->process_ticked_answers_setx($question_data,$correct);
   $self->{env}->variables_from_directives(default=>1,set=>1,setx=>1,requires=>1);
 
@@ -411,23 +429,25 @@ sub score_question {
   return($xx,$why);
 }
 
-# returns the score associated with correct answers for a question.
-sub score_correct_question {
-    my ($self,$etu,$question_data)=@_;
-    debug "MARK: scoring correct answers";
-    return($self->score_question($etu,0,$question_data,1));
-}
-
 # returns the maximum score for a question: MAX parameter value, or,
-# if not present, the score_correct_question value.
+# if not present:
+# - for indicative questions, the student score
+# - for standard questions, the score for a perfect copy
+
 sub score_max_question {
    my ($self,$etu,$question_data)=@_;
-   debug "MARK: scoring correct answers for MAX";
-   my ($x,$why)=($self->score_question($etu,0,$question_data,1));
    if($self->defined_directive("MAX")) {
-     return($self->directive("MAX"),'M');
+     my $m=$self->directive("MAX");
+     debug "MARK: get MAX from scoring directives: $m";
+     return($m,'M');
    } else {
-     return($x,$why);
+     if($question_data->{indicative}) {
+       debug "MARK: scoring STUDENT answers for MAX";
+       return($self->score_question($etu,$question_data,0));
+     } else {
+       debug "MARK: scoring correct answers for MAX";
+       return($self->score_question($etu,$question_data,1));
+     }
    }
 }
 
@@ -444,6 +464,9 @@ sub global_score {
   my ($self,$scoring,@questions)=@_;
   my $total=0;
   my $max=0;
+
+  # maybe global variables differ from a copy to another...
+  $self->{'default_strategy_plain'}->unevaluate_directives();
 
   my $skip=$self->{'default_strategy_plain'}->get_directive("allowempty");
   if($skip>0) {

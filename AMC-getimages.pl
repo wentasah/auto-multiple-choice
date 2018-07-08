@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 #
-# Copyright (C) 2012-2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -24,11 +24,11 @@ use AMC::Gui::Avancement;
 use File::Spec::Functions qw/splitpath catpath splitdir catdir catfile rel2abs tmpdir/;
 use File::Temp qw/ tempdir /;
 use File::Copy;
-use Unicode::Normalize;
 
 use Getopt::Long;
 
 use_gettext;
+binmode(STDOUT, ":utf8");
 
 my $list_file='';
 my $progress_id='';
@@ -38,7 +38,7 @@ my $vector_density=300;
 my $orientation="";
 my $rotate_direction="90";
 my $force_convert=0;
-my %use=(pdfimages=>1,pdftk=>1);
+my %use=(pdfimages=>1,pdftk=>1,qpdf=>1);
 
 GetOptions("list=s"=>\$list_file,
 	   "progression-id=s"=>\$progress_id,
@@ -49,6 +49,7 @@ GetOptions("list=s"=>\$list_file,
 	   "rotate-direction=s"=>\$rotate_direction,
 	   "use-pdfimages!"=>\$use{pdfimages},
 	   "use-pdftk!"=>\$use{pdftk},
+           "use-qpdf!"=>\$use{qpdf},
 	   "force-convert!"=>\$force_convert,
 	  );
 
@@ -59,7 +60,7 @@ $use{pdfimages}=0 if($force_convert);
 # cancels use of pdfimages/pdftk if these commands are not available
 # on the system
 
-for my $cmd (qw/pdfimages pdftk/) {
+for my $cmd (qw/pdfimages pdftk qpdf/) {
   if($use{$cmd} && !commande_accessible($cmd)) {
     debug "WARNING: command $cmd not found";
     $use{$cmd}=0;
@@ -83,6 +84,7 @@ $copy_to =~ s:(?<=.)/+$::;
 
 sub original_file {
   my ($file_path)=@_;
+  utf8::downgrade($file_path);
   return({ path=>$file_path,orig=>1 });
 }
 
@@ -149,7 +151,9 @@ sub move_derivative {
     check_split_path($derivative);
     my $dest=new_filename($origin->{dir}."/".$derivative->{file});
     debug "Moving $derivative->{path} to $dest";
-    move($derivative->{path},$dest);
+    if(!move($derivative->{path},$dest)) {
+      debug_and_stderr "File move failed: $dest";
+    }
     $derivative->{path}=$dest;
     check_split_path($derivative,1);
   }
@@ -188,10 +192,10 @@ if(-f $list_file) {
 }
 
 ###################################################################
-# STEP 1: split multi-page PDF with pdfimages or pdftk, which uses
+# STEP 1: split multi-page PDF with pdfimages, pdftk or qpdf, which use
 # less memory than ImageMagick
 
-if($use{pdfimages} || $use{pdftk}) {
+if($use{pdfimages} || $use{pdftk} || $use{qpdf}) {
 
   # @pdfs is the list of PDF files
 
@@ -215,16 +219,17 @@ if($use{pdfimages} || $use{pdftk}) {
       # makes a temporary directory to extract images from the PDF
 
       my $temp_loc=tmpdir();
-      my $temp_dir = tempdir( DIR=>$temp_loc,
-			      CLEANUP => (!get_debug()) );
-
-      debug "PDF split tmp dir: $temp_dir";
+      my $temp_dir;
 
       check_split_path($file);
 
-      # First try pdfimages, which is much more judicious
+      # First, try pdfimages, which is much more judicious
 
       if($use{pdfimages}) {
+        $temp_dir = tempdir( DIR=>$temp_loc,
+                             CLEANUP => (!get_debug()) );
+        debug "PDF split tmp dir / pdfimages: $temp_dir";
+
 	if(system("pdfimages","-p",$file->{path},
 		  $temp_dir.'/'.$file->{file}.'-page')==0) {
 
@@ -263,9 +268,42 @@ if($use{pdfimages} || $use{pdftk}) {
 	}
       }
 
-      # If not successful with pdfimages, use pdftk
+      # Second, try qpdf
+      if($use{qpdf}) {
+        $temp_dir = tempdir( DIR=>$temp_loc,
+                             CLEANUP => (!get_debug()) );
+        debug "PDF split tmp dir / qpdf: $temp_dir";
+
+        if(system("qpdf",$file->{path},"--split-pages",$temp_dir.'/'.$file->{file}.'-page-%d.pdf')==0) {
+
+          opendir(my $dh, $temp_dir)
+            || debug "can't opendir $temp_dir: $!";
+          my @images=map { "$temp_dir/$_" }
+            sort { $a cmp $b } grep { /-page-/ } readdir($dh);
+          closedir $dh;
+
+          if(@images) {
+
+            debug "qpdf ok for $file->{file}";
+            push @fs,replace_by($file,@images);
+            next PDF;
+
+          } else {
+            debug "INFO: qpdf produced no file";
+          }
+
+        } else {
+          debug "ERROR while trying qpdf: [$?] $!";
+        }
+      }
+
+      # If not successful with pdfimages and qpdf, use pdftk
 
       if($use{pdftk}) {
+        $temp_dir = tempdir( DIR=>$temp_loc,
+                             CLEANUP => (!get_debug()) );
+        debug "PDF split tmp dir / pdftk: $temp_dir";
+
 	if(system("pdftk",$file->{path},"burst","output",
 		  $temp_dir.'/'.$file->{file}.'-page-%04d.pdf')==0) {
 
@@ -334,6 +372,11 @@ for my $fich (@f) {
     $suffix_change='.png';
     @pre_options=('-density',$vector_density)
       if($vector_density);
+  }
+
+  # With ImageMagic, remove alpha channel to get white background
+  if(!use_gm_command()) {
+    push @pre_options,"-alpha","remove";
   }
 
   debug "> Scan $fich->{path}: $np page(s)".($scene ? " [has scene>0]" : "");
@@ -431,16 +474,14 @@ if($copy_to && @f) {
   my $c=0;
   for my $fich (@f) {
     check_split_path($fich);
-    my $fb=$fich->{file};
 
     # no accentuated or special characters in filename, please!
     # this could break the process somewere...
-    $fb=NFKD($fb);
-    $fb =~ s/\pM//og;
-    $fb =~ s/[^a-zA-Z0-9._+-]+/_/g;
-    $fb =~ s/^[^a-zA-Z0-9]/scan_/;
+    my $fb=string_to_filename($fich->{file},'scan');
 
     my $dest=$copy_to."/".$fb;
+    utf8::downgrade($dest);
+
     my $deplace=0;
 
     if($fich->{path} ne $dest) {

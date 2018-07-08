@@ -1,0 +1,8 @@
+Document: auto-multiple-choice-doc
+Title: Auto Multiple Choice Manual
+Abstract: This manual describes Auto Multiple Choice usage.
+Section: Education
+
+Format: HTML
+Index: /usr/share/doc/auto-multiple-choice-doc/html/index.html
+Files: /usr/share/doc/auto-multiple-choice-doc/html/*.html /usr/share/doc/auto-multiple-choice-doc/html/auto-multiple-choice.*/*.html

@@ -1,0 +1,59 @@
+% make -C ~/enseignement/auto-qcm/auto-multiple-choice MAJ ; make -C ~/enseignement/auto-qcm/auto-multiple-choice/doc/sty styonly; pdflatex n
+
+\documentclass[a4paper]{article}
+\usepackage{fp}
+\usepackage{multicol}
+\usepackage[indivanswers,insidebox]{automultiplechoice}
+\begin{document}
+
+\AMCnumericOpts{scoreexact=5,approx=15,scoreapprox=3}
+
+\element{grq}{
+  \begin{questionmultx}{expo1}
+    How much is $\exp(-100)$?
+
+    \AMCnumericChoices{exp(-100)}{digits=3,decimals=2,exponent=2,vertical}
+
+  \end{questionmultx}
+}
+
+\element{grq}{
+  \begin{questionmultx}{expo2}
+    How much is $-\exp(100)$?
+
+    \AMCnumericChoices{-exp(100)}{digits=3,decimals=2,exponent=2}
+
+  \end{questionmultx}
+}
+
+\element{grq}{
+  \begin{questionmultx}{scientific}
+    How much is $9.97\times10^{25}$?
+
+    \AMCnumericChoices{9.97e25}{
+      digits=3,decimals=2,exponent=2,expovertical,
+      sign=false,exposign=false
+    }
+
+  \end{questionmultx}
+}
+
+
+\onecopy{5}{
+
+  \hspace*{\fill}\namefield{\fbox{
+      \begin{minipage}{15em}
+        Name and surname:\vspace*{3ex}\par
+        \noindent\dotfill\vspace{2mm}
+      \end{minipage}
+    }}
+
+  \begin{center}
+    \bf\Large Questions
+  \end{center}
+
+  \insertgroup{grq}
+
+}
+
+\end{document}

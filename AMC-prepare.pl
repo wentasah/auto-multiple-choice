@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -18,11 +18,12 @@
 # along with Auto-Multiple-Choice.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-use encoding "utf-8";
+use utf8;
 
 use File::Copy;
 use File::Spec::Functions qw/splitpath catpath splitdir catdir catfile rel2abs tmpdir/;
 use File::Temp qw/ tempfile tempdir /;
+use Clone;
 
 use Module::Load;
 
@@ -84,6 +85,8 @@ my $jobname="amc-compiled";
 
 my $f_tex;
 
+my $epoch='';
+
 @ARGV=unpack_args(@ARGV);
 
 GetOptions("mode=s"=>\$mode,
@@ -105,11 +108,14 @@ GetOptions("mode=s"=>\$mode,
 	   "n-copies=s"=>\$number_of_copies,
 	   "filter=s"=>\$filter,
 	   "filtered-source=s"=>\$filtered_source,
+           "epoch=s"=>\$epoch,
 	   );
 
 set_debug($debug);
 
 debug("AMC-prepare / DEBUG") if($debug);
+
+my %global_opts=(qw/NoWatermarkExterne 1 NoHyperRef 1/);
 
 # Split the LaTeX engine string, to get
 #
@@ -200,6 +206,14 @@ for(\$data_dir,\$source,\$filtered_source) {
 
 set_filtered_source($filtered_source);
 
+# set environment variables for reproducible output
+
+if($epoch) {
+  $ENV{SOURCE_DATE_EPOCH}=$epoch;
+  $ENV{SOURCE_DATE_EPOCH_TEX_PRIMITIVES}=1;
+  $ENV{FORCE_SOURCE_DATE}=1;
+}
+
 # These variables are used to track errors from LaTeX compiling
 
 my $a_errors; # the number of errors
@@ -216,6 +230,20 @@ sub flush_errors {
 # %info_vars collects the variables values that LaTeX wants to give us
 
 my %info_vars=();
+
+sub relay_info_vars {
+  # Relays variables to calling process
+
+  print "Variables :\n";
+  for my $k (keys %info_vars) {
+    print "VAR: $k=".$info_vars{$k}."\n";
+  }
+}
+
+sub exit_with_error {
+  relay_info_vars();
+  exit(1);
+}
 
 # check_question checks that, if the question question is a simple
 # one, the number of correct answers is exactly one.
@@ -249,6 +277,30 @@ sub check_question {
     }
 }
 
+# analyse_cslog get the chars written in the boxes from the catalog
+# build, and updates the layout_char database accordingly
+
+sub analyse_cslog {
+  my ($cslog_file)=@_;
+
+  my $data=AMC::Data->new($data_dir);
+  my $layout=$data->module('layout');
+
+  $layout->begin_transaction('Char');
+  $layout->clear_char();
+  open(CSLOG,$cslog_file) or die "Unable to open $cslog_file: $!";
+  while (<CSLOG>) {
+    if(/\\answer\{.*:(\d+),(\d+)\}\{(.*)\}$/) {
+      my $question=$1;
+      my $answer=$2;
+      my $char=$3;
+      $layout->char($question,$answer,$char);
+    }
+  }
+  close(CSLOG);
+  $layout->end_transaction('Char');
+}
+
 # analyse_amclog checks common errors in LaTeX about questions:
 #
 # * same question ID used multiple times for the same paper, or same
@@ -264,7 +316,8 @@ sub check_question {
 sub analyse_amclog {
   my ($amclog_file)=@_;
 
-  my %analyse_data=();
+  my $analyse_data={etu=>0,qs=>{}};
+  my $analyse_data_s0={}; # backup for student 0
   my %titres=();
   @errors_msg=();
 
@@ -278,61 +331,78 @@ sub analyse_amclog {
     if (/AUTOQCM\[Q=([0-9]+)\]/) {
 
       # first check that the previous question is ok:
-      check_question($analyse_data{'q'},$analyse_data{'etu'}.":".$analyse_data{'titre'});
+      check_question($analyse_data->{q},$analyse_data->{etu}.":".$analyse_data->{titre});
 
       # then clear current question data:
-      $analyse_data{'q'}={};
+      $analyse_data->{q}={};
 
       # if this question has already be seen for current student...
-      if ($analyse_data{'qs'}->{$1}) {
+      if ($analyse_data->{qs}->{$1}) {
 
-	if ($analyse_data{'qs'}->{$1}->{'partial'}) {
+	if ($analyse_data->{qs}->{$1}->{partial}) {
 	  # if the question was partial (answers was not given in the
 	  # question, but are now given in the answer sheet), it's
 	  # ok. Simply get back the data already processed, and clear
 	  # 'partial' and 'closed' flags:
 
-	  $analyse_data{'q'}=$analyse_data{'qs'}->{$1};
+	  $analyse_data->{q}=$analyse_data->{qs}->{$1};
 	  for my $flag (qw/partial closed/) {
-	    delete($analyse_data{'q'}->{$flag});
+	    delete($analyse_data->{q}->{$flag});
 	  }
 	} else {
 	  # if the question was NOT partial, this is an error!
 
 	  $a_errors++;
 	  push @errors_msg,"ERR: "
-	    .sprintf(__("question ID used several times for the same paper: \"%s\"")." [%s]\n",$titres{$1},$analyse_data{'etu'});
+	    .sprintf(__("question ID used several times for the same paper: \"%s\"")." [%s]\n",$titres{$1},$analyse_data->{etu});
 	}
       }
 
       # register question data
-      $analyse_data{'titre'}=$titres{$1};
-      $analyse_data{'qs'}->{$1}=$analyse_data{'q'};
+      $analyse_data->{titre}=$titres{$1};
+      $analyse_data->{qs}->{$1}=$analyse_data->{q};
     }
 
     # AUTOQCM[QPART] tells that we end with a question without having
     # given all the answers
 
     if (/AUTOQCM\[QPART\]/) {
-      $analyse_data{'q'}->{'partial'}=1;
+      $analyse_data->{q}->{partial}=1;
     }
 
     # AUTOQCM[FQ] tells that we have finished with the current question
 
     if (/AUTOQCM\[FQ\]/) {
-      $analyse_data{'q'}->{'closed'}=1;
+      $analyse_data->{q}->{closed}=1;
     }
 
     # AUTOQCM[ETU=N] tells that we begin with student number N.
 
     if (/AUTOQCM\[ETU=([0-9]+)\]/) {
+      my $student=$1;
+
+      # backup
+
+      $analyse_data_s0=$analyse_data if($analyse_data->{etu}==0);
+
       # first check the last question from preceding student is ok:
 
-      check_question($analyse_data{'q'},$analyse_data{'etu'}.":".$analyse_data{'titre'});
+      check_question($analyse_data->{q},$analyse_data->{etu}.":".$analyse_data->{titre});
 
-      # then clear all %analyse_data to begin with this student:
+      # then clear all $analyse_data to begin with this student:
 
-      %analyse_data=('etu'=>$1,'qs'=>{});
+      $analyse_data={'etu'=>$student,'qs'=>{}};
+    }
+
+    # AUTOQCM[BR=N] tells that this student is a replicate of student N
+
+    if(/AUTOQCM\[BR=([0-9]+)\]/) {
+      my $alias=$1;
+      die "Unimplemented positive student alias" if($alias!=0);
+
+      my $student=$analyse_data->{etu};
+      $analyse_data=Clone::clone($analyse_data_s0);
+      $analyse_data->{etu}=$student;
     }
 
     # AUTOACM[NUM=N=ID] tells that question number N (internal
@@ -344,20 +414,20 @@ sub analyse_amclog {
       # stores this association (two-way)
 
       $titres{$1}=$2;
-      $analyse_data{'titres'}->{$2}=1;
+      $analyse_data->{titres}->{$2}=1;
     }
 
     # AUTOQCM[MULT] tells that current question is a multiple question
 
     if (/AUTOQCM\[MULT\]/) {
-      $analyse_data{'q'}->{'mult'}=1;
+      $analyse_data->{q}->{mult}=1;
     }
 
     # AUTOQCM[INDIC] tells that current question is an indicative
     # question
 
     if (/AUTOQCM\[INDIC\]/) {
-      $analyse_data{'q'}->{'indicative'}=1;
+      $analyse_data->{q}->{indicative}=1;
     }
 
     # AUTOQCM[REP=N:S] tells that answer number N is S (S can be 'B'
@@ -366,30 +436,30 @@ sub analyse_amclog {
     if (/AUTOQCM\[REP=([0-9]+):([BM])\]/) {
       my $rep="R".$1;
 
-      if ($analyse_data{'q'}->{'closed'}) {
+      if ($analyse_data->{q}->{closed}) {
 	# If current question is already closed, this is an error!
 
 	$a_errors++;
 	push @errors_msg,"ERR: "
 	  .sprintf(__("An answer appears to be given outside a question environment, after question \"%s\"")." [%s]\n",
-		   $analyse_data{'titre'},$analyse_data{'etu'});
+		   $analyse_data->{titre},$analyse_data->{etu});
       }
 
-      if (defined($analyse_data{'q'}->{$rep})) {
+      if (defined($analyse_data->{q}->{$rep})) {
 	# if we already saw an answer with the same N, this is an error!
 
 	$a_errors++;
 	push @errors_msg,"ERR: "
-	  .sprintf(__("Answer number ID used several times for the same question: %s")." [%s]\n",$1,$analyse_data{'titre'});
+	  .sprintf(__("Answer number ID used several times for the same question: %s")." [%s]\n",$1,$analyse_data->{titre});
       }
 
       # stores the answer's status
-      $analyse_data{'q'}->{$rep}=($2 eq 'B' ? 1 : 0);
+      $analyse_data->{q}->{$rep}=($2 eq 'B' ? 1 : 0);
     }
 
     # AUTOQCM[VAR:N=V] tells that variable named N has value V
 
-    if (/AUTOQCM\[VAR:([0-9a-zA-Z.-]+)=([^\]]+)\]/) {
+    if (/AUTOQCM\[VAR:([0-9a-zA-Z.:-]+)=([^\]]+)\]/) {
       $info_vars{$1}=$2;
     }
 
@@ -398,7 +468,7 @@ sub analyse_amclog {
 
   # check that the last question from the last student is ok:
 
-  check_question($analyse_data{'q'},$analyse_data{'etu'}.":".$analyse_data{'titre'});
+  check_question($analyse_data->{q},$analyse_data->{etu}.":".$analyse_data->{titre});
 
   # Send error messages to the calling program through STDOUT
 
@@ -443,7 +513,7 @@ sub execute {
 	}
     }
 
-    exit 1 if($errs);
+    exit_with_error() if($errs);
 
     # the filter could have changed the latex engine, so update it
     $oo{command}=[latex_cmd(@{$oo{command_opts}})];
@@ -469,6 +539,8 @@ sub execute {
 	debug "%%% Compiling: pass $n_run";
 
 	# lauches the command
+
+        debug "COMMAND: $ENV{AMC_CMD}";
 
 	$cmd_pid=open(EXEC,"-|",@{$oo{'command'}});
 	die "Can't exec ".join(' ',@{$oo{'command'}}) if(!$cmd_pid);
@@ -496,6 +568,18 @@ sub execute {
 	      $e .= "..." if($e !~ /\.$/);
 	      push @latex_errors,$e;
 	    }
+
+            # detect style file path
+
+            if(m:\(([^\)]+/automultiplechoice.sty)(\)|$):) {
+              $info_vars{stypath}=$1;
+            }
+
+            # detect style file version
+
+            if(/^AMC version: (.*)/) {
+              $info_vars{styversion}=$1;
+            }
 
 	    # Relays LaTeX log to calling program
 
@@ -625,7 +709,7 @@ sub give_latex_errors {
 	for(@latex_errors) {
 	    print "ERR>$_\n";
 	}
-	exit(1);
+	exit_with_error();
     }
 }
 
@@ -641,6 +725,18 @@ sub transfer {
 	debug "No source: removing $dest";
 	unlink($dest);
     }
+}
+
+# latex_reprocucible_commands($engine) returns commands suitable for
+# the given engine to get reproducible output.
+
+sub latex_reproducible_commands {
+  my ($engine)=@_;
+  if($engine eq 'pdflatex') {
+    return("\\pdfsuppressptexinfo=-1\\pdftrailerid{}");
+  } else {
+    return("");
+  }
 }
 
 # latex_cmd(%o) builds the LaTeX command and arguments to be passed to
@@ -660,7 +756,8 @@ sub latex_cmd {
 	   @engine_args,
 	   "\\nonstopmode"
 	   .join('',map { "\\def\\".$_."{".$o{$_}."}"; } (keys %o) )
-	   ." \\input{\"$f_tex\"}");
+           .($epoch ? latex_reproducible_commands($latex_engine) : "")
+	   ."\\input{\"$f_tex\"}");
 }
 
 # check_engine() checks that the requeted LaTeX engine is available on
@@ -669,7 +766,7 @@ sub latex_cmd {
 sub check_engine {
     if(!commande_accessible($latex_engine)) {
 	print "ERR: ".sprintf(__("LaTeX command configured is not present (%s). Install it or change configuration, and then rerun."),$latex_engine)."\n";
-	exit(1);
+	exit_with_error();
     }
 }
 
@@ -691,6 +788,35 @@ if($to_do{f}) {
 }
 
 ############################################################################
+# MODE S: builds the solution
+############################################################################
+
+sub build_solution {
+  execute('command_opts'=>[%global_opts,'CorrigeExterne'=>1]);
+  transfer("$jobname.pdf",$out_corrige);
+  give_latex_errors(__"solution");
+}
+
+if($to_do{S}) {
+  build_solution();
+}
+
+############################################################################
+# MODE C: builds the catalog
+############################################################################
+
+sub build_catalog {
+  execute('command_opts'=>[%global_opts,'CatalogExterne'=>1]);
+  transfer("$jobname.pdf",$out_catalog);
+  analyse_cslog("$jobname.cs");
+  give_latex_errors(__"catalog");
+}
+
+if($to_do{C}) {
+  build_catalog();
+}
+
+############################################################################
 # MODE s: builds the subject and a solution (with all the answers for
 # questions, but with a different layout)
 ############################################################################
@@ -700,30 +826,31 @@ if($to_do{s}) {
 
   @output_files=($out_sujet,$out_calage,$out_corrige,$out_catalog);
 
-    my %opts=(qw/NoWatermarkExterne 1 NoHyperRef 1/);
+  $out_calage=$prefix."calage.xy" if(!$out_calage);
+  $out_corrige=$prefix."corrige.pdf" if(!$out_corrige);
+  $out_catalog=$prefix."catalog.pdf" if(!$out_catalog);
+  $out_sujet=$prefix."sujet.pdf" if(!$out_sujet);
 
-    $out_calage=$prefix."calage.xy" if(!$out_calage);
-    $out_corrige=$prefix."corrige.pdf" if(!$out_corrige);
-    $out_catalog=$prefix."catalog.pdf" if(!$out_catalog);
-    $out_sujet=$prefix."sujet.pdf" if(!$out_sujet);
-
-    for my $f ($out_calage,$out_corrige,$out_corrige_indiv,$out_sujet,$out_catalog) {
-	if(-f $f) {
-	    debug "Removing already existing file: $f";
-	    unlink($f);
-	}
+  for my $f ($out_calage,$out_corrige,$out_corrige_indiv,$out_sujet,$out_catalog) {
+    if(-f $f) {
+      debug "Removing already existing file: $f";
+      unlink($f);
     }
+  }
 
-    # 1) SUBJECT
+  # 1) SUBJECT
 
-    execute('command_opts'=>[%opts,'SujetExterne'=>1]);
-    analyse_amclog("$jobname.amc");
-    give_latex_errors(__"question sheet");
+  execute('command_opts'=>[%global_opts,'SujetExterne'=>1]);
+  analyse_amclog("$jobname.amc");
+  give_latex_errors(__"question sheet");
 
-    exit(1) if($a_errors>0);
+  if($a_errors>0) {
+    debug("$a_errors errors detected: EXIT");
+    exit_with_error();
+  }
 
-    transfer("$jobname.pdf",$out_sujet);
-    transfer("$jobname.xy",$out_calage);
+  transfer("$jobname.pdf",$out_sujet);
+  transfer("$jobname.xy",$out_calage);
 
   # Looks for accents problems in question IDs...
 
@@ -750,30 +877,19 @@ if($to_do{s}) {
   }
   flush_errors();
 
-    # Relays variables to calling process
-
-    print "Variables :\n";
-    for my $k (keys %info_vars) {
-	print "VAR: $k=".$info_vars{$k}."\n";
-    }
-
-    # 2) SOLUTION
+  # 2) SOLUTION
 
   if($to_do{s}=~/s/) {
-    execute('command_opts'=>[%opts,'CorrigeExterne'=>1]);
-    transfer("$jobname.pdf",$out_corrige);
-    give_latex_errors(__"solution");
+    build_solution();
   } else {
     debug "Solution not requested: removing $out_corrige";
     unlink($out_corrige);
   }
 
-    # 3) CATALOG
+  # 3) CATALOG
 
   if($to_do{s}=~/c/) {
-    execute('command_opts'=>[%opts,'CatalogExterne'=>1]);
-    transfer("$jobname.pdf",$out_catalog);
-    give_latex_errors(__"catalog");
+    build_catalog();
   } else {
     debug "Catalog not requested: removing $out_catalog";
     unlink($out_catalog);
@@ -798,7 +914,7 @@ if($to_do{k}) {
 
   @output_files=($of);
 
-  execute('command_opts'=>[qw/NoWatermarkExterne 1 NoHyperRef 1 CorrigeIndivExterne 1/]);
+  execute('command_opts'=>[%global_opts,qw/CorrigeIndivExterne 1/]);
   transfer("$jobname.pdf",$of);
   give_latex_errors(__"individual solution");
 }
@@ -836,7 +952,10 @@ if($to_do{b}) {
     my $capture=$data->module('capture');
 
     my $qs={};
+    my $qs0={}; # memory for student 0 (when using AMCformS)
     my $current_q={};
+    my $qs0_count=0;
+    my $finished_with_student=0;
 
     # and parse the log...
 
@@ -844,7 +963,7 @@ if($to_do{b}) {
     annotate_source_change($capture);
     $scoring->clear_strategy;
 
-    while(<AMCLOG>) {
+  PARSELOG: while(<AMCLOG>) {
 	debug($_) if($_);
 
 	# AUTOQCM[TOTAL=N] tells that the total number of sheets is
@@ -860,6 +979,20 @@ if($to_do{b}) {
 		print "*** TOTAL=$t ***\n";
 	    }
 	}
+
+	if(/AUTOQCM\[ETU=([0-9]+)\]/) {
+          # save if student 0
+          $qs0=$qs if($etu==0);
+	  # beginning of student sheet
+	  $avance->progres($delta) if($etu ne '');
+	  $etu=$1;
+	  print "Sheet $etu...\n";
+	  debug "Sheet $etu...\n";
+	  $qs={};
+          $finished_with_student=0;
+	}
+
+        next PARSELOG if($finished_with_student);
 
 	if(/AUTOQCM\[FQ\]/) {
 	  # end of question: register it (or update it)
@@ -886,15 +1019,6 @@ if($to_do{b}) {
 			  'strategy'=>'',
 	      };
 	  }
-	}
-
-	if(/AUTOQCM\[ETU=([0-9]+)\]/) {
-	  # beginning of student sheet
-	  $avance->progres($delta) if($etu ne '');
-	  $etu=$1;
-	  print "Sheet $etu...\n";
-	  debug "Sheet $etu...\n";
-	  $qs={};
 	}
 
 	if(/AUTOQCM\[NUM=([0-9]+)=(.+)\]/) {
@@ -928,8 +1052,12 @@ if($to_do{b}) {
 
 	if(/AUTOQCM\[BR=([0-9]+)\]/) {
 	  my $alias=$1;
+          die "Unimplemented positive student alias" if($alias!=0);
 	  $scoring->replicate($alias,$etu);
 	  $etu=$alias;
+          $qs=$qs0 if($etu==0);
+          $finished_with_student=1 if($qs0_count>0);
+          $qs0_count++;
 	}
 
 	if(/AUTOQCM\[B=([^\]]+)\]/) {
@@ -973,5 +1101,7 @@ if($to_do{b}) {
 
     $scoring->end_transaction('ScEx');
 }
+
+relay_info_vars();
 
 $avance->fin();

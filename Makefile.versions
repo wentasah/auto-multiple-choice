@@ -1,24 +1,6 @@
-#! /usr/bin/perl
-#
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
-#
-# This file is part of Auto-Multiple-Choice
-#
-# Auto-Multiple-Choice is free software: you can redistribute it
-# and/or modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation, either version 2 of
-# the License, or (at your option) any later version.
-#
-# Auto-Multiple-Choice is distributed in the hope that it will be
-# useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Auto-Multiple-Choice.  If not, see
-# <http://www.gnu.org/licenses/>.
-
-PACKAGE_V_DEB=1.3.0
-PACKAGE_V_VC=r:6551ff313e87
-PACKAGE_V_PDFDATE=20160316000000
-PACKAGE_V_ISODATE=2016-03-16
+PACKAGE_V_DEB=1.4.0~rc1
+PACKAGE_V_VC=r:2c10fc7
+PACKAGE_V_PDFDATE=20180704000000
+PACKAGE_V_ISODATE=2018-07-04
+PACKAGE_V_STY=2018/07/04 v1.4.0~rc1 r:2c10fc7
+PACKAGE_V_EPOCH=1530662400

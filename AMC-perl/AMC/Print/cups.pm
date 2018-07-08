@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2015-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -110,7 +110,7 @@ sub printer_selected_options {
   if($ppd) {
     for my $k (split(/\s+/,$self->{useful_options})) {
       my $option=$ppd->getOption($k);
-      if(%$option) {
+      if(ref($option) eq 'HASH') {
 	push @o,{name=>$k,
 		 description=>nonnul($option->{'text'}),
 		 default=>nonnul($option->{'defchoice'}),

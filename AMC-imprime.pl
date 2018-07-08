@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -75,17 +75,18 @@ die "Needs subject file" if(!$sujet);
 die "Needs print command" if($methode =~ /^command/i && !$print_cmd);
 die "Needs output file" if($methode =~ /^file/i && !$output_file);
 
-my @available_extracts=(qw/pdftk gs/);
+my @available_extracts=('pdftk','pdftk+NA','gs','qpdf');
 
-die "Invalid value for extract_with"
-  if(!grep(/^$extract_with$/,@available_extracts));
+die "Invalid value for extract_with: $extract_with"
+  if(!grep(/^\Q$extract_with\E$/,@available_extracts));
 
-@available_extracts=grep { commande_accessible($_) }
+@available_extracts=grep { my $c=$_; $c=~s/\+.*//; commande_accessible($c) }
   @available_extracts;
 
 die "No available extract engine" if(!@available_extracts);
 
-if(!grep(/^$extract_with$/,@available_extracts)) {
+if(!grep(/^\Q$extract_with\E$/,@available_extracts)) {
+  debug("Extract engines available: ".join(" ",@available_extracts));
   $extract_with=$available_extracts[0];
   debug("Switching to extract engine $extract_with");
 }
@@ -163,6 +164,20 @@ sub process_pages {
     $commandes->execute("pdftk",$sujet,"cat",
 			(map { $_->{first}."-".$_->{last} } @$slices),
 			"output",$fn);
+  } elsif($extract_with eq 'pdftk+NA') {
+    # Use pdftk with a workaround to keep PDF forms.
+    # See https://bugs.debian.org/792168
+    my $fn_step="$fn.1.pdf";
+    $commandes->execute("pdftk",$sujet,"cat",
+			(map { $_->{first}."-".$_->{last} } @$slices),
+			"output",$fn_step);
+    $commandes->execute("pdftk",$fn_step,
+			"output",$fn,"need_appearances");
+  } elsif($extract_with eq "qpdf") {
+    # Cmd: qpdf input.pdf --pages input.pdf 3,4-7,10 -- output.pdf
+    $commandes->execute("qpdf", $sujet, "--pages", $sujet,
+			join(",", map { $_->{first}."-".$_->{last} } @$slices),
+			"--",$fn);
   }
 
   if($methode =~ /^cups/i) {

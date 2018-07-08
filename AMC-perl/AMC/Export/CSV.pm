@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2009-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2009-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -60,6 +60,21 @@ sub parse_string {
 	$s=$self->{'out.entoure'}.$s.$self->{'out.entoure'};
     }
     return($s);
+}
+
+sub i_to_a {
+  my ($self,$i)=@_;
+  if($i==0) {
+    return('0');
+  } else {
+    my $s='';
+    while($i>0) {
+      $s = chr(ord('a')+(($i-1) % 26)) . $s;
+      $i = int(($i-1)/26);
+    }
+    $s =~ s/^([a-z])/uc($1)/e;
+    return($s);
+  }
 }
 
 sub export {
@@ -131,8 +146,10 @@ sub export {
 	push @columns,$self->parse_num($self->{'_scoring'}->question_score(@sc,$q->{'question'}));
 	if($self->{'out.ticked'}) {
 	  if($self->{'out.ticked'} eq '01') {
-	    push @columns,join(';',$self->{'_capture'}
-			       ->ticked_list_0(@sc,$q->{'question'},$dt,$dtu));
+	    push @columns,
+              $self->parse_string
+              (join(';',$self->{'_capture'}
+                    ->ticked_list_0(@sc,$q->{'question'},$dt,$dtu)));
 	  } elsif($self->{'out.ticked'} eq 'AB') {
 	    my $t='';
 	    my @tl=$self->{'_capture'}
@@ -143,11 +160,11 @@ sub export {
 	      }
 	    }
 	    for my $i (0..$#tl) {
-	      $t.=chr(ord('A')+$i) if($tl[$i]);
+	      $t.=$self->i_to_a($i+1) if($tl[$i]);
 	    }
-	    push @columns,"\"$t\"";
+	    push @columns,$self->parse_string($t);
 	  } else {
-	    push @columns,'"S?"';
+	    push @columns,$self->parse_string('S?');
 	  }
 	}
       }

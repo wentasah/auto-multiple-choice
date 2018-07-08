@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2012 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -18,10 +18,10 @@
 # along with Auto-Multiple-Choice.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-use AMC::Test;
+require "./AMC/Test.pm";
 
 AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
-	       'bw_threshold'=>0.4,
+	       'bw_threshold'=>0.4,n_copies=>6,
 	       'seuil'=>0.5,
 	       'grain'=>0.6,
 	       'perfect_copy'=>'',
@@ -50,6 +50,12 @@ AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
 		{-copy=>4,-question=>'sqrt',-score=>1},
 		{-copy=>4,-question=>'cities',-score=>0},
 		{-copy=>4,-question=>'capital',-score=>1},
+                {-copy=>5,-question=>'sum',-score=>0},
+                {-copy=>5,-question=>'product',-score=>0},
+                {-copy=>5,-question=>'sqrt',-score=>-1},
+                {-copy=>6,-question=>'sum',-score=>0},
+                {-copy=>6,-question=>'product',-score=>0},
+                {-copy=>6,-question=>'sqrt',-score=>0},
 		],
 	      )
   ->default_process;

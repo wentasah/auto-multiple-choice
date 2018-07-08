@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012,2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -41,51 +41,49 @@ sub extension {
 }
 
 sub options_from_config {
-  my ($self,$options_project,$options_main,$options_default)=@_;
-  my $enc=$options_project->{"encodage_csv"}
-    || $options_main->{"defaut_encodage_csv"}
-      || $options_main->{"encodage_csv"}
-	|| $options_main->{"defaut_encodage_csv"}
-	  || $options_default->{"encodage_csv"}
-	    || "UTF-8";
-  return("encodage"=>$enc,
-	 "columns"=>$options_project->{'export_csv_columns'},
-	 "decimal"=>$options_main->{'delimiteur_decimal'},
-	 "separateur"=>$options_project->{'export_csv_separateur'},
-	 "ticked"=>$options_project->{'export_csv_ticked'},
+  my ($self,$config)=@_;
+  my $enc=$config->get("encodage_csv")
+    || $config->get("defaut_encodage_csv")
+    || "UTF-8";
+  return(encodage=>$enc,
+	 columns=>$config->get('export_csv_columns'),
+	 decimal=>$config->get('delimiteur_decimal'),
+	 separateur=>$config->get('export_csv_separateur'),
+	 ticked=>$config->get('export_csv_ticked'),
 	);
 }
 
 sub options_default {
-  return('export_csv_separateur'=>";",
-	 'export_csv_ticked'=>'',
-	 'export_csv_columns'=>'student.copy,student.key,student.name',
+  return(export_csv_separateur=>";",
+	 export_csv_ticked=>'',
+	 export_csv_columns=>'student.copy,student.key,student.name',
 	);
 }
 
 sub build_config_gui {
   my ($self,$w,$prefs)=@_;
-  my $t=Gtk2::Table->new(3,2);
+  my $t=Gtk3::Grid->new();
   my $widget;
   my $y=0;
   my $renderer;
 
-  $t->attach(Gtk2::Label->new(__"Separator"),
-	     0,1,$y,$y+1,["expand","fill"],[],0,0);
-  $widget=Gtk2::ComboBox->new_with_model();
-  $renderer = Gtk2::CellRendererText->new();
+  $t->attach(Gtk3::Label->new(__"Separator"),
+	     0,$y,1,1);
+  $widget=Gtk3::ComboBox->new();
+  $renderer = Gtk3::CellRendererText->new();
   $widget->pack_start($renderer, TRUE);
   $widget->add_attribute($renderer,'text',COMBO_TEXT);
   $prefs->store_register('export_csv_separateur'=>cb_model("TAB"=>'<TAB>',
 							   ";"=>";",
 							   ","=>","));
   $w->{'export_c_export_csv_separateur'}=$widget;
-  $t->attach($widget,1,2,$y,$y+1,["expand","fill"],[],0,0);
+  $t->attach($widget,1,$y,1,1);
   $y++;
 
-  $t->attach(Gtk2::Label->new(__"Ticked boxes"),0,1,$y,$y+1,["expand","fill"],[],0,0);
-  $widget=Gtk2::ComboBox->new_with_model();
-  $renderer = Gtk2::CellRendererText->new();
+  $t->attach(Gtk3::Label->new(__"Ticked boxes"),
+             0,$y,1,1);
+  $widget=Gtk3::ComboBox->new();
+  $renderer = Gtk3::CellRendererText->new();
   $widget->pack_start($renderer, TRUE);
   $widget->add_attribute($renderer,'text',COMBO_TEXT);
   $prefs->store_register('export_csv_ticked'=>cb_model(""=>__"No",
@@ -93,12 +91,12 @@ sub build_config_gui {
 						       "AB"=>(__"Yes:")." AB",
 						      ));
   $w->{'export_c_export_csv_ticked'}=$widget;
-  $t->attach($widget,1,2,$y,$y+1,["expand","fill"],[],0,0);
+  $t->attach($widget,1,$y,1,1);
   $y++;
 
-  $widget=Gtk2::Button->new_with_label(__"Choose columns");
+  $widget=Gtk3::Button->new_with_label(__"Choose columns");
   $widget->signal_connect(clicked => \&main::choose_columns_current);
-  $t->attach($widget,0,2,$y,$y+1,["expand","fill"],[],0,0);
+  $t->attach($widget,0,$y,2,1);
   $y++;
 
   $t->show_all;

@@ -1,6 +1,6 @@
 # -*- perl -*-
 #
-# Copyright (C) 2012 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -75,6 +75,7 @@ sub new {
   }
 
   $self->{errors}=[];
+  $self->{globalvariables}=$self->{variables};
 
   bless($self,$class);
 
@@ -110,8 +111,14 @@ sub clear_errors {
 }
 
 sub clone {
-  my ($self)=@_;
-  return(AMC::ScoringEnv->new($self));
+  my ($self,$from_global)=@_;
+  $c=AMC::ScoringEnv->new($self);
+  if($from_global) {
+    $c->{globalvariables}=$self->{variables};
+  } else {
+    $c->{globalvariables}=$self->{globalvariables};
+  }
+  return($c)
 }
 
 sub clone_directives {
@@ -138,14 +145,15 @@ sub set_type {
 # set variable value.
 
 sub set_variable {
-  my ($self,$vv,$value,$rw,$unlock)=@_;
-  $self->{variables}->{$vv}=[] if(!$self->{variables}->{$vv});
+  my ($self,$vv,$value,$rw,$unlock,$global)=@_;
+  $vars=($global ? 'globalvariables' : 'variables');
+  $self->{$vars}->{$vv}=[] if(!$self->{$vars}->{$vv});
   if((!$unlock)
-     && $self->{variables}->{$vv}->[$self->{type}]
-     && !$self->{variables}->{$vv}->[$self->{type}]->{rw}) {
+     && $self->{$vars}->{$vv}->[$self->{type}]
+     && !$self->{$vars}->{$vv}->[$self->{type}]->{rw}) {
     $self->error("Trying to set read-only variable $vv");
   } else {
-    $self->{variables}->{$vv}->[$self->{type}]={value=>$value,rw=>$rw};
+    $self->{$vars}->{$vv}->[$self->{type}]={value=>$value,rw=>$rw};
   }
 }
 
@@ -178,20 +186,24 @@ sub get_variable {
 # parse directives strings
 
 sub parse_defs {
-  my ($self,$string)=@_;
+  my ($self,$string,$plain_only)=@_;
   my @r=();
-  my $plain=0;
   for my $def (quotewords(',+',0,$string)) {
-    if($def) {
+    if(length($def)) {
       if($def =~ /^\s*([.a-zA-Z0-9_-]+)\s*=\s*(.*)/) {
-	push @r,{key=>$1,value=>$2};
+        # "variable=value" case
+	push @r,{key=>$1,value=>$2} if(!$plain_only);
       } else {
-	if($plain>0) {
-	  $self->error("Not a definition string: $def");
-	} else {
-	  $plain++;
-	  push @r,{key=>"_PLAIN_",value=>$def};
-	}
+        # "value" case
+        $def =~ s/^\s+//;
+        $def =~ s/\s+$//;
+        if($def ne '') {
+          if($plain_only) {
+            push @r,$def;
+          } else {
+            push @r,{key=>"_PLAIN_",value=>$def};
+          }
+        }
       }
     }
   }
@@ -202,25 +214,30 @@ sub action_variable {
   my ($self,$action,$key,$value)=@_;
   if($action eq 'default') {
     if(!$self->defined_variable($key)) {
-      debug "Default value for variable $key = $value";
+      debug "Default value for variable $key [$self->{type}] = $value";
       $self->set_variable($key,
 			  $self->evaluate($value),
 			  1);
     } else {
-      debug "Variable $key already set";
+      debug "Variable $key [$self->{type}] already set";
     }
   } elsif($action eq 'set') {
-    debug "Setting variable $key = $value";
+    debug "Setting variable $key [$self->{type}] = $value";
     $self->set_variable($key,
 			$self->evaluate($value),
 			0);
   } elsif($action eq 'setx') {
-    debug "Overwriting variable $key = $value";
+    debug "Overwriting variable $key [$self->{type}] = $value";
     $self->set_variable($key,
 			$self->evaluate($value),
 			0,1);
+  } elsif($action eq 'setglobal') {
+    debug "Setting global variable $key [$self->{type}] = $value";
+    $self->set_variable($key,
+			$self->evaluate($value),
+			0,1,1);
   } elsif($action eq 'requires') {
-    $self->error("Variable $key required")
+    $self->error("Variable $key [$self->{type}] required")
       if(!$self->defined_variable($key));
   }
 }
@@ -240,7 +257,7 @@ sub variables_from_directives {
   my ($self,%oo)=@_;
   debug "Variables from internal directives";
   my @keys=$self->sorted_directives_keys;
-  for my $a (qw/default set setx requires/) {
+  for my $a (qw/default set setx setglobal requires/) {
     $self->action_variables_from_directives($a,\@keys)
       if($oo{$a});
   }
@@ -261,7 +278,7 @@ sub action_variables_from_parse {
 
 sub variables_from_parsed_directives {
   my ($self,$parsed,%oo)=@_;
-  for my $a (qw/default set setx requires/) {
+  for my $a (qw/default set setx setglobal requires/) {
     $self->action_variables_from_parse($parsed,$a)
       if($oo{$a});
   }
@@ -336,7 +353,7 @@ sub evaluate {
   my $calc=eval($string);
   $self->error("Syntax error (evaluation) : $string")
     if(!defined($calc));
-  debug "Evaluation : $string_orig => $string => $calc"
+  debug "Evaluation [$self->{type}] : $string_orig => $string => $calc"
     if($string_orig ne $calc);
 
   return($calc);
@@ -345,6 +362,15 @@ sub evaluate {
 sub defined_directive {
   my ($self,$key)=@_;
   return($self->{directives}->{$key});
+}
+
+sub get_directive_raw {
+  my ($self,$key)=@_;
+  if($self->{directives}->{$key}) {
+    return($self->{directives}->{$key}->{def});
+  } else {
+    return(undef);
+  }
 }
 
 sub get_directive {

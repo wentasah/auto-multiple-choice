@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 #
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -21,7 +21,7 @@
 package AMC::Gui::Manuel;
 
 use Getopt::Long;
-use Gtk2 -init;
+use Gtk3 -init;
 
 use XML::Simple;
 use File::Spec::Functions qw/splitpath catpath splitdir catdir catfile rel2abs tmpdir/;
@@ -74,6 +74,8 @@ sub new {
 	      'size_monitor'=>'',
               'invalid_color_name'=>"#FFEF3B",
               'empty_color_name'=>"#78FFED",
+              'navigate_q_id'=>-1,
+              'navigate_q_margin'=>10,
 	  };
 
     for (keys %o) {
@@ -104,11 +106,11 @@ sub new {
     my $glade_xml=__FILE__;
     $glade_xml =~ s/\.p[ml]$/.glade/i;
 
-    $self->{'gui'}=Gtk2::Builder->new();
+    $self->{'gui'}=Gtk3::Builder->new();
     $self->{'gui'}->set_translation_domain('auto-multiple-choice');
     $self->{'gui'}->add_from_file($glade_xml);
 
-    for my $k (qw/general area navigation_h navigation_v goto goto_v diag_tree button_photocopy scan_view navigate/) {
+    for my $k (qw/general area navigation_h navigation_v goto goto_v diag_tree button_photocopy scan_view navigate navigate_question scan_yadjust/) {
 	$self->{$k}=$self->{'gui'}->get_object($k);
     }
 
@@ -131,16 +133,36 @@ sub new {
 # TRANSLATORS: This is one of the choices for pages navigation in manual data capture window. Here, navigation goes through pages with empty or invalid answers. Please keep this text very short (say less than 5 letters) so that the window is not too large
                                        2,__("i&e"));
       $self->{navigate}->set_model($self->{navigate_model});
+      $self->{navigate}->set_active_iter($self->{navigate_model}->get_iter_first);
+
+      # get list of questions IDs
+
+      $self->{'capture'}->begin_read_transaction;
+      my @questions=sort { $a->{name} cmp $b->{name} }
+        $self->{layout}->questions_list();
+      $self->{'capture'}->end_transaction;
+
+      $self->{navigate_question_model}=
+        cb_model(-1,__("all"),map { $_->{question}, $_->{name} } @questions);
+      $self->{navigate_question}->set_model($self->{navigate_question_model});
+      $self->{navigate_question}->
+        set_active_iter($self->{navigate_question_model}->
+                        get_iter_first);
+
+      $self->{navigate_question}->signal_connect("changed",\&update_nav_question,
+                                                 $self);
+
+      # show navigation tab
 
       $self->{'navigation_h'}->show();
     }
 
-    $self->{'cursor_watch'}=Gtk2::Gdk::Cursor->new('GDK_WATCH');
+    $self->{'cursor_watch'}=Gtk3::Gdk::Cursor->new('GDK_WATCH');
 
-    Gtk2->main_iteration while ( Gtk2->events_pending );
+    Gtk3::main_iteration while ( Gtk3::events_pending );
 
     AMC::Gui::PageArea::add_feuille
-	($self->{'area'},'',
+	($self->{'area'},
 	 'yfactor'=>2,
          invalid_color_name=>$self->{invalid_color_name},
          empty_color_name=>$self->{empty_color_name},
@@ -151,31 +173,31 @@ sub new {
 	($self->window,$self->{'size_monitor'})
 	  if($self->{'size_monitor'});
 
-    Gtk2->main_iteration while ( Gtk2->events_pending );
+    Gtk3::main_iteration while ( Gtk3::events_pending );
 
     ### modele DIAGNOSTIQUE SAISIE
 
     if($self->{'editable'}) {
 	my ($renderer,$column);
 
-	$renderer=Gtk2::CellRendererText->new;
-	$column = Gtk2::TreeViewColumn->new_with_attributes (__"page",
+	$renderer=Gtk3::CellRendererText->new;
+	$column = Gtk3::TreeViewColumn->new_with_attributes (__"page",
 							     $renderer,
 							     text=> MDIAG_ID,
 							     'background'=> MDIAG_ID_BACK);
 	$column->set_sort_column_id(MDIAG_ID);
 	$self->{'diag_tree'}->append_column ($column);
 
-	$renderer=Gtk2::CellRendererText->new;
-	$column = Gtk2::TreeViewColumn->new_with_attributes (__"MSE",
+	$renderer=Gtk3::CellRendererText->new;
+	$column = Gtk3::TreeViewColumn->new_with_attributes (__"MSE",
 							     $renderer,
 							     'text'=> MDIAG_EQM,
 							     'background'=> MDIAG_EQM_BACK);
 	$column->set_sort_column_id(MDIAG_EQM);
 	$self->{'diag_tree'}->append_column ($column);
 
-	$renderer=Gtk2::CellRendererText->new;
-	$column = Gtk2::TreeViewColumn->new_with_attributes (__"sensitivity",
+	$renderer=Gtk3::CellRendererText->new;
+	$column = Gtk3::TreeViewColumn->new_with_attributes (__"sensitivity",
 							     $renderer,
 							     'text'=> MDIAG_DELTA,
 							     'background'=> MDIAG_DELTA_BACK);
@@ -183,16 +205,14 @@ sub new {
 	$self->{'diag_tree'}->append_column ($column);
     }
 
-    $self->{'general'}->window()->set_cursor($self->{'cursor_watch'});
-    Gtk2->main_iteration while ( Gtk2->events_pending );
+    $self->{'general'}->get_window()->set_cursor($self->{'cursor_watch'});
+    Gtk3::main_iteration while ( Gtk3::events_pending );
 
     $self->maj_list_all;
 
-    $self->{'general'}->window()->set_cursor(undef);
+    $self->{'general'}->get_window()->set_cursor(undef);
 
     $self->{'gui'}->connect_signals(undef,$self);
-
-    $self->{'area'}->signal_connect('expose_event'=>\&AMC::Gui::Manuel::expose_area);
 
     $self->select_page(0);
 
@@ -201,7 +221,7 @@ sub new {
 
 sub new_diagstore {
   my ($self)=@_;
-  $diag_store = Gtk2::ListStore->new ('Glib::String',
+  $diag_store = Gtk3::ListStore->new ('Glib::String',
 				      'Glib::String',
 				      'Glib::String',
 				      'Glib::String',
@@ -252,8 +272,9 @@ sub scan_view_change {
 sub current_iter {
   my ($self)=@_;
   my @sel=$self->{'diag_tree'}->get_selection->get_selected_rows();
-  if(@sel) {
-    return( $self->{'diag_store'}->get_iter($sel[0]) );
+  my $first_selected=$sel[0]->[0];
+  if(defined($first_selected)) {
+    return( $self->{'diag_store'}->get_iter($first_selected) );
   } else {
     return();
   }
@@ -300,7 +321,7 @@ sub page_selected {
 
 sub select_page_from_iter {
   my ($self,$iter)=@_;
-  $self->{'diag_tree'}->set_cursor($self->{'diag_store'}->get_path($iter))
+  $self->{'diag_tree'}->set_cursor($self->{'diag_store'}->get_path($iter),undef,FALSE)
     if($iter);
 }
 
@@ -418,12 +439,6 @@ sub choix {
     $widget->choix($event);
 }
 
-sub expose_area {
-    my ($widget,$evenement,@donnees)=@_;
-
-    $widget->expose_drawing($evenement,@donnees);
-}
-
 sub une_modif {
     my ($self)=@_;
     $self->{'area'}->modif();
@@ -443,7 +458,7 @@ sub charge_i {
     my @spc=$self->iter_to_spc($current_iter);
 
     if(!@spc) {
-      $self->{'area'}->set_image('NONE');
+      $self->{'area'}->set_content();
       $self->{'displayed_iid'}=-1;
       return();
     }
@@ -463,6 +478,7 @@ sub charge_i {
 
     my $scan_file=proj2abs({'%PROJET'=>$self->{'project-dir'}},
 			   $self->{'capture'}->get_scan_page(@spc));
+    utf8::downgrade($scan_file);
 
     debug "PAGE $page";
 
@@ -482,8 +498,8 @@ sub charge_i {
 
     } else {
 
-      $self->{'general'}->window()->set_cursor($self->{'cursor_watch'});
-      Gtk2->main_iteration while ( Gtk2->events_pending );
+      $self->{'general'}->get_window()->set_cursor($self->{'cursor_watch'});
+      Gtk3::main_iteration while ( Gtk3::events_pending );
 
       system("pdftoppm","-f",$page,"-l",$page,
 	     "-r",$self->{'dpi'},
@@ -573,15 +589,15 @@ sub charge_i {
 
     # utilisation
 
-    $self->{'area'}->set_image($display_image,
-			       $self->{'layinfo'});
+    $self->{'area'}->set_content(image=>$display_image,
+                                 layout_info=>$self->{'layinfo'});
 
     unlink($tmp_ppm) if($tmp_ppm);
     unlink($tmp_image) if($tmp_image && ($tmp_ppm ne $tmp_image) && !get_debug());
 
     # fin du traitement...
 
-    $self->{'general'}->window()->set_cursor(undef);
+    $self->{'general'}->get_window()->set_cursor(undef);
 }
 
 sub ecrit {
@@ -614,17 +630,36 @@ sub ecrit {
 }
 
 sub synchronise {
-    my ($self)=(@_);
+  my ($self)=(@_);
 
-    $self->{'area'}->sync();
+  $self->{'area'}->sync();
 
-    $self->maj_list_i;
+  $self->maj_list_i;
+}
+
+sub update_nav_question {
+  my ($w,$self)=@_;
+  $self->{navigate_q_id}=get_active_id($w);
+  if($self->{navigate_q_id} >= 0) {
+    $self->{layout}->begin_read_transaction;
+    my @pages=$self->{layout}->pages_for_question($self->{navigate_q_id});
+    $self->{pages_ok}={map { pageids_string($_->{student},$_->{page}) => $_->{miny} }
+                       @pages};
+    $self->{layout}->end_transaction;
+    debug "NAVQ_PAGES=".join(', ',keys %{$self->{pages_ok}});
+    $self->move_if_not_ok();
   }
+}
 
 sub navigate_ok {
   my ($self,$nav_mode,$path)=@_;
-  return(1) if($nav_mode==0);
   my $iter=$self->{diag_store}->get_iter($path);
+  if($self->{navigate_q_id} >= 0) {
+    my $student=$self->{diag_store}->get($iter,MDIAG_STUDENT);
+    my $page=$self->{diag_store}->get($iter,MDIAG_PAGE);
+    return(0) if(!exists($self->{pages_ok}->{pageids_string($student,$page)}));
+  }
+  return(1) if($nav_mode==0);
   my $why=$self->{diag_store}->get($iter,MDIAG_WHY);
   return(0) if($nav_mode==1 && $why !~ /E/);
   return(0) if($nav_mode==2 && $why !~ /[EV]/);
@@ -640,7 +675,10 @@ sub passe_precedent {
     do {
       $ok=$path->prev();
     } while($ok && !$self->navigate_ok($nav,$path));
-    $self->{'diag_tree'}->set_cursor($path) if($ok);
+    $self->{'diag_tree'}->set_cursor($path,undef,FALSE) if($ok);
+    $self->focus();
+  } else {
+    debug "Previous: no path";
   }
 }
 
@@ -653,8 +691,35 @@ sub passe_suivant {
     do {
       $path->next();
     } while($path->to_string<$n && !$self->navigate_ok($nav,$path));
-    $self->{'diag_tree'}->set_cursor($path) if($path->to_string<$n);
+    $self->{'diag_tree'}->set_cursor($path,undef,FALSE) if($path->to_string<$n);
+    $self->focus();
+  } else {
+    debug "Next: no path";
   }
+}
+
+sub focus {
+  my ($self)=@_;
+  if($self->{navigate_q_id} >= 0) {
+    my $miny=$self->{area}->question_miny($self->{navigate_q_id})-$self->{navigate_q_margin};
+    $miny=0 if($miny<0);
+    my $adj_upper=$miny+$self->{scan_yadjust}->get_page_size();
+    $adj_upper=$self->{area}->{ty} if($adj_upper<$self->{area}->{ty});
+    $self->{scan_yadjust}->set_upper($adj_upper);
+    $self->{scan_yadjust}->set_value($miny);
+  } else {
+    $self->{scan_yadjust}->set_upper($self->{area}->{ty});
+  }
+}
+
+sub move_if_not_ok {
+  my ($self)=@_;
+  my $nav=$self->{navigate}->get_active();
+  my ($path)=$self->{'diag_tree'}->get_cursor();
+  if(!$self->navigate_ok($nav,$path)) {
+    $self->passe_suivant();
+  }
+  $self->focus();
 }
 
 sub annule {
@@ -705,7 +770,7 @@ sub ok_quitter {
 sub quitter {
     my ($self)=(@_);
     if($self->{'global'}) {
-	Gtk2->main_quit;
+	Gtk3->main_quit;
     } else {
 	$self->{'general'}->destroy;
 	if($self->{'en_quittant'}) {

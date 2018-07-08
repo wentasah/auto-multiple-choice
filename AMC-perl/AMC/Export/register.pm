@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012-2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2012-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -42,8 +42,13 @@ sub type {
 }
 
 sub options_from_config {
-  my ($self,$options_project,$options_main,$options_default)=@_;
+  my ($self,$config)=@_;
   return();
+}
+
+sub needs_catalog {
+  my ($self,$config)=@_;
+  return(0);
 }
 
 sub options_default {

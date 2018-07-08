@@ -14,8 +14,11 @@
     <abstract>
       <para>AMCは、プレーンテキストあるいはLaTeXで記述されたマークシート方式の選択式試験問題を使用して、答案用紙のスキャン画像からのOMR（光学マーク認識）により自動採点と評定のできるユーティリティ群です。この文書はその使用説明書です。（バージョン@/PACKAGE_V_DEB/@~@/PACKAGE_V_VC/@）</para>
 
-      <para>AMCプロジェクトは<ulink
-      url="http://gna.org/">Gna!</ulink>によってホスティングされています。AMCウェブサイトは<ulink url="http://home.gna.org/auto-qcm/">http://home.gna.org/auto-qcm/</ulink>にあり、プロジェクトがホスティングされているサイトは<ulink url="https://bitbucket.org/auto-multiple-choice/auto-multiple-choice">https://bitbucket.org/auto-multiple-choice/auto-multiple-choice</ulink>です。</para>
+      <para>AMCのWebサイトは<ulink
+      url="https://www.auto-multiple-choice.net/">https://www.auto-multiple-cho
+ice.net/</ulink>にあり、ソースコードは<ulink
+      url="https://gitlab.com/jojo_boulix/auto-multiple-choice/">https://gitlab
+.com/jojo_boulix/auto-multiple-choice/</ulink>にあります。</para>
     </abstract>
 
     <author>
@@ -55,7 +58,7 @@
     </author>
 
     <copyright>
-      <year>2008-2016</year>
+      <year>2008-2018</year>
 
       <holder>Alexis Bienvenüe</holder>
     </copyright>
@@ -206,9 +209,9 @@
     <sect2 id="install">
       <title>インストール</title>
 
-      <para>debian、Ubuntuあるいはその派生OSでは、debian公式リポジトリとubuntu AMCリポジトリを用いることができます。Mandriva、openSUSE、Fedoraでは、ビルド済のRPMパッケージを用いることができます。インストール手順は<ulink url="http://home.gna.org/auto-qcm/download">AMCウェブサイト</ulink>で説明されています。</para>
+      <para>debian、Ubuntuあるいはその派生OSでは、debian公式リポジトリとubuntu AMCリポジトリを用いることができます。Mandriva、openSUSE、Fedoraでは、ビルド済のRPMパッケージを用いることができます。インストール手順は<ulink url="http://auto-multiple-choice.net/download">AMCウェブサイト</ulink>で説明されています。</para>
 
-      <para>ソースコードのアーカイブは、プロジェクトの<ulink url="http://download.gna.org/auto-qcm/">ダウンロードエリア</ulink>でダウンロードでき、その場合は端末上で次のコマンドを使ってください。</para>
+      <para>ソースコードのアーカイブは、プロジェクトの<ulink url="http://download.auto-multiple-choice.net/">ダウンロードエリア</ulink>でダウンロードでき、その場合は端末上で次のコマンドを使ってください。</para>
 
       <screen>tar xvzf auto-multiple-choice_xxxx_precomp.tar.gz
 cd auto-multiple-choice-xxx
@@ -309,6 +312,18 @@ Presentation: 以下の設問に最も適切な解答を
 
           <listitem>
             <para>1なら（デフォルト）、設問がシャフルされ、用紙ごとに順序が変わります。0なら、ファイルに記述された通りの順序で設問が並びます。</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>RandomSeed:</term>
+
+          <listitem>
+            <para>シャフル用の乱数生成器のシードはこのオプションで変更することができます。設定されている値（1から4194303の範囲で選択できます）が変更されると、シャフル結果が変わります。当然ですが、問題用紙を印刷したあとはこの値を変更してはなりません。</para>
+
+            <note>
+              <para>この値はxyファイルに（<code>\rngstate{1}{1527384}</code>のように）記録されます。デフォルト値は1527384です。</para>
+            </note>
           </listitem>
         </varlistentry>
 
@@ -418,6 +433,14 @@ Presentation: 以下の設問に最も適切な解答を
         </varlistentry>
 
         <varlistentry>
+          <term>Pages:</term>
+
+          <listitem>
+            <para>各問題用紙の最小ページ数を指定します。問題がこのページ数より少ない場合は白紙ページが追加されます。別紙答案用紙を使用している場合は、<option><replaceable>q</replaceable>+<replaceable>a</replaceable></option> （例 <option>4+2</option>）のように書くことができ、<replaceable>q</replaceable>は問題用紙自身の最小ページ数、<replaceable>q</replaceable>+<replaceable>a</replaceable>は答案用紙も含めた最小ページ数になります。</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>ManualDuplex:</term>
 
           <listitem>
@@ -487,7 +510,7 @@ Presentation: 以下の設問に最も適切な解答を
           <term>Disable:</term>
 
           <listitem>
-            <para>無効にする機能のリストをコンマで区切って指定します。現在実装されている機能は<code>images</code>（<xref linkend="parse_images"/>参照）、<code>embf</code>（<xref linkend="parse_embf"/>参照）、<code>local_latex</code>（<xref linkend="parse_local_latex"/>参照）です。</para>
+            <para>無効にする機能のリストをコンマで区切って指定します。現在実装されている機能は<code>verbatim</code>（<xref linkend="parse_verbatim"/>参照）、<code>images</code>（<xref linkend="parse_images"/>参照）、<code>embf</code>（<xref linkend="parse_embf"/>参照）、<code>local_latex</code>（<xref linkend="parse_local_latex"/>参照）です。</para>
           </listitem>
         </varlistentry>
 
@@ -738,10 +761,28 @@ Presentation: 以下の設問に最も適切な解答を
       <para>タイトルをつけるには、<code>[==</code>と<code>==]</code>で囲みます。</para>
     </sect2>
 
-    <sect2 id="parse_embf">
-      <title>太字、斜体</title>
+    <sect2 id="parse_verbatim">
+      <title>逐語的コンテント</title>
 
-      <para><emphasis>太字</emphasis>のテキストを出力するには、それを<code>[*</code>と<code>*]</code>で囲みます。<emphasis>斜体</emphasis>のテキストを出力するには、それを<code>[_</code>と<code>_]</code>で囲みます。</para>
+      <para><emphasis>逐語的</emphasis>なブロック（プログラムのコードのような）を得るには、それを<code>[verbatim]</code>と<code>[/verbatim]</code>で囲みます:</para>
+
+      <programlisting>* 次のプログラムは何を出力しますか？
+[verbatim]
+main( )
+{
+    printf("hello, world\n");
+}
+[/verbatim]
+
++ [| hello, world |]
+- [| hello |]
+- [| world |]</programlisting>
+    </sect2>
+
+    <sect2 id="parse_embf">
+      <title>太字、斜体、タイプライター、アンダーライン</title>
+
+      <para><emphasis>太字</emphasis>のテキストを出力するには、それを<code>[*</code>と<code>*]</code>で囲みます。<emphasis>斜体</emphasis>のテキストを出力するには、それを<code>[_</code>と<code>_]</code>で囲みます。<emphasis>タイプライター</emphasis>のテキストを出力するには、それを<code>[|</code>と<code>|]</code>で囲みます。<emphasis>アンダーライン</emphasis>のテキストを出力するには、それを<code>[/</code>と<code>/]</code>で囲みます。</para>
 
       <programlisting>* [_フランス_]の[*首都*]はどこですか？
 + パリ
@@ -834,6 +875,14 @@ Presentation: 以下の設問に最も適切な解答を
             <note>
               <para><option>first</option>と<option>last</option>のオプションのついた設問には影響しません（必ず挿入されます）。さらに、<option>next</option>オプションで結びついた設問どうしは一つの設問としてカウントされます。</para>
             </note>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>needspace=<replaceable>dimen</replaceable></term>
+
+          <listitem>
+            <para>グループを開始するのに必要な高さを（<replaceable>4cm</replaceable> のように単位を付けて）指定します。現在のページの残りの垂直スペースがこれより少なければ、グループを次のページから開始します。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1089,7 +1138,7 @@ DESC: 二つの異なる設問グループの各内部で設問がシャフル�
   \centering\large\bf 歴史と地理\\ 試験日 2008年1月1日
 \end{minipage}
 \namefield{\fbox{\begin{minipage}{.5\linewidth}
-氏名::
+氏名:
 
 \vspace*{.5cm}\dotfill
 \vspace*{1mm}
@@ -1134,7 +1183,7 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
 
 \AMCrandomseed{1237893}
 
-\def\AMCformQuestion#1{\vspace{\AMCformVSpace}\par {\sc 問 #1:} }    <co
+\def\AMCformQuestion#1{{\sc 問 #1:}}    <co
             id="ensemble.fq" linkends="ensemble.fq.exp"/>
 
 \setdefaultgroupmode{withoutreplacement}
@@ -1257,7 +1306,7 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
           </callout>
 
           <callout arearefs="debut.form" id="debut.form.exp">
-            <para>このコマンドは答案用紙部の開始を示します。答案用紙側にしか現れない設問（例えば<command>\AMCcode</command>で生成される擬似的な設問）を適切に扱うために必要です。</para>
+            <para>このコマンドは答案用紙部の開始を示します。答案用紙側にしか現れない設問（例えば<command>\AMCcodeGrid</command>で生成される擬似的な設問）を適切に扱うために必要です。</para>
           </callout>
 
           <callout arearefs="ensemble.nom" id="ensemble.nom.exp">
@@ -1290,6 +1339,14 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
         <itemizedlist>
           <listitem>
             <para><option>lang=<replaceable>XX</replaceable></option>: 試験問題の言語を<replaceable>XX</replaceable>に設定します。現時点では、DE（ドイツ語）、ES（スペイン語）、FR（フランス語）、IT（イタリア語）、JA（日本語）、NL（オランダ語）、NO（ノルウェー語）、PT（ポルトガル語）のみ指定可能です。<package>automultiplechoice</package>が<option>completemulti</option>オプションで挿入する「該当なし」のような数種類の文字列も翻訳されます。</para>
+          </listitem>
+
+          <listitem>
+            <para><option>pdfform</option>: 記入可能なPDFファイルを生成します。</para>
+
+            <note>
+              <para>AMCには作成したPDFの自動送信機能はありません。</para>
+            </note>
           </listitem>
 
           <listitem>
@@ -1384,6 +1441,10 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
               <para><option>automarks</option>オプションは、AMCが試験問題ページ上のデータを処理できなくなりますので、これを読み取る必要がない場合にのみ使用してください。</para>
             </warning>
           </listitem>
+
+          <listitem>
+            <para><option>nopage</option>: 余白、四隅のマーカー、識別ボックスが必要ない場合、つまり（練習問題などのため）文書をAMCで使用する予定がない場合に使用してください。</para>
+          </listitem>
         </itemizedlist>
       </sect3>
 
@@ -1403,6 +1464,10 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
         <note>
           <para>examcopyを使用するには<package>environ</package>パッケージをインストールする必要があります。このパッケージは、Ubuntuディストリビューション9.10（Karmic Koala）までで用いられているTeX Live 2007ディストリビューションでは使用できません。</para>
         </note>
+
+        <para>問題用紙番号が奇数か偶数かにより設問内容を変えたい場合には、<command>\exemplairepair</command>コマンドを使用してください。（訳注: 隣の問題と確実に差異を設けるために使用できます。<command>\exemplairepair</command>奇数番号用<command>\else</command>偶数番号用<command>\fi</command>のように使用します。<command>examcopy</command>環境内では直接には記述できません。）</para>
+
+        <para><command>\AMCStudentNumber</command> コマンドにより問題用紙番号が表示されます。</para>
       </sect3>
 
       <sect3 id="latex.qr">
@@ -1612,10 +1677,12 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
       </sect3>
 
       <sect3 id="marks.display.area">
-        <title id="marks.display.area.title">得点表記領域の指定</title>
+        <title id="marks.display.area.title">得点表記領域の定義</title>
 
-        <para>得点表記領域をオプションで付加することができます（<xref
+        <para>得点表記領域に<package>tikz</package>パッケージを用いてオプションを付加することができます（<xref
         endterm="marks.position.title" linkend="marks.position"/>参照）。</para>
+
+        <programlisting>\usepackage{tikz}</programlisting>
 
         <sect4 id="latex.zone.std">
           <title><option>separateanswersheet</option>オプションを使用しない場合</title>
@@ -1641,6 +1708,8 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
           <para><parameter>position</parameter>の値は、none, question, margin, marginsのいずれかです。</para>
 
           <warning>
+            <para><option>margins</option> オプションはAMC-TXTでは動作しません。</para>
+
             <para>これらのコマンドを、試験問題の印刷<emphasis>後</emphasis>に入力してはいけません。</para>
           </warning>
         </sect4>
@@ -1939,9 +2008,13 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
         <programlisting>\AMCinterIrep=0pt
 \AMCinterBrep=.5ex
 \AMCinterIquest=0pt
-\AMCinterBquest=3ex</programlisting>
+\AMCinterBquest=3ex
+\AMCpostOquest=7mm
+\setlength{\AMChorizAnswerSep}{3em plus 4em}
+\setlength{\AMChorizBoxSep}{1em}
+</programlisting>
 
-        <para>これらの寸法は、設問間（<code>quest</code>）と選択肢間（<code>rep</code>）の垂直間隔で、それぞれ、標準モード用（<code>I</code>）とボックスモード用（<code>B</code>）（<command>\AMCBoxedAnswers</command>の使用時や<option>box</option>パッケージオプション使用時）があります。</para>
+        <para>これらの寸法は、標準モード用（<code>I</code>）とボックスモード用（<code>B</code>）（<command>\AMCBoxedAnswers</command>の使用時や<option>box</option>パッケージオプション使用時）での設問間（<code>quest</code>）と選択肢間（<code>rep</code>）の垂直スペース、および記述式設問後のスペースです。最後の二つの長さは <option>choicescustom</option> 環境内で使用されます。</para>
       </sect3>
 
       <sect3 id="latex.layout">
@@ -1976,9 +2049,10 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
           </listitem>
 
           <listitem>
-            <para>表示設定をもっと細かく変更したい場合は、各設問と選択肢の開始に使われるコマンドを再定義することができます（以下はデフォルトの定義を示します）:</para>
+            <para>表示設定をもっと細かく変更したい場合は、各設問と選択肢の開始に使われるコマンドを再定義することができます:</para>
 
-            <programlisting>\def\AMCformQuestion#1{\vspace{\AMCformVSpace}\par{\bf Question #1:}}
+            <programlisting>\def\AMCformBeforeQuestion{\vspace{\AMCformVSpace}\par}
+\def\AMCformQuestion#1{{\bf 問 #1:} }
 \def\AMCformAnswer#1{\hspace{\AMCformHSpace} #1}
 </programlisting>
           </listitem>
@@ -1990,9 +2064,9 @@ DESC: 各受験者用にすべてのマーク用ボックスを1枚の別紙に�
       <sect3 id="latex.codes">
         <title>受験番号取得</title>
 
-        <para>受験番号の取得はLaTeXの<command>\AMCcode</command>コマンドを使用して、受験者に答案用紙上に自分の受験番号を記入してもらうことで、容易に行うことができます。このコマンドの二つの引数は、設問識別名と、番号に用いる桁数です。例えば次のようなヘッダーを用いることができます:</para>
+        <para>受験番号の取得はLaTeXの<command>\AMCcodeGridInt[<replaceable>options</replaceable>]{<replaceable>key</replaceable>}{<replaceable>n</replaceable>}</command>コマンドを使用して、受験者に答案用紙上に自分の受験番号を記入してもらうことで、容易に行うことができます。このコマンドの二つの引数は、設問キー（識別名）と、受験番号に用いる桁数<replaceable>n</replaceable>です。例えば次のようなヘッダーを用いることができます:</para>
 
-        <para><programlisting>{\setlength{\parindent}{0pt}\hspace*{\fill}\AMCcode{受験番号}{8}\hspace*{\fill}
+        <para><programlisting>{\setlength{\parindent}{0pt}\hspace*{\fill}\AMCcodeGridInt{受験番号}{8}\hspace*{\fill}
 \begin{minipage}[b]{6.5cm}
 $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、その下に氏名を記入してください。
 
@@ -2013,16 +2087,51 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
 </programlisting></para>
 
         <para><option>separateanswersheet</option>オプションを用いている場合は、
-<command>\AMCcode</command>コマンドは<command>\AMCformBegin</command>コマンドの後に置く必要があります。</para>
+<command>\AMCcodeGridInt</command>コマンドは<command>\AMCformBegin</command>コマンドの後に置く必要があります。</para>
 
-        <para><command>\AMCcode</command>の出力は、
-長さ<command>\AMCcodeHspace</command>、<command>\AMCcodeVspace</command>、<command>\AMCcodeBoxSep</command>を設定することで変更することができます。それぞれ、ボックス間の水平および垂直の間隔、ボックスとラベルの間隔（ラベルがボックスの外に印刷される場合）です。デフォルト値は次のように設定されています:</para>
+        <para>記入欄は、長さ <command>\AMCcodeHspace</command>、<command>\AMCcodeVspace</command> を変更することにより調整することができます。それぞれ、ボックス間の水平および垂直の間隔です。デフォルト値は次のように設定されています:</para>
 
         <programlisting>\AMCcodeHspace=.5em
 \AMCcodeVspace=.5em
-\AMCcodeBoxSep=.1em</programlisting>
+</programlisting>
 
-        <para>水平バージョン<command>\AMCcodeH</command>も使用することができ、桁数が少ない場合に便利です。</para>
+        <para><command>\AMCcodeGrid[<replaceable>options</replaceable>]{<replaceable>key</replaceable>}{<replaceable>description</replaceable>}</command> コマンドは、より複雑な構造の受験番号を扱いたいときに使用できます。<replaceable>description</replaceable> はカンマ区切りの候補文字集合のリストです。一例として、AからEの英字1文字の後に3桁の数字で構成されるような受験番号は、<command>\AMCcodeGrid{client}{ABCDE,0123456789,0123456789,0123456789}</command> により扱うことができます。</para>
+
+        <para><command>\AMCcodeGrid</command> と <command>\AMCcodeGridInt</command> の二つのコマンドは、以下のオプション（<replaceable>options</replaceable> 引数にカンマ区切りで指定）を認識します:</para>
+
+        <variablelist>
+          <varlistentry>
+            <term>vertical=<replaceable>bool</replaceable></term>
+
+            <listitem>
+              <para>で <replaceable>bool</replaceable> を <code>true</code> か <code>false</code> にすると、指定した方向を使用します（デフォルトは <code>true</code> です）。</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>v</term>
+
+            <listitem>
+              <para>は <code>vertical=true</code> の別名です。</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>h</term>
+
+            <listitem>
+              <para>は <code>vertical=false</code> の別名です。</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>top</term>
+
+            <listitem>
+              <para>は、各カラムの上端を垂直方向に揃えます。</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
       </sect3>
 
       <sect3 id="openquestions">
@@ -2044,6 +2153,14 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
 
             <listitem>
               <para><code>true</code>なら、解答欄と採点用ボックスを同じ行に並べます。<code>false</code>（デフォルト）なら、解答欄を枠で囲み、採点用ボックスの下に配置します。</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>lineuptext=<replaceable>text</replaceable></term>
+
+            <listitem>
+              <para><code>lineup=true</code>のとき、このテキストと解答欄を同じ行に並べます。</para>
             </listitem>
           </varlistentry>
 
@@ -2136,7 +2253,24 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
               <para>模範解答用紙の解答欄に記入される短いテキストを設定します。</para>
             </listitem>
           </varlistentry>
+        </variablelist>
 
+        <tip>
+          <para><emphasis>onecopyコマンドの外</emphasis>で<command>\savebox</command>コマンドを使用すると、改行を含む長いテキストを表示できます。</para>
+
+          <programlisting>
+       \newsavebox{\correcbox}
+        \savebox{\correcbox}{\parbox{5cm}{\color{red}{ここで改行\\あるいは\\ここで...}}}
+       </programlisting>
+
+          <para>ボックスの中身を呼び出すには次のようにします:</para>
+ 
+          <programlisting>
+        \AMCOpen{lines=4,lineheight=0.15cm, answer= \usebox{\correcbox}}{問題}
+       </programlisting>
+        </tip>
+
+        <variablelist>
           <varlistentry>
             <term>width=<replaceable>dim</replaceable></term>
 
@@ -2197,6 +2331,27 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
         <para>別紙答案用紙を用いている場合は、各設問に付け加えるテキストを次のように定義できます:</para>
 
         <programlisting>\def\AMCotextGoto{\par{\bf\emph{解答は別紙答案用紙に記入してください。}}}</programlisting>
+
+        <tip>
+          <para>ボックス数が多く一定幅で改行させたい場合は、次のヒント（<command>\parbox</command>）が使えます。</para>
+
+          <programlisting>\AMCOpen{lines=6}{
+          \hbox{\parbox{8.5cm}{
+                           \correctchoice[1]{1}\scoring{b=1}
+                           \correctchoice[2]{2}\scoring{b=2}
+                           \correctchoice[3]{3}\scoring{b=3}
+                           \correctchoice[4]{4}\scoring{b=4}
+                           \correctchoice[5]{5}\scoring{b=5}
+                           \correctchoice[6]{6}\scoring{b=6}
+                           \correctchoice[7]{7}\scoring{b=7}
+                           \correctchoice[8]{8}\scoring{b=8}
+                           \correctchoice[9]{9}\scoring{b=9}
+                           \correctchoice[10]{10}\scoring{b=10}
+                           \wrongchoice[F]{F}\scoring{b=0}
+                    }}
+            }
+             </programlisting>
+        </tip>
       </sect3>
 
       <sect3 id="latex.oneletter">
@@ -2239,12 +2394,16 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
         <para><programlisting>\AMCrandomseed{1527384}</programlisting></para>
 
         <para>割り当てた値（1から4194303までの中から選びます）が変更されると、シャフルが変わります。もちろん、試験問題用紙を印刷した後は、この値を変更してはいけません。</para>
+
+        <note>
+          <para>値はxyファイルに（<code>\rngstate{1}{1515}</code>のように）記録されます。デフォルト値は1515です。</para>
+        </note>
       </sect3>
 
       <sect3 id="latex.separate.sect">
         <title>セクション分けと別紙答案用紙</title>
 
-        <para>別紙答案用紙上にもセクション分けが見えるようにするには、<command>\section</command>と<command>\subsection</command>の代わりに、<command>\AMCsection</command>と<command>\AMCsubsection</command>を使用してください。</para>
+        <para>別紙答案用紙上にもセクション分けが見えるようにするには、<command>\section</command>と<command>\subsection</command>の代わりに、<command>\AMCsection</command>と<command>\AMCsubsection</command>を使用してください。（番号なしセクション用に<command>\AMCsection*</command>と<command>\AMCsubsection*</command>も定義されています）</para>
       </sect3>
 
       <sect3 id="latex.refs">
@@ -2253,7 +2412,7 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
         <para>LaTeXのコマンド<command>\label</command>、<command>\ref</command>、<command>\pageref</command>コマンドを設問や選択肢で用いると、試験問題の実体化ごとに同じ引数で呼び出され、毎回参照する番号が変わるので、問題が発生します。これを解決するには、それぞれ<command>\AMClabel</command>、<command>\AMCref</command>、<command>\AMCpageref</command>を用いてください。これらは、<command>\label</command>、<command>\ref</command>、<command>\pageref</command>を呼び出す前に、引数に実体の番号を付加します。</para>
 
         <note>
-          <para>テスト版（1.2.2014.041103）から現在の版（1.2.2015.102901）またはそれ以降に更新した場合、<command>\AMCqlabel</command>を使う必要はなく、<command>\AMClabel</command>を使ってください。旧コマンドは以前のtexファイルとの互換性のために残しています。</para>
+          <para>バージョン1.2.2015.102901以降では<command>\AMCqlabel</command>ではなく<command>\AMClabel</command>を使ってください。旧コマンドは以前のtexファイルとの互換性のために残しています。</para>
         </note>
 
         <para>また、各実体化の最初に、カウンタを0にリセットする必要があります。一例として、別の用紙にまとめて配置された図への参照を行いたいとき、次のように書けます:</para>
@@ -2265,7 +2424,7 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
     \caption{とある動物}
     \AMClabel{虎}
   \end{figure}
-    
+
   \begin{question}{tiger}
     図\AMCref{虎}（\AMCpageref{tiger}ページ）の動物は何ですか？
     \begin{choices}
@@ -2359,9 +2518,9 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
         <para>プリアンブルに以下のコマンドを記述します（これらはデフォルト値）。</para>
 
         <programlisting>\makeatletter
-\AMC@NCBetud=12
-\AMC@NCBpage=6
-\AMC@NCBcheck=6
+\def\AMC@NCBetud{12}
+\def\AMC@NCBpage{6}
+\def\AMC@NCBcheck{6}
 \makeatother</programlisting>
       </sect3>
     </sect2>
@@ -2449,7 +2608,7 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
   \FPeval\VQa{trunc(2 + random * 4,0)}
   \FPeval\VQb{trunc(6 + random * 5,0)}
   \FPeval\VQr{VQa/(VQa+VQb)}
-  
+
   $X$と$Y$を互いに独立な指数分布に従う乱数変数とし、それぞれのパラメータを\VQa{}と\VQb{}とします。確率 $\mathbb{P}[X&lt;Y]$ は、次のどの区間に属しますか？
 
   \begin{multicols}{5}
@@ -2543,6 +2702,14 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
             </varlistentry>
 
             <varlistentry>
+              <term>exponent=<replaceable>num</replaceable></term>
+
+              <listitem>
+                <para>指数を<replaceable>num</replaceable>桁とした、科学的記数法モードにします。</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
               <term>nozero=<replaceable>bool</replaceable></term>
 
               <listitem>
@@ -2559,6 +2726,14 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
             </varlistentry>
 
             <varlistentry>
+              <term>exposign=<replaceable>bool</replaceable></term>
+
+              <listitem>
+                <para>指数の符号を同様に指定します。</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
               <term>strict=<replaceable>bool</replaceable></term>
 
               <listitem>
@@ -2571,6 +2746,14 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
 
               <listitem>
                 <para><code>true</code>なら、1桁分のボックスを縦に配置します。<code>false</code>（デフォルト）なら、1桁分のボックスを横に配置します。</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>expovertical=<replaceable>bool</replaceable></term>
+
+              <listitem>
+                <para><code>true</code>なら、仮数を指数の<emphasis>上</emphasis>に配置します。<code>false</code>なら、仮数を指数の<emphasis>横</emphasis>に配置します。</para>
               </listitem>
             </varlistentry>
 
@@ -2653,6 +2836,14 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
             </varlistentry>
 
             <varlistentry>
+              <term>Texponent=<replaceable>text</replaceable></term>
+
+              <listitem>
+                <para>は、仮数と指数を分けるテキストを設定します。デフォルトは<code>$\times10$\textasciicircum</code>で、<code>\def\AMCexponent{<replaceable>text</replaceable>}</code>でも再定義できます。</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
               <term>scoring=<replaceable>bool</replaceable></term>
 
               <listitem>
@@ -2695,6 +2886,14 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
                 </warning>
               </listitem>
             </varlistentry>
+
+            <varlistentry>
+              <term>scorewrong=<replaceable>num</replaceable></term>
+                <listitem>
+                <para>は、誤答に対する素点（デフォルトは0）を指定します。</para>
+              </listitem>
+            </varlistentry>
+
           </variablelist>
 
           <para><command>\AMCnumericOpts</command>コマンドを使えば、これらのパラメータに対して、（試験全体用の）デフォルト値を別の値に設定することができます:</para>
@@ -2727,7 +2926,7 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
 
           <para><programlisting>\begin{question}{inverse}
   \pgfmathrandominteger{\x}{1}{50}
-       
+
   $x=\x$ の逆数はいくつですか？
 
   \begin{choices}
@@ -2749,7 +2948,7 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
   $x=\pgfmathprintnumber{\x}$ の逆数はいくつですか？
 
   \begin{choices}
-    \correctchoice{\pgfmathparse{1/\x}\pgfmathprintnumber{\pgfmathresult}} 
+    \correctchoice{\pgfmathparse{1/\x}\pgfmathprintnumber{\pgfmathresult}}
     \wrongchoice{\pgfmathparse{1/(\x +1))} \pgfmathprintnumber{\pgfmathresult}}
     \wrongchoice{\pgfmathparse{cos(\x)} \pgfmathprintnumber{\pgfmathresult}}
     \wrongchoice{\pgfmathparse{\x^(-0.5)} \pgfmathprintnumber{\pgfmathresult}}
@@ -2767,7 +2966,7 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
 
           <para><programlisting>\begin{questionmult}{graph}
   以下にグラフが示された三つの関数を考えます:
-  \pgfmathrandominteger{\a}{2}{4}  
+  \pgfmathrandominteger{\a}{2}{4}
   \begin{center}
     \begin{tikzpicture}[domain=0:4]
       \draw[very thin,color=gray] (-0.1,-4.1) grid (3.9,3.9);
@@ -2780,7 +2979,7 @@ $\longleftarrow{}$\hspace{0pt plus 1cm} 受験番号を以下にマークし、�
   \end{center}
   以下のうち正しいものはどれですか？
   \begin{choices}
-    \pgfmathrandominteger{\x0}{2}{4}  
+    \pgfmathrandominteger{\x0}{2}{4}
     \correctchoice{$f_{2}(\x0)$=\pgfmathparse{\a*sin(\x0 r)} \pgfmathprintnumber{\pgfmathresult}.}
     \correctchoice{$f_{3}(\x0)$=\pgfmathparse{\a*cos(\x0 r)} \pgfmathprintnumber{\pgfmathresult}.}
     \wrongchoice{関数 $f_{1}(x)$ は線形関数である。}
@@ -2839,9 +3038,9 @@ Name :
   \directlua{tex.print(a)}の平方根はいくつですか？
 
   \begin{choices}
-    \correctchoice{\directlua{tex.print(math.sqrt(a))}} 
-    \wrongchoice{\directlua{tex.print(math.sqrt(2*a))}} 
-    \wrongchoice{\directlua{tex.print(math.sqrt(a*1.001))}} 
+    \correctchoice{\directlua{tex.print(math.sqrt(a))}}
+    \wrongchoice{\directlua{tex.print(math.sqrt(2*a))}}
+    \wrongchoice{\directlua{tex.print(math.sqrt(a*1.001))}}
   \end{choices}
 \end{question}
 }
@@ -2858,7 +3057,7 @@ Name :
       <sect3 id="latex.pstricks">
         <title>PSTricksの使用</title>
 
-        <para>このパッケージは<package>automuliplechoice</package>の<emphasis>after</emphasis>にロードしてください。</para>
+        <para>このパッケージは<package>automultiplechoice</package>の<emphasis>after</emphasis>にロードしてください。</para>
 
         <para><command>PSTricks</command>を使用するには、AMCを次のように設定する必要があります:<menuchoice>
             <guimenu>編集</guimenu>
@@ -3016,6 +3215,11 @@ Name :
         <para>各ページの解析結果は<guilabel>診断</guilabel>セクションのリストに表示されます:</para>
 
         <itemizedlist>
+
+        <listitem>
+          <para><option>最終更新</option>の値はページが最後に更新された日付を表します。デフォルトでは表示されません。<guimenuitem>カラム</guimenuitem>ボタンを押して表示してください。</para>
+        </listitem>
+
           <listitem>
             <para><emphasis>用紙ゆがみ</emphasis>の値はマーカー（各用紙の四隅の黒い点）位置の認識の妥当性を表します。これが大きすぎるときは、認識結果をチェックする必要があります（ページリストの行の上で右クリックして、<guimenuitem>四隅マーカー確認</guimenuitem>を選ぶと、スキャンしたページと検出したボックスが表示されます）。</para>
           </listitem>
@@ -3023,6 +3227,11 @@ Name :
           <listitem>
             <para><emphasis>白黒閾値近接度</emphasis>の値は、ボックスの黒ピクセル比率と閾値との近さを表します。これが大きすぎる（8から最大値10まで）場合、ボックスのマーク有無判定が正しいかどうかチェックする必要があります（ページリストの行の上で右クリックして<guimenuitem>ボックス拡大</guimenuitem>を選ぶと、用紙上の全ボックスが表示され、判定結果が正しいか確認し、必要ならボックス画像のドラッグアンドドロップで修正できます）。</para>
           </listitem>
+
+        <listitem>
+          <para>The value <emphasis>スキャン画像ファイル</emphasis>の値はページ画像のファイル名を表します。デフォルトでは表示されません。<guimenuitem>カラム</guimenuitem>ボタンを押して表示してください。</para>
+        </listitem>
+
         </itemizedlist>
       </sect3>
 
@@ -3283,6 +3492,20 @@ Name :
               </row>
 
               <row>
+                <entry>setglobal.<replaceable>XXX</replaceable></entry>
+
+                <entry>●</entry>
+
+                <entry>●</entry>
+
+                <entry>●</entry>
+
+                <entry>●</entry>
+
+                <entry>（設問IDの辞書順で）以降のすべての設問に対して、<replaceable>XXX</replaceable>という変数の値を指定します。</entry>
+              </row>
+
+              <row>
                 <entry>default.<replaceable>XXX</replaceable></entry>
 
                 <entry>●</entry>
@@ -3504,7 +3727,7 @@ Name:
         <note>
           <para>条件演算子は次のように書きます:<programlisting>( test ? if true: if false)</programlisting></para>
 
-          <para>条件式には次のような演算子が使用できます: <code>&gt;</code>（より大きい）, <code>&gt;=</code>（より大きいまたは等しい）, <code>&lt;</code>（より小さい）, <code>&lt;=</code>（より小さいまたは等しい）, <code>==</code>（等しい）, <code>!=</code>（等しくない）。</para>
+          <para>条件式には次のような演算子が使用できます: <code>&gt;</code>（より大きい）, <code>&gt;=</code>（より大きいまたは等しい）, <code>&lt;</code>（より小さい）, <code>&lt;=</code>（より小さいまたは等しい）, <code>==</code>（等しい）, <code>!=</code>（等しくない）, <code>||</code>（または）, <code>&amp;&amp;</code>（かつ）。</para>
         </note>
 
         <para>他にも次の変数が使用できます:</para>
@@ -3999,7 +4222,7 @@ Boulix,Jojo,"jojo@boulix.fr,parents@boulix.com"</programlisting>
       <para>最小限の例を示します:</para>
 
       <programlisting>\documentclass[a4paper]{article}
-\usepackage[separateanswersheet,lang=JA]{automultiplechoice}    
+\usepackage[separateanswersheet,lang=JA]{automultiplechoice}
 \begin{document}
 
 \noindent{\bf 試験問題}
@@ -4022,14 +4245,14 @@ Boulix,Jojo,"jojo@boulix.fr,parents@boulix.com"</programlisting>
   \end{choices}
 \end{question}
 
-\AMCcleardoublepage    
+\AMCcleardoublepage
 
-\onecopy{5}{    
+\onecopy{5}{
 
 \AMCformBegin
 
 {\large\bf 答案用紙:}
-\hfill \namefield{\fbox{    
+\hfill \namefield{\fbox{
     \begin{minipage}{.5\linewidth}
       氏名:
       
@@ -4038,9 +4261,9 @@ Boulix,Jojo,"jojo@boulix.fr,parents@boulix.com"</programlisting>
     \end{minipage}
   }}
 
-\AMCformS    
+\AMCformS
 
-}  
+}
 
 \end{document}
 </programlisting>
@@ -4069,11 +4292,11 @@ Boulix,Jojo,"jojo@boulix.fr,parents@boulix.com"</programlisting>
 
       <programlisting>\documentclass[a4paper]{article}
 \usepackage{multicol}
-\usepackage[insidebox,noshuffle,postcorrect,lang=JA]{automultiplechoice}    
+\usepackage[insidebox,noshuffle,postcorrect,lang=JA]{automultiplechoice}
 
 \begin{document}
 
-\onecopy{5}{    
+\onecopy{5}{
 
 \noindent
 \begin{tabular}{|l|l|l|}
@@ -4088,12 +4311,12 @@ Boulix,Jojo,"jojo@boulix.fr,parents@boulix.com"</programlisting>
 \\
 \hline
 \end{tabular}
-\hfill\namefield{\fbox{    
+\hfill\namefield{\fbox{
     \begin{minipage}{.25\linewidth}
       氏名:
-      
+
       \vspace*{.5cm}\dotfill
-      
+
       \vspace*{.5cm}\dotfill
       \vspace*{1mm}
     \end{minipage}
@@ -4127,9 +4350,9 @@ Boulix,Jojo,"jojo@boulix.fr,parents@boulix.com"</programlisting>
 
 % これを必要な設問数の分だけ続ける...
 
-\end{multicols}  
+\end{multicols}
 
-}   
+}
 
 \end{document}
 </programlisting>
@@ -4191,7 +4414,7 @@ Moniuszko,Stanisław,003</programlisting>
           <para>LaTeXソースファイルで、試験問題を生成するコマンドを定義します。このコマンドは、各受験者ごとに一回、<command>\csvreader</command>が呼び出します（ここでは、設問が<code>general</code>というグループに入っているものとします）:</para>
 
           <programlisting>\newcommand{\subject}{
-  \onecopy{1}{    
+  \onecopy{1}{
 
     \noindent{\bf AutoMultipleChoice  \hfill TEST}
 
@@ -4201,10 +4424,10 @@ Moniuszko,Stanisław,003</programlisting>
       Pre-filled test.
     \end{center}
 
-    \hfill \namefield{\fbox{    
+    \hfill \namefield{\fbox{
         \begin{minipage}{.5\linewidth}
           Name:
-      
+
           \Large\bf \name{} \surname{}
 
           \vspace*{1mm}
@@ -4486,6 +4709,15 @@ Moniuszko,Stanisław,003</programlisting>
           </varlistentry>
 
           <varlistentry>
+            <term><option>--epoch
+            <replaceable>EPOCH</replaceable></option></term>
+
+            <listitem>
+              <para>日付（1970年1月1日以降の秒数）を指定して、PDFを何度生成しても同一結果になるようにします。</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
             <term><option>--data
             <replaceable>project-data-dir</replaceable></option></term>
 
@@ -4710,7 +4942,7 @@ Moniuszko,Stanisław,003</programlisting>
               <term>--extract-with <replaceable>command</replaceable></term>
 
               <listitem>
-                <para>試験問題PDFからページを抽出するためのコマンドを指定します。現在、<command>pdftk</command>と<command>gs</command>のみ指定可能です。デフォルトは<command>pdftk</command>ですが、インストールされていなければ<command>gs</command>が使用されます。</para>
+                <para>試験問題PDFからページを抽出するためのコマンドを指定します。現在、<command>pdftk</command>、<command>gs</command>または<command>qpdf</command>が指定可能です。デフォルトは<command>pdftk</command>ですが、インストールされていなければ<command>qpdf</command>、<command>gs</command>の順に使用されます。</para>
               </listitem>
             </varlistentry>
           </variablelist>
@@ -6347,6 +6579,15 @@ Moniuszko,Stanisław,003</programlisting>
               <para>デバッグ情報を記録するファイルを指定します。</para>
             </listitem>
           </varlistentry>
+
+          <varlistentry>
+            <term><option>--delay
+            <replaceable>time</replaceable></option></term>
+
+            <listitem>
+              <para>各送信間に<replaceable>time</replaceable>秒の遅延を設定します。</para>
+            </listitem>
+          </varlistentry>
         </variablelist>
       </refsect1>
 
@@ -6391,6 +6632,33 @@ Moniuszko,Stanisław,003</programlisting>
                 <para>使用するポート（デフォルト値は25）を設定します。</para>
               </listitem>
             </varlistentry>
+
+            <varlistentry>
+              <term><option>--smtp-ssl
+              <replaceable>mode</replaceable></option></term>
+
+              <listitem>
+                <para>SMTP接続のセキュリティモードを設定します。<replaceable>mode</replaceable>オプションは<code>ssl</code>、<code>starttls</code>、<code>0</code>（暗号なし）のいずれかです。</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term><option>--smtp-user
+              <replaceable>user</replaceable></option></term>
+
+              <listitem>
+                <para>SMTP認証のためのユーザ名を設定します。</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term><option>--smtp-passwd-file
+              <replaceable>file</replaceable></option></term>
+
+              <listitem>
+                <para>SMTP認証のためのパスワードを（1行目に）含んだファイルのパスを指定します。</para>
+              </listitem>
+            </varlistentry>
           </variablelist>
         </refsect2>
       </refsect1>
@@ -6408,6 +6676,86 @@ Moniuszko,Stanisław,003</programlisting>
 &lt;/arguments&gt;</programlisting>
       </refsect1>
     </refentry>
+  </sect1>
+
+  <sect1>
+  <title>その他</title>
+
+  <sect2 id="divers.gmail">
+      <title>AMCでGMAILを使用するための設定</title>
+
+      <para>Gmailアカウントにログインし、「安全性の低いアプリの許可」を有効にします。（訳注: Googleの「アカウント情報」から「ログインとセキュリティ」を開くと、最下部にあります。）</para>
+
+      <sect3>
+        <title>Linuxユーザ（Ubuntu、Xubuntu、Lubuntu等）</title>
+
+         <para>端末で以下を入力します:</para>
+
+         <programlisting>sudo apt-get install msmtp</programlisting>
+         <programlisting>sudo gedit /etc/msmtprc</programlisting>
+
+         <para>msmtprcファイルに以下の内容を追加して保存します。</para>
+
+ <programlisting>
+account gmail
+host smtp.gmail.com
+tls on
+tls_certcheck off
+port 587
+auth login
+from <emphasis>your_user_name@gmail.com</emphasis>
+user <emphasis>your_user_name@gmail.com</emphasis>
+password <emphasis>your_password</emphasis>
+</programlisting>
+
+          <para>
+          AMCを設定します:<menuchoice>
+          <guimenu>編集</guimenu>
+
+          <guisubmenu>設定</guisubmenu>
+
+          <guisubmenu>メール</guisubmenu>
+
+          <guimenuitem>メール配信方法</guimenuitem>
+          </menuchoice>で<guibutton>sendmail</guibutton>を選択し、sendmailのパスを<programlisting>/usr/bin/msmtp</programlisting>に設定します。
+          </para>
+        </sect3>
+
+        <sect3>
+         <title>Macintoshユーザ</title>
+
+          <para>端末で以下を入力します:</para>
+
+           <programlisting>sudo port install msmtp</programlisting>
+          <programlisting>sudo pico ~/.msmtprc</programlisting>
+
+           <para>msmtprcファイルに以下の内容を追加して保存します。</para>
+
+ <programlisting>
+account gmail
+host smtp.gmail.com
+tls on
+tls_certcheck off
+port 587
+auth login
+from <emphasis>your_user_name@gmail.com</emphasis>
+user <emphasis>your_user_name@gmail.com</emphasis>
+password <emphasis>your_password</emphasis>
+</programlisting>
+
+        <para>
+          AMCを設定します:<menuchoice>
+          <guimenu>編集</guimenu>
+
+          <guisubmenu>設定</guisubmenu>
+
+          <guisubmenu>メール</guisubmenu>
+
+          <guimenuitem>メール配信方法</guimenuitem>
+          </menuchoice>で<guibutton>sendmail</guibutton>を選択し、sendmailのパスを<programlisting>/opt/local/bin/msmtp</programlisting>に設定します。
+          </para>
+        </sect3>
+    </sect2>
   </sect1>
   <index/>
 </article>

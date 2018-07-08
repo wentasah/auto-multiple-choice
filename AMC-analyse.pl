@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -67,6 +67,7 @@ my $multiple='';
 my $ignore_red=1;
 my $pre_allocate=0;
 my $try_three=1;
+my $tag_overwritten=1;
 
 GetOptions("data=s"=>\$data_dir,
 	   "cr=s"=>\$cr_dir,
@@ -85,7 +86,12 @@ GetOptions("data=s"=>\$data_dir,
 	   "ignore-red!"=>\$ignore_red,
 	   "pre-allocate=s"=>\$pre_allocate,
 	   "try-three!"=>\$try_three,
-	   );
+           "tag-overwritten!"=>\$tag_overwritten,
+          );
+
+$tag_overwritten=0 if($multiple);
+
+utf8::downgrade($debug_image_dir);
 
 use_gettext;
 
@@ -389,7 +395,10 @@ sub one_scan {
 
   my $sf_file=$sf;
   $sf_file=~ s:.*/::;
-  $debug_image=$debug_image_dir."/$sf_file.png" if($debug_image_dir);
+  if($debug_image_dir) {
+    $debug_image=$debug_image_dir."/$sf_file.png";
+    utf8::downgrade($debug_image);
+  }
 
   debug "Analysing scan $scan";
 
@@ -593,8 +602,14 @@ sub one_scan {
   $capture->begin_transaction('CRSL');
   annotate_source_change($capture);
 
-  $capture->set_page_auto($sf,@spc,time(),
-			  $ld->{'transf'}->params);
+  if($capture->set_page_auto($sf,@spc,time(),
+                             $ld->{'transf'}->params)) {
+    debug "Overwritten page data for [SCAN] ".pageids_string(@spc);
+    if($tag_overwritten) {
+      $capture->tag_overwritten(@spc);
+      print "VAR+: overwritten\n";
+    }
+  }
 
   # removes (if exists) old entry in the failed database
   $capture->statement('deleteFailed')->execute($sf);

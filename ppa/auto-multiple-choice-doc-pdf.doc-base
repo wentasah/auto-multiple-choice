@@ -1,0 +1,7 @@
+Document: auto-multiple-choice-doc-pdf
+Title: Auto Multiple Choice Manual
+Abstract: This manual describes Auto Multiple Choice usage.
+Section: Education
+
+Format: PDF
+Files: /usr/share/doc/auto-multiple-choice-doc-pdf/*.pdf* /usr/share/doc/texmf/AMC/*.pdf*

@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 #
-# Copyright (C) 2008-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2008-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -20,20 +20,21 @@
 
 package AMC::Gui::PageArea;
 
-use Gtk2;
+use Gtk3;
 use AMC::Basic;
 
-@ISA=("Gtk2::DrawingArea");
+@ISA=("Gtk3::DrawingArea");
 
 sub add_feuille {
-    my ($self,$coul,%oo)=@_;
+    my ($self,%oo)=@_;
     bless($self,"AMC::Gui::PageArea");
 
-    $coul='red' if(!$coul);
+    $self->{image_file}='';
+    $self->{text}='';
+    $self->{background_color}='';
 
     $self->{'marks'}='';
 
-    $self->{'i-file'}='';
     $self->{'i-src'}='';
     $self->{'tx'}=1;
     $self->{'ty'}=1;
@@ -51,6 +52,8 @@ sub add_feuille {
     $self->{scorezone_color_name}="#DE61E2";
     $self->{empty_color_name}="#78FFED";
     $self->{invalid_color_name}="#FFEF3B";
+    $self->{drawings_color_name}="red";
+    $self->{text_color_name}="black";
 
     $self->{linewidth_zone}=1;
     $self->{linewidth_box}=1;
@@ -58,68 +61,72 @@ sub add_feuille {
     $self->{box_external}=4;
     $self->{linewidth_special}=4;
 
-    $self->{'font'}=Pango::FontDescription->from_string("128");
+    $self->{'font'}=Pango::FontDescription::from_string("128");
 
     for (keys %oo) {
 	$self->{$_}=$oo{$_} if(defined($self->{$_}));
     }
 
-    $self->{'gc'} = Gtk2::Gdk::GC->new($self->window);
-
-    $self->{'color'}= Gtk2::Gdk::Color->parse($coul);
-    for my $type ('',qw/scorezone_ question_ unticked_ empty_ invalid_/) {
+    for my $type ('',qw/scorezone_ question_ unticked_ empty_ invalid_ drawings_ text_/) {
       $self->{$type.'color'}=
-	Gtk2::Gdk::Color->parse($self->{$type.'color_name'}) if($type);
-      $self->window->get_colormap->alloc_color($self->{$type.'color'},TRUE,TRUE);
+	Gtk3::Gdk::RGBA::parse($self->{$type.'color_name'}) if($type);
     }
 
     if($self->{'marks'}) {
-	$self->{'colormark'}= Gtk2::Gdk::Color->parse($self->{'marks'});
-	$self->window->get_colormap->alloc_color($self->{'colormark'},TRUE,TRUE);
+	$self->{'colormark'}= Gtk3::Gdk::RGBA::parse($self->{'marks'});
     }
 
     $self->signal_connect('size-allocate'=>\&allocate_drawing);
+    $self->signal_connect('draw'=>\&draw);
 
     return($self);
 }
 
-sub set_image {
-    my ($self,$image,$layinfo)=@_;
-    $self->{'i-file'}=$image;
-    if($image =~ /text:(.*)/) {
-      my $text=$1;
+sub set_background {
+  my ($self,$color)=@_;
+  if($color) {
+    $self->{background_color}=Gtk3::Gdk::RGBA::parse($color);
+  } else {
+    $self->{background_color}='';
+  }
+}
 
-      my $layout=$self->create_pango_layout($text);
-      my $colormap =$self->get_colormap;
-      $layout->set_font_description($self->{'font'});
-      my ($text_x,$text_y)=$layout->get_pixel_size();
-      my $pixmap=Gtk2::Gdk::Pixmap->new(undef,$text_x,$text_y,$colormap->get_visual->depth);
-      $pixmap->set_colormap($colormap);
-      $pixmap->draw_rectangle($self->style->bg_gc(GTK_STATE_NORMAL),TRUE,0,0,$text_x,$text_y);
-      $pixmap->draw_layout($self->style->fg_gc(GTK_STATE_NORMAL),0,0,$layout);
-      my $pixbuf=Gtk2::Gdk::Pixbuf->get_from_drawable($pixmap, $colormap,0,0,0,0, $text_x, $text_y);
-      $self->{'i-src'}=$pixbuf;
-    } elsif($image && -f $image) {
-      eval { $self->{'i-src'}=Gtk2::Gdk::Pixbuf->new_from_file($image); };
-      if($@) {
-	# Error loading scan...
-	$self->{'i-src'}='';
-      } else {
-	$layinfo->{'page'}->{'width'}=$self->{'i-src'}->get_width
-	  if(!$layinfo->{'page'}->{'width'});
-	$layinfo->{'page'}->{'height'}=$self->{'i-src'}->get_height
-	  if(!$layinfo->{'page'}->{'height'});
-      }
-    } elsif($image eq 'NONE') {
+sub set_text {
+  my ($self,$text)=@_;
+  $self->{text}=$text;
+}
+
+sub set_image {
+  my ($self,$image,$layinfo)=@_;
+  $self->{image_file}=$image;
+  if($image && -f $image) {
+    eval { $self->{'i-src'} =
+             Gtk3::Gdk::Pixbuf->new_from_file(Glib::filename_to_unicode($image));
+         };
+    if($@) {
+      # Error loading scan...
       $self->{'i-src'}='';
     } else {
-	$self->{'i-src'}=Gtk2::Gdk::Pixbuf->new(GDK_COLORSPACE_RGB,0,8,40,10);
-	$self->{'i-src'}->fill(0x48B6FF);
+      $layinfo->{'page'}->{'width'}=$self->{'i-src'}->get_width
+        if(!$layinfo->{'page'}->{'width'});
+      $layinfo->{'page'}->{'height'}=$self->{'i-src'}->get_height
+        if(!$layinfo->{'page'}->{'height'});
     }
-    $self->{'layinfo'}=$layinfo;
-    $self->{'modifs'}=0;
-    $self->allocate_drawing();
-    $self->window->show;
+  } else {
+    $self->{'i-src'}='';
+  }
+  $self->{'layinfo'}=$layinfo;
+  $self->{'modifs'}=0;
+  $self->allocate_drawing();
+  $self->queue_draw();
+}
+
+sub set_content {
+  my ($self,%o)=@_;
+  debug("PageArea content set to ".join(" ",%o));
+  $self->set_background($o{background_color});
+  $self->set_text($o{text});
+  $self->set_image($o{image},$o{layout_info});
 }
 
 sub get_image {
@@ -150,11 +157,11 @@ sub choix {
   }
 
   if($self->{'layinfo'}->{'block_message'}) {
-    my $dialog = Gtk2::MessageDialog
-      ->new_with_markup(undef,
-			'destroy-with-parent',
-			'error','ok',
-			$self->{'layinfo'}->{'block_message'});
+    my $dialog = Gtk3::MessageDialog
+      ->new(undef,
+            'destroy-with-parent',
+            'error','ok','');
+    $dialog->set_markup($self->{'layinfo'}->{'block_message'});
     $dialog->run;
     $dialog->destroy;
 
@@ -164,7 +171,7 @@ sub choix {
   if($self->{'layinfo'}->{'box'}) {
 
       if ($event->button == 1) {
-	  my ($x,$y)=$event->coords;
+	  my ($x,$y)=($event->x,$event->y);
 	  debug "Click $x $y\n";
 	  for my $i (@{$self->{'layinfo'}->{'box'}}) {
 
@@ -175,7 +182,7 @@ sub choix {
 		  debug " -> box $i\n";
 		  $i->{'ticked'}=!$i->{'ticked'};
 
-		  $self->window->show;
+                  $self->queue_draw();
 	      }
 	  }
       }
@@ -208,62 +215,104 @@ sub extend {
 }
 
 sub draw_box {
-  my ($self,$box,$fill,$external)=@_;
+  my ($self,$context,$box,$fill,$external)=@_;
   $external=0 if(!$external);
   if($box->{'xy'}) {
-    $self->window->draw_polygon
-      ($self->{'gc'},
-       $fill,extend($external,
-		    map { ($box->{'xy'}->[$_*2]*$self->{'rx'},
-		    $box->{'xy'}->[$_*2+1]*$self->{'ry'}) } (0..3)) );
+    $context->new_path;
+    $context->move_to($box->{'xy'}->[0]*$self->{'rx'},
+		      $box->{'xy'}->[1]*$self->{'ry'});
+    for my $i (1..3) {
+      $context->line_to($box->{'xy'}->[$i*2]*$self->{'rx'},
+			$box->{'xy'}->[$i*2+1]*$self->{'ry'});
+    }
+    $context->close_path;
+    if($fill) { $context->fill; }
+    else { $context->stroke; }
   } else {
-    $self->window->draw_rectangle
-      ($self->{'gc'},
-       $fill,
+    $context->new_path();
+    $context->rectangle
+      (
        $box->{'xmin'}*$self->{'rx'}-$external,
        $box->{'ymin'}*$self->{'ry'}-$external,
        ($box->{'xmax'}-$box->{'xmin'})*$self->{'rx'}+2*$external,
        ($box->{'ymax'}-$box->{'ymin'})*$self->{'ry'}+2*$external
       );
+    if($fill) { $context->fill; }
+    else { $context->stroke; }
   }
+}
+
+sub box_miny {
+  my ($self,$box)=@_;
+  my $miny=$self->{'ty'};
+  if($box->{'xy'}) {
+    for my $i (0..3) {
+      my $y=$box->{'xy'}->[$i*2+1]*$self->{'ry'};
+      $miny=$y if($y<$miny);
+    }
+  } else {
+    $miny=$box->{'ymin'}*$self->{'ry'};
+  }
+  return($miny);
+}
+
+sub question_miny {
+  my ($self,$question)=@_;
+  my $miny=$self->{'ty'};
+  for my $l (@{$self->{'layinfo'}->{'box'}}) {
+    if($l->{question}==$question) {
+      my $y=$self->box_miny($l);
+      $miny=$y if($y<$miny);
+    }
+  }
+  return($miny);
 }
 
 sub allocate_drawing {
   my ($self,$evenement,@donnees)=@_;
-  my $r=$self->allocation();
+  my $r=$self->get_allocation();
 
-  return() if(!$self->{'i-src'});
+  if($self->{'i-src'}) {
 
-  $self->{'tx'}=$r->width;
-  $self->{'ty'}=$self->{'yfactor'}*$r->height;
+    $self->{'tx'}=$r->{width};
+    $self->{'ty'}=$self->{'yfactor'}*$r->{height};
 
-  debug("Rendering target size: ".$self->{'tx'}."x".$self->{'ty'});
+    debug("Rendering target size: ".$self->{'tx'}."x".$self->{'ty'});
 
-  my $sx=$self->{'tx'}/$self->{'i-src'}->get_width;
-  my $sy=$self->{'ty'}/$self->{'i-src'}->get_height;
+    my $sx=$self->{'tx'}/$self->{'i-src'}->get_width;
+    my $sy=$self->{'ty'}/$self->{'i-src'}->get_height;
 
-  if($sx<$sy) {
-    $self->{'ty'}=int($self->{'i-src'}->get_height*$sx);
-    $sy=$self->{'ty'}/$self->{'i-src'}->get_height;
+    if($sx<$sy) {
+      $self->{'ty'}=int($self->{'i-src'}->get_height*$sx);
+      $sy=$self->{'ty'}/$self->{'i-src'}->get_height;
+    }
+    if($sx>$sy) {
+      $self->{'tx'}=int($self->{'i-src'}->get_width*$sy);
+      $sx=$self->{'tx'}/$self->{'i-src'}->get_width;
+    }
+
+    $self->{'sx'}=$sx;
+    $self->{'sy'}=$sy;
+
+    $self->set_size_request(-1,$self->{'ty'})
+      if($self->{'yfactor'}>1);
+
+  } else {
+    $self->{tx}=$r->{width};
+    $self->{ty}=$r->{height};
   }
-  if($sx>$sy) {
-    $self->{'tx'}=int($self->{'i-src'}->get_width*$sy);
-    $sx=$self->{'tx'}/$self->{'i-src'}->get_width;
-  }
-
-  $self->{'sx'}=$sx;
-  $self->{'sy'}=$sy;
-
-  $self->set_size_request(-1,$self->{'ty'})
-    if($self->{'yfactor'}>1);
 
   0;
 }
 
-sub expose_drawing {
-    my ($self,$evenement,@donnees)=@_;
+sub context_color {
+  my ($self,$context,$color_name)=@_;
+  my $c=$self->{$color_name."_color"};
+  $context->set_source_rgb($c->red,$c->green,$c->blue);
+}
 
-    return() if(!$self->{'i-src'});
+sub draw {
+    my ($self,$context)=@_;
 
     $self->allocate_drawing() if(!$self->{'sx'} || !$self->{'sy'});
 
@@ -273,22 +322,44 @@ sub expose_drawing {
     my $sx=$self->{'sx'};
     my $sy=$self->{'sy'};
 
-    debug("Rendering with SX=$sx SY=$sy");
+    if($self->{background_color}) {
+      debug("Background color");
+      $self->context_color($context,'background');
+      $context->paint();
+    }
 
-    my $i=Gtk2::Gdk::Pixbuf->new(GDK_COLORSPACE_RGB,1,8,$self->{'tx'},$self->{'ty'});
+    if($self->{text}) {
+      $self->context_color($context,'text');
+      $context->set_font_size(20);
+      my $ext=$context->text_extents($self->{text});
+      my $r=$self->{'tx'}/$ext->{width};
+      my $ry=$self->{'ty'}/$ext->{height};
+      $r=$ry if($ry<$r);
+      $context->set_font_size(20*$r);
+      $ext=$context->text_extents($self->{text});
+      $context->move_to(-$ext->{x_bearing}+int(($self->{tx}-$ext->{width})/2),
+			-$ext->{y_bearing});
+      $context->show_text($self->{text});
+      $context->stroke();
+    }
 
-    $self->{'i-src'}->scale($i,0,0,$self->{'tx'},$self->{'ty'},0,0,
-			    $sx,$sy,
-			    GDK_INTERP_BILINEAR);
+    if($self->{'i-src'}) {
+      my $sx=$self->{'sx'};
+      my $sy=$self->{'sy'};
 
-    $i->render_to_drawable($self->window,
-			   $self->{'gc'},
-			   0,0,0,0,
-			   $self->{'tx'},
-			   $self->{'ty'},
-			   'none',0,0);
+      debug("Rendering with SX=$sx SY=$sy");
 
-    debug "Done with rendering";
+      my $i=Gtk3::Gdk::Pixbuf->new(GDK_COLORSPACE_RGB,1,8,$self->{'tx'},$self->{'ty'});
+
+      $self->{'i-src'}->scale($i,0,0,$self->{'tx'},$self->{'ty'},0,0,
+			      $sx,$sy,
+			      GDK_INTERP_BILINEAR);
+
+      Gtk3::Gdk::cairo_set_source_pixbuf($context,$i,0,0);
+      $context->paint();
+
+      debug "Done with rendering";
+    }
 
     if(($self->{'layinfo'}->{'box'} || $self->{'layinfo'}->{'namefield'})
       && ($self->{'layinfo'}->{'page'}->{'width'})) {
@@ -302,79 +373,74 @@ sub expose_drawing {
 	# layout drawings
 
 	if($self->{'marks'}) {
-	    $self->{'gc'}->set_foreground($self->{'colormark'});
+            Gtk3::Gdk::cairo_set_source_rgba($context,$self->{'colormark'});
 
 	    for $box (@{$self->{'layinfo'}->{'namefield'}}) {
-		$self->draw_box($box,'',0);
+		$self->draw_box($context,$box,'',0);
 	    }
 
 	    $box=$self->{'layinfo'}->{'mark'};
 
 	    if($box) {
-		for my $i (0..3) {
-		    my $j=(($i+1) % 4);
-		    $self->window->draw_line($self->{'gc'},
-					     $box->[$i]->{'x'}*$self->{'rx'},
-					     $box->[$i]->{'y'}*$self->{'ry'},
-					     $box->[$j]->{'x'}*$self->{'rx'},
-					     $box->[$j]->{'y'}*$self->{'ry'},
-			);
-		}
+              $context->new_path;
+	      for my $i (0..3) {
+		my $j=(($i+1) % 4);
+		$context->move_to($box->[$i]->{'x'}*$self->{'rx'},
+				  $box->[$i]->{'y'}*$self->{'ry'});
+		$context->line_to($box->[$j]->{'x'}*$self->{'rx'},
+				  $box->[$j]->{'y'}*$self->{'ry'});
+	      }
+	      $context->stroke;
 	    }
 
 	    for my $box (@{$self->{'layinfo'}->{'digit'}}) {
-		$self->draw_box($box,'',0);
+		$self->draw_box($context,$box,'',0);
 	    }
 
 	}
 
 	## boxes drawings
 
-        $self->{'gc'}->set_line_attributes($self->{linewidth_special},
-                                           GDK_LINE_SOLID,GDK_CAP_BUTT,GDK_JOIN_MITER);
-        $self->{'gc'}->set_foreground($self->{'invalid_color'});
+        $context->set_line_width($self->{linewidth_special});
+        $self->context_color($context,'invalid');
         for $box (grep { $_->{scoring}->{why} && $_->{scoring}->{why} =~ /E/ }
                   @{$self->{'layinfo'}->{'box'}}) {
-          $self->draw_box($box,'',$self->{box_external});
+          $self->draw_box($context,$box,'',$self->{box_external});
         }
-        $self->{'gc'}->set_foreground($self->{'empty_color'});
+        $self->context_color($context,'empty');
         for $box (grep { $_->{scoring}->{why} && $_->{scoring}->{why} =~ /V/ }
                   @{$self->{'layinfo'}->{'box'}}) {
-          $self->draw_box($box,'',$self->{box_external});
+          $self->draw_box($context,$box,'',$self->{box_external});
         }
 
 	if($self->{'onscan'}) {
-	  $self->{'gc'}->set_line_attributes($self->{linewidth_box_scan},
-					     GDK_LINE_SOLID,GDK_CAP_BUTT,GDK_JOIN_MITER);
-	  $self->{'gc'}->set_foreground($self->{'color'});
+	  $context->set_line_width($self->{linewidth_box_scan});
+	  $self->context_color($context,'drawings');
 	  for $box (grep { $_->{'ticked'} }
 		    @{$self->{'layinfo'}->{'box'}}) {
-	    $self->draw_box($box,'');
+	    $self->draw_box($context,$box,'');
 	  }
-	  $self->{'gc'}->set_foreground($self->{'unticked_color'});
+	  $self->context_color($context,'unticked');
 	  for $box (grep { ! $_->{'ticked'} }
 		    @{$self->{'layinfo'}->{'box'}}) {
-	    $self->draw_box($box,'');
+	    $self->draw_box($context,$box,'');
 	  }
 	} else {
-	  $self->{'gc'}->set_line_attributes($self->{linewidth_box},
-					     GDK_LINE_SOLID,GDK_CAP_BUTT,GDK_JOIN_MITER);
-	  $self->{'gc'}->set_foreground($self->{'color'});
+	  $context->set_line_width($self->{linewidth_box});
+	  $self->context_color($context,'drawings');
 	  for $box (@{$self->{'layinfo'}->{'box'}}) {
-	    $self->draw_box($box,$box->{'ticked'});
+	    $self->draw_box($context,$box,$box->{'ticked'});
 	  }
-	  $self->{'gc'}->set_line_attributes($self->{linewidth_zone},
-					   GDK_LINE_SOLID,GDK_CAP_BUTT,GDK_JOIN_MITER);
-	  $self->{'gc'}->set_foreground($self->{'question_color'});
+	  $context->set_line_width($self->{linewidth_zone});
+	  $self->context_color($context,'question');
 	  for $box (@{$self->{'layinfo'}->{'questionbox'}}) {
-	    $self->draw_box($box,'');
+	    $self->draw_box($context,$box,'');
 	  }
 	}
-	$self->{'gc'}->set_line_attributes($self->{linewidth_zone},
-					   GDK_LINE_SOLID,GDK_CAP_BUTT,GDK_JOIN_MITER);
-	$self->{'gc'}->set_foreground($self->{'scorezone_color'});
+	$context->set_line_width($self->{linewidth_zone});
+	$self->context_color($context,'scorezone');
 	for $box (@{$self->{'layinfo'}->{'scorezone'}}) {
-	  $self->draw_box($box,'');
+	  $self->draw_box($context,$box,'');
 	}
 
 	debug "Done.";

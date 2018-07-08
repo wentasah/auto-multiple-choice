@@ -1,0 +1,29 @@
+\documentclass[a4paper]{article}
+
+\usepackage[nowatermark]{automultiplechoice}
+
+\begin{document}
+
+\exemplaire{5}{
+
+  \namefield{\framebox{Name: \hspace{5cm}}}\vspace{5mm}
+
+  Please code you student number:
+  \AMCcodeGrid[top]{student}{ABCDEF,{MA}{LO}{PH},0123456789,0123456789,0123456789,0123456789}
+
+  \begin{question}{Str}
+    Strenght?
+    \begin{choices}[o]
+      \wrongchoice{0}\scoring{0}
+      \wrongchoice{1}\scoring{1}
+      \wrongchoice{2}\scoring{2}
+      \wrongchoice{3}\scoring{3}
+      \wrongchoice{4}\scoring{4}
+      \wrongchoice{5}\scoring{5}
+      \correctchoice{6}\scoring{6}
+    \end{choices}
+  \end{question}
+
+}
+
+\end{document}

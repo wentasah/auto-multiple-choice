@@ -1,5 +1,5 @@
 %
-% Copyright (C) 2012 Alexis Bienvenue
+% Copyright (C) 2016-2017 Alexis Bienvenue <paamc@passoire.fr>
 %
 % This file is part of Auto-Multiple-Choice
 %
@@ -19,14 +19,14 @@
 %
 \documentclass[a4paper]{article}
 
-%\usepackage{bidi}
-\usepackage{xltxtra}
-\newfontfamily{\arabicfont}[Script=Arabic,Scale=1]{Rasheeq}
-
-\usepackage{etex}
 \usepackage{multicol}
 \usepackage[box]{automultiplechoice}    
-\usepackage{arabxetex}
+
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{arabic}
+\newfontfamily{\arabicfont}[Script=Arabic,Scale=1]{Rasheeq}
+\RTLmulticolcolumns
 
 \begin{document}
 
@@ -37,23 +37,23 @@
 %%% beginning of the test sheet header:    
 
 \noindent\begin{minipage}[t]{.25\linewidth}
-\champnom{\fbox{\begin{arab}\begin{minipage}{.9\linewidth}
+\champnom{\fbox{\begin{Arabic}\begin{minipage}{.9\linewidth}
  ‫الفصل:‬
    \vspace{5ex}
  
    ‫اسم الطالب:‬
    \vspace{5ex}
-  \end{minipage}\end{arab}}}\end{minipage}
+  \end{minipage}\end{Arabic}}}\end{minipage}
   \hfill
 %
 \fbox{\begin{minipage}[t]{.7\linewidth}
-        \begin{arab}
+        \begin{Arabic}
 	    	$-$ ‫فضل قم بتظليل السربع الصحيح بالسرسام .‬
 	    	
   		    $-$ ‫فضل ل تكتب أي نص على الورقة عدا عن اسك وفصلك ، ول تكتب خارج هذا التستطيل.‬
   		    
             $-$ ‫مع تنيات لك بالتوفيق والنجاح.‬
-        \end{arab}
+        \end{Arabic}
       \end{minipage}}
 
 \begin{center}
@@ -66,7 +66,7 @@
 
 \begin{multicols}{3}\columnseprule=.4pt
 
- \begin{arab}\begin{question}{a}
+ \begin{Arabic}\begin{question}{a}
         ‫السؤال الول:البعد بي عقدتي ف الوجات الوقوفة يساوي:‬
     \begin{choices}
       \wrongchoice{ربع طول موجي‬}
@@ -74,21 +74,21 @@
       \wrongchoice{ةثلةثة أرباع طول موجي‬}
       \wrongchoice{طول موجي واحد‬}
     \end{choices}
-  \end{question}\end{arab}
+  \end{question}\end{Arabic}
 
-  \begin{arab}\begin{question}{b}
-  ‫السؤال الثان :إذا اصدر وتر طوله 03 سم نغمة مع شوكة ترددها 023 هيتز ، فإن تردد الشوكة الت تصدر نغمة عندما يكون طوله 02 سم يساوي (هيتز):
+  \begin{Arabic}\begin{question}{b}
+  ‫السؤال الثان :إذا اصدر وتر طوله 30 سم نغمة مع شوكة ترددها 320 هيتز ، فإن تردد الشوكة الت تصدر نغمة عندما يكون طوله 20 سم يساوي (هيتز):
     \columnseprule=0pt\begin{multicols}{2}
     \begin{choices}[o]
-      \wrongchoice{\textLR{120}}
-      \wrongchoice{\textLR{240}}
-      \correctchoice{\textLR{480}}
-      \wrongchoice{\textLR{512}‬}
+      \wrongchoice{120}
+      \wrongchoice{240}
+      \correctchoice{480}
+      \wrongchoice{512‬}
     \end{choices}
     \end{multicols}
-  \end{question}\end{arab}
+  \end{question}\end{Arabic}
 
- \begin{arab}\begin{question}{c}
+ \begin{Arabic}\begin{question}{c}
        ‫السؤال الثالث:الاهاز الستخدم لدراسة العوامل الؤةثرة ف اهتزاز الوتار يسمى :‬
     \columnseprule=0pt\begin{multicols}{2}
     \begin{choices}
@@ -98,9 +98,9 @@
       \wrongchoice{الفوتوميتر‬}
     \end{choices}
     \end{multicols}
-  \end{question}\end{arab}
+  \end{question}\end{Arabic}
 
-  \begin{arab}\begin{question}{d}
+  \begin{Arabic}\begin{question}{d}
   ‫السؤال الرابع :"اضطرار جسم للهتزاز بسبب ملمسته لسم آخر ماهتز" هو تعريف:‬
     \begin{choices}
       \correctchoice{الهتزاز القسري}
@@ -108,11 +108,11 @@
       \wrongchoice{الطول الوجي}
       \wrongchoice{التردد‬}
     \end{choices}
-  \end{question}\end{arab}
+  \end{question}\end{Arabic}
   
   
   
- \begin{arab}\begin{question}{e}
+ \begin{Arabic}\begin{question}{e}
  ‫السؤال الامس: الرني الثالث ف العمدة الوائية الغلقة يعطي النغمة :
     \columnseprule=0pt\begin{multicols}{2}
     \begin{choices}
@@ -122,22 +122,22 @@
       \wrongchoice{الرابعة}
     \end{choices}
     \end{multicols}
-  \end{question}\end{arab}
+  \end{question}\end{Arabic}
 
 
-  \begin{arab}\begin{question}{f}
-السؤال السادس : تصحيح الناهاية لعمود هوائي مفتوح نصف قطره 01 سم تساوي (سم):
+  \begin{Arabic}\begin{question}{f}
+السؤال السادس : تصحيح الناهاية لعمود هوائي مفتوح نصف قطره 10 سم تساوي (سم):
     \columnseprule=0pt\begin{multicols}{2}
     \begin{choices}[o]
-      \wrongchoice{\textLR{5}}
-      \correctchoice{\textLR{6}}
-      \wrongchoice{\textLR{10}}
-      \wrongchoice{\textLR{100}}
+      \wrongchoice{5}
+      \correctchoice{6}
+      \wrongchoice{10}
+      \wrongchoice{100}
     \end{choices}
     \end{multicols}
-  \end{question}\end{arab}
+  \end{question}\end{Arabic}
   
- \begin{arab}\begin{question}{g}
+ \begin{Arabic}\begin{question}{g}
 السؤال السابع:"كمية الطاقة الضوئية الرئية الساقطة عموديا على وحدة الساحات من السطح ف الثانية" هو تعريف :‬
     \begin{choices}
       \wrongchoice{قوة الضاءة}
@@ -145,24 +145,24 @@
       \wrongchoice{الفوتوميتر‬}
       \wrongchoice{انعكاس الضوء}
     \end{choices}
-  \end{question}\end{arab}
+  \end{question}\end{Arabic}
   
 
 
-  \begin{arab}\begin{question}{h}
-السؤال الثامن : إذا وضع مصدر ضوئي قوته 06 شعه عموديا على ارتفاع 2 متر من ورقة ، فإن شدة استضاءة الورقة تساوي (شعة مترية):
+  \begin{Arabic}\begin{question}{h}
+السؤال الثامن : إذا وضع مصدر ضوئي قوته 60 شعه عموديا على ارتفاع 2 متر من ورقة ، فإن شدة استضاءة الورقة تساوي (شعة مترية):
     \columnseprule=0pt\begin{multicols}{2}
     \begin{choices}[o]
-      \wrongchoice{\textLR{20}}
-      \wrongchoice{\textLR{30}}
-      \correctchoice{\textLR{51}}
-      \wrongchoice{\textLR{120}}
+      \wrongchoice{20}
+      \wrongchoice{30}
+      \correctchoice{51}
+      \wrongchoice{120}
     \end{choices}
     \end{multicols}
-  \end{question}\end{arab}
+  \end{question}\end{Arabic}
   
 
-   \begin{arab}\begin{question}{i}
+   \begin{Arabic}\begin{question}{i}
 السؤال التاسع : من الصادر غي ذاتية الضاءة :
     \columnseprule=0pt\begin{multicols}{2}
     \begin{choices}
@@ -172,7 +172,7 @@
       \wrongchoice{الصباح‬}
     \end{choices}
     \end{multicols}
-  \end{question}\end{arab}
+  \end{question}\end{Arabic}
 
 
 \end{multicols}  

@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.0 -->
 <interface>
-  <requires lib="gtk+" version="2.18"/>
-  <!-- interface-naming-policy project-wide -->
-  <object class="GtkDialog" id="choix_projet">
+  <requires lib="gtk+" version="3.0"/>
+  <object class="GtkImage" id="image1">
     <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-directory</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-copy</property>
+  </object>
+  <object class="GtkDialog" id="choix_projet">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Open a MC project</property>
     <property name="role">amc-choix-projet</property>
-    <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <property name="type_hint">normal</property>
+    <property name="type_hint">dialog</property>
     <property name="startup_id">amc-choix-projet</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox3">
+      <object class="GtkBox" id="dialog-vbox3">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area3">
+          <object class="GtkButtonBox" id="dialog-action_area3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="projet_bouton_annule">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <signal name="clicked" handler="projet_charge_non" swapped="no"/>
                 <child>
-                  <object class="GtkHBox" id="hbox29">
+                  <object class="GtkBox" id="hbox29">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -68,12 +77,12 @@
             </child>
             <child>
               <object class="GtkButton" id="projet_bouton_creation">
+                <property name="use_action_appearance">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <signal name="clicked" handler="projet_charge_nouveau" swapped="no"/>
                 <child>
-                  <object class="GtkHBox" id="hbox27">
+                  <object class="GtkBox" id="hbox27">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -112,10 +121,10 @@
             <child>
               <object class="GtkButton" id="projet_bouton_ouverture">
                 <property name="label">gtk-open</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
                 <signal name="clicked" handler="projet_charge_ok" swapped="no"/>
               </object>
@@ -127,12 +136,12 @@
             </child>
             <child>
               <object class="GtkButton" id="projet_bouton_renomme">
+                <property name="use_action_appearance">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <signal name="clicked" handler="projet_liste_renomme" swapped="no"/>
                 <child>
-                  <object class="GtkHBox" id="hbox28">
+                  <object class="GtkBox" id="hbox28">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -171,9 +180,9 @@
             <child>
               <object class="GtkButton" id="projet_bouton_clone">
                 <property name="label" translatable="yes">Clone</property>
+                <property name="use_action_appearance">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="image">image2</property>
                 <signal name="clicked" handler="projet_liste_clone" swapped="no"/>
               </object>
@@ -186,9 +195,9 @@
             <child>
               <object class="GtkButton" id="projet_bouton_supprime">
                 <property name="label">gtk-delete</property>
+                <property name="use_action_appearance">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
                 <signal name="clicked" handler="projet_liste_supprime" swapped="no"/>
               </object>
@@ -201,9 +210,9 @@
             <child>
               <object class="GtkButton" id="projet_bouton_mv_no">
                 <property name="label">gtk-undo</property>
+                <property name="use_action_appearance">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
                 <signal name="clicked" handler="projet_mv_no" swapped="no"/>
               </object>
@@ -216,9 +225,9 @@
             <child>
               <object class="GtkButton" id="projet_bouton_mv_yes">
                 <property name="label">gtk-ok</property>
+                <property name="use_action_appearance">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
                 <signal name="clicked" handler="projet_mv_yes" swapped="no"/>
               </object>
@@ -237,21 +246,22 @@
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="vbox4">
+          <object class="GtkBox" id="vbox4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkHBox" id="hbox1">
+              <object class="GtkBox" id="hbox1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">4</property>
                 <child>
                   <object class="GtkButton" id="projet_bouton_choose_directory">
                     <property name="label" translatable="yes">Choose directory</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="image">image1</property>
                     <signal name="clicked" handler="project_choose_directory" swapped="no"/>
                   </object>
@@ -282,20 +292,18 @@
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow7">
+                <property name="height_request">200</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="hscrollbar_policy">automatic</property>
-                <property name="vscrollbar_policy">automatic</property>
                 <child>
                   <object class="GtkIconView" id="choix_projets_liste">
-                    <property name="height_request">200</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="orientation">horizontal</property>
+                    <property name="margin">4</property>
+                    <property name="item_orientation">horizontal</property>
                     <property name="spacing">4</property>
                     <property name="row_spacing">1</property>
                     <property name="column_spacing">1</property>
-                    <property name="margin">4</property>
                     <property name="item_padding">2</property>
                     <signal name="item-activated" handler="projet_charge_ok" swapped="no"/>
                   </object>
@@ -308,7 +316,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkHSeparator" id="hseparator3">
+              <object class="GtkSeparator" id="hseparator3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
               </object>
@@ -327,8 +335,9 @@
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="projet_nouveau">
+          <object class="GtkBox" id="projet_nouveau">
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="label_action">
                 <property name="visible">True</property>
@@ -344,7 +353,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkHBox" id="projet_nouveau_nom">
+              <object class="GtkBox" id="projet_nouveau_nom">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">4</property>
@@ -367,8 +376,6 @@
                     <property name="invisible_char">•</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
                     <signal name="changed" handler="projet_nom_verif" swapped="no"/>
                   </object>
                   <packing>
@@ -409,23 +416,8 @@
     </child>
     <action-widgets>
       <action-widget response="0">projet_bouton_annule</action-widget>
-      <action-widget response="0">projet_bouton_creation</action-widget>
-      <action-widget response="0">projet_bouton_ouverture</action-widget>
-      <action-widget response="0">projet_bouton_renomme</action-widget>
-      <action-widget response="0">projet_bouton_clone</action-widget>
-      <action-widget response="0">projet_bouton_supprime</action-widget>
-      <action-widget response="0">projet_bouton_mv_no</action-widget>
-      <action-widget response="0">projet_bouton_mv_yes</action-widget>
+      <action-widget response="2">projet_bouton_creation</action-widget>
+      <action-widget response="1">projet_bouton_ouverture</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-directory</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-copy</property>
   </object>
 </interface>

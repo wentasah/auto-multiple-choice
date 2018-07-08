@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2014 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2014-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -18,9 +18,9 @@
 # along with Auto-Multiple-Choice.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-use AMC::Test;
+require "./AMC/Test.pm";
 
 AMC::Test->new('dir'=>__FILE__,'tex_engine'=>'pdflatex',
-	       notemax=>0,check_marks=>{3=>13})
+	       notemax=>0,check_marks=>{3=>15})
   ->default_process;
 

@@ -1,0 +1,104 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{csvsimple}%
+
+\usepackage[francais,bloc]{automultiplechoice}
+
+\newcommand{\sujet}{
+\exemplaire{1}{%
+
+%%% debut de l'en-tête des copies :  
+\begin{center}
+\noindent{}\fbox{\vspace*{3mm}
+         \Large\bf\nom{}~\prenom{}\normalsize{}% 
+          \vspace*{3mm}
+      }
+\end{center}
+
+\noindent{\bf QCM  \hfill TEST}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+  \centering\large\bf Test\\ Examen du 01/01/2008
+\end{minipage}
+
+\begin{center}\em
+Durée : 10 minutes.
+
+  Aucun document n'est autorisé.
+  L'usage de la calculatrice est interdit.
+
+  Les questions faisant apparaître le symbole \multiSymbole{} peuvent
+  présenter zéro, une ou plusieurs bonnes réponses. Les autres ont
+  une unique bonne réponse.
+
+  Des points négatifs pourront être affectés à de \emph{très
+    mauvaises} réponses.
+\end{center}
+\vspace{1ex}
+%%% fin de l'en-tête
+
+\restituegroupe{general}
+ 
+
+
+\AMCassociation{\id}
+
+%\AMCaddpagesto{3}
+	  }
+}
+
+%%%%§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+
+\begin{document}
+%%%Options
+\AMCrandomseed{1237893}
+
+\def\AMCformQuestion#1{{\sc Question #1 :}}
+
+\setdefaultgroupmode{withoutreplacement}
+%%% Fin Options
+
+%%% groupes
+
+\element{general}{
+  \begin{question}{prez}    
+    Parmi les personnalités suivantes, laquelle a été présidente de la république française~?
+    \begin{reponses}
+      \bonne{René Coty}
+      \mauvaise{Alain Prost}
+      \mauvaise{Marcel Proust}
+      \mauvaise{Claude Monet}
+    \end{reponses}
+  \end{question}
+}
+
+\element{general}{
+  \begin{questionmult}{pref}    
+    Parmi les villes suivantes, lesquelles sont des préfectures~?
+    \begin{reponses}
+      \bonne{Poitiers}
+      \mauvaise{Sainte-Menehould}
+      \bonne{Avignon}
+    \end{reponses}
+  \end{questionmult}
+}
+
+\element{general}{
+  \begin{question}{nb-ue}
+    Combien d'états sont membres de l'Union Européenne en janvier 2009~?
+    \begin{reponseshoriz}[o]
+      \mauvaise{15}
+      \mauvaise{21}
+      \mauvaise{25}
+      \bonne{27}
+      \mauvaise{31}
+    \end{reponseshoriz}
+  \end{question}
+}
+
+%%%% fin des groupes
+
+\csvreader[head to column names]{liste.csv}{}{\sujet}
+
+\end{document}

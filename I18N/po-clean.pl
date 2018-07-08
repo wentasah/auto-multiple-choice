@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2010-2013 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2010-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -29,7 +29,7 @@ GetOptions("comment-only!"=>\$comment_only);
 
 my ($from,$to)=@ARGV;
 
-$v="1.2.2016.022902 (r:e6c431add948)";
+$v="1.4.0~beta1 (r:a488cdb)";
 
 chomp($date=`date "+%Y-%m-%d %H:%M %z"`);
 
@@ -37,7 +37,7 @@ my $aref = Locale::PO->load_file_asarray($from);
 
 my @ok=grep { $_->msgid() !~ /^\"?gtk-/ } @$aref;
 
-$ok[0]->comment(encode_utf8("Auto Multiple Choice\nCopyright 2008-2013 Alexis Bienvenüe\nThis file is distributed under the same license as the AMC software"));
+$ok[0]->comment(encode_utf8("Auto Multiple Choice\nCopyright 2008-2016 Alexis Bienvenue\nThis file is distributed under the same license as the AMC software"));
 
 if(!$comment_only) {
   $ok[0]->msgstr("Project-Id-Version: $v\n" .

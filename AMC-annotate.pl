@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright (C) 2013-2016 Alexis Bienvenue <paamc@passoire.fr>
+# Copyright (C) 2013-2017 Alexis Bienvenue <paamc@passoire.fr>
 #
 # This file is part of Auto-Multiple-Choice
 #
@@ -172,6 +172,7 @@ $single_output =~ s:.*/::;
 
 # We need a destination directory!
 
+utf8::downgrade($pdf_dir);
 if(! -d $pdf_dir) {
     attention("No PDF directory: $pdf_dir");
     die "No PDF directory: $pdf_dir";
@@ -242,6 +243,7 @@ my $annotate
 		      embedded_max_size=>$embedded_max_size,
 		      embedded_format=>$embedded_format,
 		      embedded_jpeg_quality=>$embedded_jpeg_quality,
+                      rtl=>$rtl,
 		     );
 
 $annotate->go();
