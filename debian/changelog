@@ -1,5 +1,6 @@
 auto-multiple-choice (1.4.0~rc1-1) unstable; urgency=medium
 
+  [ Alexis Bienvenüe ]
   * New upstream version 1.4.0~rc1. Closes: #902655.
   * Updates dependencies for new upstream version.
   * Removes all patches now included upstream.
@@ -8,7 +9,10 @@ auto-multiple-choice (1.4.0~rc1-1) unstable; urgency=medium
   * Adds a dependency on liblocale-codes-perl. Closes: #903254.
   * Bumps Standards-Version to 4.1.5.0, no change needed.
 
- -- Alexis Bienvenüe <pado@passoire.fr>  Sun, 08 Jul 2018 19:10:49 +0200
+  [ Georges Khaznadar ]
+  * rebuilt and signed
+
+ -- Georges Khaznadar <georgesk@debian.org>  Mon, 09 Jul 2018 09:44:44 +0200
 
 auto-multiple-choice (1.3.0-5) unstable; urgency=medium
 
