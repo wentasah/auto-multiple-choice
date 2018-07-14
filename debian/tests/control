@@ -2,4 +2,4 @@ Tests: simple
 Depends: @, libipc-run-perl
 
 Tests: gui
-Depends: @, xvfb
+Depends: @, xvfb, at-spi2-core
