@@ -27,7 +27,7 @@ auto-multiple-choice (1.3.0-5) unstable; urgency=medium
   [ Alexis Bienvenüe ]
   * Fix FTBFS with TL2018, using \UseRawInputEncoding.
     Closes: #896948
-    
+
   [ Georges Khaznadar ]
   * moved all patches under debian/patches, refreshed the patch
     latex-docstrip-raw-encoding.diff
@@ -74,7 +74,7 @@ auto-multiple-choice (1.3.0-1) unstable; urgency=medium
   * New mercurial upstream repository.
   * Moves desktop file to auto-multiple-choice package, which is the main
     one to be installed to get the "application".
-    
+
  -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 16 Mar 2016 10:12:03 +0100
 
 auto-multiple-choice (1.2.1-4) unstable; urgency=medium
@@ -98,7 +98,7 @@ auto-multiple-choice (1.2.1-2) unstable; urgency=low
     - Fixed the Function definition is not allowed here error in
       AMC-traitement-image.c: refactored code so functions can be
       properly defined
-  
+
   * [Alexis Bienvenüe] Bumped Standards-Version to 3.9.5.
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 01 May 2014 21:26:06 +0200
@@ -225,7 +225,7 @@ auto-multiple-choice (0.550-3) unstable; urgency=low
 
 auto-multiple-choice (0.550-2) unstable; urgency=low
 
-  * downgraded the dependency on libopencv, since a version 2.1 
+  * downgraded the dependency on libopencv, since a version 2.1
     can be accepted too
 
  -- Georges Khaznadar <georgesk@ofset.org>  Sat, 23 Jul 2011 23:23:26 +0200
@@ -330,7 +330,7 @@ auto-multiple-choice (0.297+svnRelease342-1) unstable; urgency=low
 
 auto-multiple-choice (0.297+svnRelease328-1) unstable; urgency=low
 
-  * upgraded to the upstream revision #328. Fixes a bug with variable scan 
+  * upgraded to the upstream revision #328. Fixes a bug with variable scan
     definition: 300 ppm did work, lower resolutions did not.
   * updated the dependency on debhelper (>= 7.0.50~)
   * modified doc/Makefile to erase PNG files.
@@ -358,9 +358,9 @@ auto-multiple-choice (0.297-0.nmu1) unstable; urgency=low
  -- Georges Khaznadar <georgesk@ofset.org>  Sat, 07 Aug 2010 20:46:46 +0200
 
 auto-multiple-choice (0.297) unstable; urgency=low
-  
+
   * Changes within depedencies
-  
+
   * minor improvements
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Sun, 28 Mar 2010 23:24:08 +0200
@@ -374,7 +374,7 @@ auto-multiple-choice (0.283) unstable; urgency=low
 auto-multiple-choice (0.276) unstable; urgency=low
 
   * Partial internationalization
-  
+
   * Bug fixes
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Fri, 12 Mar 2010 16:33:24 +0100
@@ -382,7 +382,7 @@ auto-multiple-choice (0.276) unstable; urgency=low
 auto-multiple-choice (0.268) unstable; urgency=low
 
   * GUI improvements
-  
+
   * new boxes design in LaTeX style
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Fri, 05 Mar 2010 00:34:00 +0100
@@ -390,11 +390,11 @@ auto-multiple-choice (0.268) unstable; urgency=low
 auto-multiple-choice (0.250) unstable; urgency=low
 
   * option for faster layout detection, in test
-  
+
   * possible printing to PDF files
-  
+
   * configurable papers annotation
-  
+
   * Bug fixes
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 16 Feb 2010 19:21:33 +0100
@@ -402,7 +402,7 @@ auto-multiple-choice (0.250) unstable; urgency=low
 auto-multiple-choice (0.237) unstable; urgency=low
 
   * Better support for option 'ensemble'
-  
+
   * Bug fixes
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Mon, 08 Feb 2010 16:15:23 +0100
@@ -420,7 +420,7 @@ auto-multiple-choice (0.222) unstable; urgency=low
  -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 03 Feb 2010 11:33:37 +0100
 
 auto-multiple-choice (0.211) unstable; urgency=low
-  
+
   * possible compilation with latex
 
   * some new configuration options
@@ -428,11 +428,11 @@ auto-multiple-choice (0.211) unstable; urgency=low
  -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 27 Jan 2010 21:05:52 +0100
 
 auto-multiple-choice (0.204) unstable; urgency=low
-  
+
   * bug fixes
 
   * xelatex compatibility
-  
+
   * new LaTeX commands AMClabel and AMCref
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Sun, 17 Jan 2010 23:50:59 +0100
@@ -440,11 +440,11 @@ auto-multiple-choice (0.204) unstable; urgency=low
 auto-multiple-choice (0.193) unstable; urgency=low
 
   * using relative file names
-  
+
  -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 16 Dec 2009 10:13:11 +0100
 
 auto-multiple-choice (0.178) unstable; urgency=low
-  
+
   * variables within marking scale specification
 
   * important bug corrections
@@ -466,7 +466,7 @@ auto-multiple-choice (0.168) unstable; urgency=low
 auto-multiple-choice (0.163) unstable; urgency=low
 
   * debugging easier
-  
+
   * changed number of binary boxes for greater number of copies
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 21 Oct 2009 14:44:13 +0200
@@ -476,7 +476,7 @@ auto-multiple-choice (0.152) unstable; urgency=low
   * Codes via AMCcode + automatic association
 
   * OpenOffice ODS Export
-  
+
  -- Alexis Bienvenüe <pado@passoire.fr>  Sun, 04 Oct 2009 20:40:54 +0200
 
 auto-multiple-choice (0.107) unstable; urgency=low
@@ -494,17 +494,17 @@ auto-multiple-choice (0.94) unstable; urgency=low
 auto-multiple-choice (0.87) unstable; urgency=low
 
   * LaTeX package 'ensemble' option for one-page answers layout
-  
+
   * Better page viewer for manual input
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Mon, 15 Jun 2009 23:48:21 +0200
 
 auto-multiple-choice (0.75) unstable; urgency=low
-  
+
   * Better charmaps support
 
   * Printing with CUPS
-  
+
   * Parallelisation
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Thu, 21 May 2009 15:19:45 +0200
@@ -512,11 +512,11 @@ auto-multiple-choice (0.75) unstable; urgency=low
 auto-multiple-choice (0.61) unstable; urgency=low
 
   * New interface for LaTeX source file
-  
+
   * jpg size parameters for answers
-  
+
   * Storable for MEPList et ANList
-  
+
  -- Alexis Bienvenüe <pado@passoire.fr>  Mon, 06 Apr 2009 16:26:07 +0200
 
 auto-multiple-choice (0.56) unstable; urgency=low
@@ -524,11 +524,11 @@ auto-multiple-choice (0.56) unstable; urgency=low
   * Bugs with AMC-note
 
   * Watermarks when compiled out of AMC
-  
+
   * LaTeX/QCM errors reported
-  
+
   * Select pages to print
-  
+
   * Choose existing command when not-defined in preferences file
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Wed, 17 Dec 2008 21:51:26 +0100
@@ -569,4 +569,3 @@ auto-multiple-choice (0.9) unstable; urgency=low
   * Initial release.
 
  -- Alexis Bienvenüe <pado@passoire.fr>  Tue, 29 Oct 2008 14:23:38 +0100
-

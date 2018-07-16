@@ -45,7 +45,7 @@ Depends: ${misc:Depends}, ${perl:Depends},
  netpbm, ghostscript,
  poppler-utils, libarchive-zip-perl, librsvg2-common, unzip,
  libglib-object-introspection-perl, libclone-perl
-Recommends: libsys-cpu-perl, libnet-cups-perl (>= 0.60), 
+Recommends: libsys-cpu-perl, libnet-cups-perl (>= 0.60),
  libopenoffice-oodoc-perl, libemail-mime-perl, libemail-sender-perl,
  fonts-linuxlibertine | ttf-linux-libertine, texlive-xetex,
  libfilesys-df-perl, qpdf | pdftk
