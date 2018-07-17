@@ -61,6 +61,7 @@ Package: auto-multiple-choice-doc
 Architecture: all
 Section: doc
 Depends: ${misc:Depends}
+Multi-Arch: foreign
 Description: Auto Multiple Choice - HTML documentation
  Utility to manage multiple choice questionnaires, with optionally
  mixed questions and answers. AMC provides automatic marking from papers'
@@ -73,6 +74,7 @@ Package: auto-multiple-choice-doc-pdf
 Architecture: all
 Section: doc
 Depends: ${misc:Depends}
+Multi-Arch: foreign
 Description: Auto Multiple Choice - PDF documentation
  Utility to manage multiple choice questionnaires, with optionally
  mixed questions and answers. AMC provides automatic marking from papers'
