@@ -2,12 +2,13 @@
 # -*- makefile -*-
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export AMCCONF=deb
 
 %:
-	AMCCONF=deb dh $@ --with tex
+	dh $@ --with tex
 
 override_dh_installtex:
-	AMCCONF=deb dh_installtex -pauto-multiple-choice-common
+	dh_installtex -pauto-multiple-choice-common
 
 override_dh_compress:
-	AMCCONF=deb dh_compress -X.pdf
+	dh_compress -X.pdf
