@@ -3180,7 +3180,7 @@ msgstr "<b>Diagnostic</b>"
 
 #: ../AMC-gui-main_window.glade:1323
 msgid "Update marking scale"
-msgstr "Mettre a jour le barème"
+msgstr "Mettre à jour le barème"
 
 #: ../AMC-gui-main_window.glade:1327
 msgid "Also update marking scale extraction from LaTeX source file"
