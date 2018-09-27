@@ -42,7 +42,7 @@ Subject: Creates a conf file to specify install directories
 +# directory for AMC packaged models
 +MODELSDIR=/usr/share/auto-multiple-choice/models
 +# directory for documentation (will use html/auto-multiple-choice.* subdirs for HTML docs)
-+DOCDIR=/usr/share/doc/auto-multiple-choice-doc
++DOCDIR=/usr/share/doc/auto-multiple-choice
 +
 +# directory for Shared MIME-info Database
 +SHARED_MIMEINFO_DIR=/usr/share/mime/packages

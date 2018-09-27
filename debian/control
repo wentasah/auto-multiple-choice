@@ -3,7 +3,7 @@ Section: education
 Priority: optional
 Maintainer: Alexis Bienvenüe <pado@passoire.fr>
 Uploaders: Georges Khaznadar <georgesk@debian.org>
-Build-Depends: debhelper (>= 9), gettext, libnetpbm10-dev,
+Build-Depends: debhelper (>= 11), gettext, libnetpbm10-dev,
  libxml-libxml-perl, dblatex, xsltproc, docbook-xml,
  docbook-xsl, librsvg2-bin, netpbm, texlive-pictures,
  pkg-config, libopencv-dev (>=2.1),
