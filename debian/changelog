@@ -1,3 +1,20 @@
+auto-multiple-choice (1.4.0~rc2-1) unstable; urgency=medium
+
+  * New upstream version 1.4.0~rc2
+  * Switch to https URIs in d/watch and d/copyright.
+  * Remove trailing whitespaces in d/changelog and d/control.
+  * Add hardening options, see https://wiki.debian.org/Hardening
+  * d/rules: set the environment variable AMCCONF globally
+  * Replace OpenOffice.org with LibreOffice in descriptions and dependencies.
+  * Tag both -doc and -doc-pdf packages as Multiarch: foreign.
+  * Add a Recommends dependency on sensible-utils and libemail-address-perl
+  * Add the Recommends dependency on libemail-address-perl
+  * Bump compat version to 11; install doc files in auto-multiple-choice
+    directories, not auto-multiple-choice-doc or auto-multiple-choice-doc-pdf.
+  * Bumps Standards-Version to 4.2.1, no change needed.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Fri, 28 Sep 2018 10:34:50 +0200
+
 auto-multiple-choice (1.4.0~rc1-2) unstable; urgency=medium
 
   [ Alexis Bienvenüe ]
