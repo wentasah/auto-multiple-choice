@@ -12,3 +12,7 @@ override_dh_installtex:
 
 override_dh_compress:
 	dh_compress -X.pdf
+
+override_dh_installdocs:
+	$(foreach suffix,"" "-common" "-doc" "-doc-pdf", \
+		dh_installdocs --doc-main-package=auto-multiple-choice -pauto-multiple-choice$(suffix) ; )

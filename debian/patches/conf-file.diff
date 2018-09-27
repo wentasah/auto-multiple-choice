@@ -27,7 +27,7 @@ Subject: Creates a conf file to specify install directories
 +# directory for LaTeX style file
 +TEXDIR=/usr/share/texmf/tex/latex/AMC
 +# directory for LaTeX doc
-+TEXDOCDIR=/usr/share/texmf/doc/latex/auto-multiple-choice-doc
++TEXDOCDIR=/usr/share/texmf/doc/latex/auto-multiple-choice
 +# directory for man (1) files
 +MAN1DIR=/usr/share/man/man1
 +# directory for desktop file 
