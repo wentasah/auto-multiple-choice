@@ -61,7 +61,7 @@ GCC_POPPLER ?= $(shell pkg-config --cflags --libs poppler-glib gio-2.0)
 
 SHELL=/bin/sh
 
-DESTDIR=
+DESTDIR ?=
 
 # debug...
 
@@ -109,14 +109,18 @@ endif
 # Target switch (precomp archive or not)
 
 ifeq ($(PRECOMP_ARCHIVE),)
-all: $(FROM_IN) $(BINARIES) $(MAIN_LOGO).xpm doc I18N
+all:
+	$(MAKE) $(FROM_IN)
+	$(MAKE) $(BINARIES) $(MAIN_LOGO).xpm $(MAIN_LOGO).svgz doc I18N
 	chmod a+x auto-multiple-choice
 else
 all: all_precomp
 	chmod a+x auto-multiple-choice
 endif
 
-all_precomp: $(FROM_IN) $(BINARIES) ;
+all_precomp:
+	$(MAKE) $(FROM_IN)
+	$(MAKE) $(BINARIES)
 
 MAJ: $(FROM_IN) ;
 
@@ -177,6 +181,10 @@ sync:
 %.xpm: %.png
 	pngtopnm $< | ppmtoxpm > $@
 
+$(MAIN_LOGO).svgz: $(MAIN_LOGO).svg
+	gzip -k -S z $<
+	$(foreach SIZE, $(APPICONSIZES), rsvg-convert -a -w $(SIZE) -h $(SIZE) $< -o $(MAIN_LOGO)-$(SIZE).png ;)
+
 # CLEAN
 
 clean_IN: FORCE
@@ -192,7 +200,7 @@ clean: clean_IN $(if $(PRECOMP_ARCHIVE),,distclean)
 	-rm -f vars-subs.pl
 
 distclean: clean_IN clean
-	-rm -f $(MAIN_LOGO).xpm
+	-rm -f $(MAIN_LOGO).xpm $(MAIN_LOGO).svgz $(MAIN_LOGO)-*.png
 	-rm -f auto-multiple-choice.spec
 	$(MAKE) -C doc/sty clean
 	$(MAKE) -C doc clean
@@ -240,6 +248,13 @@ endif
 	install    -m 0755 $(USER_GROUP) auto-multiple-choice $(DESTDIR)/$(BINDIR)
 	install -d -m 0755 $(USER_GROUP) $(DESTDIR)/$(ICONSDIR)
 	install    -m 0644 $(USER_GROUP) icons/*.svg $(DESTDIR)/$(ICONSDIR)
+ifneq ($(APPICONDIR),)
+	install	-d -m 0755 $(USER_GROUP) $(DESTDIR)/$(APPICONDIR)/scalable/apps
+	install	   -m 0644 $(USER_GROUP) $(MAIN_LOGO).svgz $(DESTDIR)/$(APPICONDIR)/scalable/apps
+	$(foreach SIZE, $(APPICONSIZES),\
+	install	-d -m 0755 $(USER_GROUP) $(DESTDIR)/$(APPICONDIR)/$(SIZE)x$(SIZE)/apps ; \
+	install	   -m 0644 $(USER_GROUP) -T $(MAIN_LOGO)-$(SIZE).png $(DESTDIR)/$(APPICONDIR)/$(SIZE)x$(SIZE)/apps/auto-multiple-choice.png ; )
+endif
 ifneq ($(PIXDIR),)
 	install -d -m 0755 $(USER_GROUP) $(DESTDIR)/$(PIXDIR)
 	install    -m 0644 $(USER_GROUP) -T $(MAIN_LOGO).xpm $(DESTDIR)/$(PIXDIR)/auto-multiple-choice.xpm
@@ -300,7 +315,7 @@ LOCALDIR=$(shell pwd)
 
 global: FORCE
 	$(MAKE) -C I18N global LOCALEDIR=$(LOCALEDIR) LOCALDIR=$(LOCALDIR)
-	-sudo rm /usr/share/perl5/AMC $(ICONSDIR) /usr/share/doc/auto-multiple-choice /usr/share/doc/auto-multiple-choice-doc $(LOCALEDIR)/fr/LC_MESSAGES/auto-multiple-choice.mo $(DESKTOPDIR)/auto-multiple-choice.desktop $(MODELSDIR) /usr/bin/auto-multiple-choice $(TEXDIR)/automultiplechoice.sty $(SHARED_MIMEINFO_DIR)/auto-multiple-choice.xml $(LANG_GTKSOURCEVIEW_DIR)/amc-txt.lang
+	-sudo rm /usr/share/perl5/AMC $(ICONSDIR) /usr/share/doc/auto-multiple-choice /usr/share/doc/auto-multiple-choice-doc $(LOCALEDIR)/fr/LC_MESSAGES/auto-multiple-choice.mo $(DESKTOPDIR)/auto-multiple-choice.desktop $(MODELSDIR) /usr/bin/auto-multiple-choice $(TEXDIR)/automultiplechoice.sty $(SHARED_MIMEINFO_DIR)/auto-multiple-choice.xml $(LANG_GTKSOURCEVIEW_DIR)/amc-txt.lang $(APPICONDIR)/auto-multiple-choice.svgz
 	-sudo rm -r /usr/lib/AMC
 
 local: global
@@ -323,6 +338,7 @@ local: global
 	sudo ln -s $(LOCALDIR)/$(STY) $(TEXDIR)/automultiplechoice.sty
 	sudo ln -s $(LOCALDIR)/interfaces/amc-txt.lang $(LANG_GTKSOURCEVIEW_DIR)
 	sudo ln -s $(LOCALDIR)/interfaces/auto-multiple-choice.xml $(SHARED_MIMEINFO_DIR)
+	sudo ln -s $(LOCALDIR)/$(MAIN_LOGO).svgz $(APPICONDIR)
 
 ifdef DEBSIGN_KEY
 DEBSIGN=-k$(DEBSIGN_KEY)
@@ -338,7 +354,7 @@ TMP_SOURCE_DIR=$(TMP_DIR)/$(SOURCE_DIR)
 TARBALLS_DIR=tarballs
 ORIG_SOURCES=$(TMP_DIR)/auto-multiple-choice_$(PACKAGE_V_DEB).orig.tar.gz
 
-SRC_EXCL=--exclude debian '--exclude=*~' --exclude .hgignore --exclude .hgtags --exclude .gitignore
+SRC_EXCL=--exclude debian '--exclude=*~' --exclude .hgignore --exclude .hgtags --exclude .gitignore --exclude .gitlab-ci.yml
 
 version_files:
 	$(PERLPATH) local/versions.pl
@@ -347,7 +363,7 @@ version_files:
 tmp_copy:
 	rm -rf $(TMP_SOURCE_DIR)
 	mkdir $(TMP_SOURCE_DIR)
-	rsync -aC --exclude '*~' --exclude .hg --exclude .git --exclude download_area --exclude local --exclude tmp --exclude tarballs . $(TMP_SOURCE_DIR)
+	rsync -aC --exclude '*~' --exclude .hg --exclude .git --exclude .gitlab-ci.yml --exclude download_area --exclude local --exclude tmp --exclude tarballs . $(TMP_SOURCE_DIR)
 	$(MAKE) -C $(TMP_SOURCE_DIR) clean
 
 portable_vok:
@@ -368,7 +384,7 @@ sources_vok:
 	$(MAKE) tmp_copy
 	cd $(TMP_DIR) ; tar cvzf auto-multiple-choice_$(PACKAGE_V_DEB)_sources.tar.gz $(SRC_EXCL) $(SOURCE_DIR)
 	$(MAKE) -C $(TMP_SOURCE_DIR) MAJ
-	$(MAKE) -C $(TMP_SOURCE_DIR) $(MAIN_LOGO).xpm I18N doc
+	$(MAKE) -C $(TMP_SOURCE_DIR) $(MAIN_LOGO).xpm $(MAIN_LOGO).svgz I18N doc
 	$(MAKE) -C $(TMP_SOURCE_DIR) clean_IN
 	$(MAKE) -C $(TMP_SOURCE_DIR) auto-multiple-choice.spec
 	touch $(TMP_SOURCE_DIR)/$(PRECOMP_FLAG_FILE)

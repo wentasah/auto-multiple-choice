@@ -2705,7 +2705,7 @@ Duration : 10 minutes.
         <para>These definitions have to be inserted just after
         <code>\begin{document}</code> in the LaTeX file.</para>
           </listitem>
-          
+
           <listitem>
           <para>
          You can force AMC not to respect the arrangement of the questions and to store the open
@@ -2713,12 +2713,12 @@ Duration : 10 minutes.
           <package>multicols</package >, the answers to open questions needing more space
           when hand written.
           </para>
-        
-        <para >The command <command>\AMCformFilter {!\AMCifcategory {open}}</command> 
+
+        <para >The command <command>\AMCformFilter {!\AMCifcategory {open}}</command>
         displays all questions except the open questions then the command
-        <command>\AMCformFilter {\AMCifcategory {open}}</command > 
-        displays only the open questions. Both commands must be used <emphasis> together</emphasis >.</para > 
-        
+        <command>\AMCformFilter {\AMCifcategory {open}}</command >
+        displays only the open questions. Both commands must be used <emphasis> together</emphasis >.</para >
+
          <programlisting>
 %On two columns, the answers boxes are displayed
 %except the open questions.
@@ -2729,7 +2729,7 @@ Duration : 10 minutes.
 %All the open questions are displayed.
 \AMCformFilter{\AMCifcategory{open}}
          </programlisting>
-         
+
          <note><para>The ascending numbering is always respected.</para></note>
           </listitem>
         </orderedlist>
@@ -4326,16 +4326,72 @@ Name :
         which have been checked ourselves (by clicking them) on the wanted
         pages.</para>
 
-        <note>
+        <warning>
           <para>Every manual input will overwrite results eventually coming
           from a previous or posterior automated input for the same
           page.</para>
-        </note>
+        </warning>
+
+        <sect4 id="gui.capture.manual.color">
+	  <title>Viewing empty or inavlid questions</title>
+	  <para>By clicking on the page numbers, AMC wrap the boxes answers
+	  with a colored square :
+	  <itemizedlist>
+            <listitem><para>cyan for empty answers,</para></listitem>
+            <listitem><para>yellow for invalid answers.</para></listitem>
+	  </itemizedlist>
+	  </para>
+
+	  <para>You may change this colors in the menu tab:
+	  <menuchoice>
+            <guimenu>Preferences</guimenu>
+            <guisubmenu>Display</guisubmenu>
+            <guimenuitem>Scan</guimenuitem>
+          </menuchoice></para>
+
+          <para>It is possible to search a specific question
+          (see <xref endterm="gui.capture.manual.focus.title" linkend="gui.capture.manual.focus"/>)</para>
+        </sect4>
+
+        <sect4 id="gui.capture.manual.focus">
+         <title id="gui.capture.manual.focus.title">Select a specific question</title>
+         <para>This option make it possible to manually mark on-screen a specific question.
+          This save your having to search on each page the question if they are shuffled.</para>
+
+         <sect5 id="gui.capture.manual.open.question.focus">
+           <title>Mark an open question on-screen</title>
+           <itemizedlist>
+           <listitem><para>open the manual input tab and select  "scan" as background,</para></listitem>
+           <listitem><para>select the question to mark
+           (drop-down menu above the list of pages) .</para></listitem>
+           </itemizedlist>
+
+           <para>The open question's check-boxes are on the top of the window, and when you click
+           <guibutton>next</guibutton> you move forward to the following student, always for the same question.</para>
+
+           <note><para>All questions can be checked like this.</para></note>
+          </sect5>
+
+          <sect5 id="gui.capture.manual.empty.invalid.question.focus">
+           <title>Check on-screen pages with invalid or empty questions</title>
+           <itemizedlist>
+           <listitem> <para>The marking must be ended before use
+           (see <xref endterm="gui.marks.proc.title" linkend="gui.marks.proc"/>
+           section <xref endterm="gui.marks.title" linkend="gui.marks"/>),</para></listitem>
+           <listitem><para> open the manual input tab and select  "scan" as background,</para>
+           </listitem>
+           <listitem><para>choose if you want to navigate through all pages, through pages
+           with invalid answers (inv), or through pages with invalid or empty answers (i &amp; e).
+           </para></listitem>
+           </itemizedlist>
+            </sect5>
+         </sect4>
+
       </sect3>
     </sect2>
 
     <sect2 id="gui.marks">
-      <title>Correction</title>
+      <title id="gui.marks.title">Correction</title>
 
       <para>In the <guilabel>Marking</guilabel> tab of the graphic interface,
       the part <guilabel>Marking</guilabel> allows us to deduce the scores of
@@ -4343,7 +4399,7 @@ Name :
       students (see <xref linkend="latex.codes"/>).</para>
 
       <sect3 id="gui.marks.proc">
-        <title>Process</title>
+        <title id="gui.marks.proc.title">Process</title>
 
         <para>The computation of the scores is launched with the button
         <guibutton>Mark</guibutton>, but we must previously make the following
@@ -8527,5 +8583,3 @@ password <emphasis>your_password</emphasis>
     </sect2>
   </sect1>
 </article>
-
-

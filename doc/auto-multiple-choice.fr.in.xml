@@ -2828,17 +2828,17 @@ Durée : 10 minutes.
           </listitem>
 
           <listitem>
-         <para> 
+         <para>
          Vous pouvez forcer AMC à ne pas respecter l'ordre des questions et à mémoriser
          les questions ouvertes afin qu'elles soient restituées ensemble. Cela peut être
          utile lorsque vous utilisez le package <package>multicols</package>, les réponses écrites
         à la main des questions ouvertes demandant plus d'espace.</para>
-        
+
         <para>La commande <command>\AMCformFilter{!\AMCifcategory{open}}</command> affiche
         toutes les questions sauf les questions ouvertes puis la commande
         <command>\AMCformFilter{\AMCifcategory{open}}</command> affiche uniquement les
         questions ouvertes. Les deux commandes doivent être utilisées <emphasis>ensemble</emphasis>.
-         </para> 
+         </para>
          <programlisting>
 %Sur deux colonnes, les cases réponses sont affichées
 %à l'exception des questions ouvertes.
@@ -2849,7 +2849,7 @@ Durée : 10 minutes.
 %Toutes les questions ouvertes sont affichées.
 \AMCformFilter{\AMCifcategory{open}}
          </programlisting>
-         
+
          <note><para>L'ordre croissant des numéros est toujours respecté.</para></note>
           </listitem>
         </orderedlist>
@@ -4665,16 +4665,74 @@ Nom et prénom :
         entrer nous-même les cases qui ont été cochées (en cliquant dessus)
         sur les pages désirées.</para>
 
-        <note>
+        <warning>
           <para>Toute saisie manuelle effectuée sur une page prendra la place
           des résultats éventuels d'une saisie automatique pour cette même
           page.</para>
-        </note>
+        </warning>
+
+        <sect4 id="gui.capture.manual.color">
+          <title>Visualisation des questions vides ou invalides</title>
+	  <para>En cliquant sur les numéros de pages, AMC entoure les cases
+	  réponses :
+	  <itemizedlist>
+            <listitem><para>en cyan pour les réponses vides ;</para></listitem>
+            <listitem><para>en jaune pour les réponses invalides.</para></listitem>
+	  </itemizedlist>
+	  </para>
+
+	  <para>Ces couleurs peuvent être changées dans les préférences d'AMC :
+	  <menuchoice>
+            <guimenu>Préférences</guimenu>
+            <guisubmenu>Affichage</guisubmenu>
+            <guimenuitem>Scan</guimenuitem>
+          </menuchoice></para>
+
+          <para>Il est possible de cibler une question précise
+          (voir <xref endterm="gui.capture.manual.focus.title" linkend="gui.capture.manual.focus"/>)</para>
+        </sect4>
+
+        <sect4 id="gui.capture.manual.focus">
+         <title id="gui.capture.manual.focus.title">Sélection d'une question</title>
+         <para>Cette option permet de corriger manuellement à l'écran
+         une question ciblée. Cela évite de chercher la question sur
+         chaque page si les questions sont mélangées.</para>
+
+         <sect5 id="gui.capture.manual.open.question.focus">
+           <title>Corriger une question ouverte à l'écran</title>
+           <itemizedlist>
+           <listitem><para>Ouvrez la fenêtre de saisie manuelle et sélectionnez
+           le scan comme fond ;</para></listitem>
+           <listitem><para>sélectionnez la question que vous voulez corriger
+           (menu déroulant au-dessus de la liste des pages) .</para></listitem>
+           </itemizedlist>
+           <para>Les cases à cocher de la question ouverte se situent en
+           haut de la fenêtre, et quand vous cliquez sur <guibutton>suivant</guibutton>
+           vous passez à l'étudiant suivant, toujours pour cette question.</para>
+           <note><para>Les questions simples et multiples peuvent aussi
+           être corrigées ainsi.</para></note>
+          </sect5>
+
+          <sect5 id="gui.capture.manual.empty.invalid.question.focus">
+           <title>Vérifier à l'écran les pages avec des questions invalides ou vides</title>
+           <itemizedlist>
+           <listitem> <para>Vous devez <emphasis>d'abord</emphasis> corriger les copies
+           (voir <xref endterm="gui.marks.proc.title" linkend="gui.marks.proc"/>
+           de la section <xref endterm="gui.marks.title" linkend="gui.marks"/>) ;</para></listitem>
+           <listitem><para>ouvrez la fenêtre de saisie manuelle et sélectionnez
+           le scan comme fond ;</para></listitem>
+           <listitem><para>choisissez si vous voulez étudier toutes les pages (toutes),
+           les pages avec réponses incohérentes seulement (inv), ou les pages avec réponses
+           incohérentes ou vides seulement (i &amp; v).</para></listitem>
+           </itemizedlist>
+          </sect5>
+         </sect4>
+
       </sect3>
     </sect2>
 
     <sect2 id="gui.marks">
-      <title>Correction</title>
+      <title id="gui.marks.title">Correction</title>
 
       <para>Dans l'onglet <guilabel>Notation</guilabel> de l'interface
       graphique, la partie <guilabel>Correction</guilabel> nous permet de
@@ -4683,7 +4741,7 @@ Nom et prénom :
       linkend="latex.codes"/>).</para>
 
       <sect3 id="gui.marks.proc">
-        <title>Processus</title>
+        <title id="gui.marks.proc.title">Processus</title>
 
         <para>Le calcul des notes se lance à l'aide du bouton
         <guibutton>Corriger</guibutton>, mais nous avons auparavant le choix
@@ -4712,19 +4770,19 @@ Nom et prénom :
       <sect3 id="bareme">
         <title id="bareme.title">Barème</title>
 
-        <para>Le barème utilisé pour la notation des copies est indiqué dans
-        le fichier source LaTeX du questionnaire, à l'aide de la commande
-        <command>bareme</command>. Elle peut être utilisée dans un
-        environnement <command>question</command> ou
-        <command>questionmult</command>, pour fixer des paramètres de barème
-        concernant toutes les réponses, mais aussi dans l'environnement
-        <command>reponses</command>, pour donner des indications de barème ne
-        concernant qu'une réponse. L'argument de la commande LaTeX bareme est
-        constitué d'indications du type
+        <para>Le barème utilisé pour la notation des copies est indiqué dans le
+        fichier source LaTeX du questionnaire, à l'aide de la commande
+        <command>bareme</command>. Elle peut être utilisée dans un environnement
+        <command>question</command> ou <command>questionmult</command>, pour
+        fixer des paramètres de barème concernant toutes les réponses, mais
+        aussi dans l'environnement <command>reponses</command>, pour donner des
+        indications de barème ne concernant qu'une réponse. L'argument de la
+        commande LaTeX <command>bareme</command> est constitué d'indications du
+        type
         <code><replaceable>parametre</replaceable>=<replaceable>valeur</replaceable></code>,
         séparés par des virgules. Les paramètres utilisables sont les suivants
-        (le tableau indique aussi dans quels cadres ces paramètres peuvent
-        être utilisés) :</para>
+        (le tableau indique aussi dans quels cadres ces paramètres peuvent être
+        utilisés) :</para>
 
         <informaltable>
           <tgroup cols="6">
@@ -6835,4 +6893,3 @@ password <emphasis>votre mot de passe du compte gmail</emphasis>
     </sect2>
   </sect1>
 </article>
-

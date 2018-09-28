@@ -233,7 +233,7 @@ sub defaults {
                     'chromium %u',
                    ],
      dir_opener=>['command',
-                  'nautilus --no-desktop file://%d',
+                  'nautilus file://%d',
                   'pcmanfm %d',
                   'Thunar %d',
                   'konqueror file://%d',
