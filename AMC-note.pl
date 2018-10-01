@@ -308,12 +308,12 @@ for my $sc (@captured_studentcopy) {
 
   $scoring->new_mark(@$sc,$total,$max_i,$x);
 
-  # Build the AMCcodes values from their digits, are store them in the
+  # Build the AMCcodes values from their digits, and store them in the
   # scoring database
 
   for my $k (keys %codes) {
     my @i=(keys %{$codes{$k}});
-    if ($#i>0) {
+    if ($#i >= 0) {
       my $v=join('',map { $codes{$k}->{$_} }
 		 sort { $b <=> $a } (@i));
       $scoring->new_code(@$sc,$k,$v);

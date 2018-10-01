@@ -4,4 +4,4 @@ Abstract: This manual describes Auto Multiple Choice usage.
 Section: Education
 
 Format: PDF
-Files: /usr/share/doc/auto-multiple-choice-doc-pdf/*.pdf* /usr/share/doc/texmf/AMC/*.pdf*
+Files: /usr/share/doc/auto-multiple-choice/*.pdf* /usr/share/doc/texmf/AMC/*.pdf*

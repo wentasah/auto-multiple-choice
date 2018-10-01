@@ -22,6 +22,7 @@ package AMC::Export::ods;
 use AMC::Basic;
 use AMC::Export;
 use Encode;
+use File::Spec;
 
 use Module::Load::Conditional qw/can_load/;
 
@@ -404,7 +405,8 @@ sub export {
     my $la_date = odfLocaltime();
 
     my $archive = odfContainer($fichier,
-			       create => 'spreadsheet');
+			       create => 'spreadsheet',
+                               work_dir => File::Spec->tmpdir);
 
     my $doc=odfConnector(container	=> $archive,
 			 part		=> 'content',
