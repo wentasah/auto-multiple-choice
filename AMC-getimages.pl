@@ -121,12 +121,17 @@ $p=AMC::Gui::Avancement::new(1,'id'=>$progress_id)
 sub image_size {
   my ($file)=@_;
   my @r=();
-  open(IDF,"-|",magick_module("identify"),"-format","%w,%h\n",$file);
-  while(<IDF>) {
-    chomp();
-    @r=($1,$2) if(/([^,]+),(.*)/);
+  my @cmd=(magick_module("identify"),"-format","%w,%h\n",$file);
+  if(open(IDF,"-|",@cmd)) {
+    while(<IDF>) {
+      chomp();
+      @r=($1,$2) if(/([^,]+),(.*)/);
+    }
+    close(IDF);
+  } else {
+    debug("CMD: ".join(' ',@cmd));
+    debug("ERROR: $!");
   }
-  close(IDF);
   return(@r);
 }
 
@@ -136,7 +141,12 @@ sub image_size {
 sub image_orientation {
   my ($file)=@_;
   my ($w,$h)=image_size($file);
-  return( $h>1.1*$w ? "portrait" : $w>1.1*$h ? "landscape" : "");
+  if(defined($h) && defined($w)) {
+    return( $h>1.1*$w ? "portrait" : $w>1.1*$h ? "landscape" : "");
+  } else {
+    debug "WARNING: undefined image orientation for $file";
+    return(undef);
+  }
 }
 
 # move_derivative($origin,$derivative) moves the file descried by
@@ -348,78 +358,110 @@ if($use{pdfimages} || $use{pdftk} || $use{qpdf}) {
 for my $fich (@f) {
   check_split_path($fich);
 
-  my $suffix_change='';
-  my @pre_options=();
-
-  # number of pages :
-  my $np=0;
-  # any scene with number > 0 ? This may cause problems with OpenCV
-  my $scene=0;
-  open(NP,"-|",magick_module("identify"),"-format","%s\n",$fich->{path});
-  while(<NP>) {
-    chomp();
-    if(/[^\s]/) {
-      $np++;
-      $scene=1 if($_ > 0);
-    }
-  }
-  close(NP);
-  # Is this a vector format file? If so, we have to convert it
-  # to bitmap
-  my $vector='';
-  if($fich->{file} =~ /\.(pdf|eps|ps)$/i) {
-    $vector=1;
-    $suffix_change='.png';
-    @pre_options=('-density',$vector_density)
-      if($vector_density);
-  }
-
-  # With ImageMagic, remove alpha channel to get white background
-  if(!use_gm_command()) {
-    push @pre_options,"-alpha","remove";
-  }
-
-  debug "> Scan $fich->{path}: $np page(s)".($scene ? " [has scene>0]" : "");
-  if($np>1 || $scene || $vector || $force_convert) {
-    # split multipage image into 1-page images, and/or convert
-    # to bitmap format
-
-    if($p) {
-      if($vector) {
-    # TRANSLATORS: Here, %s will be replaced with the path of a file that will be converted.
-	$p->text(sprintf(__("Converting %s to bitmap..."),$fich->{file}));
-      } elsif($np>1) {
-# TRANSLATORS: Here, %s will be replaced with the path of a file that will be splitted to several images (one per page).
-	$p->text(sprintf(__("Splitting multi-page image %s..."),$fich->{file}));
-      } elsif($scene || $force_convert) {
-# TRANSLATORS: Here, %s will be replaced with the path of a file that will be splitted to several images (one per page).
-	$p->text(sprintf(__("Processing image %s..."),$fich->{file}));
-      }
-    }
+  if($fich->{file} =~ /\.(pdf|eps|ps)$/i
+     && commande_accessible('gs')) {
+    # ghostscript is preferred for PDF, EPS and PS files.
 
     my $temp_loc=tmpdir();
     my $temp_dir = tempdir( DIR=>$temp_loc,
 			    CLEANUP => (!get_debug()) );
 
-    debug "Image split tmp dir: $temp_dir";
-
+    debug "GS split tmp dir: $temp_dir";
     my $fb = $fich->{file};
     if(! ($fb =~ s/\.([^.]+)$/_%04d.$1/)) {
       $fb .= '_%04d';
     }
-    $fb.=$suffix_change;
+    $fb.=".png";
 
-    system(magick_module("convert"),
-	   @pre_options,$fich->{path},"+adjoin","$temp_dir/$fb");
+    my @cmd=("gs","-sDEVICE=png16m","-sOutputFile=$temp_dir/$fb",
+	     "-r$vector_density",
+	     "-dNOPAUSE","-dSAFER","-dBATCH");
+    push @cmd,"-dQUIET" if(!$debug);
+    system(@cmd,$fich->{path});
+
     opendir(my $dh, $temp_dir) || debug "can't opendir $temp_dir: $!";
     push @fs,replace_by($fich,
 			grep { -f "$_" } map { "$temp_dir/$_" }
 			sort { $a cmp $b } readdir($dh));
     closedir $dh;
-
-    $p->text('') if($p);
+    
   } else {
-    push @fs,$fich;
+    # Image files, that maybe need some processing...
+
+    my $suffix_change='';
+    my @pre_options=();
+
+    # number of pages :
+    my $np=0;
+    # any scene with number > 0 ? This may cause problems with OpenCV
+    my $scene=0;
+    open(NP,"-|",magick_module("identify"),"-format","%s\n",$fich->{path});
+    while(<NP>) {
+      chomp();
+      if(/[^\s]/) {
+	$np++;
+	$scene=1 if($_ > 0);
+      }
+    }
+    close(NP);
+    # Is this a vector format file? If so, we have to convert it
+    # to bitmap
+    my $vector='';
+    if($fich->{file} =~ /\.(pdf|eps|ps)$/i) {
+      $vector=1;
+      $suffix_change='.png';
+      @pre_options=('-density',$vector_density)
+	  if($vector_density);
+    }
+
+    # With ImageMagic, remove alpha channel to get white background
+    if(!use_gm_command()) {
+      push @pre_options,"-alpha","remove";
+    }
+
+    debug "> Scan $fich->{path}: $np page(s)".($scene ? " [has scene>0]" : "");
+    if($np>1 || $scene || $vector || $force_convert) {
+      # split multipage image into 1-page images, and/or convert
+      # to bitmap format
+
+      if($p) {
+	if($vector) {
+	  # TRANSLATORS: Here, %s will be replaced with the path of a file that will be converted.
+	  $p->text(sprintf(__("Converting %s to bitmap..."),$fich->{file}));
+	} elsif($np>1) {
+	  # TRANSLATORS: Here, %s will be replaced with the path of a file that will be splitted to several images (one per page).
+	  $p->text(sprintf(__("Splitting multi-page image %s..."),$fich->{file}));
+	} elsif($scene || $force_convert) {
+	  # TRANSLATORS: Here, %s will be replaced with the path of a file that will be splitted to several images (one per page).
+	  $p->text(sprintf(__("Processing image %s..."),$fich->{file}));
+	}
+      }
+
+      my $temp_loc=tmpdir();
+      my $temp_dir = tempdir( DIR=>$temp_loc,
+			      CLEANUP => (!get_debug()) );
+
+      debug "Image split tmp dir: $temp_dir";
+
+      my $fb = $fich->{file};
+      if(! ($fb =~ s/\.([^.]+)$/_%04d.$1/)) {
+	$fb .= '_%04d';
+      }
+      $fb.=$suffix_change;
+
+      system(magick_module("convert"),
+	     @pre_options,$fich->{path},"+adjoin","$temp_dir/$fb");
+      opendir(my $dh, $temp_dir) || debug "can't opendir $temp_dir: $!";
+      push @fs,replace_by($fich,
+			  grep { -f "$_" } map { "$temp_dir/$_" }
+			  sort { $a cmp $b } readdir($dh));
+      closedir $dh;
+
+      $p->text('') if($p);
+    } else {
+      # no coversion needed...
+      push @fs,$fich;
+    }
   }
 }
 

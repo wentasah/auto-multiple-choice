@@ -81,7 +81,7 @@ struct buffer_closure {
   unsigned long int offset;
 };
 
-#define BUFFER_CLOSURE(ptr) ((buffer_closure*)(ptr))
+#define BUFFER_CLOSURE(ptr) ((buffer_closure*) (ptr))
 
 static cairo_status_t read_buffer(void *closure, uchar *data, unsigned int length) {
   if(BUFFER_CLOSURE(closure)->offset + length > BUFFER_CLOSURE(closure)->length) {
@@ -97,16 +97,16 @@ struct vector_closure {
   unsigned long int length;
 };
 
-#define VECTOR_CLOSURE(ptr) ((vector_closure*)(ptr))
+#define VECTOR_CLOSURE(ptr) ((vector_closure*) (ptr))
 
 static cairo_status_t read_vector(void *closure, uchar *data, unsigned int length) {
   if(VECTOR_CLOSURE(closure)->length < length) {
     return(CAIRO_STATUS_READ_ERROR);
   }
-  std::copy(VECTOR_CLOSURE(closure)->iterator,VECTOR_CLOSURE(closure)->iterator+length,
+  std::copy(VECTOR_CLOSURE(closure)->iterator, VECTOR_CLOSURE(closure)->iterator+length,
 	    (uchar*)data);
-  VECTOR_CLOSURE(closure)->iterator+=length;
-  VECTOR_CLOSURE(closure)->length-=length;
+  VECTOR_CLOSURE(closure)->iterator += length;
+  VECTOR_CLOSURE(closure)->length -= length;
   return(CAIRO_STATUS_SUCCESS);
 }
 
@@ -149,7 +149,7 @@ public:
 
   */
 
-  BuildPdf(double w,double h,double d):
+  BuildPdf(double w, double h, double d):
     width_in_pixels(w), height_in_pixels(h), dppt(d), n_pages(-1),
     user_one_point(0), margin(0),
     document(NULL), layout(NULL), surface(NULL), cr(NULL),
@@ -161,13 +161,13 @@ public:
     image_buffer(), scan_max_width(0), scan_max_height(0),
     png_compression_level(9), jpeg_quality(75) { 
     printf(": w_pix=%g h_pix=%g dppt=%g\n",
-	   width_in_pixels,height_in_pixels,dppt);
+	   width_in_pixels, height_in_pixels, dppt);
   };
 
   ~BuildPdf();
 
   /* call set_debug(1) to get more debugging output on stderr. */
-  void set_debug(int d) { debug=d; }
+  void set_debug(int d) { debug = d; }
 
 
   /* **************************************************************** */
@@ -198,14 +198,14 @@ public:
 
   */
 
-  void set_embedded_image_format(int format) { embedded_image_format=format; }
-  void set_embedded_png() { embedded_image_format=FORMAT_PNG; }
-  void set_embedded_jpeg() { embedded_image_format=FORMAT_JPEG; }
-  void set_jpeg_quality(int quality) { jpeg_quality=quality; }
-  void set_png_compression_level(int l) { png_compression_level=l; }
-  void set_scan_max_height(int mh) { scan_max_height=mh; }
-  void set_scan_max_width(int mw) { scan_max_width=mw; }
-  void set_margin(double m) { margin=m; }
+  void set_embedded_image_format(int format) { embedded_image_format = format; }
+  void set_embedded_png() { embedded_image_format = FORMAT_PNG; }
+  void set_embedded_jpeg() { embedded_image_format = FORMAT_JPEG; }
+  void set_jpeg_quality(int quality) { jpeg_quality = quality; }
+  void set_png_compression_level(int l) { png_compression_level = l; }
+  void set_scan_max_height(int mh) { scan_max_height = mh; }
+  void set_scan_max_width(int mw) { scan_max_width = mw; }
+  void set_margin(double m) { margin = m; }
 
   /* start_output starts to build a PDF into file
      output_filename. Call it once for each PDF to create, before
@@ -232,7 +232,7 @@ public:
 
   int new_page_from_png(const char* filename);
   int new_page_from_png(void *buffer, unsigned long int buffer_length);
-  int new_page_from_png(std::vector<uchar> &buf, int skip_show_page=0);
+  int new_page_from_png(std::vector<uchar> &buf, int skip_show_page = 0);
 
   /* resize_scan resizes the cv::Mat image so that its dimensions does
      not exceed scan_max_height and scan_max_width. The scaling factor
@@ -256,7 +256,7 @@ public:
   int new_page_from_image(const char* filename);
   int new_page_from_image(std::vector<uchar> &image_data, const char* mime_type,
 			  int width, int height);
-  int new_page_from_image(unsigned char *data,unsigned int size,
+  int new_page_from_image(unsigned char *data, unsigned int size,
 			  const char* mime_type,
 			  int width, int height);
 
@@ -289,11 +289,11 @@ public:
   /* color sets the color for next drawings, either with RBG or
      RGBA. Color values must be between 0.0 and 1.0. */
 
-  void color(double r,double g, double b,double a) {
-    cairo_set_source_rgba(cr,r,g,b,a);
+  void color(double r,double g, double b, double a) {
+    cairo_set_source_rgba(cr, r, g, b, a);
   }
   void color(double r,double g, double b) {
-    cairo_set_source_rgb(cr,r,g,b);
+    cairo_set_source_rgb(cr, r, g, b);
   }
 
   /* set_matrix_to_scan sets the matrix that transforms layout (subject)
@@ -330,7 +330,7 @@ public:
      y-direction. */
 
   void draw_text(double x, double y,
-		 double xpos,double ypos,const char *text);
+		 double xpos, double ypos, const char *text);
 
   /* draw_text_margin writes a text in the margin (left margin if
      xside=0, and right margin if xside=1). The point used is a point
@@ -339,7 +339,7 @@ public:
   */
 
   void draw_text_margin(int xside, double y,
-			double xpos, double ypos,const char *text);
+			double xpos, double ypos, const char *text);
 
   /* draw_text_rectangle writes a text in the given rectangle (the
      text is scaled down if necessary to fit in the rectangle).
@@ -408,7 +408,7 @@ private:
   PangoFontDescription *font_description;
   int new_page_from_image_surface(cairo_surface_t *is);
   void draw_text(PangoLayout* local_layout,
-		 double x, double y,double xpos, double ypos,const char *text);
+		 double x, double y, double xpos, double ypos, const char *text);
   void free_buffer();
 };
 
@@ -423,23 +423,23 @@ int BuildPdf::start_output(char* output_filename) {
 
   close_output();
 
-  printf(": opening -> %s\n",output_filename);
+  printf(": opening -> %s\n", output_filename);
   if(debug) {
     printf("; Create main surface\n");
   }
 
   // create a new PDF Cairo surface, with dimensions in points
 
-  surface=cairo_pdf_surface_create(output_filename,
-				   width_in_pixels/dppt,
-				   height_in_pixels/dppt);
+  surface = cairo_pdf_surface_create(output_filename,
+				     width_in_pixels / dppt,
+				     height_in_pixels / dppt);
 
-  cairo_status_t status=cairo_surface_status(surface);
+  cairo_status_t status = cairo_surface_status(surface);
   if(status != CAIRO_STATUS_SUCCESS) {
     printf("! ERROR : creating surface - %s\n",
 	   cairo_status_to_string(status));
     cairo_surface_destroy(surface);
-    surface=NULL;
+    surface = NULL;
     return(1);
   }
 
@@ -449,15 +449,15 @@ int BuildPdf::start_output(char* output_filename) {
   if(debug) {
     printf("; Create cr\n");
   }
-  cr=cairo_create(surface);
+  cr = cairo_create(surface);
 
   if(cairo_status(cr) != CAIRO_STATUS_SUCCESS) {
     printf("! ERROR : creating cairo - %s\n",
 	   cairo_status_to_string(cairo_status(cr)));
     cairo_surface_destroy(surface);
     cairo_destroy(cr);
-    surface=NULL;
-    cr=NULL;
+    surface = NULL;
+    cr = NULL;
     return(1);
   }
 
@@ -466,14 +466,14 @@ int BuildPdf::start_output(char* output_filename) {
   if(debug) {
     printf("; Create layout\n");
   }
-  layout=pango_cairo_create_layout(cr);
-  if(layout==NULL) {
+  layout = pango_cairo_create_layout(cr);
+  if(layout == NULL) {
      printf("! ERROR : creating pango/cairo layout - %s\n",
 	   cairo_status_to_string(status));
     cairo_surface_destroy(surface);
     cairo_destroy(cr);
-    surface=NULL;
-    cr=NULL;
+    surface = NULL;
+    cr = NULL;
     return(1);
   }
 
@@ -486,8 +486,8 @@ int BuildPdf::start_output(char* output_filename) {
 
   // initialization. user_one_point will be set when using set_matrix
 
-  n_pages=0;
-  user_one_point=0;
+  n_pages = 0;
+  user_one_point = 0;
 
   if(debug) {  
     printf(": OK\n");
@@ -496,23 +496,23 @@ int BuildPdf::start_output(char* output_filename) {
 }
 
 void BuildPdf::close_output() {
-  if(n_pages>=0) {
+  if(n_pages >= 0) {
     // free all allocated objects...
 
     printf(": closing...\n");
     next_page();
     cairo_surface_finish(surface);
     cairo_surface_destroy(surface);
-    surface=NULL;
+    surface = NULL;
     cairo_destroy(cr);
-    cr=NULL;
+    cr = NULL;
     if(image_cr != NULL) cairo_destroy(image_cr);
-    image_cr=NULL;
+    image_cr = NULL;
     if(layout != NULL) {
       g_object_unref(layout);
-      layout=NULL;
+      layout = NULL;
     }
-    n_pages=-1;
+    n_pages = -1;
   }
 }
 
@@ -521,7 +521,7 @@ int BuildPdf::next_page() {
     printf("! ERROR: next_page in closed document\n");
     return(1);
   }
-  if(n_pages>=1) {
+  if(n_pages >= 1) {
 
     // Adds current page to PDF output
 
@@ -537,21 +537,21 @@ int BuildPdf::next_page() {
 	printf("; Destroy image_cr\n");
       }
       cairo_destroy(image_cr);
-      image_cr=NULL;
+      image_cr = NULL;
     }
-    if(image_surface!=NULL) {
+    if(image_surface != NULL) {
       if(debug) {
 	printf("; Destroy image_surface\n");
       }
       cairo_surface_finish(image_surface);
       cairo_surface_destroy(image_surface);
-      image_surface=NULL;
+      image_surface = NULL;
     }
-    if(fake_image_buffer!=NULL) {
+    if(fake_image_buffer != NULL) {
       free_buffer();
     }
-    scan_resize_factor=1.0;
-    scan_expansion=1.0;
+    scan_resize_factor = 1.0;
+    scan_expansion = 1.0;
   }
 
   n_pages++;
@@ -562,10 +562,10 @@ int BuildPdf::new_page_from_png(const char* filename) {
   if(next_page()) return(1);
 
   if(debug) {
-    printf(": PNG < %s\n",filename);
+    printf(": PNG < %s\n", filename);
     printf("; Create image_surface from PNG\n");
   }
-  cairo_surface_t *is=cairo_image_surface_create_from_png(filename);
+  cairo_surface_t *is = cairo_image_surface_create_from_png(filename);
   return(new_page_from_image_surface(is));
 }
 
@@ -573,15 +573,15 @@ int BuildPdf::new_page_from_png(void *buffer, unsigned long int buffer_length) {
   if(next_page()) return(1);
 
   buffer_closure closure;
-  closure.buffer=(uchar*)buffer;
-  closure.length=buffer_length;
-  closure.offset=0;
+  closure.buffer = (uchar*) buffer;
+  closure.length = buffer_length;
+  closure.offset = 0;
 
   if(debug) {
     printf(": PNG < BUFFER\n");
     printf("; Create image_surface from PNG stream\n");
   }
-  cairo_surface_t *is=cairo_image_surface_create_from_png_stream(read_buffer,&closure);
+  cairo_surface_t *is = cairo_image_surface_create_from_png_stream(read_buffer, &closure);
   return(new_page_from_image_surface(is));
 }
 
@@ -591,14 +591,14 @@ int BuildPdf::new_page_from_png(std::vector<uchar> &buf, int skip_show_page) {
   }
 
   vector_closure closure;
-  closure.iterator=buf.begin();
-  closure.length=buf.size();
+  closure.iterator = buf.begin();
+  closure.length = buf.size();
 
   if(debug) {
     printf(": PNG < BUFFER\n");
     printf("; Create image_surface from PNG stream\n");
   }
-  cairo_surface_t *is=cairo_image_surface_create_from_png_stream(read_vector,&closure);
+  cairo_surface_t *is = cairo_image_surface_create_from_png_stream(read_vector, &closure);
   return(new_page_from_image_surface(is));
 }
 
@@ -609,55 +609,55 @@ void BuildPdf::free_buffer() {
     printf("; Free fake_image_buffer\n");
   }
   free(fake_image_buffer);
-  fake_image_buffer=NULL;
+  fake_image_buffer = NULL;
 }
 
 void detach(void* args) {
-  if(*((int*)args)) {
+  if(*((int*) args)) {
     printf("; DETACH\n");
   }
 }
 
 #define ZFORMAT CAIRO_FORMAT_A1
-int BuildPdf::new_page_from_image(unsigned char *data,unsigned int size,
+int BuildPdf::new_page_from_image(unsigned char *data, unsigned int size,
 				  const char* mime_type,
 				  int width, int height) {
-  if(data==NULL) {
+  if(data == NULL) {
     printf("! ERROR : new_page_from_image from null data\n");
     return(1);
   }
-  if(fake_image_buffer!=NULL) {
+  if(fake_image_buffer != NULL) {
     printf("! ERROR : fake_image_buffer already present\n");
     return(1);
   }
 #ifdef DEBUG
   std::ofstream outfile("/tmp/opencv-exported", 
 			std::ios::out | std::ios::binary);
-  outfile.write((const char*)data, size);
+  outfile.write((const char*) data, size);
 #endif
 
   // Creates a fake image surface (to get minimal memory size, we use
   // CAIRO_FORMAT_A1 format) with associated memory buffer.
 
-  int stride=cairo_format_stride_for_width(ZFORMAT, width);
+  int stride = cairo_format_stride_for_width(ZFORMAT, width);
   if(debug) {
     printf("; Create fake_image_buffer\n");
   }
-  fake_image_buffer=(unsigned char*)malloc(stride * height);
+  fake_image_buffer = (unsigned char*) malloc(stride * height);
   if(debug) {
     printf("; Create image_surface for DATA\n");
   }
-  cairo_surface_t *is=
-    cairo_image_surface_create_for_data (fake_image_buffer,
-					 ZFORMAT,
-					 width, height,
-					 stride);
+  cairo_surface_t *is =
+    cairo_image_surface_create_for_data(fake_image_buffer,
+					ZFORMAT,
+					width, height,
+					stride);
   if(debug) {
-    printf("; Attach mime %s to image_surface\n",mime_type);
+    printf("; Attach mime %s to image_surface\n", mime_type);
   }
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
-  if(!cairo_surface_supports_mime_type(surface,mime_type)) {
+  if(!cairo_surface_supports_mime_type(surface, mime_type)) {
     printf("! ERROR: surface does not handle %s\n",
 	   mime_type);
     return(1);
@@ -666,10 +666,10 @@ int BuildPdf::new_page_from_image(unsigned char *data,unsigned int size,
 
   // Attach the real image to the surface
 
-  cairo_status_t status=
-    cairo_surface_set_mime_data (is, mime_type,
-				 data, size,
-				 detach,(void*)(&debug));
+  cairo_status_t status =
+    cairo_surface_set_mime_data(is, mime_type,
+				data, size,
+				detach, (void*) (&debug));
   if(status != CAIRO_STATUS_SUCCESS) {
     printf("! ERROR : setting mime data - %s\n",
 	   cairo_status_to_string(status));
@@ -680,47 +680,47 @@ int BuildPdf::new_page_from_image(unsigned char *data,unsigned int size,
 
   // Uses the surface to create a new page
   
-  int status_np=new_page_from_image_surface(is);
+  int status_np = new_page_from_image_surface(is);
   return(status_np);
 }
 
 int BuildPdf::new_page_from_image(std::vector<uchar> &image_data,
 				  const char* mime_type,
 				  int width, int height) {
-  return(new_page_from_image(image_data.data(),image_data.size(),
-			     mime_type,width,height));
+  return(new_page_from_image(image_data.data(), image_data.size(),
+			     mime_type, width, height));
 }
 
 void BuildPdf::resize_scan(cv::Mat &image) {
-  cv::Size s=image.size();
+  cv::Size s = image.size();
 
   // compute the resize factor to be used to get dimensions no more
   // than scan_max_*
 
-  double fx=2;
-  double fy=2;
-  if(scan_max_width>0) {
-    fx=(double)scan_max_width/s.width;
+  double fx = 2;
+  double fy = 2;
+  if(scan_max_width > 0) {
+    fx = (double) scan_max_width / s.width;
   }
-  if(scan_max_height>0) {
-    fy=(double)scan_max_height/s.height;
+  if(scan_max_height > 0) {
+    fy = (double) scan_max_height / s.height;
   }
   if(debug) {
-    printf(": fx=%g fy=%g.\n",fx,fy);
+    printf(": fx=%g fy=%g.\n", fx, fy);
   }
-  if(fx<fy) {
-    scan_resize_factor=fx;
+  if(fx < fy) {
+    scan_resize_factor = fx;
   } else {
-    scan_resize_factor=fy;
+    scan_resize_factor = fy;
   }
 
   // resize the image if needed
 
-  if(scan_resize_factor<1.0) {
-    cv::resize(image,image,cv::Size(),
-	       scan_resize_factor,scan_resize_factor,cv::INTER_AREA);
+  if(scan_resize_factor < 1.0) {
+    cv::resize(image, image, cv::Size(),
+	       scan_resize_factor, scan_resize_factor, cv::INTER_AREA);
   } else {
-    scan_resize_factor=1.0;
+    scan_resize_factor = 1.0;
     if(debug) {
       printf(": No need to resize.\n");
     }
@@ -730,20 +730,20 @@ void BuildPdf::resize_scan(cv::Mat &image) {
 int BuildPdf::new_page_from_image(const char* filename) {
   if(next_page()) return(1);
 
-  int direct_png=0;
+  int direct_png = 0;
 
   if(debug) {  
-    printf(": IMAGE < %s\n",filename);
+    printf(": IMAGE < %s\n", filename);
   }
 
   // read the image from disk to memory
 
-  cv::Mat image=cv::imread(filename);
+  cv::Mat image = cv::imread(filename);
   const char* mime_type;
 
   if(debug) {  
     printf(": type=%d depth=%d channels=%d\n",
-	   image.type(),image.depth(),image.channels());
+	   image.type(), image.depth(), image.channels());
   }
 
   // resize it if needed
@@ -752,32 +752,32 @@ int BuildPdf::new_page_from_image(const char* filename) {
 
   // encode the image to a PNG or JPEG image buffer
 
-  if(embedded_image_format==FORMAT_JPEG) {
+  if(embedded_image_format == FORMAT_JPEG) {
     std::vector<int> params;
     params.push_back(cv::IMWRITE_JPEG_QUALITY);
     params.push_back(jpeg_quality);
-    imencode(".jpg",image,image_buffer,params);
-    mime_type=CAIRO_MIME_TYPE_JPEG;
-  } else if(embedded_image_format==FORMAT_PNG) {
+    imencode(".jpg", image, image_buffer, params);
+    mime_type = CAIRO_MIME_TYPE_JPEG;
+  } else if(embedded_image_format == FORMAT_PNG) {
     std::vector<int> params;
     params.push_back(cv::IMWRITE_PNG_COMPRESSION);
     params.push_back(png_compression_level);
-    imencode(".png",image,image_buffer,params);
-    mime_type=CAIRO_MIME_TYPE_PNG;
-    direct_png=1;
+    imencode(".png", image, image_buffer, params);
+    mime_type = CAIRO_MIME_TYPE_PNG;
+    direct_png = 1;
   } else {
     printf("! ERROR: invalid embedded_image_format - %d\n",
 	   embedded_image_format);
     return(3);
   }
   
-  cv::Size s=image.size();
+  cv::Size s = image.size();
   if(debug) {
     printf(": converted to %s [Q=%d C=%d] (%.1f KB) w=%d h=%d\n",
 	   mime_type,
-	   jpeg_quality,png_compression_level,
-	   (double)image_buffer.size()/1024,
-	   s.width,s.height);
+	   jpeg_quality, png_compression_level,
+	   (double) image_buffer.size() / 1024,
+	   s.width, s.height);
   }
 
   int r;
@@ -785,11 +785,11 @@ int BuildPdf::new_page_from_image(const char* filename) {
     // PNG images can't be "attached"
     // (cairo_surface_supports_mime_type would return FALSE), so we
     // directly insert them into the PDF output
-    r=new_page_from_png(image_buffer,1);
+    r = new_page_from_png(image_buffer, 1);
   } else {
     // JPEG images are attached to the image surface, and then
     // inserted to the PDF output
-    r=new_page_from_image(image_buffer,mime_type,s.width,s.height);
+    r = new_page_from_image(image_buffer, mime_type, s.width, s.height);
   }
 
   if(debug) {
@@ -803,29 +803,29 @@ int BuildPdf::new_page_from_image_surface(cairo_surface_t *is) {
   if(debug) {
     printf("; Entering new_page_from_image_surface\n");
   }
-  if(image_surface!=NULL) {
+  if(image_surface != NULL) {
     printf("! ERROR : image_surface already in use\n");
     return(1);
   } else {
-    if(is==NULL) {
+    if(is == NULL) {
       printf("! ERROR : NULL image_surface\n");
       return(1);
     }
-    image_surface=is;
+    image_surface = is;
   }
   
-  cairo_status_t image_surface_status=cairo_surface_status(image_surface);
+  cairo_status_t image_surface_status = cairo_surface_status(image_surface);
   if(image_surface_status != CAIRO_STATUS_SUCCESS) {
     printf("! ERROR : creating image surface / %s\n",
 	   cairo_status_to_string(image_surface_status));
     cairo_surface_destroy(image_surface);
     return(1);
   }
-  int w=cairo_image_surface_get_width(image_surface);
-  int h=cairo_image_surface_get_height(image_surface);
-  if(w<=0 || h<=0) {
+  int w = cairo_image_surface_get_width(image_surface);
+  int h = cairo_image_surface_get_height(image_surface);
+  if(w <= 0 || h <= 0) {
     printf("! ERROR : image dimensions should be positive (%dx%d)\n",
-	   w,h);
+	   w, h);
     cairo_surface_destroy(image_surface);
     return(1);
   }
@@ -833,27 +833,27 @@ int BuildPdf::new_page_from_image_surface(cairo_surface_t *is) {
   // rx and ry are the scaling factors that has to be used to set the
   // image surface with the same dimensions as the PDF output
 
-  double rx=width_in_pixels/dppt/w;
-  double ry=height_in_pixels/dppt/h;
+  double rx = width_in_pixels / dppt / w;
+  double ry = height_in_pixels / dppt / h;
 
-  if(rx<ry) {
-    scan_expansion=rx;
+  if(rx < ry) {
+    scan_expansion = rx;
   } else {
-    scan_expansion=ry;
+    scan_expansion = ry;
   }
 
   if(debug) {
-    printf(": R=%g (%g,%g)\n",scan_expansion,rx,ry);
+    printf(": R=%g (%g,%g)\n", scan_expansion, rx, ry);
     printf("; Create and scale image_cr\n");
   }
 
   // Create the Cairo surface that will contain the image, with a
   // matrix that will scale the image to the PDF output dimensions
 
-  image_cr=cairo_create(surface);
+  image_cr = cairo_create(surface);
 
   cairo_identity_matrix(image_cr);
-  cairo_scale(image_cr,scan_expansion,scan_expansion);
+  cairo_scale(image_cr, scan_expansion, scan_expansion);
 
   if(debug) {
     printf("; set_source_surface\n");
@@ -861,7 +861,7 @@ int BuildPdf::new_page_from_image_surface(cairo_surface_t *is) {
 
   // paint the image using context image_cr
 
-  cairo_set_source_surface(image_cr,image_surface,0,0);
+  cairo_set_source_surface(image_cr, image_surface, 0, 0);
   if(debug) {
     printf("; paint from image_cr\n");
   }
@@ -874,21 +874,21 @@ int BuildPdf::new_page_from_image_surface(cairo_surface_t *is) {
 }
 
 int BuildPdf::load_pdf(char* filename) {
-  GError *error=NULL;
+  GError *error = NULL;
   gchar *uri;
 
   if(document != NULL) g_object_unref(document);
 
-  uri = g_filename_to_uri (filename, NULL, &error);
-  if (uri == NULL) {
+  uri = g_filename_to_uri(filename, NULL, &error);
+  if(uri == NULL) {
     printf("! ERROR: poppler fail: %s\n", error->message);
     return 1;
   }
 
   // loads the PDF document using Poppler
 
-  document = poppler_document_new_from_file (uri, NULL, &error);
-  if (document == NULL) {
+  document = poppler_document_new_from_file(uri, NULL, &error);
+  if(document == NULL) {
     printf("! ERROR: poppler fail: %s\n", error->message);
     return 1;
   }
@@ -902,7 +902,7 @@ int BuildPdf::new_page_from_pdf(int page_nb) {
     return(1);
   }
 
-  if(document==NULL) {
+  if(document == NULL) {
     printf("! ERROR: no pdf loaded.\n");
     return(1);
   }
@@ -910,14 +910,14 @@ int BuildPdf::new_page_from_pdf(int page_nb) {
   // Inserts one page from pre-loaded PDF document, using
   // Poppler/Cairo
 
-  PopplerPage *page = poppler_document_get_page (document, page_nb-1);
-  if (page == NULL) {
+  PopplerPage *page = poppler_document_get_page(document, page_nb-1);
+  if(page == NULL) {
     printf("! ERROR:poppler fail: page not found.\n");
     return 1;
   }
   cairo_identity_matrix(cr);
-  poppler_page_render_for_printing (page, cr);
-  g_object_unref (page);
+  poppler_page_render_for_printing(page, cr);
+  g_object_unref(page);
 
   identity_matrix();
   return(0);
@@ -928,44 +928,44 @@ int BuildPdf::new_page_from_pdf(int page_nb) {
    transformation matrix. */
 
 double BuildPdf::normalize_distance() {
-  double dx,dy;
-  dx=1.0;
-  dy=1.0;
-  cairo_device_to_user_distance(cr,&dx,&dy);
-  return( sqrt((dx*dx+dy*dy)/2.0) );
+  double dx, dy;
+  dx = 1.0;
+  dy = 1.0;
+  cairo_device_to_user_distance(cr, &dx, &dy);
+  return( sqrt((dx * dx + dy * dy) / 2.0) );
 }
 
 /* the same, with any matrix */
 
 double BuildPdf::normalize_matrix_distance(cairo_matrix_t *m) {
-  double dx,dy;
-  dx=1.0;
-  dy=1.0;
-  cairo_matrix_transform_distance(m,&dx,&dy);
-  return( sqrt((dx*dx+dy*dy)/2.0) );
+  double dx, dy;
+  dx = 1.0;
+  dy = 1.0;
+  cairo_matrix_transform_distance(m, &dx, &dy);
+  return( sqrt((dx * dx + dy * dy) / 2.0) );
 }
 
 void BuildPdf::set_line_width(double lw) {
-  if(lw>=0) {
-    line_width=lw;
-    if(line_width*user_one_point>0) 
-      cairo_set_line_width(cr,line_width*user_one_point);
+  if(lw >= 0) {
+    line_width = lw;
+    if(line_width * user_one_point > 0) 
+      cairo_set_line_width(cr, line_width * user_one_point);
   }
 }
 
 int BuildPdf::set_font(const char* f) {
-  font="";
+  font = "";
   font.append(f);
   return(validate_font());
 }
 
 int BuildPdf::validate_font() {
-  font_description=pango_font_description_from_string(font.c_str());
-  if(font_description==NULL) {
+  font_description = pango_font_description_from_string(font.c_str());
+  if(font_description == NULL) {
     printf("! ERROR : font description creation\n");
     return(1);
   }
-  pango_layout_set_font_description(layout,font_description);
+  pango_layout_set_font_description(layout, font_description);
   return(0);
 }
 
@@ -973,30 +973,30 @@ int BuildPdf::validate_font() {
    is scaled with ratio.*/
 
 PangoLayout* BuildPdf::r_font_size_layout(double ratio) {
-  PangoLayout *local_layout=pango_layout_copy(layout);
-  if(local_layout==NULL) {
+  PangoLayout *local_layout = pango_layout_copy(layout);
+  if(local_layout == NULL) {
     printf("! ERROR : creating local pango layout.\n");
     return(NULL);
   }
-  const PangoFontDescription *desc=pango_layout_get_font_description(layout);
-  if(desc==NULL) {
+  const PangoFontDescription *desc = pango_layout_get_font_description(layout);
+  if(desc == NULL) {
     printf("! ERROR : creating pango font description.\n");
     g_object_unref(local_layout);
     return(NULL);
   }
-  gint size=pango_font_description_get_size(desc);
-  PangoFontDescription *new_desc=pango_font_description_copy(desc);
-  if(new_desc==NULL) {
+  gint size = pango_font_description_get_size(desc);
+  PangoFontDescription *new_desc = pango_font_description_copy(desc);
+  if(new_desc == NULL) {
     printf("! ERROR : creating local pango font description.\n");
     g_object_unref(local_layout);
     return(NULL);
   }
   if(pango_font_description_get_size_is_absolute(desc)) {
-    pango_font_description_set_absolute_size(new_desc,size*ratio);
+    pango_font_description_set_absolute_size(new_desc, size * ratio);
   } else {
-    pango_font_description_set_size(new_desc,size*ratio);
+    pango_font_description_set_size(new_desc, size * ratio);
   }
-  pango_layout_set_font_description(local_layout,new_desc);
+  pango_layout_set_font_description(local_layout, new_desc);
   return(local_layout);
 }
 
@@ -1009,21 +1009,21 @@ PangoLayout* BuildPdf::r_font_size_layout(double ratio) {
 */
 
 void cairo_matrix_scale_after(cairo_matrix_t *m, double r) {
-  m->xx*=r;
-  m->xy*=r;
-  m->yx*=r;
-  m->yy*=r;
-  m->x0*=r;
-  m->y0*=r;
+  m->xx *= r;
+  m->xy *= r;
+  m->yx *= r;
+  m->yy *= r;
+  m->x0 *= r;
+  m->y0 *= r;
 }
 
 /* same, but for a context matrix */
 
 void cairo_scale_after(cairo_t *cr, double r) {
   cairo_matrix_t m;
-  cairo_get_matrix(cr,&m);
-  cairo_matrix_scale_after(&m,r);
-  cairo_set_matrix(cr,&m);
+  cairo_get_matrix(cr, &m);
+  cairo_matrix_scale_after(&m, r);
+  cairo_set_matrix(cr, &m);
 }
 
 /* set_matrix_to_scan gives the matrix that transforms layout
@@ -1035,31 +1035,31 @@ void cairo_scale_after(cairo_t *cr, double r) {
 void BuildPdf::set_matrix_to_scan(double a, double b, double c ,double d, double e, double f) {
   if(debug) {
     printf("; Set matrix to scan coordinates\n;   resize_factor=%g expansion=%g\n",
-	   scan_resize_factor,scan_expansion);
+	   scan_resize_factor, scan_expansion);
   }
 
-  cairo_matrix_init(&matrix,a,c,b,d,e,f);
-  cairo_matrix_scale_after(&matrix,dppt*scan_resize_factor*scan_expansion);
+  cairo_matrix_init(&matrix, a, c, b, d, e, f);
+  cairo_matrix_scale_after(&matrix, dppt * scan_resize_factor * scan_expansion);
   set_matrix(&matrix);
 }
 
 /* These two test_* functions are used for debugging */
 
-void test_point(cairo_matrix_t *m,double x,double y) {
-  double tx=x;
-  double ty=y;
-  printf(";   (%g,%g) ->",tx,ty);
-  cairo_matrix_transform_point(m,&tx,&ty);
-  printf(" (%g,%g)\n",tx,ty);
+void test_point(cairo_matrix_t *m, double x, double y) {
+  double tx = x;
+  double ty = y;
+  printf(";   (%g,%g) ->", tx, ty);
+  cairo_matrix_transform_point(m, &tx, &ty);
+  printf(" (%g,%g)\n", tx, ty);
 }
 
-void test_matrix(cairo_matrix_t *m,double xmax,double ymax) {
-  printf(";   x'=%7.3f x + %7.3f y + %6.3f\n",m->xx,m->xy,m->x0);
-  printf(";   y'=%7.3f x + %7.3f y + %6.3f\n",m->yx,m->yy,m->y0);
-  test_point(m,0,0);
-  test_point(m,xmax,0);
-  test_point(m,0,ymax);
-  test_point(m,xmax,ymax);
+void test_matrix(cairo_matrix_t *m, double xmax, double ymax) {
+  printf(";   x'=%7.3f x + %7.3f y + %6.3f\n", m->xx, m->xy, m->x0);
+  printf(";   y'=%7.3f x + %7.3f y + %6.3f\n", m->yx, m->yy, m->y0);
+  test_point(m, 0, 0);
+  test_point(m, xmax, 0);
+  test_point(m, 0, ymax);
+  test_point(m, xmax, ymax);
 }
 
 void BuildPdf::set_matrix(double a, double b, double c ,double d, double e, double f) {
@@ -1067,7 +1067,7 @@ void BuildPdf::set_matrix(double a, double b, double c ,double d, double e, doub
     printf("; Set matrix\n");
   }
 
-  cairo_matrix_init(&matrix,a,c,b,d,e,f);
+  cairo_matrix_init(&matrix, a, c, b, d, e, f);
   set_matrix(&matrix);
 }
 
@@ -1078,36 +1078,36 @@ void BuildPdf::set_matrix(double a, double b, double c ,double d, double e, doub
 */
 
 void BuildPdf::set_matrix(cairo_matrix_t *m) {
-  cairo_set_matrix(cr,m);
-  cairo_scale_after(cr,1/dppt);
+  cairo_set_matrix(cr, m);
+  cairo_scale_after(cr, 1 / dppt);
 
   // updates user_one_point, and the line width
 
-  user_one_point=normalize_distance();
+  user_one_point = normalize_distance();
   set_line_width(line_width);
 
   // debugging...
 
   if(debug) {
     cairo_matrix_t ctm;
-    cairo_get_matrix(cr,&ctm);
-    double tx,ty;
+    cairo_get_matrix(cr, &ctm);
+    double tx, ty;
     printf("; subject to scan matrix:\n");
-    printf(";   dppt=%g\n",dppt);
-    test_matrix(m,width_in_pixels,height_in_pixels);
+    printf(";   dppt=%g\n", dppt);
+    test_matrix(m, width_in_pixels, height_in_pixels);
     printf("; cr matrix:\n");
-    printf(";   user 1pt=%g\n",user_one_point);
-    test_matrix(&ctm,width_in_pixels,height_in_pixels);
+    printf(";   user 1pt=%g\n", user_one_point);
+    test_matrix(&ctm, width_in_pixels, height_in_pixels);
   }
 #ifdef DEBUG
-  color(0.0,0.5,0.2,0.5);
-  draw_rectangle(0,width_in_pixels,0,height_in_pixels);
+  color(0.0, 0.5, 0.2, 0.5);
+  draw_rectangle(0, width_in_pixels, 0, height_in_pixels);
 #endif
 
   // updates Pango layout with new scaling factors
   pango_cairo_context_set_resolution(pango_layout_get_context(layout),
 				     user_one_point * 72.);
-  pango_cairo_update_layout(cr,layout);
+  pango_cairo_update_layout(cr, layout);
   validate_font();
 }
 
@@ -1115,16 +1115,16 @@ void BuildPdf::identity_matrix() {
   set_matrix(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
 }
 
-#define FIXX(xp) ((xp)-matrix.xy**y-matrix.x0)/matrix.xx
+#define FIXX(xp) ((xp) - matrix.xy * *y - matrix.x0) / matrix.xx
 void BuildPdf::keep_on_scan(double *x, double *y) {
-  double xp=*x;
-  double yp=*y;
-  double margin_in_pixels=margin*dppt*72.;
-  cairo_matrix_transform_point(&matrix,&xp,&yp);
-  if(xp<margin_in_pixels) {
-    *x=FIXX(margin_in_pixels);
-  } else if(xp>width_in_pixels-margin_in_pixels) {
-    *x=FIXX(width_in_pixels-margin_in_pixels);
+  double xp = *x;
+  double yp = *y;
+  double margin_in_pixels = margin * dppt * 72.;
+  cairo_matrix_transform_point(&matrix, &xp, &yp);
+  if(xp < margin_in_pixels) {
+    *x = FIXX(margin_in_pixels);
+  } else if(xp > width_in_pixels - margin_in_pixels) {
+    *x = FIXX(width_in_pixels - margin_in_pixels);
   }
 }
 
@@ -1132,7 +1132,7 @@ void BuildPdf::draw_rectangle(double xmin, double xmax, double ymin, double ymax
   if(debug) {
     printf("; draw rectangle\n");
   }
-  cairo_rectangle(cr,xmin,ymin,xmax-xmin,ymax-ymin);
+  cairo_rectangle(cr, xmin, ymin, xmax - xmin, ymax - ymin);
   cairo_stroke(cr);
 }
 
@@ -1140,7 +1140,7 @@ void BuildPdf::fill_rectangle(double xmin, double xmax, double ymin, double ymax
   if(debug) {
     printf("; fill rectangle\n");
   }
-  cairo_rectangle(cr,xmin,ymin,xmax-xmin,ymax-ymin);
+  cairo_rectangle(cr, xmin, ymin, xmax - xmin, ymax - ymin);
   cairo_fill(cr);
 }
 
@@ -1148,10 +1148,10 @@ void BuildPdf::draw_mark(double xmin, double xmax, double ymin, double ymax) {
   if(debug) {
     printf("; draw mark\n");
   }
-  cairo_move_to(cr,xmin,ymin);
-  cairo_line_to(cr,xmax,ymax);
-  cairo_move_to(cr,xmin,ymax);
-  cairo_line_to(cr,xmax,ymin);
+  cairo_move_to(cr, xmin, ymin);
+  cairo_line_to(cr, xmax, ymax);
+  cairo_move_to(cr, xmin, ymax);
+  cairo_line_to(cr, xmax, ymin);
   cairo_stroke(cr);
 }
 
@@ -1164,72 +1164,72 @@ void BuildPdf::draw_text(PangoLayout* local_layout,
   }
   PangoRectangle extents;
 
-  if(x<0) x+=width_in_pixels;
-  if(y<0) y+=height_in_pixels;
+  if(x<0) x += width_in_pixels;
+  if(y<0) y += height_in_pixels;
 
-  pango_layout_set_text(local_layout,text,-1);
-  pango_layout_get_pixel_extents(local_layout,&extents,NULL);
+  pango_layout_set_text(local_layout, text, -1);
+  pango_layout_get_pixel_extents(local_layout, &extents, NULL);
   if(debug) {
     printf("TEXT=\"%s\" X=%d Y=%d W=%d H=%d\n",
 	   text,
-	   extents.x,extents.y,
-	   extents.width,extents.height);
+	   extents.x, extents.y,
+	   extents.width, extents.height);
   }
   cairo_move_to(cr,
-		x-xpos*extents.width-extents.x,
-		y-ypos*extents.height-extents.y);
-  pango_cairo_show_layout(cr,local_layout);
+		x - xpos * extents.width - extents.x,
+		y - ypos * extents.height - extents.y);
+  pango_cairo_show_layout(cr, local_layout);
 }
 
 void BuildPdf::draw_text(double x, double y,
 			 double xpos, double ypos,
 			 const char *text) {
-  draw_text(layout,x,y,xpos,ypos,text);
+  draw_text(layout, x, y, xpos, ypos, text);
 }
 
 void BuildPdf::draw_text_margin(int xside, double y,
 				double xpos, double ypos,
 				const char *text) {
   double x;
-  if(xside==1) {
-    x=width_in_pixels;
+  if(xside == 1) {
+    x = width_in_pixels;
   } else {
-    x=0;
+    x = 0;
   }
-  keep_on_scan(&x,&y);
-  draw_text(x,y,xpos,ypos,text);
+  keep_on_scan(&x, &y);
+  draw_text(x, y, xpos, ypos, text);
 }
 
 int BuildPdf::draw_text_rectangle(double xmin, double xmax,
 				   double ymin, double ymax,
 				   const char *text) {
-  double r,rp;
+  double r, rp;
   PangoRectangle extents;
   PangoLayout* local_layout;
 
-  pango_layout_set_text(layout,text,-1);
-  pango_layout_get_pixel_extents(layout,&extents,NULL);
+  pango_layout_set_text(layout, text, -1);
+  pango_layout_get_pixel_extents(layout, &extents, NULL);
   if(debug) {
     printf("TEXT=\"%s\" X=%d Y=%d W=%d H=%d\n",
 	   text,
-	   extents.x,extents.y,
-	   extents.width,extents.height);
+	   extents.x, extents.y,
+	   extents.width, extents.height);
   }
-  r=(xmax-xmin)/extents.width;
-  rp=(ymax-ymin)/extents.height;
-  if(rp<r) r=rp;
+  r = (xmax - xmin) / extents.width;
+  rp = (ymax - ymin) / extents.height;
+  if(rp < r) r = rp;
   if(debug) {
-    printf(": ratio=%g\n",r);
+    printf(": ratio=%g\n", r);
   }
 
-  local_layout=r_font_size_layout(r);
-  if(local_layout==NULL) {
+  local_layout = r_font_size_layout(r);
+  if(local_layout == NULL) {
     printf("! ERROR: r_font_size_layout failed.");
     return(1);
   }
   draw_text(local_layout,
-	    (xmin+xmax)/2,(ymin+ymax)/2,
-	    0.5,0.5,text);
+	    (xmin + xmax) / 2, (ymin + ymax) / 2,
+	    0.5, 0.5, text);
 
   g_object_unref(local_layout);
   return(0);
@@ -1240,9 +1240,9 @@ void BuildPdf::draw_circle(double xmin, double xmax, double ymin, double ymax) {
     printf("; draw circle\n");
   }
   cairo_new_path(cr);
-  cairo_arc(cr,(xmin+xmax)/2,(ymin+ymax)/2,
-	    sqrt((xmax-xmin)*(xmax-xmin)+(ymax-ymin)*(ymax-ymin))/2,
-	    0.0,2*M_PI);
+  cairo_arc(cr, (xmin + xmax) / 2, (ymin + ymax) / 2,
+	    sqrt((xmax - xmin) * (xmax - xmin) + (ymax - ymin) * (ymax - ymin)) / 2,
+	    0.0, 2 * M_PI);
   cairo_stroke(cr);
 }
 

@@ -126,18 +126,25 @@ sub perl_module_search {
 
 # peut-on acceder a cette commande par exec ?
 sub commande_accessible {
-    my $c=shift;
+  my $c=shift;
+  if(ref($c) eq 'ARRAY') {
+    for my $u (@$c) {
+      return($u) if($u && commande_accessible($u));
+    }
+    return(undef);
+  } else {
     $c =~ s/(?<=[^\s])\s.*//;
     $c =~ s/^\s+//;
     if($c =~ /^\//) {
-	return (-x $c);
+      return (-x $c);
     } else {
-	$ok='';
-	for (split(/:/,$ENV{'PATH'})) {
-	    $ok=1 if(-x "$_/$c");
-	}
-	return($ok);
+      $ok='';
+      for (split(/:/,$ENV{'PATH'})) {
+	$ok=1 if(-x "$_/$c");
+      }
+      return($ok);
     }
+  }
 }
 
 my $gm_ok=commande_accessible('gm');

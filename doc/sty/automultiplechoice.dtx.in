@@ -4539,8 +4539,8 @@ Three digits and two letters:\insertgroup{mixed}.
     \ifAMC@keepmemory\else\AMC@mem@clear\fi%
     \clearpage}%
   \advance\AMCid@etud\@ne\ifnum\AMCid@etud<\AMCid@etudfin\repeat%
-  \ifAMC@pdfform\end{Form}\fi%
   \global\AMCid@etudstart=\AMCid@etud%
+  \ifAMC@pdfform\end{Form}\fi%
 }
 %    \end{macrocode}\end{macro}
 %

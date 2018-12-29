@@ -1130,8 +1130,10 @@ sub export_done {
     }
 
     if($config->get('after_export') eq 'file') {
-      commande_parallele($config->get($type.'_viewer'),$output)
-        if($config->get($type.'_viewer'));
+      my $cmd = commande_accessible([$config->get($type.'_viewer'),
+				     $config->get($type.'_editor'),
+				     'xdg-open', 'open']);
+      commande_parallele($cmd,$output) if($cmd);
     } elsif($config->get('after_export') eq 'dir') {
       view_dir($shortcuts->absolu('%PROJET/exports/'));
     }

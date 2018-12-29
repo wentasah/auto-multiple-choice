@@ -308,7 +308,7 @@ manual-test:
 
 ##############################################################################
 # Following lines are only helpfull for source tarball and package building
-# These targets run only with source from svn checkout
+# These targets run only with source from git checkout
 ##############################################################################
 
 LOCALDIR=$(shell pwd)
