@@ -1,0 +1,29 @@
+\documentclass[a4paper]{article}
+\usepackage[box, digits, lang=ES, pdfform]{automultiplechoice}
+\begin{document}
+
+\def\q{
+
+  \begin{question}{q}
+    Question
+    \begin{choices}
+      \wrongchoice{wrong}
+      \correctchoice{correct}
+    \end{choices}
+  \end{question}
+
+}
+
+\onecopy{1}{
+  First set
+  
+  \q
+}
+
+\onecopy{2}{
+  Second set
+  
+  \q
+}
+
+\end{document}

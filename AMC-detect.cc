@@ -79,8 +79,10 @@ int processing_error = 0;
 #define GET_PIXEL(src,x,y) *((uchar*)(src.data+src.step*(y)+src.channels()*(x)))
 #define PIXEL(src,x,y) GET_PIXEL(src,x,y)>100
 
-#define BLEU CV_RGB(38,69,223)
-#define ROSE CV_RGB(223,38,203)
+#define RGB_COLOR(r,g,b) cv::Scalar((b),(g),(r),0)
+
+#define BLEU RGB_COLOR(38,69,223)
+#define ROSE RGB_COLOR(223,38,203)
 
 #define SWAP(x,y,tmp) tmp=x;x=y;y=tmp
 #define SGN_ROT (1-2*upside_down)
@@ -160,41 +162,44 @@ void load_image(cv::Mat &src,char *filename,
 
   if(ignore_red) {
     printf(": loading red channel from %s ...\n", filename);
-    if((color=cv::imread(filename,
+    try {
+      color = cv::imread(filename,
 #ifdef OPENCV_23
-                          cv::IMREAD_ANYCOLOR
+			 cv::IMREAD_ANYCOLOR
 #else
-                          cv::IMREAD_UNCHANGED
+			 cv::IMREAD_UNCHANGED
 #endif
-                          )).data != NULL) {
-      if(color.channels() >= 3) {
-        // 'src' will only keep the red channel.
-        src = cv::Mat(color.rows, color.cols,
-          CV_MAKETYPE(color.depth(), 1 /* 1 channel for red */));
-
-        // Take the red channel (2) from 'color' and put it in the
-        // only channel of 'src' (0).
-        int from_to[] = {2,0};
-        cv::mixChannels(&color, 1, &src, 1, from_to, 1);
-        color.release();
-      } else if(color.channels() != 1) {
-        printf("! LOAD : Scan file with 2 channels [%s]\n", filename);
-        processing_error = 2;
-        return;
-      } else {
-        src = color;
-      }
-    } else {
+			 );
+    } catch (const cv::Exception& ex) {
       printf("! LOAD : Error loading scan file in ANYCOLOR [%s]\n", filename);
-      printf("! OpenCV error string: %s\n", cvErrorStr(cvGetErrStatus()));
+      printf("! OpenCV error: %s\n", ex.what());
       processing_error = 3;
       return;
     }
+    if(color.channels() >= 3) {
+      // 'src' will only keep the red channel.
+      src = cv::Mat(color.rows, color.cols,
+		    CV_MAKETYPE(color.depth(), 1 /* 1 channel for red */));
+
+      // Take the red channel (2) from 'color' and put it in the
+      // only channel of 'src' (0).
+      int from_to[] = {2,0};
+      cv::mixChannels(&color, 1, &src, 1, from_to, 1);
+      color.release();
+    } else if(color.channels() != 1) {
+      printf("! LOAD : Scan file with 2 channels [%s]\n", filename);
+      processing_error = 2;
+      return;
+    } else {
+      src = color;
+    }
   } else {
     printf(": loading %s ...\n", filename);
-    if((src=imread(filename, cv::IMREAD_GRAYSCALE)).data == NULL) {
+    try {
+      src = cv::imread(filename, cv::IMREAD_GRAYSCALE);
+    } catch (const cv::Exception& ex) {
       printf("! LOAD : Error loading scan file in GRAYSCALE [%s]\n", filename);
-      printf("! OpenCV error string: %s\n", cvErrorStr(cvGetErrStatus()));
+      printf("! OpenCV error: %s\n", ex.what());
       processing_error = 3;
       return;
     }
@@ -219,17 +224,17 @@ void load_image(cv::Mat &src,char *filename,
 void pre_traitement(cv::Mat &src,int lissage_trous,int lissage_poussieres) {
   printf("Morph: +%d -%d\n", lissage_trous, lissage_poussieres);
   cv::Mat trous = cv::getStructuringElement(
-      CV_SHAPE_ELLIPSE,
+      cv::MORPH_ELLIPSE,
       cv::Size(1 + 2 * lissage_trous, 1 + 2 * lissage_trous),
       cv::Point(lissage_trous, lissage_trous));
 
   cv::Mat poussieres = cv::getStructuringElement(
-      CV_SHAPE_ELLIPSE,
+      cv::MORPH_ELLIPSE,
       cv::Size(1 + 2 * lissage_poussieres, 1 + 2 * lissage_poussieres),
       cv::Point(lissage_poussieres, lissage_poussieres));
 
-  cv::morphologyEx(src, src, CV_MOP_CLOSE, trous);
-  cv::morphologyEx(src, src, CV_MOP_OPEN, poussieres);
+  cv::morphologyEx(src, src, cv::MORPH_CLOSE, trous);
+  cv::morphologyEx(src, src, cv::MORPH_OPEN, poussieres);
 
   trous.release();
   poussieres.release();
@@ -495,7 +500,7 @@ void calage(cv::Mat src, cv::Mat illustr,
             int n_min_cc,
             double* coins_x, double *coins_y,
             cv::Mat &dst,int view=0) {
-  CvPoint coins_int[4];
+  cv::Point coins_int[4];
   int n_cc;
 
   /* computes target min and max size */
@@ -517,7 +522,7 @@ void calage(cv::Mat src, cv::Mat illustr,
 
   if(view == 2) {
     /* prepares *dst from a copy of the scan (after pre-processing). */
-    dst = cv::Mat(cv::Size(src.rows, src.cols), CV_MAKETYPE(IPL_DEPTH_8U, 3));
+    dst = cv::Mat(cv::Size(src.rows, src.cols), CV_MAKETYPE(CV_8U, 3));
 
     // cvConvertImage(src, *dst) is not needed anymore as 'src' and 'dst' have
     // the same type.
@@ -531,7 +536,7 @@ void calage(cv::Mat src, cv::Mat illustr,
   // CvSeq* contour = 0;
   vector<vector<cv::Point> > contours;
   vector<cv::Vec4i> hierarchy; // unused; but could be used in drawContours
-  cv::findContours(src, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+  cv::findContours(src, contours, hierarchy, cv::RETR_CCOMP, cv::CHAIN_APPROX_SIMPLE);
 
 #ifdef OPENCV_21
   if(view == 1) {
@@ -568,17 +573,17 @@ void calage(cv::Mat src, cv::Mat illustr,
      if(view == 1) {
        /* draws the connected component, and the enclosing rectangle,
           with a random color. */
-        cv::Scalar color = CV_RGB(rand() & 255, rand() & 255, rand() & 255);
+        cv::Scalar color = RGB_COLOR(rand() & 255, rand() & 255, rand() & 255);
         cv::rectangle(dst, cv::Point(rect.x,rect.y), cv::Point(rect.x+rect.width,rect.y+rect.height), color);
-        cv::drawContours(dst, contours, i, color, CV_FILLED);
+        cv::drawContours(dst, contours, i, color, cv::FILLED);
       }
 #endif
      if(view==2) {
        /* draws the connected component, and the enclosing rectangle,
           in green. */
-        cv::Scalar color = CV_RGB(60,198,127);
+        cv::Scalar color = RGB_COLOR(60,198,127);
         cv::rectangle(dst, cv::Point(rect.x,rect.y), cv::Point(rect.x+rect.width,rect.y+rect.height), color);
-        cv::drawContours(dst, contours, i, color, CV_FILLED);
+        cv::drawContours(dst, contours, i, color, cv::FILLED);
      }
     }
   }
@@ -600,21 +605,21 @@ void calage(cv::Mat src, cv::Mat illustr,
 #ifdef OPENCV_21
       /* draws a rectangle to see the corner marks positions on the scan. */
       for(int i = 0; i < 4; i++) {
-        cv::line(dst, coins_int[i], coins_int[(i+1)%4], CV_RGB(255,255,255), 1, CV_AA);
+        cv::line(dst, coins_int[i], coins_int[(i+1)%4], RGB_COLOR(255,255,255), 1, cv::LINE_AA);
       }
 #endif
     }
     if(view==2) {
       /* draws a rectangle to see the corner marks positions on the scan. */
       for(int i = 0; i < 4; i++) {
-        cv::line(dst, coins_int[i], coins_int[(i+1)%4], CV_RGB(193,29,27), 1, CV_AA);
+        cv::line(dst, coins_int[i], coins_int[(i+1)%4], RGB_COLOR(193,29,27), 1, cv::LINE_AA);
       }
     }
 
     if(illustr.data!=NULL) {
       /* draws a rectangle to see the corner marks positions on the scan. */
       for(int i = 0; i < 4; i++) {
-        cv::line(illustr, coins_int[i], coins_int[(i+1)%4], BLEU, 1, CV_AA);
+        cv::line(illustr, coins_int[i], coins_int[(i+1)%4], BLEU, 1, cv::LINE_AA);
       }
     }
   } else {
@@ -779,14 +784,14 @@ void mesure_case(cv::Mat src, cv::Mat illustr,int illustr_mode,
   int i, ok;
   double delta;
   double o_x, o_y;
-  CvScalar pixel;
+  cv::Scalar pixel;
 
   double ov_r, ov_r2, ov_dir, ov_center, ov_x0, ov_x1, ov_y0, ov_y1;
 
   int tx = src.cols;
   int ty = src.rows;
 
-  CvPoint coins_int[4];
+  cv::Point coins_int[4];
 
   static char* zoom_file = NULL;
 
@@ -808,7 +813,7 @@ void mesure_case(cv::Mat src, cv::Mat illustr,int illustr_mode,
     if(illustr_mode == ILLUSTR_BOX) {
       /* draws the box on the illustrated image (for zoom) */
       for(int i = 0; i < 4; i++) {
-        cv::line(illustr, coins_int[i], coins_int[(i+1)%4], BLEU, 1, CV_AA);
+        cv::line(illustr, coins_int[i], coins_int[(i+1)%4], BLEU, 1, cv::LINE_AA);
       }
     }
 
@@ -954,7 +959,7 @@ void mesure_case(cv::Mat src, cv::Mat illustr,int illustr_mode,
 #ifdef OPENCV_21
   if(view == 1) {
     for(int i = 0; i < 4; i++) {
-      cv::line(dst, coins_int[i], coins_int[(i+1)%4], CV_RGB(255,255,255), 1, CV_AA);
+      cv::line(dst, coins_int[i], coins_int[(i+1)%4], RGB_COLOR(255,255,255), 1, cv::LINE_AA);
     }
   }
 #endif
@@ -963,7 +968,7 @@ void mesure_case(cv::Mat src, cv::Mat illustr,int illustr_mode,
     if(illustr_mode == ILLUSTR_BOX) {
       /* draws the measuring box on the illustrated image (for zoom) */
       for(int i = 0; i < 4; i++) {
-        cv::line(illustr, coins_int[i], coins_int[(i+1)%4], ROSE, 1, CV_AA);
+        cv::line(illustr, coins_int[i], coins_int[(i+1)%4], ROSE, 1, cv::LINE_AA);
       }
     }
 
@@ -982,15 +987,19 @@ void mesure_case(cv::Mat src, cv::Mat illustr,int illustr_mode,
                  z_xmin, z_ymin, z_xmax - z_xmin, z_ymax - z_ymin);
           cv::Mat roi = illustr(cv::Rect(z_xmin, z_ymin, z_xmax - z_xmin, z_ymax - z_ymin));
 
-          if(cv::imwrite(zoom_file, roi
+	  bool result = false;
+	  try {
+	    result = cv::imwrite(zoom_file, roi
 #if OPENCV_20
-                         , save_options
+				 , save_options
 #endif
-                         ) != 1) {
-            printf("! ZOOMS : Zoom save error\n");
-          } else {
-            printf("ZOOM %d-%d.png\n", question, answer);
+				 );
+	  } catch (const cv::Exception& ex) {
+            printf("! ZOOMS : Zoom save error: %s\n", ex.what());
           }
+	  if(result)
+	    printf("ZOOM %d-%d.png\n", question, answer);
+
         } else {
           printf("! ZOOMFN : Zoom file name error\n");
         }
@@ -1116,15 +1125,14 @@ int main(int argc, char** argv)
 
         if(out_image_file != NULL
            && !post_process_image) {
-          illustr = cv::imread(scan_file, cv::IMREAD_COLOR);
-          if(illustr.data == NULL) {
-            printf("! LOAD : Error loading scan file with color mode [%s]\n", scan_file);
-            printf("! OpenCV error string: %s\n", cvErrorStr(cvGetErrStatus()));
-
+	  try {
+	    illustr = cv::imread(scan_file, cv::IMREAD_COLOR);
+	  } catch (const cv::Exception& ex) {
+            printf("! LOAD : Error loading scan file in COLOR [%s]\n", scan_file);
+	    printf("! OpenCV error: %s\n", ex.what());
             processing_error = 4;
-          } else {
-            printf(": Image background loaded\n");
-          }
+	  }
+	  printf(": Image background loaded\n");
         }
 
         load_image(src,scan_file, ignore_red, threshold, view);
@@ -1134,8 +1142,6 @@ int main(int argc, char** argv)
           src_calage = src.clone();
           if(src_calage.data == NULL) {
             printf("! LOAD : Error cloning image\n");
-            printf("! OpenCV error string: %s\n", cvErrorStr(cvGetErrStatus()));
-
             processing_error = 5;
           }
         }
@@ -1292,7 +1298,7 @@ int main(int argc, char** argv)
         fh = src.rows / 50.0;
         textpos.x = 10;
         textpos.y = (int)(1.6 * fh);
-        cv::putText(illustr, text, textpos, cv::FONT_HERSHEY_PLAIN, fh/14, BLEU, 1+(int)(fh/20), CV_AA);
+        cv::putText(illustr, text, textpos, cv::FONT_HERSHEY_PLAIN, fh/14, BLEU, 1+(int)(fh/20), cv::LINE_AA);
       } else {
         printf(": %s\n", commande);
         printf("! SYNERR : Syntax error\n");
@@ -1309,36 +1315,29 @@ int main(int argc, char** argv)
 #ifdef OPENCV_21
 #ifdef AMC_DETECT_HIGHGUI
   if(view == 1) {
-    cvNamedWindow("Source", CV_WINDOW_NORMAL);
-    cvShowImage("Source", src);
-    cvNamedWindow("Components", CV_WINDOW_NORMAL);
-    cvShowImage("Components", dst);
-    cvWaitKey(0);
+    cv::namedWindow("Source", cv::WINDOW_NORMAL);
+    cv::imshow("Source", src);
+    cv::namedWindow("Components", cv::WINDOW_NORMAL);
+    cv::imshow("Components", dst);
+    cv::waitKey(0);
 
-    cvReleaseImage(&dst);
+    dst.release();
   }
 #endif
 #endif
 
   if(illustr.data && strlen(out_image_file) > 1) {
     printf(": Saving layout image to %s\n", out_image_file);
-    if(cv::imwrite(out_image_file, illustr
+    try {
+      cv::imwrite(out_image_file, illustr
 #if OPENCV_20
-                   , save_options
+		  , save_options
 #endif
-                   ) != 1) {
-      int error = cvGetErrStatus();
-      const char * errorMessage = NULL;
-      if (error) {
-        errorMessage = cvErrorStr(error);
-      } else {
-        error = errno;
-        errorMessage = strerror(error);
-      }
-      printf("! LAYS : Layout image save error: %s\n", errorMessage);
+		  );
+    } catch (const cv::Exception& ex) {
+      printf("! LAYS : Layout image save error: %s\n", ex.what());
     }
   }
-
 
   illustr.release();
   src.release();

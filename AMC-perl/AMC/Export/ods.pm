@@ -381,18 +381,26 @@ sub export {
 
     $self->{'_scoring'}->begin_read_transaction('XODS');
 
-    my $grain=$self->{'_scoring'}->variable('granularity');
-    my $ndg=0;
-    if($grain =~ /[.,]([0-9]*[1-9])/) {
-	$ndg=length($1);
-    }
-
     my $rd=$self->{'_scoring'}->variable('rounding');
     my $arrondi='';
     if($rd =~ /^([ins])/i) {
       $arrondi=$fonction_arrondi{$1};
-    } else {
+    } elsif($rd) {
       debug "Unknown rounding type: $rd";
+    }
+
+    my $grain=$self->{'_scoring'}->variable('granularity');
+    my $ndg=0;
+    $grain =~ s/,/./;
+    if($grain <= 0) {
+      debug "Invalid grain=$grain: cancel rounding";
+      $grain=1;
+      $arrondi='';
+      $ndg=3;
+    } elsif(! $rd) {
+      $ndg=3;
+    } elsif($grain =~ /[.,]([0-9]*[1-9])/) {
+      $ndg=length($1);
     }
 
     my $lk=$self->{'_assoc'}->variable('key_in_list');
@@ -470,7 +478,7 @@ sub export {
 			 },
 			 );
 
-    $styles->createStyle('num.Note',
+    $styles->createStyle('numNote',
 			 namespace=>'number',
 			 type=>'number-style',
 			 properties=>{
@@ -644,7 +652,7 @@ sub export {
 			 );
 
     # NoteQp : note pour une question, en pourcentage
-    $styles->createStyle('NoteQ',
+    $styles->createStyle('NoteQp',
 			 parent=>'NoteQbase',
 			 family=>'table-cell',
 			 'references'=>{'style:data-style-name' => 'Percentage'},
@@ -774,7 +782,7 @@ sub export {
 			     -area => 'paragraph',
 			     'fo:text-align' => "right",
 			 },
-			 'references'=>{'style:data-style-name' => 'num.Note'},
+			 'references'=>{'style:data-style-name' => 'numNote'},
 			 );
 
     $styles->updateStyle('NoteF',
