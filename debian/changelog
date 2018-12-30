@@ -1,3 +1,10 @@
+auto-multiple-choice (1.4.0-1) unstable; urgency=medium
+
+  * New upstream version 1.4.0
+  * Bump standards version to 4.3.0: no change needed.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Sat, 29 Dec 2018 22:19:27 +0100
+
 auto-multiple-choice (1.4.0~rc2-1) unstable; urgency=medium
 
   * New upstream version 1.4.0~rc2
