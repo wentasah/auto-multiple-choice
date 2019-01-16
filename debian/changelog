@@ -1,3 +1,9 @@
+auto-multiple-choice (1.4.0-1wsh1) unstable; urgency=medium
+
+  * AMC-TXT: New global option ShowGroupText
+
+ -- Michal Sojka <michal.sojka@cvut.cz>  Wed, 16 Jan 2019 22:29:33 +0100
+
 auto-multiple-choice (1.4.0-1) unstable; urgency=medium
 
   * New upstream version 1.4.0
