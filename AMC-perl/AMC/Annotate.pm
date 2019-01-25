@@ -989,6 +989,14 @@ sub student_draw_page {
   }
 }
 
+sub draw_empty_page {
+  my ($self,$page)=@_;
+
+  debug "Drawing empty page #$page";
+
+  $self->command("page empty");
+}
+
 # process a student copy
 
 sub process_student {
@@ -1027,6 +1035,9 @@ sub process_student {
   $self->{header_drawn}=0;
   for my $page ($self->student_pages($student)) {
     $self->student_draw_page($student,$page);
+  }
+  for (my $i = $self->student_pages($student); $i % 8 != 0; $i++) {
+    $self->draw_empty_page($i+1);
   }
 
   $self->{data}->end_transaction('aOST');

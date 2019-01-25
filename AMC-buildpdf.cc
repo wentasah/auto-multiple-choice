@@ -89,6 +89,8 @@ int main(int argc, char** argv )
 	processing_error = PDF.load_pdf(command + 9);
       } else if(sscanf(command, "page pdf %ld", &i) == 1) {
 	processing_error = PDF.new_page_from_pdf(i);
+      } else if(strcmp(command, "page empty") == 0) {
+	processing_error = PDF.next_page();
       } else if(strcmp(command, "matrix identity") == 0) {
 	PDF.identity_matrix();
       } else if(sscanf(command, "matrix %lf %lf %lf %lf %lf %lf",
