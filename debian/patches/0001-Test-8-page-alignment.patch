@@ -1,0 +1,55 @@
+From 25e736f2c84bf5b89cbe261fd1f3013e8276a096 Mon Sep 17 00:00:00 2001
+From: Michal Sojka <michal.sojka@cvut.cz>
+Date: Fri, 25 Jan 2019 18:26:26 +0100
+Subject: [PATCH] Test 8-page alignment
+
+---
+ AMC-buildpdf.cc          |  2 ++
+ AMC-perl/AMC/Annotate.pm | 11 +++++++++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/AMC-buildpdf.cc b/AMC-buildpdf.cc
+index cbe0f1b6..c393c38a 100644
+--- a/AMC-buildpdf.cc
++++ b/AMC-buildpdf.cc
+@@ -89,6 +89,8 @@ int main(int argc, char** argv )
+ 	processing_error = PDF.load_pdf(command + 9);
+       } else if(sscanf(command, "page pdf %ld", &i) == 1) {
+ 	processing_error = PDF.new_page_from_pdf(i);
++      } else if(strcmp(command, "page empty") == 0) {
++	processing_error = PDF.next_page();
+       } else if(strcmp(command, "matrix identity") == 0) {
+ 	PDF.identity_matrix();
+       } else if(sscanf(command, "matrix %lf %lf %lf %lf %lf %lf",
+diff --git a/AMC-perl/AMC/Annotate.pm b/AMC-perl/AMC/Annotate.pm
+index 2daed615..b573de6e 100644
+--- a/AMC-perl/AMC/Annotate.pm
++++ b/AMC-perl/AMC/Annotate.pm
+@@ -989,6 +989,14 @@ sub student_draw_page {
+   }
+ }
+ 
++sub draw_empty_page {
++  my ($self,$page)=@_;
++
++  debug "Drawing empty page #$page";
++
++  $self->command("page empty");
++}
++
+ # process a student copy
+ 
+ sub process_student {
+@@ -1028,6 +1036,9 @@ sub process_student {
+   for my $page ($self->student_pages($student)) {
+     $self->student_draw_page($student,$page);
+   }
++  for (my $i = $self->student_pages($student); $i % 8 != 0; $i++) {
++    $self->draw_empty_page($i+1);
++  }
+ 
+   $self->{data}->end_transaction('aOST');
+ }
+-- 
+2.20.1
+
