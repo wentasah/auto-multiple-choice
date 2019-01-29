@@ -1,3 +1,9 @@
+auto-multiple-choice (1.4.0-1wsh2) unstable; urgency=medium
+
+  * Add 8-page alignment to export of annotated pages
+
+ -- Michal Sojka <michal.sojka@cvut.cz>  Tue, 29 Jan 2019 22:59:57 +0100
+
 auto-multiple-choice (1.4.0-1wsh1) unstable; urgency=medium
 
   * AMC-TXT: New global option ShowGroupText
