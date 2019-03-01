@@ -63,7 +63,7 @@ Subject: Creates a conf file to specify install directories
 +
 +GCC_NETPBM=-lnetpbm
 +
-+GCC_OPENCV=-I /usr/include/opencv
++GCC_OPENCV=-I /usr/include/opencv4
 +GCC_OPENCV_LIBS=auto
 +
 +# INFO IN DESKTOP FILE
