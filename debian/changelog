@@ -1,3 +1,15 @@
+auto-multiple-choice (1.4.0-2) unstable; urgency=medium
+
+  * Updates OpenCV build includes for use with OpenCV4. Closes: #922567.
+  * Drops unused and deprecated latex-generic-recommended dependency.
+    Closes: #932185.
+  * Bump standards version to 4.4.0: no change needed.
+  * Bump debhelper compat version to 12: no change needed.
+  * Don't register sample PDF subjects and LaTeX package description
+    as documentation files.
+
+ -- Alexis Bienvenüe <pado@passoire.fr>  Sun, 18 Aug 2019 20:48:56 +0200
+
 auto-multiple-choice (1.4.0-1) unstable; urgency=medium
 
   * New upstream version 1.4.0
