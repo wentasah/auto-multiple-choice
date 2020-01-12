@@ -1,3 +1,10 @@
+auto-multiple-choice (1.4.0-2wsh1) unstable; urgency=medium
+
+  * AMC-TXT: New global option ShowGroupText
+  * Add 8-page alignment to export of annotated pages
+
+ -- Michal Sojka <michal.sojka@cvut.cz>  Mon, 13 Jan 2020 00:18:07 +0100
+
 auto-multiple-choice (1.4.0-2) unstable; urgency=medium
 
   * Updates OpenCV build includes for use with OpenCV4. Closes: #922567.
