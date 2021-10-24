@@ -1,0 +1,48 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[ensemble]{automultiplechoice}
+\usepackage{multicol}
+\begin{document}
+
+\begin{center}
+Test exam
+\end{center}
+
+\begin{question}{Q1}
+Who is right?
+\begin{reponses}
+\mauvaise{Me}
+\bonne{The king}
+\mauvaise{No one}
+\end{reponses}
+\end{question}
+
+\begin{question}{Q2}
+Who is right?
+\begin{reponses}
+\mauvaise{You}
+\bonne{The queen}
+\mauvaise{Nobody}
+\end{reponses}
+\end{question}
+
+\cleardoublepage
+
+%%% FABRICATION DES COPIES
+
+\exemplaire{10}{    
+
+\AMCdebutFormulaire    
+
+\begin{center}
+\textbf{\Large  Answer sheet}
+\end{center}
+
+\vspace*{0.5cm}
+
+\begin{multicols}{2}
+\AMCformS
+\end{multicols}
+
+}  
+
+\end{document}

@@ -2980,7 +2980,7 @@ Three digits and two letters:\insertgroup{mixed}.
 \newcommand\AMCformS{%
   \ifAMC@ensemble\AMCformulaire@dedanstrue%
   \AMC@amclog{AUTOQCM[BR=0]^^J}\AMC@mem@show%
-  \AMC@keepmemorytrue%
+  \global\AMC@keepmemorytrue%
   \fi}
 %    \end{macrocode}\end{macro}\end{macro}\end{macro}\end{macro}
 %
@@ -4784,7 +4784,7 @@ Three digits and two letters:\insertgroup{mixed}.
     \ifAMC@ensemble\ifAMC@automarks\pagestyle{AMCpageNoMarks}\fi\fi%
     \AMCnumero{1}%
     \ifAMC@calibration\AMC@amclog{AUTOQCM[ETU=\the\AMCid@etud]^^J}\fi%
-    \AMC@keepmemoryfalse%
+    \global\AMC@keepmemoryfalse%
       #2%
     \ifAMC@keepmemory\else\AMC@mem@clear\fi%
     \clearpage}%
