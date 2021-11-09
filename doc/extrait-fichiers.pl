@@ -36,6 +36,30 @@ if ( !defined( &{Archive::Tar::chmod} ) ) {
     print "! Archive::Tar::chmod not available\n";
 }
 
+my %weight = (qw/nom 2
+                 prenom 1
+                 surname 2 lastname 2 familyname 2
+                 name 1 firstname 1 forename 1/);
+
+sub add_students_file {
+    my (%o) = @_;
+
+    my $names=[{key=>'007', name=>['Jojo', 'Boulix']},
+               {key=>'123', name=>['Alphonse', 'Grolio']},
+               {key=>'999', name=>['Joe', 'Bar']},
+               {key=>'010', name=>['Bill', 'Boro']},
+              ];
+
+    my @nn = sort { $weight{$a} <=> $weight{$b} } (@{$o{name}});
+
+    my $csv = join(",", $o{key}, @nn). "\n";
+    for my $n (@$names) {
+        $csv .= join(",", $n->{key}, @{$n->{name}}[0..$#nn])."\n";
+    }
+    $o{tar}->add_data( $o{file}, $csv, $tar_opts );
+    $o{tar}->chmod( $o{file}, '0644' ) if ($can_chmod);
+}
+
 my @fichiers = @ARGV;
 
 open( LOG, ">$liste" ) if ($liste);
@@ -60,7 +84,7 @@ for my $f (@fichiers) {
     foreach my $node ( $nodeset->get_nodelist ) {
 
         my $id = $node->findvalue('@id');
-        my $ex = $node->textContent();
+        my $ex = encode_utf8( $node->textContent() );
 
         if ( $id =~ /^(modeles)-(.*)\.(tex|txt)$/ ) {
 
@@ -90,7 +114,7 @@ for my $f (@fichiers) {
 
             my $tar = Archive::Tar->new;
 
-            $tar->add_data( "$code_name.$ext", encode_utf8($ex), $tar_opts );
+            $tar->add_data( "$code_name.$ext", $ex, $tar_opts );
             $tar->chmod( "$code_name.$ext", '0644' ) if ($can_chmod);
             $tar->add_data(
                 "description.xml",
@@ -114,9 +138,51 @@ for my $f (@fichiers) {
                 $engine = 'platex+dvipdf' if ( $lang eq 'ja' );
                 $opts .= '  <moteur_latex_b>' . $engine . '</moteur_latex_b>
 ';
+
+                if($ex =~ /\\csvreader(?:\[[^\]]*\])?\{([^\}]+)\}/) {
+                    my $names_file = $1;
+                    my $key        = 'id';
+                    my @name       = ( 'name', 'surname' );
+
+                    if($ex =~ /\\AMCassociation\[([^\]]+)\]\{([^\}]+)\}/) {
+                        $key = $2;
+                        $n = $1;
+                        $n =~ s/[^a-zA-Z]+/ /g;
+                        $n =~ s/^\s+//;
+                        $n =~ s/\s+$//;
+                        @name = split( /\s+/, $n );
+                    } elsif($ex =~ /\\AMCassociation\{([^\}]+)\}/) {
+                        $key = $1;
+                    }
+                    $key =~ s/[^a-zA-Z]//g;
+                    add_students_file(
+                        tar  => $tar,
+                        file => $names_file,
+                        key  => $key,
+                        name => \@name
+                    );
+                }
             } else {
                 $opts .= '  <filter>plain</filter>
 ';
+                if ( $ex =~ /PreAssociation:\s+([^\s]+)/ ) {
+                    my $names_file = $1;
+                    my $key        = 'id';
+                    my @name       = ( 'name', 'surname' );
+
+                    $key = $1 if ( $ex =~ /PreAssociationKey:\s+([^\s]+)/ );
+                    if ( $ex =~ /PreAssociationName:\s+(.+)/ ) {
+                        my $n = $1;
+                        $n =~ s/[^ a-zA-Z]//g;
+                        @name = split( /\s+/, $n );
+                    }
+                    add_students_file(
+                        tar  => $tar,
+                        file => $names_file,
+                        key  => $key,
+                        name => \@name
+                    );
+                }
             }
             $opts .= '</projetAMC>
 ';
