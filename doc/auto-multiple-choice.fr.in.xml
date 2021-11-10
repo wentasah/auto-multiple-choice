@@ -5978,15 +5978,16 @@ DESC: Exemple (issu de la documentation) de spécification du barème.--><progra
 
 \element{qqs}{
 \begin{questionmult}{03}
-\bareme{default.COMP=10,default.PROP=11,formula=(COMP==PROP ? 1 : 0),MAX=1}
+  \bareme{default.COMP=10,default.PROP=11,formula=(COMP==PROP ? 1 : 0)}
+  \AMCdontAnnotate
   Cite un gaz  important de l'air et son pourcentage.
     \begin{reponses}
       \mauvaise{vapeur d’eau}
       \mauvaise{gaz}
       \bonne{diazote}\bareme{set.COMP=1}
-      \bonne{dioxygène}\bareme{set.COMP=2}
+      \mauvaise{dioxygène}\bareme{set.COMP=2}
       \mauvaise{dioxyde de carbone}
-      \bonne{20\%}\bareme{set.PROP=2}
+      \mauvaise{20\%}\bareme{set.PROP=2}
       \mauvaise{40\%}
       \mauvaise{60\%}
       \bonne{80\%}\bareme{set.PROP=1}

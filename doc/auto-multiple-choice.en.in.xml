@@ -5619,15 +5619,16 @@ DESC: Example (from the documentation) with different scoring strategies.--><pro
 
 \element{qqs}{
 \begin{questionmult}{03}
-scoring{default.COMP=10,default.PROP=11,formula=(COMP==PROP ? 1 : 0),MAX=1}
+  \scoring{default.COMP=10,default.PROP=11,formula=(COMP==PROP ? 1 : 0)}
+  \AMCdontAnnotate
   Name an important gas in the air and its percentage.
     \begin{choices}
       \wrongchoice{steam}
       \wrongchoice{gas}
       \correctchoice{nitrogen}\scoring{set.COMP=1}
-      \correctchoice{oxygen}\scoring{set.COMP=2}
+      \wrongchoice{oxygen}\scoring{set.COMP=2}
       \wrongchoice{carbon dioxide}
-      \correctchoice{20\%}\scoringset.PROP=2}
+      \wrongchoice{20\%}\scoring{set.PROP=2}
       \wrongchoice{40\%}
       \wrongchoice{60\%}
       \correctchoice{80\%}\scoring{set.PROP=1}
