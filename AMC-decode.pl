@@ -116,8 +116,8 @@ sub decode_one {
       . " ($d->{status})"
       . ( $d->{ok} ? " -> $d->{value}" : "" ) . "\n";
 
-    $data->connect;
-    my $scoring = $data->module('scoring');
+    my $decode_data = AMC::Data->new($data_dir);
+    my $scoring = $decode_data->module('scoring', version_checked=>1);
     $scoring->begin_transaction('DecS');
     $scoring->new_code(
         $z->{student}, $z->{copy}, "_namefield", $d->{value},

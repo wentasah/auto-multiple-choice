@@ -136,7 +136,8 @@ sub begin_transaction {
     my ( $self, $key ) = @_;
     $key = '----' if ( !$key );
     debug_and_stderr "WARNING: already opened transaction $self->{trans} when starting $key"
-      if ( $self->{trans} );
+        if ( $self->{trans} );
+    debug "[$key] BEGIN IMMEDIATE";
     $self->sql_do("BEGIN IMMEDIATE");
     $self->{trans} = $key;
 }
@@ -147,7 +148,8 @@ sub begin_read_transaction {
     my ( $self, $key ) = @_;
     $key = '----' if ( !$key );
     debug_and_stderr "WARNING: already opened transaction $self->{trans} when starting $key"
-      if ( $self->{trans} );
+        if ( $self->{trans} );
+    debug "[$key] BEGIN";
     $self->sql_do("BEGIN");
     $self->{trans} = $key;
 }
@@ -159,7 +161,8 @@ sub end_transaction {
     $key = '----' if ( !$key );
     debug_and_stderr
       "WARNING: closing transaction $self->{trans} declared as $key"
-      if ( $self->{trans} ne $key );
+        if ( $self->{trans} ne $key );
+    debug "[$key] COMMIT";
     $self->sql_do("COMMIT");
     $self->{trans} = '';
 }
