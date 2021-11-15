@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "/usr/share/xml/docbook/schema/dtd/4.5/docbookx.dtd">
 <article lang="fr">
@@ -5013,7 +5013,7 @@ Nom et prénom :
     </sect2>
 
     <sect2 id="mailing">
-    	<title id="mailing.title">Envoi du sujet</title>
+    	<title id="mailing.title">Envoi du sujet (avec ou sans mot de passe)</title>
 
     	<para>L'envoi du sujet par mail est possible.</para>
 
@@ -7306,7 +7306,7 @@ id="password.protect" linkends="password.protect.exp"/>
 
       <para>Vous devez déclarer ces paquets <emphasis>après</emphasis>
       <package>automultiplechoice</package> : fancyvrb, fancybox,
-      pstricks.</para>
+      pstricks, minted.</para>
 
       <para>Pour utiliser <command>pstricks</command>, vous devez configurer
       AMC : <menuchoice>
@@ -7440,8 +7440,9 @@ What is the return value of the following R code?
         </sect4>
 
         <sect4 id="minted">
+      
           <title>Paquet <package>minted</package></title>
-
+  <para>Compiler avec <command>-shell-escape</command>.</para>
           <programlisting>
  \inputminted{python}{prog.py}
 </programlisting>
@@ -8270,3 +8271,4 @@ chmod 0600 /Users/<emphasis>nom_utilisateur</emphasis>/.msmtprc
     </sect2>
   </sect1>
 </article>
+

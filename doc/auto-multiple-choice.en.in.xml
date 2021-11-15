@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "/usr/share/xml/docbook/schema/dtd/4.5/docbookx.dtd">
 <article lang="en">
@@ -4775,7 +4775,7 @@ Name :
     </sect2>
 
 <sect2 id="mailing">
-      <title id="mailing.title">Sending exam</title>
+      <title id="mailing.title">Mailing examan to student (with or without password).</title>
 
       <para>Emailing exam sheets is possible.</para>
 
@@ -4827,11 +4827,7 @@ sudo ln -s ~/sejda-console-3.2.85/bin/sejda-console /usr/local/bin
 
              <note>
             <para>AMC allow to protect all the files with your
-              owner password and each file with a user password.
-              AMC vous propose de protéger tous les fichiers par
-              un mot de passe propriétaire (vous) et chaque fichier par un
-              mot de passe utilisateur (l'étudiant).
-            </para>
+              owner password and each file with a user password.</para>
               <para>The list include a column title with the password</para>
  <programlisting>
 # STUDENTS / 1ST YEAR
@@ -6784,7 +6780,7 @@ id="password.protect" linkends="password.protect.exp"/>
 
       <para>You must load the following packages <emphasis>after</emphasis>
       <package>automultiplechoice</package> : fancyvrb, fancybox,
-      pstricks.</para>
+      pstricks, minted.</para>
 
       <para>To use <command>PSTricks</command>, you have to configure AMC :
       <menuchoice>
@@ -6921,7 +6917,7 @@ What is the return value of the following R code?
 
         <sect4 id="minted">
           <title><package>minted</package> package</title>
-
+<para>Compile with <command>-shell-escape</command>.</para>
           <programlisting>
  \inputminted{python}{prog.py}
 </programlisting>
@@ -9956,3 +9952,4 @@ chmod 0600 /Users/<emphasis>user_name</emphasis>/.msmtprc
     </sect2>
   </sect1>
 </article>
+
