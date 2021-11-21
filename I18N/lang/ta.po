@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.4.0~beta1 (r:a488cdb)\n"
 "Report-Msgid-Bugs-To: paamc@passoire.fr\n"
-"POT-Creation-Date: 2021-01-18 19:04 +0100\n"
+"POT-Creation-Date: 2021-11-21 18:29 +0100\n"
 "PO-Revision-Date: 2020-12-09 17:02+0100\n"
 "Last-Translator: Balaganesh B. 14310063 <balaganesh.b@iitgn.ac.in>, 2018\n"
 "Language-Team: Tamil (https://www.transifex.com/jojoboulix/teams/10701/ta/)\n"
@@ -25,30 +25,30 @@ msgid "This page seems to be blank"
 msgstr ""
 
 #. TRANSLATORS: Message displayed when not all scans are recognized (AMC don't know which subject page some scans come from), after automatic data capture.
-#: ../AMC-analyse.pl:826
+#: ../AMC-analyse.pl:827
 #, fuzzy, perl-format
 msgid "%d scans are not recognized:"
 msgstr "%d அலகீடுகள் ஒழுங்காக கண்டுணரப்படவில்லை."
 
 #. TRANSLATORS: Message displayed during automatic data capture with multiple-pages subjects and photocopy mode. AMC encountered another version of page %s but did not see the same number of versions of other pages from the same student.
-#: ../AMC-analyse.pl:867
+#: ../AMC-analyse.pl:868
 #, fuzzy, perl-format
 msgid "Too much scans for page %s."
 msgstr "%s ம் பக்கம் கட்டங்களில் பெரிதாக்குகிறது"
 
 #. TRANSLATORS: Message displayed during automatic data capture with multiple-pages subjects and photocopy mode. AMC encountered another version of page %s but has already processed multiple times other pages from the same student.
-#: ../AMC-analyse.pl:876
+#: ../AMC-analyse.pl:877
 #, perl-format
 msgid "One page %s is comming too late."
 msgstr ""
 
 #. TRANSLATORS: Message displayed during automatic data capture with multiple-pages subjects and photocopy mode.
-#: ../AMC-analyse.pl:901
+#: ../AMC-analyse.pl:902
 #, fuzzy
 msgid "You did not provide the same number of copies for all pages."
 msgstr "ஒவ்வொரு பக்கத்திலும் நீண்ட பட்டியலானது நெடுவாிசைகளின் எண்ணாக பிாிக்கப்பட்டுள்ளது."
 
-#: ../AMC-analyse.pl:904
+#: ../AMC-analyse.pl:905
 #, fuzzy
 msgid "Student sheet:"
 msgstr "மாணவா்கள் பட்டியல்:"
@@ -56,8 +56,8 @@ msgstr "மாணவா்கள் பட்டியல்:"
 #. TRANSLATORS: directory name for projects. This directory will be
 #. created (if needed) in the home directory of the user. Please use
 #. only alphanumeric characters, and - or _. No accentuated characters.
-#: ../AMC-annotate.pl:156 ../AMC-decode.pl:39 ../AMC-perl/AMC/Config.pm:261
-#: ../AMC-perl/AMC/Config.pm:262
+#: ../AMC-annotate.pl:157 ../AMC-decode.pl:39 ../AMC-perl/AMC/Config.pm:262
+#: ../AMC-perl/AMC/Config.pm:263
 msgid "MC-Projects"
 msgstr "MC-Projects"
 
@@ -87,16 +87,16 @@ msgstr "%s படத்தை செயலாக்குகிறது..."
 msgid "Copying scans to project directory..."
 msgstr "திட்டப்பணி அடைவுக்கு பதில் தாள் அலகீடுகளை நகலெடுக்கிறது..."
 
-#: ../AMC-gui.pl:144
+#: ../AMC-gui.pl:148
 #, perl-format
 msgid "I don't find the command %s."
 msgstr "நான் %s என்ற கட்டளையைக் கண்டுபிடிக்கவில்லை."
 
-#: ../AMC-gui.pl:145
+#: ../AMC-gui.pl:149
 msgid "Perhaps LaTeX is not installed?"
 msgstr "ஒருவேளை LaTeX நிறுவப்படவில்லையா?"
 
-#: ../AMC-gui.pl:151
+#: ../AMC-gui.pl:155
 msgid "The style file automultiplechoice.sty seems to be unreachable. Try to use command 'auto-multiple-choice latex-link' as root to fix this."
 msgstr "automultiplechoice.sty என்ற பாங்கு கோப்பை அடையமுடியவில்லை. இதைச் சாிசெய்ய 'auto-multi-choice latex-link' கட்டளையைப் பயன்படுத்த முயற்சிக்கவும்."
 
@@ -156,37 +156,37 @@ msgid "Reading PDF forms..."
 msgstr "PDF படிவங்களைப் படித்தல்..."
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:721
+#: ../AMC-perl/AMC/Basic.pm:735
 msgid "Name [name column title in exported spreadsheet]"
 msgstr "பெயா் [ஏற்றுமதி செய்யப்பட்ட விாிதாளில் பெயா் நெடுவாிசையின் தலைப்பு]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:725
+#: ../AMC-perl/AMC/Basic.pm:739
 msgid "Mark [mark column title in exported spreadsheet]"
 msgstr "மதிப்பெண் [ஏற்றுமதி செய்யப்பட்ட விாிதாளில் மதிப்பெண் நெடுவாிசையின் தலைப்பு]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:729
+#: ../AMC-perl/AMC/Basic.pm:743
 msgid "Exam [exam number column title in exported spreadsheet]"
 msgstr "தோ்வு எண் [ஏற்றுமதி செய்யப்பட்ட விாிதாளில் தோ்வு எண் நெடுவாிசையின் தலைப்பு]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:733
+#: ../AMC-perl/AMC/Basic.pm:747
 msgid "Score [total score column title in exported spreadsheet]"
 msgstr "மொத்த மதிப்பெண் [ஏற்றுமதி செய்யப்பட்ட விாிதாளில் மொத்த மதிப்பெண் நெடுவாிசையின் தலைப்பு]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:737
+#: ../AMC-perl/AMC/Basic.pm:751
 msgid "Max [maximum score column title in exported spreadsheet]"
 msgstr "அதிகபட்ச மதிப்பெண் [ஏற்றுமதி செய்யப்பட்ட விாிதாளில் அதிகபட்ச மதிப்பெண் நெடுவாிசையின் தலைப்பு]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:742
+#: ../AMC-perl/AMC/Basic.pm:756
 msgid "max [maximum score row name in exported spreadsheet]"
 msgstr "அதிகபட்ச மதிப்பெண் [ஏற்றுமதி செய்யப்பட்ட விாிதாளில் அதிகபட்ச மதிப்பெண் கிடைவாிசையின் பெயா்]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:746
+#: ../AMC-perl/AMC/Basic.pm:760
 msgid "mean [means of scores row name in exported spreadsheet]"
 msgstr "சராசாி [ஏற்றுமதி செய்யப்பட்ட விாிதாளில் சராசாி மதிப்பெண் கிடைவாிசையின் பெயா்]"
 
@@ -196,20 +196,20 @@ msgstr "சராசாி [ஏற்றுமதி செய்யப்பட
 #. mark, %m with the maximum mark he can obtain, %S with the
 #. student total score, and %M with the maximum score the
 #. student can obtain.
-#: ../AMC-perl/AMC/Config.pm:344
+#: ../AMC-perl/AMC/Config.pm:345
 msgid "Mark: %s/%m (total score: %S/%M)"
 msgstr "மதிப்பெண்: %s/%m (மொத்தம் எடுத்தது : %S/%M)"
 
 #. TRANSLATORS: Subject of the emails which can be sent to the students
 #. to give them their subject.
-#: ../AMC-perl/AMC/Config.pm:375
+#: ../AMC-perl/AMC/Config.pm:376
 #, fuzzy
 msgid "Exam question"
 msgstr "கேள்வி-பதில் தாள்"
 
 #. TRANSLATORS: Body text of the emails which can be sent to the
 #. students to give them their subject.
-#: ../AMC-perl/AMC/Config.pm:380
+#: ../AMC-perl/AMC/Config.pm:381
 #, fuzzy
 msgid ""
 "Please find enclosed your question sheet.\n"
@@ -220,13 +220,13 @@ msgstr ""
 
 #. TRANSLATORS: Subject of the emails which can be sent to the students
 #. to give them their annotated completed answer sheet.
-#: ../AMC-perl/AMC/Config.pm:387
+#: ../AMC-perl/AMC/Config.pm:388
 msgid "Exam result"
 msgstr "தேர்வு முடிவு"
 
 #. TRANSLATORS: Body text of the emails which can be sent to the
 #. students to give them their annotated completed answer sheet.
-#: ../AMC-perl/AMC/Config.pm:392
+#: ../AMC-perl/AMC/Config.pm:393
 msgid ""
 "Please find enclosed your annotated completed answer sheet.\n"
 "Regards."
@@ -237,13 +237,13 @@ msgstr ""
 #. TRANSLATORS: Message (first part) when some of
 #. the commands that are given in the preferences
 #. cannot be found.
-#: ../AMC-perl/AMC/Config.pm:687
+#: ../AMC-perl/AMC/Config.pm:688
 msgid "Some commands allowing to open documents can't be found:"
 msgstr "ஆவணங்களைத் திறக்க அனுமதிக்கும் சில கட்டளைகளை காணவில்லை:"
 
 #. TRANSLATORS: Message (second part) when some of the commands that
 #. are given in the preferences cannot be found.
-#: ../AMC-perl/AMC/Config.pm:696
+#: ../AMC-perl/AMC/Config.pm:697
 msgid "Please check its correct spelling and install missing software."
 msgstr "தயவு செய்து அதனுடைய எழுத்தாக்கத்தைச் சரிபார்க்கவும். மேலும் விடுபட்டுப்போன மென்பொருளை நிறுவவும்."
 
@@ -251,25 +251,25 @@ msgstr "தயவு செய்து அதனுடைய எழுத்த
 #. given in the preferences cannot be found. The %s will be replaced
 #. with the name of the menu entry "Preferences" and the name of the
 #. menu "Edit".
-#: ../AMC-perl/AMC/Config.pm:706
+#: ../AMC-perl/AMC/Config.pm:707
 #, perl-format
 msgid "You can change used commands following <i>%s</i> from menu <i>%s</i>."
 msgstr "<i>%s</i> இந்தப் பட்டியலில் பயன்படுத்தியுள்ள கட்டளைகளை <i>%s</i>இலிருந்து மாற்றலாம்."
 
 #. TRANSLATORS: "Preferences" menu
-#: ../AMC-perl/AMC/Config.pm:708 ../AMC-perl/AMC/Gui/Main.glade:2760
+#: ../AMC-perl/AMC/Config.pm:709 ../AMC-perl/AMC/Gui/Main.glade:2760
 msgid "Preferences"
 msgstr "முன்மதிப்பீடு"
 
 #. TRANSLATORS: "Edit" menu
-#: ../AMC-perl/AMC/Config.pm:711
+#: ../AMC-perl/AMC/Config.pm:712
 msgid "Edit"
 msgstr "பதிப்பி"
 
 #. TRANSLATORS: Error writing one of the configuration files (global or
 #. project). The first %s will be replaced with the path of that file,
 #. and the second with the error text.
-#: ../AMC-perl/AMC/Config.pm:978
+#: ../AMC-perl/AMC/Config.pm:979
 #, perl-format
 msgid "Error writing configuration file %s: %s"
 msgstr "பிழை எழுதிக்கொண்டிருக்கும் உருப்படுத்தல் கோப்பு  %s:%s"
@@ -484,42 +484,42 @@ msgstr "ஏதுமில்லை"
 
 #. TRANSLATORS: table name in the exported ODS
 #. spreadsheet for the table that contains the marks.
-#: ../AMC-perl/AMC/Export/ods.pm:1099 ../AMC-perl/AMC/Gui/Notes.glade:8
+#: ../AMC-perl/AMC/Export/ods.pm:1100 ../AMC-perl/AMC/Gui/Notes.glade:8
 #: ../AMC-perl/AMC/Gui/Notes.glade:13
 msgid "Marks"
 msgstr "மதிப்பெண்கள்"
 
 #. TRANSLATORS: Label of the table with questions
 #. basic statistics in the exported ODS spreadsheet.
-#: ../AMC-perl/AMC/Export/ods.pm:1579
+#: ../AMC-perl/AMC/Export/ods.pm:1580
 msgid "Questions statistics"
 msgstr "கேள்விகளுக்கான புள்ளிவிவரங்கள்"
 
 #. TRANSLATORS: Label of the table with indicative
 #. questions basic statistics in the exported ODS
 #. spreadsheet.
-#: ../AMC-perl/AMC/Export/ods.pm:1597
+#: ../AMC-perl/AMC/Export/ods.pm:1598
 msgid "Indicative questions statistics"
 msgstr "சுட்டிக்காட்டுகிற கேள்விகளுக்கான புள்ளிவிவரங்கள்"
 
 #. TRANSLATORS: Label of the table with a legend
 #. (explaination of the colors used) in the exported ODS
 #. spreadsheet.
-#: ../AMC-perl/AMC/Export/ods.pm:1617 ../AMC-perl/AMC/Export/ods.pm:1626
+#: ../AMC-perl/AMC/Export/ods.pm:1618 ../AMC-perl/AMC/Export/ods.pm:1627
 msgid "Legend"
 msgstr "குறி விளக்கம்"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that have
 #. not been asked to some students.
-#: ../AMC-perl/AMC/Export/ods.pm:1640
+#: ../AMC-perl/AMC/Export/ods.pm:1641
 msgid "Non applicable"
 msgstr "பொருந்தாது"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that have
 #. not been answered.
-#: ../AMC-perl/AMC/Export/ods.pm:1655
+#: ../AMC-perl/AMC/Export/ods.pm:1656
 msgid "No answer"
 msgstr "பதிலில்லை"
 
@@ -527,38 +527,38 @@ msgstr "பதிலில்லை"
 #. spreadsheet. This refers to the questions that have
 #. not been answered, but are cancelled by the use of
 #. allowempty scoring strategy.
-#: ../AMC-perl/AMC/Export/ods.pm:1671
+#: ../AMC-perl/AMC/Export/ods.pm:1672
 msgid "Cancelled"
 msgstr "நீக்கப்பட்டது"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that got an
 #. invalid answer.
-#: ../AMC-perl/AMC/Export/ods.pm:1686
+#: ../AMC-perl/AMC/Export/ods.pm:1687
 msgid "Invalid answer"
 msgstr "செல்லாத பதில்"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that
 #. got an invalid answer.
-#: ../AMC-perl/AMC/Export/ods.pm:1702
+#: ../AMC-perl/AMC/Export/ods.pm:1703
 msgid "Correct answer"
 msgstr "சாியான பதில்"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that
 #. got an invalid answer.
-#: ../AMC-perl/AMC/Export/ods.pm:1717
+#: ../AMC-perl/AMC/Export/ods.pm:1718
 msgid "Wrong answer"
 msgstr "தவறான பதில்"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the indicative questions.
-#: ../AMC-perl/AMC/Export/ods.pm:1732
+#: ../AMC-perl/AMC/Export/ods.pm:1733
 msgid "Indicative"
 msgstr "சுட்டிக்காட்டுகிற"
 
-#: ../AMC-perl/AMC/Export/ods.pm:1767
+#: ../AMC-perl/AMC/Export/ods.pm:1768
 msgid "An old state of the exported file seems to be already opened. Use File/Reload from OpenOffice/LibreOffice to refresh."
 msgstr "ஏற்றுமதி செய்யப்பட்ட கோப்புகளின் பழைய நிலை ஏற்கனவே திறக்கப்பட்டுள்ளது.  OpenOffice/LibreOffice இலிருந்து  File/Reload ஐப் பயன்படுத்தி புத்துணா்வூட்டவும்."
 
@@ -821,8 +821,8 @@ msgstr "- <b>%s</b> நான்கு மூலையில் வட்டக�
 #. the four corner marks on the scan and the location where they should
 #. be if the scan was not distorted at all) in the table showing the
 #. results of data captures.
-#: ../AMC-perl/AMC/Gui/Learning.pm:132 ../AMC-perl/AMC/Gui/Main.pm:2788
-#: ../AMC-perl/AMC/Gui/Manuel.pm:235 ../AMC-perl/AMC/Gui/Main.glade:146
+#: ../AMC-perl/AMC/Gui/Learning.pm:132 ../AMC-perl/AMC/Gui/Main.pm:2796
+#: ../AMC-perl/AMC/Gui/Manuel.pm:234 ../AMC-perl/AMC/Gui/Main.glade:146
 msgid "MSE"
 msgstr " சராசாி இருபடிப் பிழை"
 
@@ -837,8 +837,8 @@ msgstr "- சில கட்டங்களின் இருள் விக�
 #. tells that some darkness ratios are very near the threshold, so that
 #. the capture is very sensitive to the threshold. A small value is a
 #. good thing) in the table showing the results of data captures.
-#: ../AMC-perl/AMC/Gui/Learning.pm:138 ../AMC-perl/AMC/Gui/Main.pm:2806
-#: ../AMC-perl/AMC/Gui/Manuel.pm:245
+#: ../AMC-perl/AMC/Gui/Learning.pm:138 ../AMC-perl/AMC/Gui/Main.pm:2814
+#: ../AMC-perl/AMC/Gui/Manuel.pm:244
 msgid "sensitivity"
 msgstr "ஒளிக்கூருணர்வுத்திறன்"
 
@@ -850,7 +850,7 @@ msgstr "நீங்கள் அலகீடு சாியமைப்பை�
 #. TRANSLATORS: One of the popup menu that appears when right-clicking
 #. on a page in the data capture diagnosis table. Choosing this entry,
 #. an image will be opened to see where the corner marks were detected.
-#: ../AMC-perl/AMC/Gui/Learning.pm:144 ../AMC-perl/AMC/Gui/Main.pm:2700
+#: ../AMC-perl/AMC/Gui/Learning.pm:144 ../AMC-perl/AMC/Gui/Main.pm:2708
 msgid "page adjustment"
 msgstr "பக்கத்தைச் சீரமை"
 
@@ -859,7 +859,7 @@ msgstr "பக்கத்தைச் சீரமை"
 #. a window will be opened were the user can see all boxes on the scans
 #. and how they were filled by the students, and correct detection of
 #. ticked-or-not if needed.
-#: ../AMC-perl/AMC/Gui/Learning.pm:145 ../AMC-perl/AMC/Gui/Main.pm:2707
+#: ../AMC-perl/AMC/Gui/Learning.pm:145 ../AMC-perl/AMC/Gui/Main.pm:2715
 msgid "boxes zooms"
 msgstr "கட்டங்களைப் பொிதாக்கு"
 
@@ -906,7 +906,7 @@ msgstr "நகல்"
 #. TRANSLATORS: One of the possible sorting criteria for students in
 #. the exported spreadsheet with scores: the student name. This is a
 #. menu entry.
-#: ../AMC-perl/AMC/Gui/Mailing.pm:185 ../AMC-perl/AMC/Gui/Main.pm:281
+#: ../AMC-perl/AMC/Gui/Mailing.pm:185 ../AMC-perl/AMC/Gui/Main.pm:283
 msgid "name"
 msgstr "பெயர்"
 
@@ -998,7 +998,7 @@ msgstr "தோ்வுப் பெயா்"
 msgid "Code (short name) for examination"
 msgstr "தோ்வுக்கான குறிமுறை (குறுகிய பெயா்)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:177
+#: ../AMC-perl/AMC/Gui/Main.pm:179
 msgid ""
 "The package <i>auto-multiple-choice-common</i> is installed, but not <i>auto-multiple-choice</i>.\n"
 "<b>AMC won't work properly until you install auto-multiple-choice package!</b>"
@@ -1006,56 +1006,56 @@ msgstr ""
 "<i>auto-multiple-choice</i>க்குப் பதிலாக<i>auto-multiple-choice-common</i>ஆனது நிறுவப்பட்டுள்ளது .\n"
 "<b>auto-multiple-choice package ஐ நீங்கள் நிறுவும் வரை தன்னியக்க பல தெரிவு ஒழுங்காக இயங்காது!</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:193
+#: ../AMC-perl/AMC/Gui/Main.pm:195
 msgid "None of the perl modules <b>Graphics::Magick</b> and <b>Image::Magick</b> are installed: AMC won't work properly!"
 msgstr "பின்வரும் எந்தவொரு perl கூறுகளும் நிறுவப்படாததால், தன்னியக்க பல தெரிவு AMC ஒழுங்காக இயங்காது! <b>Graphics::Magick</b> மற்றும் <b>Image::Magick</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:225
+#: ../AMC-perl/AMC/Gui/Main.pm:227
 msgid "Please install <b>libnotify</b> to make desktop notifications available."
 msgstr "முகப்பு அறிவிப்புகளைப் பெற <b>libnotify</b> யை நிறுவவும்"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Gui/Main.pm:238 ../AMC-perl/AMC/Gui/Main.pm:3629
+#: ../AMC-perl/AMC/Gui/Main.pm:240 ../AMC-perl/AMC/Gui/Main.pm:3637
 msgid "(none) [No primary key found in association list]"
 msgstr "(ஒன்றுமில்லை) [இணைப்பு பட்டியலில் முதன்மைக் குறியைக் காணவில்லை]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
 #. TRANSLATORS: you can omit the [...] part, just here to explain
 #. context
-#: ../AMC-perl/AMC/Gui/Main.pm:243 ../AMC-perl/AMC/Gui/Main.pm:3439
+#: ../AMC-perl/AMC/Gui/Main.pm:245 ../AMC-perl/AMC/Gui/Main.pm:3447
 msgid "(none) [No code found in LaTeX file]"
 msgstr "(ஒன்றுமில்லை) [LaTeX கோப்பில் எந்தக் குறிமுறையும் இல்லை]"
 
 #. TRANSLATORS: One of the actions that can be done after exporting the
 #. marks. Here, do nothing more. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:263
+#: ../AMC-perl/AMC/Gui/Main.pm:265
 msgid "that's all"
 msgstr "அவ்வளவுதான்"
 
 #. TRANSLATORS: One of the actions that can be done after exporting the
 #. marks. Here, open the exported file. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:268
+#: ../AMC-perl/AMC/Gui/Main.pm:270
 msgid "open the file"
 msgstr "கோப்பைத் திற"
 
 #. TRANSLATORS: One of the actions that can be done after exporting the
 #. marks. Here, open the directory where the file is. This is a menu
 #. entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:273
+#: ../AMC-perl/AMC/Gui/Main.pm:275
 msgid "open the directory"
 msgstr "அடைவைத் திற"
 
 #. TRANSLATORS: One of the possible sorting criteria for students in
 #. the exported spreadsheet with scores: the student sheet number. This
 #. is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:286
+#: ../AMC-perl/AMC/Gui/Main.pm:288
 msgid "exam copy number"
 msgstr "தேர்வெண்வாாியாக"
 
 #. TRANSLATORS: One of the possible sorting criteria for students in
 #. the exported spreadsheet with scores: the line where one can find
 #. this student in the students list file. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:291
+#: ../AMC-perl/AMC/Gui/Main.pm:293
 msgid "line in students list"
 msgstr "வாிசையெண்வாாியாக"
 
@@ -1063,21 +1063,31 @@ msgstr "வாிசையெண்வாாியாக"
 #. context.  One of the possible sorting criteria for students in the
 #. exported spreadsheet with scores: the student mark. This is a menu
 #. entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:297
-msgid "mark [student mark, for sorting]"
+#: ../AMC-perl/AMC/Gui/Main.pm:299
+#, fuzzy
+msgid "mark (ascending) [student mark, for sorting]"
+msgstr "மதிப்பெண்வாாியாக [மாணவர் மதிப்பெண், வரிசைப்படுத்த]"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain
+#. context.  One of the possible sorting criteria for students in the
+#. exported spreadsheet with scores: the student mark. This is a menu
+#. entry.
+#: ../AMC-perl/AMC/Gui/Main.pm:305
+#, fuzzy
+msgid "mark (descending) [student mark, for sorting]"
 msgstr "மதிப்பெண்வாாியாக [மாணவர் மதிப்பெண், வரிசைப்படுத்த]"
 
 #. TRANSLATORS: One of the possible way to group annotated answer
 #. sheets together to PDF files: make one PDF file per student, with
 #. all his pages. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:305
+#: ../AMC-perl/AMC/Gui/Main.pm:313
 msgid "One file per student"
 msgstr "ஒவ்வொரு மாணவருக்கும் தனி கோப்பு"
 
 #. TRANSLATORS: One of the possible way to group annotated answer
 #. sheets together to PDF files: make only one PDF with all students
 #. sheets. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:310
+#: ../AMC-perl/AMC/Gui/Main.pm:318
 msgid "One file for all students"
 msgstr "எல்லா மாணவா்களுக்கும் ஒரே கோப்பு"
 
@@ -1085,7 +1095,7 @@ msgstr "எல்லா மாணவா்களுக்கும் ஒரே 
 #. we only select pages where the student has written something (in
 #. separate answer sheet mode, these are the pages from the answer
 #. sheet and not the pages from the subject).
-#: ../AMC-perl/AMC/Gui/Main.pm:319
+#: ../AMC-perl/AMC/Gui/Main.pm:327
 msgid "Only pages with answers"
 msgstr "பதில்களுள்ள பக்கங்கள் மட்டும்"
 
@@ -1093,7 +1103,7 @@ msgstr "பதில்களுள்ள பக்கங்கள் மட்�
 #. we take the pages were the students has nothing to write (often
 #. question pages from a subject with separate answer sheet option)
 #. from the subject.
-#: ../AMC-perl/AMC/Gui/Main.pm:325
+#: ../AMC-perl/AMC/Gui/Main.pm:333
 msgid "Question pages from subject"
 msgstr "வினாத்தாளுடன் பதில்களுள்ள பக்கங்களும்"
 
@@ -1101,222 +1111,222 @@ msgstr "வினாத்தாளுடன் பதில்களுள்�
 #. we take the pages were the students has nothing to write (often
 #. question pages from a subject with separate answer sheet option)
 #. from the correction.
-#: ../AMC-perl/AMC/Gui/Main.pm:331
+#: ../AMC-perl/AMC/Gui/Main.pm:339
 msgid "Question pages from correction"
 msgstr "வினா-விடைத்தாளுடன் பதில்களுள்ள பக்கங்களும்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:338
+#: ../AMC-perl/AMC/Gui/Main.pm:346
 msgid "All students"
 msgstr "எல்லா மாணவா்களுக்கும்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:342
+#: ../AMC-perl/AMC/Gui/Main.pm:350
 msgid "Selected students"
 msgstr "குறிப்பிட்ட மாணவர்களுக்கு"
 
 #. TRANSLATORS: Message when switching to debugging mode.
-#: ../AMC-perl/AMC/Gui/Main.pm:449
+#: ../AMC-perl/AMC/Gui/Main.pm:457
 msgid "Debugging mode."
 msgstr "வழுநீக்குகின்ற பாணி."
 
 #. TRANSLATORS: Message when switching to debugging mode. %s will be
 #. replaced with the path of the log file.
-#: ../AMC-perl/AMC/Gui/Main.pm:455
+#: ../AMC-perl/AMC/Gui/Main.pm:463
 #, perl-format
 msgid "Debugging informations will be written in file %s."
 msgstr "%s இந்தக் கோப்பில் வழுநீக்கப்படுகின்ற தகவல்கள் எழுதப்படும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:487
+#: ../AMC-perl/AMC/Gui/Main.pm:495
 msgid "In order to send a useful bug report, please attach the following documents:"
 msgstr "பயனுள்ள பிழை அறிக்கையை அனுப்ப, பின்வரும் ஆவணங்களை இணைக்கவும்:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:491
+#: ../AMC-perl/AMC/Gui/Main.pm:499
 msgid "an archive (in some compressed format, like ZIP, 7Z, TGZ...) containing the <b>project directory</b>, <b>scan files</b> and <b>configuration directory</b> (.AMC.d in home directory), so as to reproduce and analyse this problem."
 msgstr "<b>திட்டப்பணி அடைவு</b>,<b>அலகீடு கோப்புகள்</b> மற்றும் <b>உருப்படுத்தல் அடைவு</b>ஆகியவற்றை உள்ளடக்கிய ஒரு ஆவண காப்பகம் (சில சுருக்கப்பட்ட வடிவத்தில், எ.கா. ZIP, 7Z, TGZ...) (முகப்பு அடைவில் .AMC.d), அதை மறுஉருவாக்கம் செய்து இந்த பிரச்சினையை ஆய்வு செய்ய வேண்டும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:495
+#: ../AMC-perl/AMC/Gui/Main.pm:503
 msgid "the <b>log file</b> produced when the debugging mode (in Help menu) is checked. Please try to reproduce the bug with this mode activated."
 msgstr "(உதவிப் பட்டியில்) வழுநீக்கி பாணியை தொிவு செய்திருந்தால் <b>பதிவு கோப்பு</b> உருவாக்கப்படும். இந்த பாணியை செயலூக்கி பிழைப் பதிவை மறுஉருவாக்கம் செய்யவும். "
 
-#: ../AMC-perl/AMC/Gui/Main.pm:499
+#: ../AMC-perl/AMC/Gui/Main.pm:507
 #, perl-format
 msgid "Bug reports can be filled at %s or sent to the address below."
 msgstr "பிழை அறிக்கைகளை %s இல் நிரப்பலாம் அல்லது கீழே உள்ள முகவாிக்கு அனுப்பலாம்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:500 ../AMC-perl/AMC/Gui/Main.pm:506
+#: ../AMC-perl/AMC/Gui/Main.pm:508 ../AMC-perl/AMC/Gui/Main.pm:514
 msgid "AMC community site"
 msgstr "தானியக்க பல தொிவின் சமூக தளம்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:624
+#: ../AMC-perl/AMC/Gui/Main.pm:632
 #, perl-format
 msgid "There is too little space left in the temporary disk directory (%s). <b>Please clean this directory and try again.</b>"
 msgstr "தற்காலிக வட்டு அடைவில் மிகக் குறைவான இடமுள்ளது (%s).  <b>இந்த அடைவை சுத்தம் செய்து மீண்டும் முயற்சிக்கவும்.</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:652
+#: ../AMC-perl/AMC/Gui/Main.pm:660
 #, perl-format
 msgid "Following command could not be run: <b>%s</b>, perhaps due to a poor configuration?"
 msgstr "பின்வருகின்ற கட்டளையை இயக்க முடியவில்லை: <b>%s</b>, ஒருவேளை மோசமான உருப்படுத்தல் காரணமாக இருக்கலாம்?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:925
+#: ../AMC-perl/AMC/Gui/Main.pm:933
 msgid "Install an AMC plugin"
 msgstr "ஒரு தானியக்க பல தொிவு சொருகியை நிறுவவும்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:931
+#: ../AMC-perl/AMC/Gui/Main.pm:939
 msgid "Plugins (zip, tgz)"
 msgstr "சொருகிகள் (zip, tgz) "
 
-#: ../AMC-perl/AMC/Gui/Main.pm:953
+#: ../AMC-perl/AMC/Gui/Main.pm:961
 #, perl-format
 msgid "An error occured while trying to extract files from the plugin archive: %s."
 msgstr "சொருகி ஆவணகாப்பகத்திலிருந்து கோப்புகளை பிாித்தெடுக்க முயற்சிக்கும் போது பிழை நோ்ந்துவிட்டது: %s."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:972
+#: ../AMC-perl/AMC/Gui/Main.pm:980
 msgid "Nothing extracted from the plugin archive. Check it."
 msgstr "சொருகி ஆவணகாப்பகத்திலிருந்து எதையுமே பிாித்தெடுக்கவில்லை. அதைச் சாிபாா்க்கவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:985
+#: ../AMC-perl/AMC/Gui/Main.pm:993
 msgid "This is not a valid plugin, as it contains more than one directory at the first level."
 msgstr "முதல் நிலையில் ஒன்றுக்கும் மேற்பட்ட அடைவைக் கொண்டிருப்பதால், இது செல்லுபடியாகும் சொருகியல்ல."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:999
+#: ../AMC-perl/AMC/Gui/Main.pm:1007
 msgid "This is not a valid plugin, as it does not contain a perl/AMC subdirectory."
 msgstr "இது ஒரு செல்லுபடியாகும் சொருகியல்ல, ஏனெனில் இதில் ஒரு perl/AMC துணை அடைவு இல்லை."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1017
+#: ../AMC-perl/AMC/Gui/Main.pm:1025
 #, perl-format
 msgid "A plugin is already installed with the same name (%s). Do you want to delete the old one and overwrite?"
 msgstr "(%s) இந்தப் பெயாில் ஏற்கனவே ஒரு சொருகி நிறுவப்பட்டுள்ளது. பழையதை அழித்து அதன் மேலெழுதவா?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1044
+#: ../AMC-perl/AMC/Gui/Main.pm:1052
 #, perl-format
 msgid "Error while moving the plugin to the user plugin directory: %s"
 msgstr "சொருகியை பயனர் சொருகி அடைவுக்கு நகா்த்தும் போது ஏற்பட்ட பிழை: %s"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1057
+#: ../AMC-perl/AMC/Gui/Main.pm:1065
 msgid "Please restart AMC before using the new plugin..."
 msgstr "புதிய சொருகி பயன்படுத்துவதற்கு முன் தானியக்க பல தொிவை மீண்டும் இயக்கவும்..."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1118
+#: ../AMC-perl/AMC/Gui/Main.pm:1126
 #, perl-format
 msgid "You selected directory <b>%s</b> as a project to open."
 msgstr "<b>%s</b> என்கிற அடைவு திட்டப்பணி போல் திறக்க தேர்வு செய்யப்பட்டது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1121
+#: ../AMC-perl/AMC/Gui/Main.pm:1129
 msgid "However, this directory does not seem to contain a project. Do you still want to try?"
 msgstr "எனினும், இந்த அடைவில் ஒரு திட்டப்பணி கூட இருப்பதாக தொியவில்லை. நீங்கள் இன்னும் முயற்சி செய்ய விரும்புகிறீா்களா?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1143
+#: ../AMC-perl/AMC/Gui/Main.pm:1151
 #, perl-format
 msgid "You selected project <b>%s</b> from directory <i>%s</i>."
 msgstr "நீங்கள் <i>%s</i> இந்த அடைவிலிருந்து <b>%s</b> என்ற திட்டப்பணியைத் தேர்ந்தெடுத்துள்ளீா்கள்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1147
+#: ../AMC-perl/AMC/Gui/Main.pm:1155
 msgid "Do you want to copy this project to your projects directory before opening it?"
 msgstr "இந்த திட்டப்பணியை திறக்கும் முன் உங்கள் திட்டப்பணி அடைவில் நகலெடுக்க விரும்புகிறீர்களா?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1312
+#: ../AMC-perl/AMC/Gui/Main.pm:1320
 #, perl-format
 msgid "File %s already exists in project directory: do you want to replace it?"
 msgstr "திட்டப்பணி அடைவில் கோப்பு %s ஏற்கனவே உள்ளது: நீங்கள் அதை மாற்றிட விரும்புகிறீர்களா?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1316
+#: ../AMC-perl/AMC/Gui/Main.pm:1324
 msgid "Click yes to replace it and loose pre-existing contents, or No to cancel source file import."
 msgstr "அதை மாற்றுவதற்கு ஆம் என்பதைச் சுட்டவும் முன்புள்ள உள்ளடக்கங்கள் இழக்கப்படும், அல்லது மூல கோப்பு இறக்குமதியை இரத்து செய்ய இல்லை என்பதைச் சுட்டவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1342
+#: ../AMC-perl/AMC/Gui/Main.pm:1350
 msgid "The source file has been copied to project directory."
 msgstr "திட்டப்பணி அடைவிற்கு மூல கோப்பு நகலெடுக்கப்பட்டுள்ளது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1344
+#: ../AMC-perl/AMC/Gui/Main.pm:1352
 #, perl-format
 msgid "You can now edit it with button \"%s\" or with any editor."
 msgstr "நீங்கள் இப்போது \"%s\" பொத்தானுடன் பதிப்பிக்கலாம் அல்லது எந்த பதிப்பியுடனும் திருத்தலாம்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1345 ../AMC-perl/AMC/Gui/Main.glade:251
+#: ../AMC-perl/AMC/Gui/Main.pm:1353 ../AMC-perl/AMC/Gui/Main.glade:251
 msgid "Edit source file"
 msgstr "மூலக்கோப்பினை பதிப்பி"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1353
+#: ../AMC-perl/AMC/Gui/Main.pm:1361
 #, perl-format
 msgid "Error copying source file: %s"
 msgstr "மூலக்கோப்பினை நகலெடுக்கும் போது பிழை: %s"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1494
+#: ../AMC-perl/AMC/Gui/Main.pm:1502
 msgid "The working documents are already prepared with the current file format. If you change the file format, working documents and all other data for this project will be ereased."
 msgstr ""
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1497 ../AMC-perl/AMC/Gui/Main.pm:1509
-#: ../AMC-perl/AMC/Gui/Main.pm:1578 ../AMC-perl/AMC/Gui/Main.pm:1613
+#: ../AMC-perl/AMC/Gui/Main.pm:1505 ../AMC-perl/AMC/Gui/Main.pm:1517
+#: ../AMC-perl/AMC/Gui/Main.pm:1586 ../AMC-perl/AMC/Gui/Main.pm:1621
 msgid "Do you wish to continue?"
 msgstr "தொடர விரும்புகிறீா்களா?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1499 ../AMC-perl/AMC/Gui/Main.pm:1511
+#: ../AMC-perl/AMC/Gui/Main.pm:1507 ../AMC-perl/AMC/Gui/Main.pm:1519
 #, fuzzy
 msgid "Click on Ok to erease old working documents and change file format, and on Cancel to get back to the same file format."
 msgstr "முன்னாளுள்ள அமைவுகளை அழித்து, பணி ஆவணங்களைப் புதுப்பிக்க சாி ஐ சுட்டவும் அல்லது இரத்து ஐ சுட்டி இரத்து செய்யவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1502 ../AMC-perl/AMC/Gui/Main.pm:1583
-#: ../AMC-perl/AMC/Gui/Main.pm:1619
+#: ../AMC-perl/AMC/Gui/Main.pm:1510 ../AMC-perl/AMC/Gui/Main.pm:1591
+#: ../AMC-perl/AMC/Gui/Main.pm:1627
 msgid "To allow the use of an already printed question, cancel!"
 msgstr "ஏற்கனவே அச்சிட்ட வினாத்தாளை பயன்படுத்துவதற்கு, இரத்து செய்யவும்!"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1506
+#: ../AMC-perl/AMC/Gui/Main.pm:1514
 msgid "The working documents are already prepared with the current file format. If you change the file format, working documents will be ereased."
 msgstr ""
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1553
+#: ../AMC-perl/AMC/Gui/Main.pm:1561
 msgid "LaTeX packages:"
 msgstr "LaTeX தொகுப்பு:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1554
+#: ../AMC-perl/AMC/Gui/Main.pm:1562
 msgid "Commands:"
 msgstr "கட்டளைகள்:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1555
+#: ../AMC-perl/AMC/Gui/Main.pm:1563
 msgid "Fonts:"
 msgstr "எழுத்துருக்கள்:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1567
+#: ../AMC-perl/AMC/Gui/Main.pm:1575
 msgid "Papers analysis was already made on the basis of the current working documents."
 msgstr "நடப்பு வேலை ஆவணங்களின் அடிப்படையில் தாள்களில் ஏற்கனவே பகுப்பாய்வு செய்யப்பட்டது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1571
+#: ../AMC-perl/AMC/Gui/Main.pm:1579
 msgid "You already made the examination on the basis of these documents."
 msgstr "இந்த ஆவணங்களின் அடிப்படையில் நீங்கள் ஏற்கனவே தோ்வு நடத்தியுள்ளீர்கள்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1575
+#: ../AMC-perl/AMC/Gui/Main.pm:1583
 msgid "If you modify working documents, you will not be capable any more of analyzing the papers you have already distributed!"
 msgstr "வேலை செய்துகொண்டிருக்கும் ஆவணங்களை நீங்கள் மாற்றியமைத்தால், உங்களால் ஏற்கனவே விநியோகித்த தாள்களை பகுப்பாய்வு செய்ய முடியாது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1580 ../AMC-perl/AMC/Gui/Main.pm:1615
+#: ../AMC-perl/AMC/Gui/Main.pm:1588 ../AMC-perl/AMC/Gui/Main.pm:1623
 msgid "Click on OK to erase the former layouts and update working documents, or on Cancel to cancel this operation."
 msgstr "முன்னாளுள்ள அமைவுகளை அழித்து, பணி ஆவணங்களைப் புதுப்பிக்க சாி ஐ சுட்டவும் அல்லது இரத்து ஐ சுட்டி இரத்து செய்யவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1607
+#: ../AMC-perl/AMC/Gui/Main.pm:1615
 msgid "Layouts are already calculated for the current documents."
 msgstr "நடப்பு ஆவணங்களுக்கான அமைவுகள் ஏற்கனவே கணக்கிடப்பட்டுள்ளது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1610
+#: ../AMC-perl/AMC/Gui/Main.pm:1618
 msgid "Updating working documents, the layouts will become obsolete and will thus be erased."
 msgstr "பணி ஆவணங்கள் புதுப்பிக்கப்படுவதால் அமைவுகள் வழக்கொழிந்து போய் அழிக்கப்பட்டுவிடும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1652
+#: ../AMC-perl/AMC/Gui/Main.pm:1660
 #, perl-format
 msgid "To handle properly <i>%s</i> files, AMC needs the following components, that are currently missing:"
 msgstr "<i>%s</i> இந்த கோப்புகளை கையாள, AMC க்கு பின்வரும் கூறுகள் தேவைப்படுகிறது, அவை தற்போது காணவில்லை:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1669
+#: ../AMC-perl/AMC/Gui/Main.pm:1677
 msgid "Install these components on your system and try again."
 msgstr "உங்கள் கணினியில் இந்த கூறுகளை நிறுவிய பின்பு மீண்டும் முயற்சிக்கவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1718
+#: ../AMC-perl/AMC/Gui/Main.pm:1726
 msgid "Your AMC version and LaTeX style file version differ. Even if the documents are properly generated, this can lead to many problems using AMC."
 msgstr "உங்கள் AMC பதிப்பு மற்றும் LaTeX பாணி கோப்பு பதிப்பு வேறுபடுகின்றன. ஆவணங்கள் சரியாக உருவாக்கப்பட்டாலும், இது AMC ஐப் பயன்படுத்தும் போது பல சிக்கல்களுக்கு வழிவகுக்கும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1722
+#: ../AMC-perl/AMC/Gui/Main.pm:1730
 msgid "<b>Please check your installation to get matching AMC and LaTeX style file versions.</b>"
 msgstr "<b>AMC மற்றும் LaTeX பாணி கோப்பு பதிப்புகள் பொருந்துவதற்கு உங்கள் நிறுவலை சரிபார்க்கவும்.</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1726
+#: ../AMC-perl/AMC/Gui/Main.pm:1734
 #, perl-format
 msgid ""
 "AMC version: %s\n"
@@ -1327,31 +1337,31 @@ msgstr ""
 "sty பதிப்பு: %s\n"
 "sty பாதை: %s"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1752
+#: ../AMC-perl/AMC/Gui/Main.pm:1760
 msgid "Problems while preparing documents"
 msgstr "ஆவணங்களை ஆயத்தமாக்கும் போது ஏற்பட்ட சிக்கல்கள்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1754
+#: ../AMC-perl/AMC/Gui/Main.pm:1762
 msgid "Problems while processing the source file."
 msgstr "மூல கோப்புகளை செயலாக்கும் போது ஏற்பட்ட சிக்கல்கள்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1758
+#: ../AMC-perl/AMC/Gui/Main.pm:1766
 msgid "You have to correct the source file and re-run documents update."
 msgstr "நீங்கள் மூல கோப்பை சாி செய்து மீண்டும் ஆவண புதுப்பியை இயக்கவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1764 ../AMC-perl/AMC/Gui/Main.pm:2541
+#: ../AMC-perl/AMC/Gui/Main.pm:1772 ../AMC-perl/AMC/Gui/Main.pm:2549
 msgid "<b>Errors</b>"
 msgstr "<b>பிழைகள்</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1769 ../AMC-perl/AMC/Gui/Main.pm:2546
+#: ../AMC-perl/AMC/Gui/Main.pm:1777 ../AMC-perl/AMC/Gui/Main.pm:2554
 msgid "Only first ten errors written"
 msgstr "முதல் பத்து பிழைகள் மட்டுமே எழுதப்பட்டுள்ளது"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1775
+#: ../AMC-perl/AMC/Gui/Main.pm:1783
 msgid "<b>Warnings</b>"
 msgstr "<b>எச்சாிக்கைகள்</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1780
+#: ../AMC-perl/AMC/Gui/Main.pm:1788
 msgid "Only first ten warnings written"
 msgstr "முதல் பத்து எச்சாிக்கைகள் மட்டுமே எழுதப்பட்டுள்ளது"
 
@@ -1359,7 +1369,7 @@ msgstr "முதல் பத்து எச்சாிக்கைகள் 
 #. "Command output details", and refers to the small expandable part at
 #. the bottom of AMC main window, where one can see the output of the
 #. commands lauched by AMC.
-#: ../AMC-perl/AMC/Gui/Main.pm:1793
+#: ../AMC-perl/AMC/Gui/Main.pm:1801
 #, perl-format
 msgid "See also the processing log in '%s' below."
 msgstr "கீழே உள்ள செயலாக்க பதிவினை '%s' பார்க்கவும்."
@@ -1367,248 +1377,248 @@ msgstr "கீழே உள்ள செயலாக்க பதிவினை
 #. TRANSLATORS: Title of the small expandable part at the bottom of AMC
 #. main window, where one can see the output of the commands lauched by
 #. AMC.
-#: ../AMC-perl/AMC/Gui/Main.pm:1798 ../AMC-perl/AMC/Gui/Main.glade:2624
+#: ../AMC-perl/AMC/Gui/Main.pm:1806 ../AMC-perl/AMC/Gui/Main.glade:2624
 msgid "Command output details"
 msgstr "கட்டளை வெளியீட்டு விவரங்கள்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1801
+#: ../AMC-perl/AMC/Gui/Main.pm:1809
 msgid "Use LaTeX editor or latex command for a precise diagnosis."
 msgstr "ஒரு துல்லிய குறையறிதலுக்கு LaTeX பதிப்பான் அல்லது LaTeX கட்டளையைப் பயன்படுத்தவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1814
+#: ../AMC-perl/AMC/Gui/Main.pm:1822
 msgid "Documents have been prepared"
 msgstr "ஆவணங்கள் ஆயத்தமாக்கப்பட்டது"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1872
+#: ../AMC-perl/AMC/Gui/Main.pm:1880
 msgid "Your question has a separate answers sheet."
 msgstr "உங்கள் கேள்வித்தாளுக்கு தனியான பதில் தாள் உள்ளது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1874
+#: ../AMC-perl/AMC/Gui/Main.pm:1882
 msgid "In this case, letters are shown inside boxes."
 msgstr "இந்த விடயத்தில், எழுத்துகள் கட்டங்களின் உள்ளே காட்டப்பட்டுள்ளன."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1876
+#: ../AMC-perl/AMC/Gui/Main.pm:1884
 msgid "Your question is set to present labels inside the boxes to be ticked."
 msgstr "உங்கள் வினாத்தாளில் விவரத்துணுக்குகள் அமைக்கப்பட்டு, கட்டங்களுக்கு உள்ளே நிறத்திண்மையாக்கும்படியாக உள்ளது."
 
 #. TRANSLATORS: Here, %s will be replaced with the translation of
 #. "darkness threshold".
-#: ../AMC-perl/AMC/Gui/Main.pm:1885
+#: ../AMC-perl/AMC/Gui/Main.pm:1893
 #, perl-format
 msgid "For better ticking detection, ask students to fill out completely boxes, and choose parameter \"%s\" around 0.5 for this project."
 msgstr "சிறந்த முறையில் நிறத்திண்மையை கண்டறிவதற்கு, முழுமையாக கட்டங்களை நிரப்ப மாணவர்கள் அறிவுறுத்தவும். மேலும் இந்த திட்டப்பணியின் அளபுரு \"%s\" மதிப்பை 0.5 க்கு அமைக்கவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1890
+#: ../AMC-perl/AMC/Gui/Main.pm:1898
 #, perl-format
 msgid "At the moment, this parameter is set to %.02f."
 msgstr "இந்தக் கணத்தில் அளபுரு %.02f ல் அமைக்கப்படுகிறது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1892
+#: ../AMC-perl/AMC/Gui/Main.pm:1900
 msgid "Would you like to set it to 0.5?"
 msgstr "இதை 0.5 என அமைக்க விரும்புகிறீா்களா?"
 
 #. TRANSLATORS: This parameter is the ratio of dark pixels number over
 #. total pixels number inside box above which a box is considered to be
 #. ticked.
-#: ../AMC-perl/AMC/Gui/Main.pm:1899
+#: ../AMC-perl/AMC/Gui/Main.pm:1907
 msgid "darkness threshold"
 msgstr "இருள் நிலையெல்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1977
+#: ../AMC-perl/AMC/Gui/Main.pm:1985
 msgid "Working documents are not readable"
 msgstr "பணி ஆவணங்களைப் படிக்க முடியவில்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1980
+#: ../AMC-perl/AMC/Gui/Main.pm:1988
 msgid "No working documents"
 msgstr "பணி ஆவணங்கள் இல்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1983
+#: ../AMC-perl/AMC/Gui/Main.pm:1991
 msgid "Working documents last update:"
 msgstr "பணி ஆவணங்கள் இறுதியாக புதுப்பிக்கப்படுகிறது:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2041
+#: ../AMC-perl/AMC/Gui/Main.pm:2049
 msgid "Working documents are in an old format, which is not supported anymore."
 msgstr "பணி ஆவணங்கள் பழைய வடிவமைப்பில் உள்ளன. இவ்வடிவமைப்பு இனி ஆதரிக்கப்படாது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2044
+#: ../AMC-perl/AMC/Gui/Main.pm:2052
 msgid "Please generate again the working documents!"
 msgstr "மீண்டும் பணி ஆவணங்களை உருவாக்கவும்!"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2088
+#: ../AMC-perl/AMC/Gui/Main.pm:2096
 msgid "No layout detected."
 msgstr "அமைவினைக் காணவில்லை."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2090
+#: ../AMC-perl/AMC/Gui/Main.pm:2098
 msgid "<b>Don't go through the examination</b> before fixing this problem, otherwise you won't be able to use AMC for correction."
 msgstr "இந்த சிக்கலை சாிசெய்யும் முன் நீங்கள் <b>தோ்வினை நடத்த வேண்டாம்</b>.  அப்படி நடத்தினால், திருத்தம் செய்வதற்க்கு தன்னியக்க பல தெரிவைப் பயன்படுத்த முடியாது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2136
+#: ../AMC-perl/AMC/Gui/Main.pm:2144
 msgid "No layout"
 msgstr "அமைவு இல்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2139
+#: ../AMC-perl/AMC/Gui/Main.pm:2147
 #, perl-format
 msgid "Processed %d pages"
 msgstr "%d பக்கங்கள் செயல்முறைக்குள்ளாக்கப்பட்டது"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2141
+#: ../AMC-perl/AMC/Gui/Main.pm:2149
 msgid "but some defects were detected."
 msgstr "ஆனால் சில குறைபாடுகள் கண்டறியப்பட்டன."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2159
+#: ../AMC-perl/AMC/Gui/Main.pm:2167
 msgid "The \\namefield command is not used. Writing subjects without name field is not recommended"
 msgstr "கட்டளை \\namefield ஐப் பயன்படுத்தவில்லை. \\namefield இல்லாமல் பாடங்களை எழுதுவது பாிந்துரைக்கப்படவில்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2162
+#: ../AMC-perl/AMC/Gui/Main.pm:2170
 msgid "The \\namefield command is used several times for the same subject. This should not be the case, as each student should write his name only once"
 msgstr "கட்டளை \\namefield பலமுறை ஒரே பாடத்திற்கு பயன்படுத்தப்பட்டுள்ளது. ஆனால் மாணவா்கள் தங்கள் பெயரை ஒரு முறை எழுதினால் போதுமானது"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2164
+#: ../AMC-perl/AMC/Gui/Main.pm:2172
 msgid "No box to be ticked"
 msgstr "எந்த கட்டத்திலும் சுட்டத் தேவையில்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2166
+#: ../AMC-perl/AMC/Gui/Main.pm:2174
 msgid "The corner marks and binary boxes are not at the same location on all pages"
 msgstr "அனைத்துப் பக்கங்களிலும் இருமக் கட்டங்களும் மூலைகளிலுள்ள வட்டக்குறியும் ஒரே இடத்தில் அமையவில்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2169
+#: ../AMC-perl/AMC/Gui/Main.pm:2177
 msgid "Some material has been placed out of the page. This is often a result of a multiple columns question group starting too close from the page bottom. In such a case, use \"needspace\"."
 msgstr "பக்கத்திற்க்கு வெளியே சில பொருள் வைக்கப்பட்டுள்ளது. பல் நெடுவரிசைகளின் கேள்விக்குழுவானது பக்கத்தின் கீழே மிக நெருக்கமாக தொடங்குவதால் ஏற்ப்பட்ட விளைவு. அத்தகைய நிலையில், \"தேவையான இடத்தைப்\" பயன்படுத்தவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2194
+#: ../AMC-perl/AMC/Gui/Main.pm:2202
 msgid "Some potential defects were detected for this subject. Correct them in the source and update the working documents."
 msgstr "இந்த பாடத்தில் சில சாத்தியமான குறைபாடுகள் கண்டறியப்பட்டன. மூலத்தில் அவற்றை சாிசெய்து, பணி ஆவணங்களை புதுப்பிக்கவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2203
+#: ../AMC-perl/AMC/Gui/Main.pm:2211
 #, perl-format
 msgid "(See for example pages %s and %s)"
 msgstr "(எடுத்துக்காட்டாக பக்கங்கள் %s மற்றும் %s ஐப் பாா்க்கவும்)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2211
+#: ../AMC-perl/AMC/Gui/Main.pm:2219
 #, perl-format
 msgid "(Concerns %1$d pages, see for example page %2$s)"
 msgstr "( தொடர்பான பக்கங்கள் %1$d, எடுத்துக்காட்டாக %2$s பக்கத்தைப் பார்க்கவும்)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2222
+#: ../AMC-perl/AMC/Gui/Main.pm:2230
 #, perl-format
 msgid "(Concerns %1$d exams, see for example sheet %2$d)"
 msgstr "(%1$d தோ்வுகள் தெடா்பாக தாள் %2$d ஐ உதாரணமாகப் பாா்க்கவும்)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2378
+#: ../AMC-perl/AMC/Gui/Main.pm:2386
 msgid "No layout for this project."
 msgstr "இந்த திட்டப்பணிக்கான அமைவினைக் காணவில்லை."
 
 #. TRANSLATORS: Here, %1$s will be replaced with "Layout detection" (a
 #. button title), and %2$s with "Preparation" (the tab title where one
 #. can find this button).
-#: ../AMC-perl/AMC/Gui/Main.pm:2385
+#: ../AMC-perl/AMC/Gui/Main.pm:2393
 #, fuzzy, perl-format
 msgid "Please use button <i>%1$s</i> in <i>%2$s</i> before manual data capture."
 msgstr "கைமுறை தரவு உள்ளீட்டிற்க்கு முன் <i>%s</i> இந்த பொத்தானை <i>%s</i>ல் பயன்படுத்தவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2388 ../AMC-perl/AMC/Gui/Main.glade:518
+#: ../AMC-perl/AMC/Gui/Main.pm:2396 ../AMC-perl/AMC/Gui/Main.glade:518
 msgid "Layout detection"
 msgstr "அமைவைக் கண்டறிதல்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2389 ../AMC-perl/AMC/Gui/Main.glade:738
+#: ../AMC-perl/AMC/Gui/Main.pm:2397 ../AMC-perl/AMC/Gui/Main.glade:738
 msgid "Preparation"
 msgstr "ஆயத்தப்படுத்துதல்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2425
+#: ../AMC-perl/AMC/Gui/Main.pm:2433
 msgid "Automatic data capture..."
 msgstr "தானியங்கி தரவு உள்ளீடு..."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2513
+#: ../AMC-perl/AMC/Gui/Main.pm:2521
 msgid "Automatic data capture has been completed"
 msgstr "தானியங்கி தரவு உள்ளீடு நிறைவடைந்தது"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2522
+#: ../AMC-perl/AMC/Gui/Main.pm:2530
 #, perl-format
 msgid "Some of the pages you submitted (%d of them) have already been processed before. Old data has been overwritten."
 msgstr "நீங்கள் சமர்ப்பித்த பக்கங்களில் சில (%d) ஏற்கனவே பக்குவப்படுத்தப்பட்டுள்ளன. பழைய தரவுகள் மேலெழுதப்பட்டது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2536
+#: ../AMC-perl/AMC/Gui/Main.pm:2544
 #, fuzzy
 msgid "Data capture errors"
 msgstr "தரவு உள்ளீடல்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2538
+#: ../AMC-perl/AMC/Gui/Main.pm:2546
 msgid "AMC had problems with your scans."
 msgstr ""
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2551
+#: ../AMC-perl/AMC/Gui/Main.pm:2559
 #, fuzzy
 msgid "Please have a look at these scans."
 msgstr "தயவுசெய்து அனைத்து தாள்களின் அலகீடுகளையும் தோ்ந்தெடுக்கவும்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2586
+#: ../AMC-perl/AMC/Gui/Main.pm:2594
 #, perl-format
 msgid "Data capture from %d complete papers and %d incomplete papers"
 msgstr "%d முழுமையான மற்றும் %d முழுமையற்ற தாள்களில் இருந்து தரவை எடுத்தல்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2592
+#: ../AMC-perl/AMC/Gui/Main.pm:2600
 #, perl-format
 msgid "Data capture from %d complete papers"
 msgstr "%d முழுமையான தாள்களில் இருந்து தரவை எடுத்தல்"
 
 #. TRANSLATORS: this text points out that no data capture has been
 #. made yet.
-#: ../AMC-perl/AMC/Gui/Main.pm:2600
+#: ../AMC-perl/AMC/Gui/Main.pm:2608
 msgid "No data"
 msgstr "தரவு இல்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2608
+#: ../AMC-perl/AMC/Gui/Main.pm:2616
 #, perl-format
 msgid "Overwritten pages: %d"
 msgstr "மேலெழுதப்பட்ட பக்கங்கள்: %d"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2616
+#: ../AMC-perl/AMC/Gui/Main.pm:2624
 msgid "All scans were properly recognized."
 msgstr "அனைத்து அலகீடுகளும் ஒழுங்காக கண்டுணரப்பட்டது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2623
+#: ../AMC-perl/AMC/Gui/Main.pm:2631
 #, perl-format
 msgid "%d scans were not recognized."
 msgstr "%d அலகீடுகள் ஒழுங்காக கண்டுணரப்படவில்லை."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2651
+#: ../AMC-perl/AMC/Gui/Main.pm:2659
 msgid "Pages that miss data capture to complete students sheets:"
 msgstr "மாணவா்கள் தாள்களைத் திருத்தி முடிக்கத் தேவையான தரவு உள்ளீடு விடுபட்டுள்ள பக்கங்கள்:"
 
 #. TRANSLATORS: This is the title of the column containing student/copy
 #. identifier in the table showing the results of data captures.
-#: ../AMC-perl/AMC/Gui/Main.pm:2760
+#: ../AMC-perl/AMC/Gui/Main.pm:2768
 msgid "identifier"
 msgstr "அடையாளக்காட்டி"
 
 #. TRANSLATORS: This is the title of the column containing data capture
 #. date/time in the table showing the results of data captures.
-#: ../AMC-perl/AMC/Gui/Main.pm:2774
+#: ../AMC-perl/AMC/Gui/Main.pm:2782
 msgid "updated"
 msgstr "புதுப்பிக்கப்பட்டது"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2816
+#: ../AMC-perl/AMC/Gui/Main.pm:2824
 msgid "scan file"
 msgstr "அலகீட்டுக் கோப்பு"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2973
+#: ../AMC-perl/AMC/Gui/Main.pm:2981
 msgid "Looking for analysis..."
 msgstr "பகுப்பாய்விற்க்காக பாா்த்துக்கொண்டிருக்கிறது..."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3123
+#: ../AMC-perl/AMC/Gui/Main.pm:3131
 #, perl-format
 msgid "You requested to delete all data capture results for %d page(s)"
 msgstr "பக்கம்(பக்கங்கள்) %d இல் இருந்து எடுக்கப்பட்ட அனைத்து தரவு முடிவுகளையும் நீக்க கோரியுள்ளீா்கள்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3130
+#: ../AMC-perl/AMC/Gui/Main.pm:3138
 msgid "All data and image files related to these pages will be deleted."
 msgstr "இந்த பக்கங்களுடன் தொடா்புடைய எல்லா தரவுகளும் படக் கோப்புகளும் நீக்கப்படும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3133
+#: ../AMC-perl/AMC/Gui/Main.pm:3141
 msgid "Do you really want to continue?"
 msgstr "நீங்கள் உறுதியாக தொடர விரும்புகிறீா்களா?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3240
+#: ../AMC-perl/AMC/Gui/Main.pm:3248
 #, perl-format
 msgid "Papers are not yet corrected: use button \"%s\"."
 msgstr "பதில்தாள்கள் இன்னும் திருத்தப்படவில்லை: \"%s\" பொத்தானைப் பயன்படுத்தவும்."
@@ -1616,40 +1626,40 @@ msgstr "பதில்தாள்கள் இன்னும் திரு�
 #. TRANSLATORS: This is a button: "Mark" is here an action to be called
 #. by the user. When clicking this button, the user requests scores to
 #. be computed for all students.
-#: ../AMC-perl/AMC/Gui/Main.pm:3244 ../AMC-perl/AMC/Gui/Main.glade:1417
+#: ../AMC-perl/AMC/Gui/Main.pm:3252 ../AMC-perl/AMC/Gui/Main.glade:1417
 msgid "Mark"
 msgstr "திருத்த"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3319
+#: ../AMC-perl/AMC/Gui/Main.pm:3327
 msgid "Grading has been completed"
 msgstr "மதிப்பிடல் முடிவடைந்தது"
 
 #. TRANSLATORS: This is the marks mean for all students.
-#: ../AMC-perl/AMC/Gui/Main.pm:3337
+#: ../AMC-perl/AMC/Gui/Main.pm:3345
 #, perl-format
 msgid "Mean: %.2f"
 msgstr "சராசாி: %.2f"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3340
+#: ../AMC-perl/AMC/Gui/Main.pm:3348
 msgid "No marks computed"
 msgstr "மதிப்பெண்கள் கணக்கிடப்படவில்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3366
+#: ../AMC-perl/AMC/Gui/Main.pm:3374
 #, perl-format
 msgid "You selected the decoder \"<i>%s</i>\", which requires some tools that are missing on your system:"
 msgstr ""
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3371
+#: ../AMC-perl/AMC/Gui/Main.pm:3379
 #, fuzzy
 msgid "<b>Perl module(s):</b>"
 msgstr "<b>முன்-பக்குவப்படுத்தப்பட்ட</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3375
+#: ../AMC-perl/AMC/Gui/Main.pm:3383
 #, fuzzy
 msgid "<b>Command(s):</b>"
 msgstr "கட்டளைகள்:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3378
+#: ../AMC-perl/AMC/Gui/Main.pm:3386
 #, fuzzy
 msgid "Install these dependencies and try again"
 msgstr "உங்கள் கணினியில் இந்த கூறுகளை நிறுவிய பின்பு மீண்டும் முயற்சிக்கவும்."
@@ -1657,7 +1667,7 @@ msgstr "உங்கள் கணினியில் இந்த கூறு
 #. TRANSLATORS: menu item when choosing the code to use for association
 #. from the completed answer sheets. This item corresponds to
 #. pre-association (each student has an individualized sheet)
-#: ../AMC-perl/AMC/Gui/Main.pm:3409
+#: ../AMC-perl/AMC/Gui/Main.pm:3417
 msgid "Pre-association"
 msgstr "முன்னிணைப்பு"
 
@@ -1665,16 +1675,16 @@ msgstr "முன்னிணைப்பு"
 #. from the completed answer sheets. This item corresponds to the
 #. decoded name field (eg. when a barcode identifying the student has
 #. been sticked in the name field)
-#: ../AMC-perl/AMC/Gui/Main.pm:3416
+#: ../AMC-perl/AMC/Gui/Main.pm:3424
 msgid "Decoded name field"
 msgstr ""
 
 #. TRANSLATORS: Names list file : (none)
-#: ../AMC-perl/AMC/Gui/Main.pm:3540
+#: ../AMC-perl/AMC/Gui/Main.pm:3548
 msgid "(none)"
 msgstr "(ஒன்றுமில்லை)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3557
+#: ../AMC-perl/AMC/Gui/Main.pm:3565
 #, perl-format
 msgid "Unsuitable names file: %d errors, first on line %d."
 msgstr "பெருத்தமற்ற கோப்பு பெயா்கள்: %d பிழைகள், வாிசை %d ல் முதல் பிழை."
@@ -1682,73 +1692,73 @@ msgstr "பெருத்தமற்ற கோப்பு பெயா்க�
 #. TRANSLATORS: Here, do not translate 'name' and 'surname' (except in
 #. french), as the column names in the students list file has to be
 #. named in english in order to be properly detected.
-#: ../AMC-perl/AMC/Gui/Main.pm:3580
+#: ../AMC-perl/AMC/Gui/Main.pm:3588
 #, fuzzy, perl-format
 msgid "Found %1$d empty names in names file <i>%2$s</i>. Check that <b>name</b> or <b>surname</b> column is present, and always filled."
 msgstr "மாணவா்கள் பெயருள்ள கோப்பு <i>%s</i> ல் %d ஐ வெற்றுப் பெயா்கள் உள்ளது. <b>பெயா்</b> அல்லது <b>குடும்பப் பெயா்</b> நெடுவாிசைகள் உள்ளதா என சரிபாா்க்கவும், அவைகள் முழுவதும் நிரம்பியருக்க வேண்டும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3587 ../AMC-perl/AMC/Gui/Main.pm:3609
+#: ../AMC-perl/AMC/Gui/Main.pm:3595 ../AMC-perl/AMC/Gui/Main.pm:3617
 msgid "Edit the names file to correct it, and re-read."
 msgstr "மாணவா்கள் பெயருள்ள கோப்பினை பதிப்பித்து சாிசெய்யவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3605
+#: ../AMC-perl/AMC/Gui/Main.pm:3613
 #, perl-format
 msgid "Found duplicate names: <i>%s</i>. Check that all names are different."
 msgstr "சில பெயா்கள் ஒரு முறைக்கு மேல் காணப்படுகிறது: <i>%s</i>. அனைத்து பெயா்களும் வேறுபட்டு இருப்பதை உறுதி செய்யவும்.  "
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3659
+#: ../AMC-perl/AMC/Gui/Main.pm:3667
 #, perl-format
 msgid "You can't choose column '%s' as a key in the students list, as it contains duplicates (value '%s')"
 msgstr ""
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3711 ../AMC-perl/AMC/Gui/Main.pm:3755
+#: ../AMC-perl/AMC/Gui/Main.pm:3719 ../AMC-perl/AMC/Gui/Main.pm:3763
 #, perl-format
 msgid "The primary key from the students list has been set to \"%s\", which is not the value from the association data."
 msgstr "மாணவா்களின் பட்டியலின் முதன்மைக்குறி \"%s\" ஆக உள்ளது, ஆனால் இது பெயாிணைப்புத் தரவின் மதிப்பு அல்ல."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3718
+#: ../AMC-perl/AMC/Gui/Main.pm:3726
 #, perl-format
 msgid "Some manual association data has be found, which will be lost if the primary key is changed. Do you want to switch back to the primary key \"%s\" and keep association data?"
 msgstr "முதன்மைக்குறியை மாற்றினால், காணப்படும் சில கைமுறை பெயாிணைப்புத் தரவு இழக்கப்படும். பெயாிணைப்புத் தரவை காக்க முதன்மைக்குறியை திரும்ப \"%s\" ல் அமைக்கவா?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3761
+#: ../AMC-perl/AMC/Gui/Main.pm:3769
 msgid "Automatic papers/students association will be re-run to update the association data."
 msgstr "பெயாிணைப்புத் தரவைப் புதுப்பிப்பதற்கு தானியங்கு தாள்கள்-மாணவா்கள் பெயாிணைப்பு மீண்டும் இயக்கப்படும்."
 
 #. TRANSLATORS: Here, %s will be replaced with the name
 #. of the tab "Data capture".
-#: ../AMC-perl/AMC/Gui/Main.pm:3788
+#: ../AMC-perl/AMC/Gui/Main.pm:3796
 #, perl-format
 msgid "Before associating names to papers, you must choose a students list file in tab \"%s\"."
 msgstr "பெயா்களைப் பதில் தாளுடன் இணைக்கும் முன்பு, தத்தல் \"%s\" லிருந்து மாணவா்களின் ஒரு பெயா் பட்டியல் கோப்பினைத் தொிவு செய்யவும்."
 
 #. One of the "notify the user at the end of the following actions" checkbox: for automatic data capture.
-#: ../AMC-perl/AMC/Gui/Main.pm:3790 ../AMC-perl/AMC/Gui/Main.glade:1340
+#: ../AMC-perl/AMC/Gui/Main.pm:3798 ../AMC-perl/AMC/Gui/Main.glade:1340
 #: ../AMC-perl/AMC/Gui/Preferences.glade:1584
 msgid "Data capture"
 msgstr "தரவு உள்ளீடல்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3800
+#: ../AMC-perl/AMC/Gui/Main.pm:3808
 msgid "Please choose a key from primary keys in students list before association."
 msgstr "தயவுசெய்து மாணவர்கள் பட்டியலில் இருந்து முதன்மை குறிக்கான புலத்தைத் தொிவு செய்யவும். "
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3810
+#: ../AMC-perl/AMC/Gui/Main.pm:3818
 msgid "Please choose a code (made with LaTeX command \\AMCcodeGrid or equivalent) before automatic association."
 msgstr "தானியக்கப் பெயரிணைப்புக்கு முன் தயவுசெய்து ஒரு குறிமுறையைத் தெரிவு செய்யவும் (LaTeX கட்டளை \\ AMCcodeGrid அல்லது அதற்கு ஈடான)."
 
 #. TRANSLATORS: Here, %s will be replaced with "Students
 #. identification", which refers to a paragraph in the tab "Marking"
 #. from AMC main window.
-#: ../AMC-perl/AMC/Gui/Main.pm:3865
+#: ../AMC-perl/AMC/Gui/Main.pm:3873
 #, perl-format
 msgid "Before associating names to papers, you must choose a students list file in paragraph \"%s\"."
 msgstr "பெயா்களைப் பதில் தாளுடன் இணைக்கும் முன்பு, பத்தி \"%s\" லிருந்து மாணவா்களின் ஒரு பெயா் பட்டியல் கோப்பினைத் தொிவு செய்யவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3868
+#: ../AMC-perl/AMC/Gui/Main.pm:3876
 msgid "Students identification"
 msgstr "மாணவா்களின் அடையாளமறிதல்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3909
+#: ../AMC-perl/AMC/Gui/Main.pm:3917
 #, perl-format
 msgid "Automatic association completed: %d students recognized."
 msgstr "தானியக்க பெயாிணைப்பு முடிந்தது: %d மாணவா்கள் கண்டுணரப்பட்டனா்."
@@ -1756,63 +1766,63 @@ msgstr "தானியக்க பெயாிணைப்பு முடி�
 #. TRANSLATORS: Here %s and %s will be replaced with two parameters
 #. names: "Primary key from this list" and "Code name for automatic
 #. association".
-#: ../AMC-perl/AMC/Gui/Main.pm:3921
+#: ../AMC-perl/AMC/Gui/Main.pm:3929
 #, perl-format
 msgid "Please check \"%s\" and \"%s\" values and try again."
 msgstr "\"%s\" மற்றும் \"%s\" னுடைய மதிப்புகளைச் சாிபாா்த்து திரும்ப முயற்ச்சிக்கவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3922
+#: ../AMC-perl/AMC/Gui/Main.pm:3930
 msgid "Primary key from this list"
 msgstr "முதன்மைக்குறி "
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3923
+#: ../AMC-perl/AMC/Gui/Main.pm:3931
 msgid "Code name for automatic association"
 msgstr "தானியக்க பெயாிணைப்பிற்கான குறிப்பெயா்"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3942
+#: ../AMC-perl/AMC/Gui/Main.pm:3950
 msgid "No students list file"
 msgstr "மாணவா்கள் பெயா் பட்டியல் கோப்பு இல்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3944
+#: ../AMC-perl/AMC/Gui/Main.pm:3952
 msgid "No primary key from students list file"
 msgstr "மாணவா்கள் பெயா் பட்டியல் கோப்பில் முதன்மைக்குறி இல்லை"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3953
+#: ../AMC-perl/AMC/Gui/Main.pm:3961
 #, perl-format
 msgid "Missing identification for %d answer sheets"
 msgstr "%d இந்த பதில்தாள்களின் அடையாளமறிதல் விடுபட்டுள்ளது"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3958
+#: ../AMC-perl/AMC/Gui/Main.pm:3966
 msgid "All completed answer sheets are associated with a student name"
 msgstr "மாணவா்களின் பெயா்களோடு அவா்களின் முடிக்கப்பெற்ற பதில் தாள்கள் இணைக்கப்பட்டது"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4091
+#: ../AMC-perl/AMC/Gui/Main.pm:4099
 #, perl-format
 msgid "Exporting to '%s' needs some perl modules that are not installed: %s. Please install these modules or switch to another export format."
 msgstr "'%s' க்கு ஏற்றுவதற்க்கு தேவையான சில perl கூறுகள் நிறுவப்படவில்லை: %s. இந்த கூறுகளை  நிறுவவும் அல்லது வேறொரு ஏற்று வடிவமைப்பிற்கு மாறவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4115
+#: ../AMC-perl/AMC/Gui/Main.pm:4123
 msgid "When referring to a particular answer in the export, the letter used will be the one found in the catalog. However, the catalog has not yet been built. Do you want to build it now?"
 msgstr "ஏற்றுமதியில் ஒரு குறிப்பிட்ட பதிலை குறிப்பிடும் போது, பட்டியல் வரிசையில் காணப்படும் பயன்படுத்தப்படும். எனினும், பட்டியல் வரிசை இன்னும் உருவாக்கப்படவில்லை. அதை இப்போது உருவாக்க வேண்டுமா?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4184
+#: ../AMC-perl/AMC/Gui/Main.pm:4192
 #, perl-format
 msgid "Export to %s did not work: file not created..."
 msgstr "%sக்கு ஏற்றுதல் வேலை செய்யவில்லை: கோப்பு உருவாக்கப்படவில்லை ..."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4233
+#: ../AMC-perl/AMC/Gui/Main.pm:4241
 msgid "Annotations have been completed"
 msgstr "சுட்டுவிளக்கப்படுத்தல் முடிவடைந்தது"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4315
+#: ../AMC-perl/AMC/Gui/Main.pm:4323
 msgid "Cancelled."
 msgstr "இரத்தானது."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4320
+#: ../AMC-perl/AMC/Gui/Main.pm:4328
 msgid "SMTP authentication failed: check SMTP configuration and password."
 msgstr "SMTP அங்கீகரிப்பு தோல்வியுற்றது: SMTP உருப்படுத்தல் மற்றும் கடவுச்சொல்லை சோதிக்கவும்."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4323
+#: ../AMC-perl/AMC/Gui/Main.pm:4331
 #, perl-format
 msgid "%d message(s) has been sent."
 msgstr "%d செய்தி(கள்) அனுப்பப்பட்டது."
@@ -1821,11 +1831,11 @@ msgstr "%d செய்தி(கள்) அனுப்பப்பட்டத
 msgid "Page layout"
 msgstr "பக்க அமைவு"
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:140
+#: ../AMC-perl/AMC/Gui/Manuel.pm:138
 msgid "Original"
 msgstr "அசல்"
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:140 ../AMC-perl/AMC/Gui/Preferences.glade:2165
+#: ../AMC-perl/AMC/Gui/Manuel.pm:138 ../AMC-perl/AMC/Gui/Preferences.glade:2165
 msgid "Scan"
 msgstr "அலகீடு"
 
@@ -1833,7 +1843,7 @@ msgstr "அலகீடு"
 #. manual data capture window. Here, navigation goes through all
 #. pages. Please keep this text very short (say less than 5 letters) so
 #. that the window is not too large
-#: ../AMC-perl/AMC/Gui/Manuel.pm:150 ../AMC-perl/AMC/Gui/Manuel.pm:183
+#: ../AMC-perl/AMC/Gui/Manuel.pm:148 ../AMC-perl/AMC/Gui/Manuel.pm:181
 msgid "all"
 msgstr "அனைத்து"
 
@@ -1841,7 +1851,7 @@ msgstr "அனைத்து"
 #. manual data capture window. Here, navigation goes through pages with
 #. some invalid answers. Please keep this text very short (say less
 #. than 5 letters) so that the window is not too large
-#: ../AMC-perl/AMC/Gui/Manuel.pm:159
+#: ../AMC-perl/AMC/Gui/Manuel.pm:157
 msgid "inv"
 msgstr "செல்லா"
 
@@ -1849,20 +1859,20 @@ msgstr "செல்லா"
 #. manual data capture window. Here, navigation goes through pages with
 #. empty or invalid answers. Please keep this text very short (say less
 #. than 5 letters) so that the window is not too large
-#: ../AMC-perl/AMC/Gui/Manuel.pm:168
+#: ../AMC-perl/AMC/Gui/Manuel.pm:166
 msgid "i&e"
 msgstr "காலி&செல்லா"
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:225
+#: ../AMC-perl/AMC/Gui/Manuel.pm:224
 msgid "page"
 msgstr "பக்கம்"
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:602
+#: ../AMC-perl/AMC/Gui/Manuel.pm:597
 #, perl-format
 msgid "This is a template exam that you cannot edit. To create a new exam from this one to be edited, use the '%s' button."
 msgstr "இந்த வாா்ப்புரு தோ்வை நீங்கள் திருத்த முடியாது. '%s' இந்த பொத்தானைப் பயன்படுத்தி வாா்ப்புருவில் இருந்து ஒரு புதிய தோ்வை உருவாக்கி அதை பதிப்பிக்கலாம்."
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:603 ../AMC-perl/AMC/Gui/Manuel.glade:90
+#: ../AMC-perl/AMC/Gui/Manuel.pm:598 ../AMC-perl/AMC/Gui/Manuel.glade:89
 msgid "Add photocopy"
 msgstr "நகலைச் சோ்க்கவும்"
 
@@ -3113,31 +3123,31 @@ msgstr "இந்தப் பக்கத்தின் கைமுறை ம
 msgid "Cancel modifications for this page"
 msgstr "இந்தப் பக்கத்தின் மாற்றங்களை நீக்கவும்"
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:106
+#: ../AMC-perl/AMC/Gui/Manuel.glade:105
 msgid "Save and quit"
 msgstr "சேமித்து வெளியேறு"
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:138 ../AMC-perl/AMC/Gui/Manuel.glade:367
+#: ../AMC-perl/AMC/Gui/Manuel.glade:137 ../AMC-perl/AMC/Gui/Manuel.glade:366
 msgid "Save this page modifications, then go to the previous page."
 msgstr "இந்தப் பக்கத்தின் மாற்றங்களைச் சேமித்து, முந்தைய பக்கத்திற்குச் செல்லவும்."
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:161 ../AMC-perl/AMC/Gui/Manuel.glade:322
+#: ../AMC-perl/AMC/Gui/Manuel.glade:160 ../AMC-perl/AMC/Gui/Manuel.glade:321
 msgid "Go to:"
 msgstr "செல்க:"
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:173 ../AMC-perl/AMC/Gui/Manuel.glade:334
+#: ../AMC-perl/AMC/Gui/Manuel.glade:172 ../AMC-perl/AMC/Gui/Manuel.glade:333
 msgid "Enter paper number, or page number like 102/4 (page 4 from paper 102), then press enter."
 msgstr "தாள் எண் மற்றும் பக்க எண்ணை (எ.கா. தாள் 102 ல் இருந்து பக்கம் 4) 102/4 உள்ளிட்டு, பின்னர் Enter பொத்தானை அழுத்தவும்."
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:201 ../AMC-perl/AMC/Gui/Manuel.glade:402
+#: ../AMC-perl/AMC/Gui/Manuel.glade:200 ../AMC-perl/AMC/Gui/Manuel.glade:401
 msgid "Save this page modifications, then go to next page."
 msgstr "இந்தப் பக்கத்தின் மாற்றங்களைச் சேமித்து, அடுத்த பக்கத்திற்குச் செல்லவும்."
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:381
+#: ../AMC-perl/AMC/Gui/Manuel.glade:380
 msgid "Choose if you want to navigate through all pages, through pages with invalid answers, or through pages with invalid or empty answers."
 msgstr "அனைத்து பக்கங்களினூடாக செல்ல அல்லது செல்லுபடியாகாத பக்கங்களினூடாக செல்ல அல்லது வெற்று மற்றும் செல்லுபடியாகாத பக்கங்களினூடாக செல்ல ஆகியவற்றில் ஒன்றைத் தொிவு செய்யவும்."
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:428
+#: ../AMC-perl/AMC/Gui/Manuel.glade:427
 msgid "Focus on question:"
 msgstr "கேள்வியைக் கவனிக்க:"
 

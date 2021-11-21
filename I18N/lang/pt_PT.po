@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AutoMultipleChoice\n"
 "Report-Msgid-Bugs-To: paamc@passoire.fr\n"
-"POT-Creation-Date: 2021-01-18 19:04 +0100\n"
+"POT-Creation-Date: 2021-11-21 18:29 +0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
 #: ../AMC-analyse.pl:103
 msgid "Not enough corner marks detected"
@@ -21,30 +21,30 @@ msgid "This page seems to be blank"
 msgstr "Esta página parece vazia"
 
 #. TRANSLATORS: Message displayed when not all scans are recognized (AMC don't know which subject page some scans come from), after automatic data capture.
-#: ../AMC-analyse.pl:826
+#: ../AMC-analyse.pl:827
 #, fuzzy, perl-format
 msgid "%d scans are not recognized:"
 msgstr "%d digitalizações não foram reconhecidas."
 
 #. TRANSLATORS: Message displayed during automatic data capture with multiple-pages subjects and photocopy mode. AMC encountered another version of page %s but did not see the same number of versions of other pages from the same student.
-#: ../AMC-analyse.pl:867
+#: ../AMC-analyse.pl:868
 #, fuzzy, perl-format
 msgid "Too much scans for page %s."
 msgstr "Ampliações das caixas para a página %s"
 
 #. TRANSLATORS: Message displayed during automatic data capture with multiple-pages subjects and photocopy mode. AMC encountered another version of page %s but has already processed multiple times other pages from the same student.
-#: ../AMC-analyse.pl:876
+#: ../AMC-analyse.pl:877
 #, perl-format
 msgid "One page %s is comming too late."
 msgstr "Uma página da %s chega tarde demais."
 
 #. TRANSLATORS: Message displayed during automatic data capture with multiple-pages subjects and photocopy mode.
-#: ../AMC-analyse.pl:901
+#: ../AMC-analyse.pl:902
 #, fuzzy
 msgid "You did not provide the same number of copies for all pages."
 msgstr "A longa lista foi dividida neste número de colunas em cada página."
 
-#: ../AMC-analyse.pl:904
+#: ../AMC-analyse.pl:905
 #, fuzzy
 msgid "Student sheet:"
 msgstr "Lista de estudantes:"
@@ -52,8 +52,8 @@ msgstr "Lista de estudantes:"
 #. TRANSLATORS: directory name for projects. This directory will be
 #. created (if needed) in the home directory of the user. Please use
 #. only alphanumeric characters, and - or _. No accentuated characters.
-#: ../AMC-annotate.pl:156 ../AMC-decode.pl:39 ../AMC-perl/AMC/Config.pm:261
-#: ../AMC-perl/AMC/Config.pm:262
+#: ../AMC-annotate.pl:157 ../AMC-decode.pl:39 ../AMC-perl/AMC/Config.pm:262
+#: ../AMC-perl/AMC/Config.pm:263
 msgid "MC-Projects"
 msgstr "Projetos-MC"
 
@@ -83,16 +83,16 @@ msgstr "Processando a imagem %s..."
 msgid "Copying scans to project directory..."
 msgstr "Copiando as digitalizações para a pasta do projeto..."
 
-#: ../AMC-gui.pl:144
+#: ../AMC-gui.pl:148
 #, perl-format
 msgid "I don't find the command %s."
 msgstr "Não se encontra o comando %s."
 
-#: ../AMC-gui.pl:145
+#: ../AMC-gui.pl:149
 msgid "Perhaps LaTeX is not installed?"
 msgstr "Será que o LaTeX não está instalado?"
 
-#: ../AMC-gui.pl:151
+#: ../AMC-gui.pl:155
 msgid "The style file automultiplechoice.sty seems to be unreachable. Try to use command 'auto-multiple-choice latex-link' as root to fix this."
 msgstr "O ficheiro de estilo automultiplechoice.sty parece estar inacessível. Tente usar o comando 'auto-multiple-choice latex-link' como raiz para resolver este problema."
 
@@ -152,37 +152,37 @@ msgid "Reading PDF forms..."
 msgstr "A ler os formulários/inquéritos/exames PDF..."
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:721
+#: ../AMC-perl/AMC/Basic.pm:735
 msgid "Name [name column title in exported spreadsheet]"
 msgstr "Nome [o nome da coluna na exportando na planilha]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:725
+#: ../AMC-perl/AMC/Basic.pm:739
 msgid "Mark [mark column title in exported spreadsheet]"
 msgstr "Pontuação [coluna de pontuação exportada na planilha]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:729
+#: ../AMC-perl/AMC/Basic.pm:743
 msgid "Exam [exam number column title in exported spreadsheet]"
 msgstr "Exame [coluna com o número do exame exportado na planilha]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:733
+#: ../AMC-perl/AMC/Basic.pm:747
 msgid "Score [total score column title in exported spreadsheet]"
 msgstr "Soma(?)  [coluna com a soma total exportada na planilha]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:737
+#: ../AMC-perl/AMC/Basic.pm:751
 msgid "Max [maximum score column title in exported spreadsheet]"
 msgstr "Máx [coluna com a máxima pontuação na planilha exportada]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:742
+#: ../AMC-perl/AMC/Basic.pm:756
 msgid "max [maximum score row name in exported spreadsheet]"
 msgstr "máx [coluna com o nome da linha na planilha expotada]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Basic.pm:746
+#: ../AMC-perl/AMC/Basic.pm:760
 msgid "mean [means of scores row name in exported spreadsheet]"
 msgstr "média [coluna com as médias de pontuação das linhas na planilha exportada]"
 
@@ -192,20 +192,20 @@ msgstr "média [coluna com as médias de pontuação das linhas na planilha expo
 #. mark, %m with the maximum mark he can obtain, %S with the
 #. student total score, and %M with the maximum score the
 #. student can obtain.
-#: ../AMC-perl/AMC/Config.pm:344
+#: ../AMC-perl/AMC/Config.pm:345
 msgid "Mark: %s/%m (total score: %S/%M)"
 msgstr "Pontuação: %s/%m (total: %S/%M)"
 
 #. TRANSLATORS: Subject of the emails which can be sent to the students
 #. to give them their subject.
-#: ../AMC-perl/AMC/Config.pm:375
+#: ../AMC-perl/AMC/Config.pm:376
 #, fuzzy
 msgid "Exam question"
 msgstr "Questão"
 
 #. TRANSLATORS: Body text of the emails which can be sent to the
 #. students to give them their subject.
-#: ../AMC-perl/AMC/Config.pm:380
+#: ../AMC-perl/AMC/Config.pm:381
 #, fuzzy
 msgid ""
 "Please find enclosed your question sheet.\n"
@@ -216,13 +216,13 @@ msgstr ""
 
 #. TRANSLATORS: Subject of the emails which can be sent to the students
 #. to give them their annotated completed answer sheet.
-#: ../AMC-perl/AMC/Config.pm:387
+#: ../AMC-perl/AMC/Config.pm:388
 msgid "Exam result"
 msgstr "Resultado do exame"
 
 #. TRANSLATORS: Body text of the emails which can be sent to the
 #. students to give them their annotated completed answer sheet.
-#: ../AMC-perl/AMC/Config.pm:392
+#: ../AMC-perl/AMC/Config.pm:393
 msgid ""
 "Please find enclosed your annotated completed answer sheet.\n"
 "Regards."
@@ -233,13 +233,13 @@ msgstr ""
 #. TRANSLATORS: Message (first part) when some of
 #. the commands that are given in the preferences
 #. cannot be found.
-#: ../AMC-perl/AMC/Config.pm:687
+#: ../AMC-perl/AMC/Config.pm:688
 msgid "Some commands allowing to open documents can't be found:"
 msgstr "Alguns comandos que permitem abrir documentos não podem ser encontrados:"
 
 #. TRANSLATORS: Message (second part) when some of the commands that
 #. are given in the preferences cannot be found.
-#: ../AMC-perl/AMC/Config.pm:696
+#: ../AMC-perl/AMC/Config.pm:697
 msgid "Please check its correct spelling and install missing software."
 msgstr "Por favor, verifique a ortografia e instale o software em falta."
 
@@ -247,25 +247,25 @@ msgstr "Por favor, verifique a ortografia e instale o software em falta."
 #. given in the preferences cannot be found. The %s will be replaced
 #. with the name of the menu entry "Preferences" and the name of the
 #. menu "Edit".
-#: ../AMC-perl/AMC/Config.pm:706
+#: ../AMC-perl/AMC/Config.pm:707
 #, perl-format
 msgid "You can change used commands following <i>%s</i> from menu <i>%s</i>."
 msgstr "Pode mudar comandos habituais seguindo <i>%s</i> no menu <i>%s</i>."
 
 #. TRANSLATORS: "Preferences" menu
-#: ../AMC-perl/AMC/Config.pm:708 ../AMC-perl/AMC/Gui/Main.glade:2760
+#: ../AMC-perl/AMC/Config.pm:709 ../AMC-perl/AMC/Gui/Main.glade:2760
 msgid "Preferences"
 msgstr "Preferências"
 
 #. TRANSLATORS: "Edit" menu
-#: ../AMC-perl/AMC/Config.pm:711
+#: ../AMC-perl/AMC/Config.pm:712
 msgid "Edit"
 msgstr "Editar"
 
 #. TRANSLATORS: Error writing one of the configuration files (global or
 #. project). The first %s will be replaced with the path of that file,
 #. and the second with the error text.
-#: ../AMC-perl/AMC/Config.pm:978
+#: ../AMC-perl/AMC/Config.pm:979
 #, perl-format
 msgid "Error writing configuration file %s: %s"
 msgstr "Erro ao escrever o ficheiro de configuração %s: %s"
@@ -480,42 +480,42 @@ msgstr "NONE"
 
 #. TRANSLATORS: table name in the exported ODS
 #. spreadsheet for the table that contains the marks.
-#: ../AMC-perl/AMC/Export/ods.pm:1099 ../AMC-perl/AMC/Gui/Notes.glade:8
+#: ../AMC-perl/AMC/Export/ods.pm:1100 ../AMC-perl/AMC/Gui/Notes.glade:8
 #: ../AMC-perl/AMC/Gui/Notes.glade:13
 msgid "Marks"
 msgstr "Marcas"
 
 #. TRANSLATORS: Label of the table with questions
 #. basic statistics in the exported ODS spreadsheet.
-#: ../AMC-perl/AMC/Export/ods.pm:1579
+#: ../AMC-perl/AMC/Export/ods.pm:1580
 msgid "Questions statistics"
 msgstr "Estatísticas das questões"
 
 #. TRANSLATORS: Label of the table with indicative
 #. questions basic statistics in the exported ODS
 #. spreadsheet.
-#: ../AMC-perl/AMC/Export/ods.pm:1597
+#: ../AMC-perl/AMC/Export/ods.pm:1598
 msgid "Indicative questions statistics"
 msgstr "Estatísticas indicatórias sobre as questões"
 
 #. TRANSLATORS: Label of the table with a legend
 #. (explaination of the colors used) in the exported ODS
 #. spreadsheet.
-#: ../AMC-perl/AMC/Export/ods.pm:1617 ../AMC-perl/AMC/Export/ods.pm:1626
+#: ../AMC-perl/AMC/Export/ods.pm:1618 ../AMC-perl/AMC/Export/ods.pm:1627
 msgid "Legend"
 msgstr "Legenda"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that have
 #. not been asked to some students.
-#: ../AMC-perl/AMC/Export/ods.pm:1640
+#: ../AMC-perl/AMC/Export/ods.pm:1641
 msgid "Non applicable"
 msgstr "Não aplicável"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that have
 #. not been answered.
-#: ../AMC-perl/AMC/Export/ods.pm:1655
+#: ../AMC-perl/AMC/Export/ods.pm:1656
 msgid "No answer"
 msgstr "Nenhuma resposta"
 
@@ -523,38 +523,38 @@ msgstr "Nenhuma resposta"
 #. spreadsheet. This refers to the questions that have
 #. not been answered, but are cancelled by the use of
 #. allowempty scoring strategy.
-#: ../AMC-perl/AMC/Export/ods.pm:1671
+#: ../AMC-perl/AMC/Export/ods.pm:1672
 msgid "Cancelled"
 msgstr "Cancelado"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that got an
 #. invalid answer.
-#: ../AMC-perl/AMC/Export/ods.pm:1686
+#: ../AMC-perl/AMC/Export/ods.pm:1687
 msgid "Invalid answer"
 msgstr "Resposta inválida"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that
 #. got an invalid answer.
-#: ../AMC-perl/AMC/Export/ods.pm:1702
+#: ../AMC-perl/AMC/Export/ods.pm:1703
 msgid "Correct answer"
 msgstr "Resposta correta"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the questions that
 #. got an invalid answer.
-#: ../AMC-perl/AMC/Export/ods.pm:1717
+#: ../AMC-perl/AMC/Export/ods.pm:1718
 msgid "Wrong answer"
 msgstr "Resposta errada"
 
 #. TRANSLATORS: From the legend in the exported ODS
 #. spreadsheet. This refers to the indicative questions.
-#: ../AMC-perl/AMC/Export/ods.pm:1732
+#: ../AMC-perl/AMC/Export/ods.pm:1733
 msgid "Indicative"
 msgstr "Indicativo"
 
-#: ../AMC-perl/AMC/Export/ods.pm:1767
+#: ../AMC-perl/AMC/Export/ods.pm:1768
 msgid "An old state of the exported file seems to be already opened. Use File/Reload from OpenOffice/LibreOffice to refresh."
 msgstr "Um antigo estado do ficheiro exportado parece já estar aberto. Use Ficheiro/Recarregar no OpenOffice/LibreOffice para atualizar."
 
@@ -817,8 +817,8 @@ msgstr "- <b>%s</b> representa o distenciamento das quatro marcas de canto. Valo
 #. the four corner marks on the scan and the location where they should
 #. be if the scan was not distorted at all) in the table showing the
 #. results of data captures.
-#: ../AMC-perl/AMC/Gui/Learning.pm:132 ../AMC-perl/AMC/Gui/Main.pm:2788
-#: ../AMC-perl/AMC/Gui/Manuel.pm:235 ../AMC-perl/AMC/Gui/Main.glade:146
+#: ../AMC-perl/AMC/Gui/Learning.pm:132 ../AMC-perl/AMC/Gui/Main.pm:2796
+#: ../AMC-perl/AMC/Gui/Manuel.pm:234 ../AMC-perl/AMC/Gui/Main.glade:146
 msgid "MSE"
 msgstr "EQM (\"MSE\")"
 
@@ -833,8 +833,8 @@ msgstr "- valores grandes de <b>%s</b> são encontrados quando o nível de negri
 #. tells that some darkness ratios are very near the threshold, so that
 #. the capture is very sensitive to the threshold. A small value is a
 #. good thing) in the table showing the results of data captures.
-#: ../AMC-perl/AMC/Gui/Learning.pm:138 ../AMC-perl/AMC/Gui/Main.pm:2806
-#: ../AMC-perl/AMC/Gui/Manuel.pm:245
+#: ../AMC-perl/AMC/Gui/Learning.pm:138 ../AMC-perl/AMC/Gui/Main.pm:2814
+#: ../AMC-perl/AMC/Gui/Manuel.pm:244
 msgid "sensitivity"
 msgstr "sensitividade"
 
@@ -846,7 +846,7 @@ msgstr "Pode observar os parâmetros da digitalização (<i>%s</i>), as caixas m
 #. TRANSLATORS: One of the popup menu that appears when right-clicking
 #. on a page in the data capture diagnosis table. Choosing this entry,
 #. an image will be opened to see where the corner marks were detected.
-#: ../AMC-perl/AMC/Gui/Learning.pm:144 ../AMC-perl/AMC/Gui/Main.pm:2700
+#: ../AMC-perl/AMC/Gui/Learning.pm:144 ../AMC-perl/AMC/Gui/Main.pm:2708
 msgid "page adjustment"
 msgstr "ajuste de página"
 
@@ -855,7 +855,7 @@ msgstr "ajuste de página"
 #. a window will be opened were the user can see all boxes on the scans
 #. and how they were filled by the students, and correct detection of
 #. ticked-or-not if needed.
-#: ../AMC-perl/AMC/Gui/Learning.pm:145 ../AMC-perl/AMC/Gui/Main.pm:2707
+#: ../AMC-perl/AMC/Gui/Learning.pm:145 ../AMC-perl/AMC/Gui/Main.pm:2715
 msgid "boxes zooms"
 msgstr "ampliação das caixas"
 
@@ -902,7 +902,7 @@ msgstr "cópia"
 #. TRANSLATORS: One of the possible sorting criteria for students in
 #. the exported spreadsheet with scores: the student name. This is a
 #. menu entry.
-#: ../AMC-perl/AMC/Gui/Mailing.pm:185 ../AMC-perl/AMC/Gui/Main.pm:281
+#: ../AMC-perl/AMC/Gui/Mailing.pm:185 ../AMC-perl/AMC/Gui/Main.pm:283
 msgid "name"
 msgstr "nome"
 
@@ -994,7 +994,7 @@ msgstr "Nome do exame"
 msgid "Code (short name) for examination"
 msgstr "Código (nome curto) do exame"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:177
+#: ../AMC-perl/AMC/Gui/Main.pm:179
 msgid ""
 "The package <i>auto-multiple-choice-common</i> is installed, but not <i>auto-multiple-choice</i>.\n"
 "<b>AMC won't work properly until you install auto-multiple-choice package!</b>"
@@ -1002,56 +1002,56 @@ msgstr ""
 "O pacote  <i>auto-multiple-choice-common</i> está instalado mas não <i>auto-multiple-choice</i>.\n"
 "<b>O AMC não funcionará corretamente até que instale o pacote auto-multiple-choice.</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:193
+#: ../AMC-perl/AMC/Gui/Main.pm:195
 msgid "None of the perl modules <b>Graphics::Magick</b> and <b>Image::Magick</b> are installed: AMC won't work properly!"
 msgstr "Nenhum dos módulos perl  <b>Graphics::Magick</b> e <b>Image::Magick</b> estão instalados: o AMC não funcionará corretamente!"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:225
+#: ../AMC-perl/AMC/Gui/Main.pm:227
 msgid "Please install <b>libnotify</b> to make desktop notifications available."
 msgstr "Por favor, instale <b>libnotify</b> para tornar disponíveis as notificações no desktop."
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
-#: ../AMC-perl/AMC/Gui/Main.pm:238 ../AMC-perl/AMC/Gui/Main.pm:3629
+#: ../AMC-perl/AMC/Gui/Main.pm:240 ../AMC-perl/AMC/Gui/Main.pm:3637
 msgid "(none) [No primary key found in association list]"
 msgstr "(nenhum) [Nenhuma chave primária encontrada na lista de associações]"
 
 #. TRANSLATORS: you can omit the [...] part, just here to explain context
 #. TRANSLATORS: you can omit the [...] part, just here to explain
 #. context
-#: ../AMC-perl/AMC/Gui/Main.pm:243 ../AMC-perl/AMC/Gui/Main.pm:3439
+#: ../AMC-perl/AMC/Gui/Main.pm:245 ../AMC-perl/AMC/Gui/Main.pm:3447
 msgid "(none) [No code found in LaTeX file]"
 msgstr "(nenhum) [nenhum código encontrado no ficheiro LaTeX]"
 
 #. TRANSLATORS: One of the actions that can be done after exporting the
 #. marks. Here, do nothing more. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:263
+#: ../AMC-perl/AMC/Gui/Main.pm:265
 msgid "that's all"
 msgstr "é tudo"
 
 #. TRANSLATORS: One of the actions that can be done after exporting the
 #. marks. Here, open the exported file. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:268
+#: ../AMC-perl/AMC/Gui/Main.pm:270
 msgid "open the file"
 msgstr "abre o ficheiro"
 
 #. TRANSLATORS: One of the actions that can be done after exporting the
 #. marks. Here, open the directory where the file is. This is a menu
 #. entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:273
+#: ../AMC-perl/AMC/Gui/Main.pm:275
 msgid "open the directory"
 msgstr "abre a pasta"
 
 #. TRANSLATORS: One of the possible sorting criteria for students in
 #. the exported spreadsheet with scores: the student sheet number. This
 #. is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:286
+#: ../AMC-perl/AMC/Gui/Main.pm:288
 msgid "exam copy number"
 msgstr "número de cópia do exame/inquérito"
 
 #. TRANSLATORS: One of the possible sorting criteria for students in
 #. the exported spreadsheet with scores: the line where one can find
 #. this student in the students list file. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:291
+#: ../AMC-perl/AMC/Gui/Main.pm:293
 msgid "line in students list"
 msgstr "linha na lista de alunos"
 
@@ -1059,21 +1059,29 @@ msgstr "linha na lista de alunos"
 #. context.  One of the possible sorting criteria for students in the
 #. exported spreadsheet with scores: the student mark. This is a menu
 #. entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:297
-msgid "mark [student mark, for sorting]"
-msgstr "Pontuação"
+#: ../AMC-perl/AMC/Gui/Main.pm:299
+msgid "mark (ascending) [student mark, for sorting]"
+msgstr "Pontuação (ascendente)"
+
+#. TRANSLATORS: you can omit the [...] part, just here to explain
+#. context.  One of the possible sorting criteria for students in the
+#. exported spreadsheet with scores: the student mark. This is a menu
+#. entry.
+#: ../AMC-perl/AMC/Gui/Main.pm:305
+msgid "mark (descending) [student mark, for sorting]"
+msgstr "Pontuação (descendente)"
 
 #. TRANSLATORS: One of the possible way to group annotated answer
 #. sheets together to PDF files: make one PDF file per student, with
 #. all his pages. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:305
+#: ../AMC-perl/AMC/Gui/Main.pm:313
 msgid "One file per student"
 msgstr "Um ficheiro por estudante"
 
 #. TRANSLATORS: One of the possible way to group annotated answer
 #. sheets together to PDF files: make only one PDF with all students
 #. sheets. This is a menu entry.
-#: ../AMC-perl/AMC/Gui/Main.pm:310
+#: ../AMC-perl/AMC/Gui/Main.pm:318
 msgid "One file for all students"
 msgstr "Um ficheiro para todos os estudantes"
 
@@ -1081,7 +1089,7 @@ msgstr "Um ficheiro para todos os estudantes"
 #. we only select pages where the student has written something (in
 #. separate answer sheet mode, these are the pages from the answer
 #. sheet and not the pages from the subject).
-#: ../AMC-perl/AMC/Gui/Main.pm:319
+#: ../AMC-perl/AMC/Gui/Main.pm:327
 msgid "Only pages with answers"
 msgstr "Só páginas com respostas"
 
@@ -1089,7 +1097,7 @@ msgstr "Só páginas com respostas"
 #. we take the pages were the students has nothing to write (often
 #. question pages from a subject with separate answer sheet option)
 #. from the subject.
-#: ../AMC-perl/AMC/Gui/Main.pm:325
+#: ../AMC-perl/AMC/Gui/Main.pm:333
 msgid "Question pages from subject"
 msgstr "Páginas com questões obtidas do assunto"
 
@@ -1097,222 +1105,222 @@ msgstr "Páginas com questões obtidas do assunto"
 #. we take the pages were the students has nothing to write (often
 #. question pages from a subject with separate answer sheet option)
 #. from the correction.
-#: ../AMC-perl/AMC/Gui/Main.pm:331
+#: ../AMC-perl/AMC/Gui/Main.pm:339
 msgid "Question pages from correction"
 msgstr "Páginas com questões para correção"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:338
+#: ../AMC-perl/AMC/Gui/Main.pm:346
 msgid "All students"
 msgstr "Todos os estudantes"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:342
+#: ../AMC-perl/AMC/Gui/Main.pm:350
 msgid "Selected students"
 msgstr "Estudantes selecionados"
 
 #. TRANSLATORS: Message when switching to debugging mode.
-#: ../AMC-perl/AMC/Gui/Main.pm:449
+#: ../AMC-perl/AMC/Gui/Main.pm:457
 msgid "Debugging mode."
 msgstr "Modo de depuração."
 
 #. TRANSLATORS: Message when switching to debugging mode. %s will be
 #. replaced with the path of the log file.
-#: ../AMC-perl/AMC/Gui/Main.pm:455
+#: ../AMC-perl/AMC/Gui/Main.pm:463
 #, perl-format
 msgid "Debugging informations will be written in file %s."
 msgstr "A informação sobre a depuração será escrita no ficheiro %s."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:487
+#: ../AMC-perl/AMC/Gui/Main.pm:495
 msgid "In order to send a useful bug report, please attach the following documents:"
 msgstr "De modo a nos enviar um relatório útil sobre um problema, por favor anexe os seguintes documentos:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:491
+#: ../AMC-perl/AMC/Gui/Main.pm:499
 msgid "an archive (in some compressed format, like ZIP, 7Z, TGZ...) containing the <b>project directory</b>, <b>scan files</b> and <b>configuration directory</b> (.AMC.d in home directory), so as to reproduce and analyse this problem."
 msgstr "um arquivo (em algum formato compacto como ZIP, 7Z, TGZ...) contendo a <b>pasta do porjeto</b>, <b>ficheiros digitalizados</b> e <b>a pasta de configuração</b> (.AMC.d na pasta \"home\"), por forma a reproduzir e analisar o problema."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:495
+#: ../AMC-perl/AMC/Gui/Main.pm:503
 msgid "the <b>log file</b> produced when the debugging mode (in Help menu) is checked. Please try to reproduce the bug with this mode activated."
 msgstr "O <b>log file</b> produzido em modo de depuração (no menu \"Help\" ) está marcada. Por favor, tente reproduzir este problema com este modo ativo."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:499
+#: ../AMC-perl/AMC/Gui/Main.pm:507
 #, perl-format
 msgid "Bug reports can be filled at %s or sent to the address below."
 msgstr "Relatórios de erros podem ser preenchidos em %s ou enviados para o endereço abaixo."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:500 ../AMC-perl/AMC/Gui/Main.pm:506
+#: ../AMC-perl/AMC/Gui/Main.pm:508 ../AMC-perl/AMC/Gui/Main.pm:514
 msgid "AMC community site"
 msgstr "Sítio Comunitário do AMC"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:624
+#: ../AMC-perl/AMC/Gui/Main.pm:632
 #, perl-format
 msgid "There is too little space left in the temporary disk directory (%s). <b>Please clean this directory and try again.</b>"
 msgstr "Existe pouco espaço no disco temporário (%s) <b>Por favor, limpe a pasta e tente de novo.</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:652
+#: ../AMC-perl/AMC/Gui/Main.pm:660
 #, perl-format
 msgid "Following command could not be run: <b>%s</b>, perhaps due to a poor configuration?"
 msgstr "O comando seguinte não pode ser executado:  <b>%s</b>. Será devido a uma má configuração?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:925
+#: ../AMC-perl/AMC/Gui/Main.pm:933
 msgid "Install an AMC plugin"
 msgstr "Instalar um \"plugin\" do AMC"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:931
+#: ../AMC-perl/AMC/Gui/Main.pm:939
 msgid "Plugins (zip, tgz)"
 msgstr "\"Plugin\" (zip, tgz)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:953
+#: ../AMC-perl/AMC/Gui/Main.pm:961
 #, perl-format
 msgid "An error occured while trying to extract files from the plugin archive: %s."
 msgstr "Um erro ocorreu enquanto se tentava extrair of ficheiros do arquivo contendo o plugin: %s"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:972
+#: ../AMC-perl/AMC/Gui/Main.pm:980
 msgid "Nothing extracted from the plugin archive. Check it."
 msgstr "Nada foi extraído do arquivo de pluin. Verifique-o."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:985
+#: ../AMC-perl/AMC/Gui/Main.pm:993
 msgid "This is not a valid plugin, as it contains more than one directory at the first level."
 msgstr "Não é um plugin válido, pois contém mais que uma pasta no primeiro nível."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:999
+#: ../AMC-perl/AMC/Gui/Main.pm:1007
 msgid "This is not a valid plugin, as it does not contain a perl/AMC subdirectory."
 msgstr "Nâo é um plugin válido porque não contém uma subpasta perl/AMC."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1017
+#: ../AMC-perl/AMC/Gui/Main.pm:1025
 #, perl-format
 msgid "A plugin is already installed with the same name (%s). Do you want to delete the old one and overwrite?"
 msgstr "Um plugin já está instalado com o mesmo nome (%s). Pretende apagar o antigo e reescrever-lo?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1044
+#: ../AMC-perl/AMC/Gui/Main.pm:1052
 #, perl-format
 msgid "Error while moving the plugin to the user plugin directory: %s"
 msgstr "Erro ao mover o plugin para a pasta de plugins do utilizador: %s"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1057
+#: ../AMC-perl/AMC/Gui/Main.pm:1065
 msgid "Please restart AMC before using the new plugin..."
 msgstr "Por favor, reinicie o AMC antes de usar o novo plugin."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1118
+#: ../AMC-perl/AMC/Gui/Main.pm:1126
 #, perl-format
 msgid "You selected directory <b>%s</b> as a project to open."
 msgstr "Selecionou a pasta <b>%s</b> como o projeto a abrir."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1121
+#: ../AMC-perl/AMC/Gui/Main.pm:1129
 msgid "However, this directory does not seem to contain a project. Do you still want to try?"
 msgstr "No entanto, esta pasta não parece ter um projeto. Pretende tentar abrir?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1143
+#: ../AMC-perl/AMC/Gui/Main.pm:1151
 #, perl-format
 msgid "You selected project <b>%s</b> from directory <i>%s</i>."
 msgstr "Selecionou o projeto <b>%s</b> da pasta <i>%s</i>."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1147
+#: ../AMC-perl/AMC/Gui/Main.pm:1155
 msgid "Do you want to copy this project to your projects directory before opening it?"
 msgstr "Pretende copiar este projeto para a pasta dos seus projetos antes de o abrir?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1312
+#: ../AMC-perl/AMC/Gui/Main.pm:1320
 #, perl-format
 msgid "File %s already exists in project directory: do you want to replace it?"
 msgstr "O ficheiro %s já existe na pasta do projeto: pretende substituí-lo?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1316
+#: ../AMC-perl/AMC/Gui/Main.pm:1324
 msgid "Click yes to replace it and loose pre-existing contents, or No to cancel source file import."
 msgstr "Click em Yes para substituir e perder o conteúdo existente, ou No para cancelar a importação do ficheiro fonte."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1342
+#: ../AMC-perl/AMC/Gui/Main.pm:1350
 msgid "The source file has been copied to project directory."
 msgstr "O ficheiro donte foi copiado para a pata do projeto."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1344
+#: ../AMC-perl/AMC/Gui/Main.pm:1352
 #, perl-format
 msgid "You can now edit it with button \"%s\" or with any editor."
 msgstr "Pode agora editar com o botão \"%s\" ou com outro editor."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1345 ../AMC-perl/AMC/Gui/Main.glade:251
+#: ../AMC-perl/AMC/Gui/Main.pm:1353 ../AMC-perl/AMC/Gui/Main.glade:251
 msgid "Edit source file"
 msgstr "Editar o ficheiro fonte."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1353
+#: ../AMC-perl/AMC/Gui/Main.pm:1361
 #, perl-format
 msgid "Error copying source file: %s"
 msgstr "Erro ao copiar o ficheiro fonte: %s"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1494
+#: ../AMC-perl/AMC/Gui/Main.pm:1502
 msgid "The working documents are already prepared with the current file format. If you change the file format, working documents and all other data for this project will be ereased."
 msgstr "Os documentos de trabalho já estão preparados usando o formato atual do arquivo fonte. Se este formato for alterado, a documentação da ordem e todos os dados deste projeto serão eliminados."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1497 ../AMC-perl/AMC/Gui/Main.pm:1509
-#: ../AMC-perl/AMC/Gui/Main.pm:1578 ../AMC-perl/AMC/Gui/Main.pm:1613
+#: ../AMC-perl/AMC/Gui/Main.pm:1505 ../AMC-perl/AMC/Gui/Main.pm:1517
+#: ../AMC-perl/AMC/Gui/Main.pm:1586 ../AMC-perl/AMC/Gui/Main.pm:1621
 msgid "Do you wish to continue?"
 msgstr "Pretende continuar?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1499 ../AMC-perl/AMC/Gui/Main.pm:1511
+#: ../AMC-perl/AMC/Gui/Main.pm:1507 ../AMC-perl/AMC/Gui/Main.pm:1519
 #, fuzzy
 msgid "Click on Ok to erease old working documents and change file format, and on Cancel to get back to the same file format."
 msgstr "Escolha OK para apagar os antigos formatos (\"layouts\") e atualizar os documentos de trabalho, ou escolha Cancel para cancelar a operação."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1502 ../AMC-perl/AMC/Gui/Main.pm:1583
-#: ../AMC-perl/AMC/Gui/Main.pm:1619
+#: ../AMC-perl/AMC/Gui/Main.pm:1510 ../AMC-perl/AMC/Gui/Main.pm:1591
+#: ../AMC-perl/AMC/Gui/Main.pm:1627
 msgid "To allow the use of an already printed question, cancel!"
 msgstr "Para permitir o uso de uma questão já impressa, cancele!"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1506
+#: ../AMC-perl/AMC/Gui/Main.pm:1514
 msgid "The working documents are already prepared with the current file format. If you change the file format, working documents will be ereased."
 msgstr "Os documentos de trabalho já estão preparados usando o formato atual do arquivo fonte. Se esse formato for alterado, a documentação da ordem será eliminada e terá de ser gerada novamente."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1553
+#: ../AMC-perl/AMC/Gui/Main.pm:1561
 msgid "LaTeX packages:"
 msgstr "Pacotes LaTeX:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1554
+#: ../AMC-perl/AMC/Gui/Main.pm:1562
 msgid "Commands:"
 msgstr "Comandos:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1555
+#: ../AMC-perl/AMC/Gui/Main.pm:1563
 msgid "Fonts:"
 msgstr "Fontes:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1567
+#: ../AMC-perl/AMC/Gui/Main.pm:1575
 msgid "Papers analysis was already made on the basis of the current working documents."
 msgstr "A análise dos testes/inquéritos foi feita com base nos atuais documentos de trabalho."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1571
+#: ../AMC-perl/AMC/Gui/Main.pm:1579
 msgid "You already made the examination on the basis of these documents."
 msgstr "Já fez o teste/inquérito baseado nestes documentos."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1575
+#: ../AMC-perl/AMC/Gui/Main.pm:1583
 msgid "If you modify working documents, you will not be capable any more of analyzing the papers you have already distributed!"
 msgstr "Se modificar os documentos de trabalho, não será capaz de analizar as os testes/inquéritos que já distribuiu."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1580 ../AMC-perl/AMC/Gui/Main.pm:1615
+#: ../AMC-perl/AMC/Gui/Main.pm:1588 ../AMC-perl/AMC/Gui/Main.pm:1623
 msgid "Click on OK to erase the former layouts and update working documents, or on Cancel to cancel this operation."
 msgstr "Escolha OK para apagar os antigos formatos (\"layouts\") e atualizar os documentos de trabalho, ou escolha Cancel para cancelar a operação."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1607
+#: ../AMC-perl/AMC/Gui/Main.pm:1615
 msgid "Layouts are already calculated for the current documents."
 msgstr "Os formatos foram calculados para os documentos atuais."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1610
+#: ../AMC-perl/AMC/Gui/Main.pm:1618
 msgid "Updating working documents, the layouts will become obsolete and will thus be erased."
 msgstr "Ao atualizar os documentos de trabalho, os formatos tornam-se obsoletos e serão apagados."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1652
+#: ../AMC-perl/AMC/Gui/Main.pm:1660
 #, perl-format
 msgid "To handle properly <i>%s</i> files, AMC needs the following components, that are currently missing:"
 msgstr "Para lidar apropriadamente com  arquivos <i>%s</i>, o AMC precisa dos seguintes componentes em falta:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1669
+#: ../AMC-perl/AMC/Gui/Main.pm:1677
 msgid "Install these components on your system and try again."
 msgstr "Instale os seguintes componentes no seu sistema e tente de novo."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1718
+#: ../AMC-perl/AMC/Gui/Main.pm:1726
 msgid "Your AMC version and LaTeX style file version differ. Even if the documents are properly generated, this can lead to many problems using AMC."
 msgstr "A sua versão AMC e estilo LaTeX diferem. Mesmo que os documentos sejam apropriadamente gerados, tal pode levar a vários problemas usando o AMC."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1722
+#: ../AMC-perl/AMC/Gui/Main.pm:1730
 msgid "<b>Please check your installation to get matching AMC and LaTeX style file versions.</b>"
 msgstr "<b>Por favor, verifique a instalação por forma a mesma versão do AMC e do ficheiro de estilo do LaTeX.</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1726
+#: ../AMC-perl/AMC/Gui/Main.pm:1734
 #, perl-format
 msgid ""
 "AMC version: %s\n"
@@ -1323,31 +1331,31 @@ msgstr ""
 "versão sty: %s\n"
 "\"path\" do sty: %s"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1752
+#: ../AMC-perl/AMC/Gui/Main.pm:1760
 msgid "Problems while preparing documents"
 msgstr "Problemas ao preparar os documentos"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1754
+#: ../AMC-perl/AMC/Gui/Main.pm:1762
 msgid "Problems while processing the source file."
 msgstr "Problemas ao processar o ficheiro fonte."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1758
+#: ../AMC-perl/AMC/Gui/Main.pm:1766
 msgid "You have to correct the source file and re-run documents update."
 msgstr "Tem que corrigir o arquivo fonte e voltar a executar a atualização de documentos."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1764 ../AMC-perl/AMC/Gui/Main.pm:2541
+#: ../AMC-perl/AMC/Gui/Main.pm:1772 ../AMC-perl/AMC/Gui/Main.pm:2549
 msgid "<b>Errors</b>"
 msgstr "<b>Erros</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1769 ../AMC-perl/AMC/Gui/Main.pm:2546
+#: ../AMC-perl/AMC/Gui/Main.pm:1777 ../AMC-perl/AMC/Gui/Main.pm:2554
 msgid "Only first ten errors written"
 msgstr "Apenas os primeiros dez erros estão escritos"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1775
+#: ../AMC-perl/AMC/Gui/Main.pm:1783
 msgid "<b>Warnings</b>"
 msgstr "<b>Avisos</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1780
+#: ../AMC-perl/AMC/Gui/Main.pm:1788
 msgid "Only first ten warnings written"
 msgstr "Foram escritos apenas os primeiros dez avisos"
 
@@ -1355,7 +1363,7 @@ msgstr "Foram escritos apenas os primeiros dez avisos"
 #. "Command output details", and refers to the small expandable part at
 #. the bottom of AMC main window, where one can see the output of the
 #. commands lauched by AMC.
-#: ../AMC-perl/AMC/Gui/Main.pm:1793
+#: ../AMC-perl/AMC/Gui/Main.pm:1801
 #, perl-format
 msgid "See also the processing log in '%s' below."
 msgstr "Veja também o \"log\" do processamento em '%s', em baixo."
@@ -1363,248 +1371,248 @@ msgstr "Veja também o \"log\" do processamento em '%s', em baixo."
 #. TRANSLATORS: Title of the small expandable part at the bottom of AMC
 #. main window, where one can see the output of the commands lauched by
 #. AMC.
-#: ../AMC-perl/AMC/Gui/Main.pm:1798 ../AMC-perl/AMC/Gui/Main.glade:2624
+#: ../AMC-perl/AMC/Gui/Main.pm:1806 ../AMC-perl/AMC/Gui/Main.glade:2624
 msgid "Command output details"
 msgstr "Detalhes de saída do comando executado"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1801
+#: ../AMC-perl/AMC/Gui/Main.pm:1809
 msgid "Use LaTeX editor or latex command for a precise diagnosis."
 msgstr "Use um editor LaTeX ou um comando LaTeX para um diagnóstico preciso."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1814
+#: ../AMC-perl/AMC/Gui/Main.pm:1822
 msgid "Documents have been prepared"
 msgstr "Os documentos estão preparados"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1872
+#: ../AMC-perl/AMC/Gui/Main.pm:1880
 msgid "Your question has a separate answers sheet."
 msgstr "A sua questão tem uma folha de respostas em separado."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1874
+#: ../AMC-perl/AMC/Gui/Main.pm:1882
 msgid "In this case, letters are shown inside boxes."
 msgstr "Neste caso, as letras estão dentro das caixas."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1876
+#: ../AMC-perl/AMC/Gui/Main.pm:1884
 msgid "Your question is set to present labels inside the boxes to be ticked."
 msgstr "A sua questão está preparada para apresentar anotações dentro das caixas que são colocadas."
 
 #. TRANSLATORS: Here, %s will be replaced with the translation of
 #. "darkness threshold".
-#: ../AMC-perl/AMC/Gui/Main.pm:1885
+#: ../AMC-perl/AMC/Gui/Main.pm:1893
 #, perl-format
 msgid "For better ticking detection, ask students to fill out completely boxes, and choose parameter \"%s\" around 0.5 for this project."
 msgstr "Para melhor deteção das marcas, solicite aos estudantes para preencherem completamente as caixas e indique aproximadamente 0.5 para o parâmetro \"%s\", neste projeto. "
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1890
+#: ../AMC-perl/AMC/Gui/Main.pm:1898
 #, perl-format
 msgid "At the moment, this parameter is set to %.02f."
 msgstr "De momento, este parâmetro é %.02f."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1892
+#: ../AMC-perl/AMC/Gui/Main.pm:1900
 msgid "Would you like to set it to 0.5?"
 msgstr "Pretende modificá-lo para 0.5?"
 
 #. TRANSLATORS: This parameter is the ratio of dark pixels number over
 #. total pixels number inside box above which a box is considered to be
 #. ticked.
-#: ../AMC-perl/AMC/Gui/Main.pm:1899
+#: ../AMC-perl/AMC/Gui/Main.pm:1907
 msgid "darkness threshold"
 msgstr "limiar de negrura"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1977
+#: ../AMC-perl/AMC/Gui/Main.pm:1985
 msgid "Working documents are not readable"
 msgstr "Os documentos de trabalho não podem ser lidos"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1980
+#: ../AMC-perl/AMC/Gui/Main.pm:1988
 msgid "No working documents"
 msgstr "Sem documentos de trabalho"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:1983
+#: ../AMC-perl/AMC/Gui/Main.pm:1991
 msgid "Working documents last update:"
 msgstr "Última atualização dos documentos de trabalho:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2041
+#: ../AMC-perl/AMC/Gui/Main.pm:2049
 msgid "Working documents are in an old format, which is not supported anymore."
 msgstr "Os documentos de trabalho estão num formato antigo, que já não é suportado."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2044
+#: ../AMC-perl/AMC/Gui/Main.pm:2052
 msgid "Please generate again the working documents!"
 msgstr "Por favor, volte a gerar os documentos de trabalho!"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2088
+#: ../AMC-perl/AMC/Gui/Main.pm:2096
 msgid "No layout detected."
 msgstr "Formatos não detetados."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2090
+#: ../AMC-perl/AMC/Gui/Main.pm:2098
 msgid "<b>Don't go through the examination</b> before fixing this problem, otherwise you won't be able to use AMC for correction."
 msgstr "<b>Não avance para o exame</b> sem resolver este problema. Caso contrário não poderá usar o AMC para correção."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2136
+#: ../AMC-perl/AMC/Gui/Main.pm:2144
 msgid "No layout"
 msgstr "Sem formato"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2139
+#: ../AMC-perl/AMC/Gui/Main.pm:2147
 #, perl-format
 msgid "Processed %d pages"
 msgstr "%d páginas processadas"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2141
+#: ../AMC-perl/AMC/Gui/Main.pm:2149
 msgid "but some defects were detected."
 msgstr "mas alguns defeitos foram detectados"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2159
+#: ../AMC-perl/AMC/Gui/Main.pm:2167
 msgid "The \\namefield command is not used. Writing subjects without name field is not recommended"
 msgstr "O comando \\namefield não foi usado. Escrever assuntos sem o nome do campo não é apropriado"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2162
+#: ../AMC-perl/AMC/Gui/Main.pm:2170
 msgid "The \\namefield command is used several times for the same subject. This should not be the case, as each student should write his name only once"
 msgstr "O comando \\namefield foi usado várias vezes para o mesmo assunto. Não deve ser o caso, cada aluno deve escrever o seu nome uma só vez."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2164
+#: ../AMC-perl/AMC/Gui/Main.pm:2172
 msgid "No box to be ticked"
 msgstr "Nenhuma caixa foi marcada."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2166
+#: ../AMC-perl/AMC/Gui/Main.pm:2174
 msgid "The corner marks and binary boxes are not at the same location on all pages"
 msgstr "As marcas de canto e as caixas de escolha não estão todas na mesma localização em todas as páginas"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2169
+#: ../AMC-perl/AMC/Gui/Main.pm:2177
 msgid "Some material has been placed out of the page. This is often a result of a multiple columns question group starting too close from the page bottom. In such a case, use \"needspace\"."
 msgstr "Alguma material ficou fora da página escrita. Por vezes, esta situação ocorre quando há colunas múltiplas a começarem próximo do fundo da página. Em tais casos, use \"needspace\"."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2194
+#: ../AMC-perl/AMC/Gui/Main.pm:2202
 msgid "Some potential defects were detected for this subject. Correct them in the source and update the working documents."
 msgstr "Alguns defeitos foram  detectados neste assunto. Corrija-o na fonte e atualize os documentos de trabalho."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2203
+#: ../AMC-perl/AMC/Gui/Main.pm:2211
 #, perl-format
 msgid "(See for example pages %s and %s)"
 msgstr "(Veja, por exemplo, as páginas %s e %s.)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2211
+#: ../AMC-perl/AMC/Gui/Main.pm:2219
 #, perl-format
 msgid "(Concerns %1$d pages, see for example page %2$s)"
 msgstr "(Sobre as %1$d páginas, veja o exemplo na página %2$s)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2222
+#: ../AMC-perl/AMC/Gui/Main.pm:2230
 #, perl-format
 msgid "(Concerns %1$d exams, see for example sheet %2$d)"
 msgstr "(Sobre %1$d exames, veja por exemplo a folha %2$d)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2378
+#: ../AMC-perl/AMC/Gui/Main.pm:2386
 msgid "No layout for this project."
 msgstr "Sem formatos neste projeto."
 
 #. TRANSLATORS: Here, %1$s will be replaced with "Layout detection" (a
 #. button title), and %2$s with "Preparation" (the tab title where one
 #. can find this button).
-#: ../AMC-perl/AMC/Gui/Main.pm:2385
+#: ../AMC-perl/AMC/Gui/Main.pm:2393
 #, fuzzy, perl-format
 msgid "Please use button <i>%1$s</i> in <i>%2$s</i> before manual data capture."
 msgstr "Por favor, use o botão <i>%s</i> em <i>%s</i> antes da captura manual."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2388 ../AMC-perl/AMC/Gui/Main.glade:518
+#: ../AMC-perl/AMC/Gui/Main.pm:2396 ../AMC-perl/AMC/Gui/Main.glade:518
 msgid "Layout detection"
 msgstr "Reconhecimento de formatos"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2389 ../AMC-perl/AMC/Gui/Main.glade:738
+#: ../AMC-perl/AMC/Gui/Main.pm:2397 ../AMC-perl/AMC/Gui/Main.glade:738
 msgid "Preparation"
 msgstr "Preparação"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2425
+#: ../AMC-perl/AMC/Gui/Main.pm:2433
 msgid "Automatic data capture..."
 msgstr "Captura automática..."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2513
+#: ../AMC-perl/AMC/Gui/Main.pm:2521
 msgid "Automatic data capture has been completed"
 msgstr "A captura automática terminou."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2522
+#: ../AMC-perl/AMC/Gui/Main.pm:2530
 #, perl-format
 msgid "Some of the pages you submitted (%d of them) have already been processed before. Old data has been overwritten."
 msgstr "Algumas das páginas submetidas (%d do total) já foram processadas anteriormente. Os dados antigos forem rescritos."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2536
+#: ../AMC-perl/AMC/Gui/Main.pm:2544
 #, fuzzy
 msgid "Data capture errors"
 msgstr "Captura de dados"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2538
+#: ../AMC-perl/AMC/Gui/Main.pm:2546
 msgid "AMC had problems with your scans."
 msgstr "A AMC encontrou problemas com a análise das suas varreduras."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2551
+#: ../AMC-perl/AMC/Gui/Main.pm:2559
 #, fuzzy
 msgid "Please have a look at these scans."
 msgstr "Por favro, selecione todas as digitalizações"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2586
+#: ../AMC-perl/AMC/Gui/Main.pm:2594
 #, perl-format
 msgid "Data capture from %d complete papers and %d incomplete papers"
 msgstr "Digitalização de %d exames completos e %d exames incompletos "
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2592
+#: ../AMC-perl/AMC/Gui/Main.pm:2600
 #, perl-format
 msgid "Data capture from %d complete papers"
 msgstr "Digitalização de %d folhas de exame"
 
 #. TRANSLATORS: this text points out that no data capture has been
 #. made yet.
-#: ../AMC-perl/AMC/Gui/Main.pm:2600
+#: ../AMC-perl/AMC/Gui/Main.pm:2608
 msgid "No data"
 msgstr "Sem dados"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2608
+#: ../AMC-perl/AMC/Gui/Main.pm:2616
 #, perl-format
 msgid "Overwritten pages: %d"
 msgstr "Página re-escritas: %d"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2616
+#: ../AMC-perl/AMC/Gui/Main.pm:2624
 msgid "All scans were properly recognized."
 msgstr "Todas as digitalizações estão apropriadamente reconhecidas."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2623
+#: ../AMC-perl/AMC/Gui/Main.pm:2631
 #, perl-format
 msgid "%d scans were not recognized."
 msgstr "%d digitalizações não foram reconhecidas."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2651
+#: ../AMC-perl/AMC/Gui/Main.pm:2659
 msgid "Pages that miss data capture to complete students sheets:"
 msgstr "Páginas em que há falta de dados para completar os exames dos estudantes:"
 
 #. TRANSLATORS: This is the title of the column containing student/copy
 #. identifier in the table showing the results of data captures.
-#: ../AMC-perl/AMC/Gui/Main.pm:2760
+#: ../AMC-perl/AMC/Gui/Main.pm:2768
 msgid "identifier"
 msgstr "identificador"
 
 #. TRANSLATORS: This is the title of the column containing data capture
 #. date/time in the table showing the results of data captures.
-#: ../AMC-perl/AMC/Gui/Main.pm:2774
+#: ../AMC-perl/AMC/Gui/Main.pm:2782
 msgid "updated"
 msgstr "atualizado"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2816
+#: ../AMC-perl/AMC/Gui/Main.pm:2824
 msgid "scan file"
 msgstr "Ficheiro com a digitalização"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:2973
+#: ../AMC-perl/AMC/Gui/Main.pm:2981
 msgid "Looking for analysis..."
 msgstr "Procurando uma análise..."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3123
+#: ../AMC-perl/AMC/Gui/Main.pm:3131
 #, perl-format
 msgid "You requested to delete all data capture results for %d page(s)"
 msgstr "Pediu que fossem apagadas todas as capturas de %d página(s)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3130
+#: ../AMC-perl/AMC/Gui/Main.pm:3138
 msgid "All data and image files related to these pages will be deleted."
 msgstr "Todos os dados e imagens relacionados com essas páginas serão apagados."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3133
+#: ../AMC-perl/AMC/Gui/Main.pm:3141
 msgid "Do you really want to continue?"
 msgstr "Quer mesmo continuar?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3240
+#: ../AMC-perl/AMC/Gui/Main.pm:3248
 #, perl-format
 msgid "Papers are not yet corrected: use button \"%s\"."
 msgstr "Os exames ainda não foram corrigidos: use o botão \"%s\"."
@@ -1612,40 +1620,40 @@ msgstr "Os exames ainda não foram corrigidos: use o botão \"%s\"."
 #. TRANSLATORS: This is a button: "Mark" is here an action to be called
 #. by the user. When clicking this button, the user requests scores to
 #. be computed for all students.
-#: ../AMC-perl/AMC/Gui/Main.pm:3244 ../AMC-perl/AMC/Gui/Main.glade:1417
+#: ../AMC-perl/AMC/Gui/Main.pm:3252 ../AMC-perl/AMC/Gui/Main.glade:1417
 msgid "Mark"
 msgstr "Pontuação"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3319
+#: ../AMC-perl/AMC/Gui/Main.pm:3327
 msgid "Grading has been completed"
 msgstr "As classificações estão prontas."
 
 #. TRANSLATORS: This is the marks mean for all students.
-#: ../AMC-perl/AMC/Gui/Main.pm:3337
+#: ../AMC-perl/AMC/Gui/Main.pm:3345
 #, perl-format
 msgid "Mean: %.2f"
 msgstr "Média: %.2f"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3340
+#: ../AMC-perl/AMC/Gui/Main.pm:3348
 msgid "No marks computed"
 msgstr "Nenhuma pontuação foi calculada"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3366
+#: ../AMC-perl/AMC/Gui/Main.pm:3374
 #, perl-format
 msgid "You selected the decoder \"<i>%s</i>\", which requires some tools that are missing on your system:"
 msgstr "Você selecionou o decodificador \"<i>%s</i>\" que requer algumas ferramentas que estão faltando no seu sistema:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3371
+#: ../AMC-perl/AMC/Gui/Main.pm:3379
 #, fuzzy
 msgid "<b>Perl module(s):</b>"
 msgstr "<b>Pré-processado</b>"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3375
+#: ../AMC-perl/AMC/Gui/Main.pm:3383
 #, fuzzy
 msgid "<b>Command(s):</b>"
 msgstr "Comandos:"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3378
+#: ../AMC-perl/AMC/Gui/Main.pm:3386
 #, fuzzy
 msgid "Install these dependencies and try again"
 msgstr "Instale os seguintes componentes no seu sistema e tente de novo."
@@ -1653,7 +1661,7 @@ msgstr "Instale os seguintes componentes no seu sistema e tente de novo."
 #. TRANSLATORS: menu item when choosing the code to use for association
 #. from the completed answer sheets. This item corresponds to
 #. pre-association (each student has an individualized sheet)
-#: ../AMC-perl/AMC/Gui/Main.pm:3409
+#: ../AMC-perl/AMC/Gui/Main.pm:3417
 msgid "Pre-association"
 msgstr "Pré-associação"
 
@@ -1661,16 +1669,16 @@ msgstr "Pré-associação"
 #. from the completed answer sheets. This item corresponds to the
 #. decoded name field (eg. when a barcode identifying the student has
 #. been sticked in the name field)
-#: ../AMC-perl/AMC/Gui/Main.pm:3416
+#: ../AMC-perl/AMC/Gui/Main.pm:3424
 msgid "Decoded name field"
 msgstr "Campo de nome descodificado"
 
 #. TRANSLATORS: Names list file : (none)
-#: ../AMC-perl/AMC/Gui/Main.pm:3540
+#: ../AMC-perl/AMC/Gui/Main.pm:3548
 msgid "(none)"
 msgstr "(nenhum)"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3557
+#: ../AMC-perl/AMC/Gui/Main.pm:3565
 #, perl-format
 msgid "Unsuitable names file: %d errors, first on line %d."
 msgstr "Arquivo de nomes inapropriados: %d erros, o primeiro na linha %d."
@@ -1678,73 +1686,73 @@ msgstr "Arquivo de nomes inapropriados: %d erros, o primeiro na linha %d."
 #. TRANSLATORS: Here, do not translate 'name' and 'surname' (except in
 #. french), as the column names in the students list file has to be
 #. named in english in order to be properly detected.
-#: ../AMC-perl/AMC/Gui/Main.pm:3580
+#: ../AMC-perl/AMC/Gui/Main.pm:3588
 #, fuzzy, perl-format
 msgid "Found %1$d empty names in names file <i>%2$s</i>. Check that <b>name</b> or <b>surname</b> column is present, and always filled."
 msgstr "Encontrados %d nomes vazios no arquivo de nomes <i>%s</i>. Verifique que a coluna <b>name</b> ou <b>surname</b> estão presentes, e sempre preenchidas."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3587 ../AMC-perl/AMC/Gui/Main.pm:3609
+#: ../AMC-perl/AMC/Gui/Main.pm:3595 ../AMC-perl/AMC/Gui/Main.pm:3617
 msgid "Edit the names file to correct it, and re-read."
 msgstr "Edite o arquivo de nomes para os corrigir e volte a lê-los."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3605
+#: ../AMC-perl/AMC/Gui/Main.pm:3613
 #, perl-format
 msgid "Found duplicate names: <i>%s</i>. Check that all names are different."
 msgstr "Encontrados nomes duplicados:  <i>%s</i>. Confirme que todos os nomes são diferentes."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3659
+#: ../AMC-perl/AMC/Gui/Main.pm:3667
 #, perl-format
 msgid "You can't choose column '%s' as a key in the students list, as it contains duplicates (value '%s')"
 msgstr "Você não pode escolher a coluna \"%s\" como identificador na lista de alunos, porque ela contém duplicatas (o valor \"%s\", por exemplo)."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3711 ../AMC-perl/AMC/Gui/Main.pm:3755
+#: ../AMC-perl/AMC/Gui/Main.pm:3719 ../AMC-perl/AMC/Gui/Main.pm:3763
 #, perl-format
 msgid "The primary key from the students list has been set to \"%s\", which is not the value from the association data."
 msgstr "A chave primária da listagem de alunos selecionada é '%s', que não é o valor associado aos dados."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3718
+#: ../AMC-perl/AMC/Gui/Main.pm:3726
 #, perl-format
 msgid "Some manual association data has be found, which will be lost if the primary key is changed. Do you want to switch back to the primary key \"%s\" and keep association data?"
 msgstr "Foram encontradas algumas associações manuais que serão perdidas se a chave primária for alterada. Pretende voltar a usar a chame primária \"%s\" e manter as associações?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3761
+#: ../AMC-perl/AMC/Gui/Main.pm:3769
 msgid "Automatic papers/students association will be re-run to update the association data."
 msgstr "O processo automático de associação de estudantes/exames será novamente executado para atualizar as associações."
 
 #. TRANSLATORS: Here, %s will be replaced with the name
 #. of the tab "Data capture".
-#: ../AMC-perl/AMC/Gui/Main.pm:3788
+#: ../AMC-perl/AMC/Gui/Main.pm:3796
 #, perl-format
 msgid "Before associating names to papers, you must choose a students list file in tab \"%s\"."
 msgstr "Antes de associar nomes aos exames, deve escolher a listagem de estudantes no \"tab\" \"%s\"."
 
 #. One of the "notify the user at the end of the following actions" checkbox: for automatic data capture.
-#: ../AMC-perl/AMC/Gui/Main.pm:3790 ../AMC-perl/AMC/Gui/Main.glade:1340
+#: ../AMC-perl/AMC/Gui/Main.pm:3798 ../AMC-perl/AMC/Gui/Main.glade:1340
 #: ../AMC-perl/AMC/Gui/Preferences.glade:1584
 msgid "Data capture"
 msgstr "Captura de dados"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3800
+#: ../AMC-perl/AMC/Gui/Main.pm:3808
 msgid "Please choose a key from primary keys in students list before association."
 msgstr "Por favor, selecione uma chave nas chaves primárias da listagem de estudantes antes da associação."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3810
+#: ../AMC-perl/AMC/Gui/Main.pm:3818
 msgid "Please choose a code (made with LaTeX command \\AMCcodeGrid or equivalent) before automatic association."
 msgstr "Por favor escolha um código  (realizado com o comando LaTeX  \\AMCcodeGrid ou equivalente) antes da associação automática."
 
 #. TRANSLATORS: Here, %s will be replaced with "Students
 #. identification", which refers to a paragraph in the tab "Marking"
 #. from AMC main window.
-#: ../AMC-perl/AMC/Gui/Main.pm:3865
+#: ../AMC-perl/AMC/Gui/Main.pm:3873
 #, perl-format
 msgid "Before associating names to papers, you must choose a students list file in paragraph \"%s\"."
 msgstr "Antes de associar nomes aos exames, deve escolher a listagem de estudantes no parágrafo \"%s\"."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3868
+#: ../AMC-perl/AMC/Gui/Main.pm:3876
 msgid "Students identification"
 msgstr "Identificação do estudante."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3909
+#: ../AMC-perl/AMC/Gui/Main.pm:3917
 #, perl-format
 msgid "Automatic association completed: %d students recognized."
 msgstr "Associação automática compeleta: %d estudantes reconhecidos."
@@ -1752,63 +1760,63 @@ msgstr "Associação automática compeleta: %d estudantes reconhecidos."
 #. TRANSLATORS: Here %s and %s will be replaced with two parameters
 #. names: "Primary key from this list" and "Code name for automatic
 #. association".
-#: ../AMC-perl/AMC/Gui/Main.pm:3921
+#: ../AMC-perl/AMC/Gui/Main.pm:3929
 #, perl-format
 msgid "Please check \"%s\" and \"%s\" values and try again."
 msgstr "Por favor, verifique os valores \"%s\" e \"%s\" e tente de novo."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3922
+#: ../AMC-perl/AMC/Gui/Main.pm:3930
 msgid "Primary key from this list"
 msgstr "Chave primária desta lista."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3923
+#: ../AMC-perl/AMC/Gui/Main.pm:3931
 msgid "Code name for automatic association"
 msgstr "Nome do código identificador para associação automática"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3942
+#: ../AMC-perl/AMC/Gui/Main.pm:3950
 msgid "No students list file"
 msgstr "Nenhum ficheiro de estudantes"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3944
+#: ../AMC-perl/AMC/Gui/Main.pm:3952
 msgid "No primary key from students list file"
 msgstr "O ficheiro com os estudantes não tem uma chave primária"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3953
+#: ../AMC-perl/AMC/Gui/Main.pm:3961
 #, perl-format
 msgid "Missing identification for %d answer sheets"
 msgstr "Estão em falta %d folhas de resposta ao exame"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:3958
+#: ../AMC-perl/AMC/Gui/Main.pm:3966
 msgid "All completed answer sheets are associated with a student name"
 msgstr "Todas as folhas de resposta completas estão associadas ao nome do estudante"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4091
+#: ../AMC-perl/AMC/Gui/Main.pm:4099
 #, perl-format
 msgid "Exporting to '%s' needs some perl modules that are not installed: %s. Please install these modules or switch to another export format."
 msgstr "Exportar para '%s' requere alguns módulos perl que não estão instalados: %s. Por favor, instale os módulos ou mude para outro formato de exportação."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4115
+#: ../AMC-perl/AMC/Gui/Main.pm:4123
 msgid "When referring to a particular answer in the export, the letter used will be the one found in the catalog. However, the catalog has not yet been built. Do you want to build it now?"
 msgstr "Quando se referir a uma particular resposta na exportação, a letra usada será encontrada no Catálogo. No entanto, o catálogo ainda não foi construído. Pretende construir o catálogo agora?"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4184
+#: ../AMC-perl/AMC/Gui/Main.pm:4192
 #, perl-format
 msgid "Export to %s did not work: file not created..."
 msgstr "Exportar para %s não funcionou: ficheiro não criado..."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4233
+#: ../AMC-perl/AMC/Gui/Main.pm:4241
 msgid "Annotations have been completed"
 msgstr "As anotações de correção estão prontas"
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4315
+#: ../AMC-perl/AMC/Gui/Main.pm:4323
 msgid "Cancelled."
 msgstr "Cancelado."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4320
+#: ../AMC-perl/AMC/Gui/Main.pm:4328
 msgid "SMTP authentication failed: check SMTP configuration and password."
 msgstr "SMTP authentication failed: check SMTP configuration and password."
 
-#: ../AMC-perl/AMC/Gui/Main.pm:4323
+#: ../AMC-perl/AMC/Gui/Main.pm:4331
 #, perl-format
 msgid "%d message(s) has been sent."
 msgstr "%d mensage(ns) foram enviadas."
@@ -1817,11 +1825,11 @@ msgstr "%d mensage(ns) foram enviadas."
 msgid "Page layout"
 msgstr "Formato da págin"
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:140
+#: ../AMC-perl/AMC/Gui/Manuel.pm:138
 msgid "Original"
 msgstr "Original"
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:140 ../AMC-perl/AMC/Gui/Preferences.glade:2165
+#: ../AMC-perl/AMC/Gui/Manuel.pm:138 ../AMC-perl/AMC/Gui/Preferences.glade:2165
 msgid "Scan"
 msgstr "Digitalização"
 
@@ -1829,7 +1837,7 @@ msgstr "Digitalização"
 #. manual data capture window. Here, navigation goes through all
 #. pages. Please keep this text very short (say less than 5 letters) so
 #. that the window is not too large
-#: ../AMC-perl/AMC/Gui/Manuel.pm:150 ../AMC-perl/AMC/Gui/Manuel.pm:183
+#: ../AMC-perl/AMC/Gui/Manuel.pm:148 ../AMC-perl/AMC/Gui/Manuel.pm:181
 msgid "all"
 msgstr "todos"
 
@@ -1837,7 +1845,7 @@ msgstr "todos"
 #. manual data capture window. Here, navigation goes through pages with
 #. some invalid answers. Please keep this text very short (say less
 #. than 5 letters) so that the window is not too large
-#: ../AMC-perl/AMC/Gui/Manuel.pm:159
+#: ../AMC-perl/AMC/Gui/Manuel.pm:157
 msgid "inv"
 msgstr "inv"
 
@@ -1845,20 +1853,20 @@ msgstr "inv"
 #. manual data capture window. Here, navigation goes through pages with
 #. empty or invalid answers. Please keep this text very short (say less
 #. than 5 letters) so that the window is not too large
-#: ../AMC-perl/AMC/Gui/Manuel.pm:168
+#: ../AMC-perl/AMC/Gui/Manuel.pm:166
 msgid "i&e"
 msgstr "i&e"
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:225
+#: ../AMC-perl/AMC/Gui/Manuel.pm:224
 msgid "page"
 msgstr "página"
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:602
+#: ../AMC-perl/AMC/Gui/Manuel.pm:597
 #, perl-format
 msgid "This is a template exam that you cannot edit. To create a new exam from this one to be edited, use the '%s' button."
 msgstr "Este é um modelo de exame que não pode editar. Para criar um novo exame a partir deste para ser editado, use o notão '%s'."
 
-#: ../AMC-perl/AMC/Gui/Manuel.pm:603 ../AMC-perl/AMC/Gui/Manuel.glade:90
+#: ../AMC-perl/AMC/Gui/Manuel.pm:598 ../AMC-perl/AMC/Gui/Manuel.glade:89
 msgid "Add photocopy"
 msgstr "Adicionar uma fotocópia"
 
@@ -3109,31 +3117,31 @@ msgstr "Remover as modificações manuais para esta página. A captura autmátic
 msgid "Cancel modifications for this page"
 msgstr "Cancelar as modificações para esta página"
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:106
+#: ../AMC-perl/AMC/Gui/Manuel.glade:105
 msgid "Save and quit"
 msgstr "Gravar e sair"
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:138 ../AMC-perl/AMC/Gui/Manuel.glade:367
+#: ../AMC-perl/AMC/Gui/Manuel.glade:137 ../AMC-perl/AMC/Gui/Manuel.glade:366
 msgid "Save this page modifications, then go to the previous page."
 msgstr "Guardar as modificações nesta página, depois passar à página seguinte."
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:161 ../AMC-perl/AMC/Gui/Manuel.glade:322
+#: ../AMC-perl/AMC/Gui/Manuel.glade:160 ../AMC-perl/AMC/Gui/Manuel.glade:321
 msgid "Go to:"
 msgstr "Ir para:"
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:173 ../AMC-perl/AMC/Gui/Manuel.glade:334
+#: ../AMC-perl/AMC/Gui/Manuel.glade:172 ../AMC-perl/AMC/Gui/Manuel.glade:333
 msgid "Enter paper number, or page number like 102/4 (page 4 from paper 102), then press enter."
 msgstr "Introduza o número do \"artigo\", ou o número da página como 102/4 (página 4 do artigo 102), depois pressione enter."
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:201 ../AMC-perl/AMC/Gui/Manuel.glade:402
+#: ../AMC-perl/AMC/Gui/Manuel.glade:200 ../AMC-perl/AMC/Gui/Manuel.glade:401
 msgid "Save this page modifications, then go to next page."
 msgstr "Guardar modificações nesta página, depois passar à página seguinte."
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:381
+#: ../AMC-perl/AMC/Gui/Manuel.glade:380
 msgid "Choose if you want to navigate through all pages, through pages with invalid answers, or through pages with invalid or empty answers."
 msgstr "Escolha se pretende navegar por todas as páginas, por páginas com respostas inálidas, ou por páginas com respostas inválidas ou em branco."
 
-#: ../AMC-perl/AMC/Gui/Manuel.glade:428
+#: ../AMC-perl/AMC/Gui/Manuel.glade:427
 msgid "Focus on question:"
 msgstr "Focar na questão:"
 
