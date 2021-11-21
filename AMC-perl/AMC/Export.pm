@@ -34,6 +34,7 @@ use_gettext;
 my %sorting = (
     l => ['n:student.line'],
     'm' => [ 'n:mark', 's:student.name', 'n:student.line' ],
+    'r' => [ 'nr:mark', 's:student.name', 'n:student.line' ],
     i => [ 'n:student', 'n:copy', 'n:student.line' ],
     n => [ 's:student.name', 'n:student.line' ],
 );
@@ -206,7 +207,7 @@ sub pre_process {
     my ($self) = @_;
 
     $self->{'sort.keys'} = $sorting{ lc($1) }
-      if ( $self->{'sort.keys'} =~ /^\s*([lmin])/i );
+      if ( $self->{'sort.keys'} =~ /^\s*([lmrin])\s*$/i );
     $self->{'sort.keys'} = [] if ( !$self->{'sort.keys'} );
 
     $self->load();
@@ -299,22 +300,25 @@ sub compare {
         my $key  = $k;
         my $mode = 's';
 
-        if ( $k =~ /^([ns]):(.*)/ ) {
+        if ( $k =~ /^([nsr]+):(.*)/ ) {
             $mode = $1;
             $key  = $2;
-            my $default = ( $mode eq 'n' ? 0 : '' );
-            my $a       = $xa->{$key};
-            my $b       = $xb->{$key};
-            $a = $default if ( !defined($a) );
-            $b = $default if ( !defined($b) );
-            if ( $mode eq 'n' ) {
-                no warnings;
-                $r = $r || ( $a <=> $b );
-            }
-            else {
-                $r = $r || ( $a cmp $b );
-            }
         }
+
+        my $default = ( $mode =~ /n/ ? 0 : '' );
+        my $a       = $xa->{$key};
+        my $b       = $xb->{$key};
+        $a = $default if ( !defined($a) );
+        $b = $default if ( !defined($b) );
+        my $key_r;
+        if ( $mode =~ /n/ ) {
+            no warnings;
+            $key_r = $a <=> $b;
+        } else {
+            $key_r = $a cmp $b;
+        }
+        $key_r = -$key_r if ( $mode =~ /r/ );
+        $r     = $r || $key_r;
     }
     return ($r);
 }

@@ -296,7 +296,13 @@ sub stores {
 # context.  One of the possible sorting criteria for students in the
 # exported spreadsheet with scores: the student mark. This is a menu
 # entry.
-                "mark [student mark, for sorting]"),
+                "mark (ascending) [student mark, for sorting]"),
+            'r' => __p(
+# TRANSLATORS: you can omit the [...] part, just here to explain
+# context.  One of the possible sorting criteria for students in the
+# exported spreadsheet with scores: the student mark. This is a menu
+# entry.
+                "mark (descending) [student mark, for sorting]"),
         ),
 
         regroupement_type => cb_model(
