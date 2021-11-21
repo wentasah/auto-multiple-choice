@@ -1601,7 +1601,7 @@ sub export {
         );
 
         $self->build_stats_table( $self->{'out.statsindic'},
-            $cts, 0, $doc, $stats_1, @questions_1 );
+            $cts, [], $doc, $stats_1, @questions_1 );
     }
 
     ##########################################################################
